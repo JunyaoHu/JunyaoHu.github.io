@@ -480,21 +480,21 @@ c[i-1][j-1]+1 & i, j>0 ; x_{i}=y_{j} \\
                   
                 
                 
-  <div id="waline"></div>
+  <div id="twikoo"></div>
   <script type="text/javascript">
-    Fluid.utils.loadComments('#waline', function() {
-      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@waline/client@1/dist/Waline.min.js', function() {
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js', function() {
         var options = Object.assign(
-          {"serverURL":"https://blog-api-do1yd3t04-junyaohu.vercel.app/","path":"window.location.pathname","placeholder":"一起讨论叭~","meta":["nick","mail","link"],"requiredMeta":["nick"],"lang":"zh-CN","emoji":["https://cdn.jsdelivr.net/gh/walinejs/emojis/weibo","https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/bilibili","https://cdn.jsdelivr.net/gh/walinejs/emojis@1.0.0/tieba"],"dark":"html[data-user-color-scheme=\"dark\"]","avatar":"robohash","avatarCDN":"https://seccdn.libravatar.org/avatar/","avatarForce":false,"wordLimit":0,"pageSize":10,"highlight":true},
+          {"envId":"https://blog-comment-h866w5ycd-junyaohu.vercel.app/","region":"ap-shanghai","path":"window.location.pathname"},
           {
-            el: '#waline',
-            path: window.location.pathname
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
           }
         )
-        new Waline(options);
-        Fluid.utils.waitElementVisible('#waline .vcontent', () => {
-          Fluid.plugins.initFancyBox('#waline .vcontent img:not(.vemoji)');
-        })
+        twikoo.init(options)
       });
     });
   </script>
