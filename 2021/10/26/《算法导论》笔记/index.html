@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/10/26/Gm4dM5kU1rN2K9Y.jpg">
 <meta property="og:image" content="https://i.loli.net/2021/11/03/AiVcQH3dqO6XTpa.png">
 <meta property="article:published_time" content="2021-10-26T05:30:03.000Z">
-<meta property="article:modified_time" content="2021-11-03T06:59:39.384Z">
+<meta property="article:modified_time" content="2021-11-03T07:19:41.559Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="课程">
@@ -590,7 +590,7 @@ c[i-1][j-1]+1 & i, j>0 ; x_{i}=y_{j} \\
 </blockquote>
 <h2 id="最大子段和"><a href="#最大子段和" class="headerlink" title="最大子段和"></a>最大子段和</h2><p><strong>问题描述</strong> n个整数组成的序列，求该序列连续子段和的最大值（规定当所有<br>整数均为负整数时定义其最大子段和为0）</p>
 <script type="math/tex; mode=display">
-b[j]= \min\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong> b[j]为以a[1,j]之间的任一位置开始，以a[j]为结束的最大子段和（必须要到j才行）。从i开始，到j-1结束的子段和的最大值&lt;=0，从i开始到j结束的子段和的最大值应该为a[j]自身。从i开始，到j-1结束的子段和的最大值大于0，此时，将a[j]加上（不是因为如果a[j]小于零就不加了，b[j]的定义就是要到j），所得到的值应该是从i开始到，j结束的子段和的最大值。 O(n</p>
+b[j]= \min\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong> b[j]为以a[1,j]之间的任一位置开始，以a[j]为结束的最大子段和（必须要到j才行）。从i开始，到j-1结束的子段和的最大值&lt;=0，从i开始到j结束的子段和的最大值应该为a[j]自身。从i开始，到j-1结束的子段和的最大值大于0，此时，将a[j]加上（不是因为如果a[j]小于零就不加了，b[j]的定义就是要到j），所得到的值应该是从i开始到，j结束的子段和的最大值。 O(n)</p>
 <blockquote>
 <p><strong>例题</strong></p>
 <p>a[1:6]=[-2,11,-4,13,-5,-2]</p>
