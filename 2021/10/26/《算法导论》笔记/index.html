@@ -24,8 +24,9 @@
 <meta property="og:description" content="概论重要特性  输入、输出、确定性、有限性 算法描述  自然语言、流程图、伪代码、程序代码 算法的复杂性  时间复杂性、空间复杂性 算法的渐进性态 O(g(n)) 上界 Ω(g(n)) 下界 Θ(g(n)) 确界 logn &lt; n &lt; nlogn &lt; n^2 &lt; n^3 &lt;2^n NP完全理论  能在多项式时间内求解的判定性问题称为P问题，在多项式时间能验证猜测解的正">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/10/26/Gm4dM5kU1rN2K9Y.jpg">
+<meta property="og:image" content="https://i.loli.net/2021/11/03/AiVcQH3dqO6XTpa.png">
 <meta property="article:published_time" content="2021-10-26T05:30:03.000Z">
-<meta property="article:modified_time" content="2021-10-26T10:10:49.287Z">
+<meta property="article:modified_time" content="2021-11-03T06:57:21.526Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="课程">
@@ -215,7 +216,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.6k 字
+      8.8k 字
     </span>
   
 
@@ -224,7 +225,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24 分钟
+      27 分钟
     </span>
   
 
@@ -393,17 +394,217 @@ O(1)  & n=1\\
 <script type="math/tex; mode=display">
 m[i][j]=\left\{\begin{array}{cc}
 0 & i=j \\
-min_{i\leq{k}<j}\{m[i][k]+m[k+1][j]+p_{i-1}p_kp_j\} & i<j
+\min_{i\leq{k}<j} \{m[i][k]+m[k+1][j]+p_{i-1}p_kp_j\} & i<j
 \end{array}\right.</script><p><strong>解释</strong>  矩阵连乘积从Ai到Aj定义为A[i:j]，A[i:j]最少的乘法次数定义为m[i,j]，最优断开位置k记为𝑠[i,j]=k，T(n)=O(n^3)</p>
-<h2 id="多段图最短路径"><a href="#多段图最短路径" class="headerlink" title="多段图最短路径"></a>多段图最短路径</h2><p>逆序解法和顺序解法</p>
-<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LCSLength</span></span><br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword">int</span> m,<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">char</span> *x, <span class="hljs-keyword">char</span> *y,<span class="hljs-keyword">int</span> c[][], <span class="hljs-keyword">int</span> b[][])</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i, j;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>;i&lt;m;i++) c[<span class="hljs-number">0</span>][i]=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>;i&lt;n;i++) c[<span class="hljs-number">0</span>][i]=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;<br>            <span class="hljs-comment">//m,n是X和Y的长度</span><br>            <span class="hljs-keyword">if</span> (x[i]==y[j]) &#123;<br>                c[i][j]=c[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>;<br>                b[i][j]=<span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c[i<span class="hljs-number">-1</span>][j]&gt;=c[i][j<span class="hljs-number">-1</span>]) &#123;<br>                c[i][j]=c[i<span class="hljs-number">-1</span>][j];<br>                b[i][j]=<span class="hljs-number">2</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                c[i][j]=c[i][j<span class="hljs-number">-1</span>];<br>                b[i][j]=<span class="hljs-number">3</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br> &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LCS</span><span class="hljs-params">(i, j, X, b)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (i==<span class="hljs-number">0</span> || j==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-keyword">if</span> (b[i,j]==<span class="hljs-string">&quot;1&quot;</span> ) &#123;<br>        <span class="hljs-built_in">LCS</span>(i<span class="hljs-number">-1</span>, j<span class="hljs-number">-1</span>, x, b);<br>        cout &lt;&lt;x[i];<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (b[i,j]==<span class="hljs-string">&quot;2&quot;</span> ) <br>       <span class="hljs-built_in">LCS</span>(i<span class="hljs-number">-1</span>, j, x, b);<br>    <span class="hljs-keyword">else</span> <span class="hljs-built_in">LCS</span>(i, j<span class="hljs-number">-1</span>, x, b);<br>&#125;   <span class="hljs-comment">//计算复杂性：O(m+n)</span><br><span class="hljs-comment">//LCS(i, j, X, b)实现根据b的内容打印出Xi与Yj的最长公共子序列。</span><br><span class="hljs-comment">//调用LCS(m,n,x,b) 可打印出序列X和Y的最长公共子序列。</span><br><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>计算矩阵连乘积A[1:6]的最少数乘次数，其中各矩阵的维数分别为p=[30,35,15,5,10,20,25]</p>
+<p><strong>解答</strong></p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+𝑚[1][2]=𝑚[1][1]+𝑚[2][2]+p_0p_1p_2=15750
+\\𝑚[2][3]=𝑚[2][2]+𝑚[3][3]+p_1p_2p_3=2650
+\\...
+\\m[1][3]= \min \left\{\begin{matrix}
+m[1][1]+m[2][3]+p_0p_1p_3=7875▲
+\\m[1][2]+m[3][3]+p_0p_2p_3=18000
+\end{matrix}\right.
+\\s[1][3]=1
+\\...
+\\m[2][6]= \min \left\{\begin{matrix}
+  m[2][2]+m[3][6]+p_1p_2p_6=0+5375+35*15*25=18500
+\\m[2][3]+m[4][6]+p_1p_3p_6=2625+3500+35*5*25=10500▲
+\\m[2][4]+m[5][6]+p_1p_4p_6=4375+5000+35*10*25=18125
+\\m[2][5]+m[6][6]+p_1p_5p_6=7125+0+35*20*25=24625
+\end{matrix}\right.
+\\s[2][6]=3
+\\...
+\end{matrix}</script><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">m</th>
+<th style="text-align:center">A1</th>
+<th style="text-align:center">A2</th>
+<th style="text-align:center">A3</th>
+<th style="text-align:center">A4</th>
+<th style="text-align:center">A5</th>
+<th style="text-align:center">A6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">15750</td>
+<td style="text-align:center">7875</td>
+<td style="text-align:center">9375</td>
+<td style="text-align:center">11875</td>
+<td style="text-align:center"><strong>15125</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">A2</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2625</td>
+<td style="text-align:center">4375</td>
+<td style="text-align:center">7125</td>
+<td style="text-align:center">10500</td>
+</tr>
+<tr>
+<td style="text-align:center">A3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">750</td>
+<td style="text-align:center">2500</td>
+<td style="text-align:center">5375</td>
+</tr>
+<tr>
+<td style="text-align:center">A4</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1000</td>
+<td style="text-align:center">3500</td>
+</tr>
+<tr>
+<td style="text-align:center">A5</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">5000</td>
+</tr>
+<tr>
+<td style="text-align:center">A6</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">s</th>
+<th style="text-align:center">A1</th>
+<th style="text-align:center">A2</th>
+<th style="text-align:center">A3</th>
+<th style="text-align:center">A4</th>
+<th style="text-align:center">A5</th>
+<th style="text-align:center">A6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A1</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center"><strong>1</strong></td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center"><strong>3</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">A2</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">A3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">3</td>
+</tr>
+<tr>
+<td style="text-align:center">A4</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">4</td>
+<td style="text-align:center"><strong>5</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">A5</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td style="text-align:center">A6</td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:center">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>从右上角的元素开始分割，从A3后面分为A[1,3]与A[4,6]，s[1,3]=1，从A1后面拆分，s[4,6]=5，从A5后面拆分，<strong>得到((A1(A2A3)((A4A5)A6)，次数最少是15125</strong></p>
+</blockquote>
+<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LCSLength</span></span><br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword">int</span> m,<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">char</span> *x, <span class="hljs-keyword">char</span> *y,<span class="hljs-keyword">int</span> c[][], <span class="hljs-keyword">int</span> b[][])</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i, j;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>;i&lt;m;i++) c[<span class="hljs-number">0</span>][i]=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>;i&lt;n;i++) c[<span class="hljs-number">0</span>][i]=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;<br>            <span class="hljs-comment">//m,n是X和Y的长度</span><br>            <span class="hljs-keyword">if</span> (x[i]==y[j]) &#123;<br>                c[i][j]=c[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>;<br>                b[i][j]=<span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c[i<span class="hljs-number">-1</span>][j]&gt;=c[i][j<span class="hljs-number">-1</span>]) &#123;<br>                c[i][j]=c[i<span class="hljs-number">-1</span>][j];<br>                b[i][j]=<span class="hljs-number">2</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                c[i][j]=c[i][j<span class="hljs-number">-1</span>];<br>                b[i][j]=<span class="hljs-number">3</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br> &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LCS</span><span class="hljs-params">(i, j, X, b)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (i==<span class="hljs-number">0</span> || j==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-keyword">if</span> (b[i,j]==<span class="hljs-string">&quot;1&quot;</span> ) &#123;<br>        <span class="hljs-built_in">LCS</span>(i<span class="hljs-number">-1</span>, j<span class="hljs-number">-1</span>, x, b);<br>        cout &lt;&lt;x[i];<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (b[i,j]==<span class="hljs-string">&quot;2&quot;</span> ) <br>       <span class="hljs-built_in">LCS</span>(i<span class="hljs-number">-1</span>, j, x, b);<br>    <span class="hljs-keyword">else</span> <span class="hljs-built_in">LCS</span>(i, j<span class="hljs-number">-1</span>, x, b);<br>&#125;   <span class="hljs-comment">//计算复杂性：O(m+n)</span><br><span class="hljs-comment">//LCS(i, j, X, b)实现根据b的内容打印出Xi与Yj的最长公共子序列。</span><br><span class="hljs-comment">//调用LCS(m,n,x,b) 可打印出序列X和Y的最长公共子序列。</span><br></code></pre></td></tr></table></figure>
 <script type="math/tex; mode=display">
 c[i][j]=\left\{\begin{array}{cc}
 0 & i=0, j=0 \\
 c[i-1][j-1]+1 & i, j>0 ; x_{i}=y_{j} \\
 \max \{c[i-1][j], c[i][j-1]\} & i, j>0 ; x_{i} \neq y_{j}
-\end{array}\right.</script><p><strong>解释</strong>  c[i,j]记录序列Xi和Yj的最长公共子序列长度，b[i,j]可以记录是哪种类型，根据不同的类型最后选择在b数组中向左、左上、上方走即可</p>
-<p><strong>补充</strong>  两个序列的最长公共子序列不唯一，不影响最长公共子序列的长度；但是可能会产生不一样的公共子序列</p>
+\end{array}\right.</script><p><strong>解释</strong>  c[i,j]记录序列Xi和Yj的最长公共子序列长度，b[i,j]可以记录是哪种类型。在c表中从最右下角的那个元素开始，看b表中对应位置的值，如果为1，则在c表中从当前位置往左上角走；如果为2，则在c表中从当前位置往正上方走；如果为3，则在c表中从当前位置沿水平方向往后退一位；依次类推，直到c表中箭头退到c[0，0]为止。</p>
+<p><strong>补充</strong>  两个序列的最长公共子序列不唯一，不影响最长公共子序列的长度；但是可能会产生不一样的公共子序列，见例题</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>给定两个序列为X=ABCBDAB和Y=BDCABA，求最长公共子序列。</p>
+<p><strong>解答</strong></p>
+<script type="math/tex; mode=display">
+\begin{matrix}i=1,X_1=\{A\}
+\\j=1,Y_1=\{B\},𝑐[1][1]=\max⁡\{ 𝑐[0][1],𝑐[1][0]\}=0, b[1][1]=2 or 3
+\\j=2,Y_2=\{BD\},𝑐[1][2]=\max⁡\{ 𝑐[0][2],𝑐[1][1]\}=0, b[1][2]=2
+\\...
+\\j=4,Y_4=\{BDCA\},𝑐[1][4]=c[0][3]+1=1, b[1][4]=1
+\\...
+\\i=7,X_7=\{ABCBDAB\}
+\\j=6,Y_6=\{BDCABA\},\max⁡\{ 𝑐[6][6],𝑐[7][5]\}=4, b[7][6]=2 or 3
+\end{matrix}</script><p><img src="https://i.loli.net/2021/11/03/AiVcQH3dqO6XTpa.png" srcset="/img/loading.gif" lazyload alt="image-20211103141139728" style="zoom:50%;" /></p>
+<p>斜线箭头尾部位置对应的元素为公共子序列元素（下标从1开始），也就是有BCBA（x[2346]与y[1356]）\BCAB（x[2367]与y[1345]）</p>
+<p>PS: 对于C[1,1]=max{c[0,1],c[1,0]}={0,0}=0等情况，此时，b[1,1]=2或3都可以，不影响最终的结果。可能有多个答案。</p>
+</blockquote>
+<h2 id="最大子段和"><a href="#最大子段和" class="headerlink" title="最大子段和"></a>最大子段和</h2><p><strong>问题描述</strong> n个整数组成的序列，求该序列连续子段和的最大值（规定当所有<br>整数均为负整数时定义其最大子段和为0）</p>
+<script type="math/tex; mode=display">
+b[j]= \min\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong> b[j]为以a[1,j]之间的任一位置开始，以a[j]为结束的最大子段和（必须要到j才行）。从i开始，到j-1结束的子段和的最大值&lt;=0，从i开始到j结束的子段和的最大值应该为a[j]自身。从i开始，到j-1结束的子段和的最大值大于0，此时，将a[j]加上（不是因为如果a[j]小于零就不加了，b[j]的定义就是要到j），所得到的值应该是从i开始到，j结束的子段和的最大值。 O(n</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>a[1:6]=[-2,11,-4,13,-5,-2]</p>
+<p><strong>解答</strong></p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+j=1,𝑏[1]=\max\{𝑏[0]+𝑎[1],𝑎[1]\}=-2,i=1
+\\j=2,𝑏[2]=\max\{𝑏[1]+𝑎[2],𝑎[2]\}=11,i=2
+\\j=3,𝑏[3]=\max\{𝑏[2]+𝑎[3],𝑎[3]\}=11-4=7,i=2(不是11)
+\\...
+\\j=6,𝑏[6]=\max\{𝑏[5]+𝑎[6],𝑎[6]\}=15-2=13,i=2(不是15)
+\end{matrix}</script><p>比较各个b[i]，其中最大的就是最大子段和，也就是b[4]=20,i=2开始，j=4结束</p>
+</blockquote>
+<h2 id="多段图最短路径"><a href="#多段图最短路径" class="headerlink" title="多段图最短路径"></a>多段图最短路径</h2><p>逆序解法和顺序解法</p>
 <h1 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h1><h2 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h2><p><strong>思想</strong>  在贪婪算法中采用逐步构造最优解的方法。在每个阶段，都作出一个看上去最优的决策。它并不一定对所有问题都成功，因为不从整体最优加以考虑，贪心解法可能不是全局最优解，但是对某些问题特别简单、有效。</p>
 <p><strong>基本要素</strong></p>
 <ol>
