@@ -25,8 +25,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/10/26/Gm4dM5kU1rN2K9Y.jpg">
 <meta property="og:image" content="https://i.loli.net/2021/11/03/AiVcQH3dqO6XTpa.png">
+<meta property="og:image" content="c:/Users/hujunyao/AppData/Roaming/Typora/typora-user-images/image-20211105094654777.png">
 <meta property="article:published_time" content="2021-10-26T05:30:03.000Z">
-<meta property="article:modified_time" content="2021-11-03T07:19:41.559Z">
+<meta property="article:modified_time" content="2021-11-05T01:47:22.613Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="课程">
@@ -216,7 +217,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.8k 字
+      8.6k 字
     </span>
   
 
@@ -277,7 +278,7 @@
 <li><p>用栈模拟系统的运行过程，通过分析只保存必须保存的信息，从而用非递归算法替代递归算法，需要使用栈</p>
 </li>
 </ol>
-<h2 id="排列问题Perm"><a href="#排列问题Perm" class="headerlink" title="排列问题Perm"></a>排列问题Perm</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Template&lt;class type&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Perm</span><span class="hljs-params">(Type list[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> m)</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-comment">//递归地产生所有前缀是list[0:k-1],且后缀是list[k:m]的全排列的所有</span><br>	<span class="hljs-keyword">if</span> (k==m) &#123; <span class="hljs-comment">//只剩下一个元素</span><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;=m;i++) cout&lt;&lt;list[i];<br>        cout&lt;&lt;endl;<br>    &#125;<br>    <span class="hljs-keyword">else</span><span class="hljs-comment">//还有多个元素，递归产生后缀是list[k:m] 的全排列</span><br>	<span class="hljs-keyword">for</span>(i=k;i&lt;=m;i++) &#123;<br>	<span class="hljs-built_in">Swap</span>(list[k],list[i]);<br>    <span class="hljs-built_in">Perm</span>(list,k+<span class="hljs-number">1</span>,m);<br>    <span class="hljs-built_in">Swap</span>(list[k],list[i]); <span class="hljs-comment">//记得还原</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="排列问题"><a href="#排列问题" class="headerlink" title="排列问题"></a>排列问题</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Template&lt;class type&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Perm</span><span class="hljs-params">(Type list[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> m)</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-comment">//递归地产生所有前缀是list[0:k-1],且后缀是list[k:m]的全排列的所有</span><br>	<span class="hljs-keyword">if</span> (k==m) &#123; <span class="hljs-comment">//只剩下一个元素</span><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;=m;i++) cout&lt;&lt;list[i];<br>        cout&lt;&lt;endl;<br>    &#125;<br>    <span class="hljs-keyword">else</span><span class="hljs-comment">//还有多个元素，递归产生后缀是list[k:m] 的全排列</span><br>	<span class="hljs-keyword">for</span>(i=k;i&lt;=m;i++) &#123;<br>	<span class="hljs-built_in">Swap</span>(list[k],list[i]);<br>    <span class="hljs-built_in">Perm</span>(list,k+<span class="hljs-number">1</span>,m);<br>    <span class="hljs-built_in">Swap</span>(list[k],list[i]); <span class="hljs-comment">//记得还原</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="整数划分"><a href="#整数划分" class="headerlink" title="整数划分"></a>整数划分</h2><p>对于数据n，最大加数不大于m的划分个数记作q(n,m)</p>
 <script type="math/tex; mode=display">
 q(n,m) = \left\{\begin{matrix}
@@ -589,6 +590,7 @@ c[i-1][j-1]+1 & i, j>0 ; x_{i}=y_{j} \\
 <p>PS: 对于C[1,1]=max{c[0,1],c[1,0]}={0,0}=0等情况，此时，b[1,1]=2或3都可以，不影响最终的结果。可能有多个答案。</p>
 </blockquote>
 <h2 id="最大子段和"><a href="#最大子段和" class="headerlink" title="最大子段和"></a>最大子段和</h2><p><strong>问题描述</strong> n个整数组成的序列，求该序列连续子段和的最大值（规定当所有<br>整数均为负整数时定义其最大子段和为0）</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MaxSum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> *a)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> sum=<span class="hljs-number">0</span>, b=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>        <span class="hljs-keyword">if</span> (b&gt;<span class="hljs-number">0</span>) b+=a[i];<br>        <span class="hljs-keyword">else</span> b=a[i];<br>        <span class="hljs-keyword">if</span> (b&gt;sum) sum=b;<br>    &#125;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure>
 <script type="math/tex; mode=display">
 b[j]= \min\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong> b[j]为以a[1,j]之间的任一位置开始，以a[j]为结束的最大子段和（必须要到j才行）。从i开始，到j-1结束的子段和的最大值&lt;=0，从i开始到j结束的子段和的最大值应该为a[j]自身。从i开始，到j-1结束的子段和的最大值大于0，此时，将a[j]加上（不是因为如果a[j]小于零就不加了，b[j]的定义就是要到j），所得到的值应该是从i开始到，j结束的子段和的最大值。 O(n)</p>
 <blockquote>
@@ -603,6 +605,75 @@ j=1,𝑏[1]=\max\{𝑏[0]+𝑎[1],𝑎[1]\}=-2,i=1
 \\...
 \\j=6,𝑏[6]=\max\{𝑏[5]+𝑎[6],𝑎[6]\}=15-2=13,i=2(不是15)
 \end{matrix}</script><p>比较各个b[i]，其中最大的就是最大子段和，也就是b[4]=20,i=2开始，j=4结束</p>
+</blockquote>
+<h2 id="凸多边形最优三角剖分"><a href="#凸多边形最优三角剖分" class="headerlink" title="凸多边形最优三角剖分"></a>凸多边形最优三角剖分</h2><h2 id="图像压缩"><a href="#图像压缩" class="headerlink" title="图像压缩"></a>图像压缩</h2><p><strong>问题描述</strong>  数字化图像是n×n的像素阵列。假定每个像素有一个0~255的灰度值，存储一个像素需8位。为了减少存储空间，采用变长模式，即不同像素用不同位数来存储。</p>
+<ol>
+<li>线性化：图片拉直，转换为1×n^2向量</li>
+<li>分段：分成连续的m段，每段像素存储位数相同，每段最多含256个像素点</li>
+<li>存放信息：第i段长度（8bit），第i段中像素存储位数（3bit）</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{matrix}
+s[i]=\min_{1 \leq k \leq \min \{i,256\} } \{s[i-k]+k*bmax(i-k+1,i)\}+11
+\\bmax(i,j)=max_{i\leq k \leq j}a[k]
+\end{matrix}</script><p><strong>解释</strong></p>
+<p>假设s[i]是序列{p1,p2,…,pi}的最优解，a[i]是第i个像素点的位数。</p>
+<ol>
+<li>假设pi自成一段，则s[i]=s[i-1]+保存pi的代价</li>
+<li>取s[i]为min时对应的元素个数为k，s[i]=s[i-k]+保存最后k个像素的代价</li>
+<li>保存最后k个像素的代价=k*max{k个灰度值二进制位数}+11</li>
+</ol>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>求像素序列4，6，5，7，129，138，1的最优分段。</p>
+<p><strong>解答</strong></p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+a=[3,3,3,3,8,8,1]
+\\s[0]=0
+\\s[1]=s[0]+1*\max \{3\} +11=14
+\\s[2]= \min \left\{\begin{matrix}
+s[0]+2* \max \{3,3\} + 11 = 17▲
+\\s[1] + 1*\max \{3\} +11 =28
+\end{matrix}\right.
+\\...
+\\s[7]= \min \left\{\begin{matrix}
+s[0]+7* \max \{3,3,3,3,8,8,1\} + 11 = 67
+\\s[1]+6* \max \{3,3,3,8,8,1\} + 11 = 73
+\\...
+\\s[4]+3* \max \{8,8,1\} + 11 = 58▲
+\\...
+\\s[6]+1* \max \{1\} + 11 = 62
+\end{matrix}\right.
+\end{matrix}</script><p>看s[7]=58，看58那一行是s[4]+3*max，前四个一起，后三个一起</p>
+<p>看s[4]=23，看23那一行是s[0]+4*max，前四个就在一起，不再分</p>
+<p>最后得到（4，6，5，7）（129，138，1）</p>
+</blockquote>
+<h2 id="电路布线"><a href="#电路布线" class="headerlink" title="电路布线"></a>电路布线</h2><p><strong>问题描述</strong> 确定将哪些连线安排在第一层上，使得该层上有尽可能多的连线且不相交</p>
+<script type="math/tex; mode=display">
+\begin{matrix}
+i=1,
+\\Size(i,j) = \left\{\begin{matrix}
+0 && j<\pi(1)
+\\1 && j \geq \pi (1)
+\end{matrix}\right.
+\\
+\\i>1,
+\\Size(i,j) = \left\{\begin{matrix}
+Size(i-1,j) && j<\pi(i)
+\\\max \{ Size(i-1,j),Size(i-1,\pi(i)-1)+1\} && j \geq \pi (i)
+\end{matrix}\right.
+\end{matrix}</script><p><strong>解释</strong>  MNS(i,j)表示上面序号小于i，连接到下面的序号都小于j的不相交的集合，最后要求MNS(n,n)。如果j<pi(i)，(i,pi(i)）不在MNS中，将i点删除没有影响。如果j>=pi(i)，如果（i,pi(i)）不在MNS中，将i点删除没有影响，就是size(i,j)=size(i-1,j)，如果（i,pi(i)）在MNS中，就是size(i,j)=size(i-1,pi(i)-1)+1</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>已知[(1 8)(2 7)(3 4)(4 2)(5 5)(6 1)(7 9)(8 3)(9 10)(10 6)]，求最大不相交情况</p>
+<p><strong>解答</strong></p>
+<p>i=1，pi(1)=8，j&gt;=<strong>8</strong>的size都为1</p>
+<p>i=2，pi(2)=7，j&lt;<strong>7</strong>的size为size(<strong>1</strong>,j)，j&gt;=<strong>7</strong>的size为size(<strong>1</strong>,j)与size(<strong>1</strong>,<strong>6</strong>)+1=1的最大值</p>
+<p>i=3，pi(3)=4，j&lt;<strong>4</strong>的size为size(<strong>2</strong>,j)，j&gt;=<strong>4</strong>的size为size(<strong>2</strong>,j)与size(<strong>2</strong>,<strong>3</strong>)+1=1的最大值</p>
+<p>…</p>
+<p><img src="C:\Users\hujunyao\AppData\Roaming\Typora\typora-user-images\image-20211105094654777.png" srcset="/img/loading.gif" lazyload alt="image-20211105094654777" style="zoom:50%;" /></p>
+<p>最后size(10,10)=4，最多可以有四条不相交，斜角值改变时可以取得所求的子集，也就是[(3 4)(5 5)(7 9)(9 10)]</p>
 </blockquote>
 <h2 id="多段图最短路径"><a href="#多段图最短路径" class="headerlink" title="多段图最短路径"></a>多段图最短路径</h2><p>逆序解法和顺序解法</p>
 <h1 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h1><h2 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h2><p><strong>思想</strong>  在贪婪算法中采用逐步构造最优解的方法。在每个阶段，都作出一个看上去最优的决策。它并不一定对所有问题都成功，因为不从整体最优加以考虑，贪心解法可能不是全局最优解，但是对某些问题特别简单、有效。</p>
