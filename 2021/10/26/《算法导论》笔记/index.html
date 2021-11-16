@@ -26,11 +26,36 @@
 <meta property="og:image" content="https://i.loli.net/2021/10/26/Gm4dM5kU1rN2K9Y.jpg">
 <meta property="og:image" content="https://i.loli.net/2021/11/03/AiVcQH3dqO6XTpa.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/05/KxYhMGgwmodsyIp.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/13/Gn7oYtlkrdaIzhC.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/5kI9jcio2xabpgC.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/VuRe1vE9fZ6tKcS.png">
+<meta property="og:image" content="c:/Users/hujunyao/AppData/Roaming/Typora/typora-user-images/image-20211114110628460.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/RuqJGtPOHmzlV6n.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/zurCOpm69MXy3Hk.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/7TLS4elkFUYRHOu.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/8KqMfCEVO9LyBxs.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/uSJZqLQAlK3TedO.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/usNAxhWT4jkSvbQ.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/ioq9NwWbhaYLnpT.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/16/wrZ41YiqExp6QSc.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/16/bjfoQFy5YwlKaDS.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/16/uymLatcUjOD2ksX.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/16/X4e2TVIv6z8GZsO.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/14/o8DeUcu1SzGlpP6.png">
+<meta property="og:image" content="c:/Users/hujunyao/AppData/Roaming/Typora/typora-user-images/image-20211114211254872.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/16/PK1ROEXvV3mJlcY.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/16/ZKs1IP4xDRMmgbO.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/16/PMr6sCnxNp7hkGo.png">
+<meta property="og:image" content="https://i.loli.net/2021/11/16/QEZtAoMVafKiuY4.png">
 <meta property="article:published_time" content="2021-10-26T05:30:03.000Z">
-<meta property="article:modified_time" content="2021-11-05T04:44:50.984Z">
+<meta property="article:modified_time" content="2021-11-16T06:57:24.793Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="算法">
-<meta property="article:tag" content="课程">
+<meta property="article:tag" content="分治">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="回溯">
+<meta property="article:tag" content="分支限界">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://i.loli.net/2021/10/26/Gm4dM5kU1rN2K9Y.jpg">
   
@@ -675,7 +700,89 @@ Size(i-1,j) && j<\pi(i)
 <p><img src="https://i.loli.net/2021/11/05/KxYhMGgwmodsyIp.png" srcset="/img/loading.gif" lazyload alt="size表" style="zoom:50%;" /></p>
 <p>最后size(10,10)=4，最多可以有四条不相交，斜角值改变时可以取得所求的子集，也就是[(3 4)(5 5)(7 9)(9 10)]</p>
 </blockquote>
-<h2 id="多段图最短路径"><a href="#多段图最短路径" class="headerlink" title="多段图最短路径"></a>多段图最短路径</h2><p>逆序解法和顺序解法</p>
+<h2 id="流水作业调度"><a href="#流水作业调度" class="headerlink" title="流水作业调度"></a>流水作业调度</h2><p><strong>问题描述</strong>   n个作业要在两台机器M1和M2上进行加工。每个作业加工的顺序都是先在M1上加工，然后在M2加工。M1和M2加工作业i所需的时间分别为ai 和bi。确定n个作业的最优加工顺序，使得加工完成所需的时间最少。</p>
+<p><strong>算法</strong></p>
+<ol>
+<li>N1集合存放ai<bi的作业，N2存放ai>=bi的作业</li>
+<li>N1中作业按照ai升序排序，N2中作业按照bi降序排序</li>
+<li>N1连接N2，计算时间</li>
+</ol>
+<blockquote>
+<p><strong>例题</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">任务</th>
+<th style="text-align:center">J1</th>
+<th style="text-align:center">J2</th>
+<th style="text-align:center">J3</th>
+<th style="text-align:center">J4</th>
+<th style="text-align:center">J5</th>
+<th style="text-align:center">J6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">工序1</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">120</td>
+<td style="text-align:center">50</td>
+<td style="text-align:center">20</td>
+<td style="text-align:center">90</td>
+<td style="text-align:center">110</td>
+</tr>
+<tr>
+<td style="text-align:center">工序2</td>
+<td style="text-align:center">80</td>
+<td style="text-align:center">100</td>
+<td style="text-align:center">90</td>
+<td style="text-align:center">60</td>
+<td style="text-align:center">30</td>
+<td style="text-align:center">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>解答</strong></p>
+<ol>
+<li><p>分集合  {1,3,4}{2,5,6}</p>
+</li>
+<li><p>排序  {4,1,3}{2,5,6}</p>
+</li>
+<li><p>合并与计算时间</p>
+<p>| 任务   | J4      | J1       | J3       | J2       | J5   | J6        |<br>| ——— | ———- | ———— | ———— | ———— | —— | ————- |<br>| M1结束 | 20      | 50×      | 100×     | 220×     | 310× | <strong>420↓</strong>  |<br>| M2开始 | 20      | 60       | 140      | 230      | 330  | 420       |<br>| M2结束 | <strong>60↗</strong> | <strong>140↗</strong> | <strong>230↗</strong> | <strong>330↗</strong> | 360× | <strong><em>430</em></strong> |</p>
+<p>ps：第k个任务M2开始的时间要取第k个任务M1结束的时间和第k-1个任务M2结束的时间的较大值。</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="0-1背包"><a href="#0-1背包" class="headerlink" title="0-1背包"></a>0-1背包</h2><p><strong>问题描述</strong>  给定n种物品和一个背包。物品i的重量是wi，其价值为vi，背包的容量为c。问如何选择装入背包中的物品使得装入物品的总价值最大？</p>
+<script type="math/tex; mode=display">
+m(i,j) = \left\{\begin{matrix}
+m(i+1,j) && 0 \leq j<w_i
+\\ \max \{ m(i+1,j),m(i+1,j-w_i)+v_i\} && j \geq w_i
+\end{matrix}\right.
+\\
+\\
+m(n,j) = \left\{\begin{matrix}
+0 && 0 \leq j<w_n
+\\ v_n && j \geq w_n
+\end{matrix}\right.</script><p><strong>解释</strong>  m[i,j]表示可选择物品i, i+1, …, n时，背包容量为j装入的最大价值</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>n=5,c=10,W={2,2,6,5,4},V={6,3,5,4,6}</p>
+<p><strong>解答</strong></p>
+<p>i=5时，j<4时，装不进去，为0，j>=4时，能把w5=4装进去，为v5=6</p>
+<p>i=4时，若j<5，则w4=5无法放入，m(4,j)=m(5,j)，j>=5时，比较m(5,j)与m(5,j-5)+4的最大值（可以看作先直接把m(5,j)往上复制一行，j&gt;=5时再比较更新即可，后面同理）</p>
+<p>i=3时，若j<6，则w4=6无法放入，m(3,j)=m(4,j)，j>=6时，比较m(4,j)与m(4,j-6)+5的最大值</p>
+<p>… 最后结果如下图</p>
+<p><img src="https://i.loli.net/2021/11/13/Gn7oYtlkrdaIzhC.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" />当</p>
+<p>从m(1,10)开始看起，m(1,10)!=m(2,10),说明1肯定被放入了背包中。1的重量为2，剩下的容量为10-2=8；</p>
+<p>从m(2,8)开始看起，m(2,8)!=m(3,8),说明2肯定被放入了背包中。2的重量为2，剩下的容量为8-2=6；</p>
+<p>从m(3,6)开始看起，m(3,6)=m(4,6),说明3肯定没有放入背包中。继续m(4,6)=m(5,6),说明4肯定没有放入背包中。</p>
+<p>当i=5时，看剩余的容量，如果满足5号物品的重量，则5肯定放入。否则，5无法放入。此例，容量为6，5号物品重量为4，5号物品放入。</p>
+<p>最后得到放入的五件物品状态为<strong>(1,1,0,0,1)</strong></p>
+</blockquote>
 <h1 id="贪心"><a href="#贪心" class="headerlink" title="贪心"></a>贪心</h1><h2 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h2><p><strong>思想</strong>  在贪婪算法中采用逐步构造最优解的方法。在每个阶段，都作出一个看上去最优的决策。它并不一定对所有问题都成功，因为不从整体最优加以考虑，贪心解法可能不是全局最优解，但是对某些问题特别简单、有效。</p>
 <p><strong>基本要素</strong></p>
 <ol>
@@ -689,14 +796,128 @@ Size(i-1,j) && j<\pi(i)
 <li>假设问题有一个整体最优解，并证明可修改这个最优解，使其以贪心选择开始，做了贪心选择后，原问题简化为规模更小的类似子问题。</li>
 <li>运用数学归纳法证明，每一步贪心选择→问题的整体最优解</li>
 </ol>
-<h2 id="0-1背包"><a href="#0-1背包" class="headerlink" title="0-1背包"></a>0-1背包</h2><p><strong>几种贪心策略</strong>（但是都不能得到最优解）</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">9</th>
+<th>10</th>
+<th>11</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td style="text-align:center">5</td>
+<td>0</td>
+<td>3</td>
+<td>5</td>
+<td>3</td>
+<td>1</td>
+<td style="text-align:center">8</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center">8</td>
+<td>12</td>
+<td>2</td>
+</tr>
+<tr>
+<td>stop</td>
+<td style="text-align:center">9</td>
+<td>6</td>
+<td>5</td>
+<td>7</td>
+<td>8</td>
+<td>4</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center">12</td>
+<td>14</td>
+<td>13</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>解答</strong></p>
+<p>待安排的11个活动按结束时间的非减序排列</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">6</th>
+<th>3</th>
+<th>2</th>
+<th>4</th>
+<th>5</th>
+<th>1</th>
+<th style="text-align:center">8</th>
+<th style="text-align:center">7</th>
+<th style="text-align:center">9</th>
+<th>11</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>start</td>
+<td style="text-align:center"><strong>1</strong></td>
+<td>3</td>
+<td>0</td>
+<td><strong>5</strong></td>
+<td>3</td>
+<td>5</td>
+<td style="text-align:center">6</td>
+<td style="text-align:center"><strong>8</strong></td>
+<td style="text-align:center">8</td>
+<td>2</td>
+<td><strong>12</strong></td>
+</tr>
+<tr>
+<td>stop</td>
+<td style="text-align:center"><strong>4</strong></td>
+<td>5</td>
+<td>6</td>
+<td><strong>7</strong></td>
+<td>8</td>
+<td>9</td>
+<td style="text-align:center">10</td>
+<td style="text-align:center"><strong>11</strong></td>
+<td style="text-align:center">12</td>
+<td>13</td>
+<td><strong>14</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>最后为(6,4,7,10)</p>
+</blockquote>
+<h2 id="0-1背包-1"><a href="#0-1背包-1" class="headerlink" title="0-1背包"></a>0-1背包</h2><p><strong>几种贪心策略</strong>（但是都不能保证得到最优解）</p>
 <ol>
 <li>选择可以装入背包的价值最大的物品</li>
 <li>选择可装入背包的重量最小的物品</li>
-<li>选择可装入背包的vi/wi最大的物品</li>
+<li>选择可装入背包的vi/wi最大的物品（一般用来做回溯法或者分支限界的限界函数）</li>
 </ol>
 <h2 id="最优装载"><a href="#最优装载" class="headerlink" title="最优装载"></a>最优装载</h2><p><strong>策略</strong>  重量最轻的先装  T(n)=O(nlogn)</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Loading</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x[], Type w[], Type c, <span class="hljs-keyword">int</span> n )</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> *t = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span> [n+<span class="hljs-number">1</span>];<br>    <span class="hljs-built_in">Sort</span>(w, t, n) ; <span class="hljs-comment">//按货箱重量排序/</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; = n; i ++)<br>    x[i] = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i&lt;= n &amp;&amp; w[t[i]] &lt;= c; i++) &#123;<br>        [t[i]] = <span class="hljs-number">1</span>;<br>        c-= w[t[i]];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>(100,200,50,90,150,50,20,80), c=400</p>
+<p><strong>解答</strong></p>
+<p>所考察货箱的次序为73684152，考察到5时装不下了</p>
+<p>(<strong>100</strong>,200,<strong>50</strong>,<strong>90</strong>,150,<strong>50</strong>,<strong>20</strong>,<strong>80</strong>) 装了390</p>
+<p>(1,0,1,1,0,1,1,1)</p>
+</blockquote>
 <h2 id="哈夫曼编码"><a href="#哈夫曼编码" class="headerlink" title="哈夫曼编码"></a>哈夫曼编码</h2><p><strong>前缀码</strong>  对每一个字符规定一个0,1串作为其代码，并要求任一字符的代码都不是其它字符代码的前缀，这种编码称为前缀码。</p>
 <p><strong>问题描述</strong>  找到使平均码长达到最小的前缀码编码方案</p>
 <p><strong>策略</strong>  频率小的字符，深度大。队列Q以f(c)为键值存放二叉树各结点，通过贪心选择，将最小频率的两个二叉树合并，然后将新树（频率为上述两个二叉树频率之和）插入Q中。   T(n)=O(nlogn)</p>
@@ -704,11 +925,203 @@ Size(i-1,j) && j<\pi(i)
 <p>设x和y是字符集C中具有最小频率的两个字符，证明存在C的最优前缀码，使x和y具有最长、相同的码长且仅最后一位编码不同。设二叉树T表示C的任意一个最优前缀码方案。只要证明可以对T做适当修改后，得到一棵新的二叉树T’， 新树中，x和y是最深叶子且为兄弟。同时，新树也是C的最优前缀码方案。</p>
 <p><strong>证明最优子结构性质</strong></p>
 <p>设T表示C的一个最优前缀码方案。x和y是树T中的叶子节点且为兄弟。z是它们的父亲。若将z看做是具有频率f(z)=f(x)+f(y)的字符，则证明树T’=T-{x,y}表示字符集C’=C-{x,y} U {z}的一个最优前缀码即可。</p>
-<h2 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h2><h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><h1 id="分支限界"><a href="#分支限界" class="headerlink" title="分支限界"></a>分支限界</h1>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>设在1000个字母的文章中各字母出现的频率为a:83, b:14,  c:28,  d:38,  e:131,  f:29,  g:20,  h:53……，求最优编码。</p>
+<p><strong>解答</strong></p>
+<p><img src="https://i.loli.net/2021/11/14/5kI9jcio2xabpgC.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" /></p>
+<p>ps:注意兄弟节点左小右大（按题目规定）</p>
+</blockquote>
+<h2 id="单源最短路径-dijksta"><a href="#单源最短路径-dijksta" class="headerlink" title="单源最短路径(dijksta)"></a>单源最短路径(dijksta)</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1q4411M7r9">dijksta视频演示</a></p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p><img src="https://i.loli.net/2021/11/14/VuRe1vE9fZ6tKcS.png" srcset="/img/loading.gif" lazyload  style="zoom: 33%;" /></p>
+<p><strong>解答</strong></p>
+<p><img src="C:\Users\hujunyao\AppData\Roaming\Typora\typora-user-images\image-20211114110628460.png" srcset="/img/loading.gif" lazyload style="zoom: 25%;" /></p>
+<p><img src="https://i.loli.net/2021/11/14/RuqJGtPOHmzlV6n.png" srcset="/img/loading.gif" lazyload style="zoom: 25%;" /></p>
+</blockquote>
+<h1 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p><strong>特点</strong>  深度优先搜索策略、算法框架是解空间（子集树与排列树）、在搜索的时候要避免遗漏，同时要高效。（具有限界函数的深度优先生成法称为回溯法）</p>
+<p><strong>解空间</strong>  子集树（0-1，装载，子集和）与排列树（旅行商，m着色，n后）</p>
+<p><strong>基本元素</strong>  活结点（自身已生成但其儿子还没有全部生成），拓展结点（正在产生儿子的结点），死结点（不满足约束或者所有儿子已经产生的结点）</p>
+<p><strong>剪枝</strong>  用约束函数在扩展结点处剪去不满足约束的子树（左剪枝），用限界函数剪去得不到最优解的子树（右剪枝）</p>
+<p><strong>终止条件</strong>  找到所有的解，解空间中没有活结点为止</p>
+<h2 id="装载问题"><a href="#装载问题" class="headerlink" title="装载问题"></a>装载问题</h2><p><strong>问题描述</strong>   n个集装箱要装到2艘载重量分别为c1,c2的货轮，其中集装箱 i的重量为wi。要求找到装载方案将这n个货箱装上这2艘轮船</p>
+<p><strong>解释</strong>  若装载问题有解, 采用如下策略可得一个最优装载方案：将第一艘轮船尽可能装满，将剩余的货箱装到第二艘轮船上。将第一艘船尽可能装满类似0-1背包问题</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>n=4,c1=12,W={8,6,2,3}</p>
+<p><strong>解答</strong></p>
+<p><img src="https://i.loli.net/2021/11/14/zurCOpm69MXy3Hk.png" srcset="/img/loading.gif" lazyload  style="zoom: 67%;" /></p>
+</blockquote>
+<h2 id="0-1背包-2"><a href="#0-1背包-2" class="headerlink" title="0-1背包"></a>0-1背包</h2><p><strong>解释</strong>  子集树。只要左儿子节点是一个可行结点，搜索就进入左子树（不超过背包重量）（约束剪枝）。在右子树中有可能包含最优解是才进入右子树搜索，否则将右子树剪去（利用单价贪心求解价值上限）（限界剪枝）。cw是背包当前重量，M-cw是背包剩余的空间，cp是当前总收益，rp是贪心算法剩余的物品收益，bestw记录当前最优价值，也就是判断bp=cp+cp&gt;bestw是右节点的限界函数。（此外，回溯法解0/1背包的前置条件是物品已按pi/wi非增次序排序）</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>M=110，w=(1,11,21,23,33,43,45,55)，v=(11,21,31,33,43,53,55,65)</p>
+<p><strong>解答</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">0</th>
+<th style="text-align:center">1</th>
+<th style="text-align:center">2</th>
+<th style="text-align:center">3</th>
+<th style="text-align:center">4</th>
+<th style="text-align:center">5</th>
+<th style="text-align:center">6</th>
+<th style="text-align:center">7</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">w</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">21</td>
+<td style="text-align:center">23</td>
+<td style="text-align:center">33</td>
+<td style="text-align:center">43</td>
+<td style="text-align:center">45</td>
+<td style="text-align:center">55</td>
+</tr>
+<tr>
+<td style="text-align:center">v</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">21</td>
+<td style="text-align:center">31</td>
+<td style="text-align:center">33</td>
+<td style="text-align:center">43</td>
+<td style="text-align:center">53</td>
+<td style="text-align:center">55</td>
+<td style="text-align:center">65</td>
+</tr>
+<tr>
+<td style="text-align:center">v/w</td>
+<td style="text-align:center">11</td>
+<td style="text-align:center">1.9</td>
+<td style="text-align:center">1.48</td>
+<td style="text-align:center">1.43</td>
+<td style="text-align:center">1.3</td>
+<td style="text-align:center">1.23</td>
+<td style="text-align:center">1.22</td>
+<td style="text-align:center">1.18</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><img src="https://i.loli.net/2021/11/14/7TLS4elkFUYRHOu.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+<p>最优解为<strong>(1,1,1,0,1,1,0,0)</strong></p>
+</blockquote>
+<h2 id="n后问题"><a href="#n后问题" class="headerlink" title="n后问题"></a>n后问题</h2><p><strong>问题描述</strong>   皇后问题要求在一个n×n的棋盘上放置n个皇后，使得它们彼此不受“攻击”。n皇后问题要求寻找在棋盘上放置这n个皇后的方案，使得它们中任何两个都不在同一行、同一列或同一斜线上。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">nQueen</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>    Queen X；<br>    <span class="hljs-comment">//初始化X    </span><br>    X.n=n；<span class="hljs-comment">//皇后个数</span><br>    X.sum=<span class="hljs-number">0</span>；<br>    <span class="hljs-keyword">int</span>*p=<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span> [n+<span class="hljs-number">1</span>]；<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>；i&lt;=n；i++) p[i]= <span class="hljs-number">0</span>；<br>    X.x=p；<br>    X.<span class="hljs-built_in">Backtrack</span>(<span class="hljs-number">1</span>)；<br>    <span class="hljs-keyword">delete</span> [] p；<br>    returnX. sum;<br>&#125;<br><br><span class="hljs-keyword">bool</span> Queen:: <span class="hljs-built_in">Place</span>(<span class="hljs-keyword">int</span> k) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; k; j++)<br>      <span class="hljs-keyword">if</span> ((<span class="hljs-built_in">abs</span>(k-j) == <span class="hljs-built_in">abs</span>(x[j] - x[k])) <br>        ||(x[j] == x[k] ))<br>          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br> <br><span class="hljs-keyword">void</span> Queen:: <span class="hljs-built_in">Backtrack</span>(<span class="hljs-keyword">int</span> t) &#123;<br>    <span class="hljs-keyword">if</span> (t &gt; n) <br>        sum++;<br>    <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++) &#123;<br>         x[t] = i;<br>         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Place</span>(t)) <br>             <span class="hljs-built_in">Backtrack</span>(t+<span class="hljs-number">1</span>);<br>      &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><strong>解释</strong>  (x1, …, xn) , x[i]表示皇后i放在棋盘的第i行的第x[i]列，解空间是排列树。abs(i-j)≠abs(x[i] – x[j]))是约束函数（不在同一列已经实现）。如下图是4皇后的一个解。</p>
+<p><img src="https://i.loli.net/2021/11/14/8KqMfCEVO9LyBxs.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" /></p>
+<h2 id="m着色"><a href="#m着色" class="headerlink" title="m着色"></a>m着色</h2><p><strong>解释</strong>  n元组(x0,x1,…,xn-1)表示图G的m-着色判定问题的解。对所有i和j，若邻接矩阵a[i，j]=1，则xi≠xj（约束条件）</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>使用回溯算法来求解图的m(m=3)着色问题的如下图实例。<br>(1) 给出解向量的形式，指出解空间树的类型。<br>(2) 描述搜索过程。<br>(3) 画出找到一个解所生成的部分搜索树，并给出这个解。</p>
+<p><img src="https://i.loli.net/2021/11/14/uSJZqLQAlK3TedO.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" /></p>
+<p><strong>解答</strong></p>
+<p>X=(x0,x1,x2,x3,x4)</p>
+<p><img src="https://i.loli.net/2021/11/14/usNAxhWT4jkSvbQ.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" /></p>
+<p><strong>X=(1,2,3,2,1)</strong></p>
+</blockquote>
+<h2 id="旅行售货员"><a href="#旅行售货员" class="headerlink" title="旅行售货员"></a>旅行售货员</h2><h2 id="子集和"><a href="#子集和" class="headerlink" title="子集和"></a>子集和</h2><p><strong>问题描述</strong>  给出n个正实数集合与正整数M，找到元素之和为M的子集</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>设有n=6个正数的集合{5,10,12,13,15,18}和整数M=30，求W的所有元素之和为M的子集</p>
+<p><strong>解答</strong></p>
+<p><img src="https://i.loli.net/2021/11/14/ioq9NwWbhaYLnpT.png" srcset="/img/loading.gif" lazyload style="zoom: 50%;" /></p>
+<p>最后一步，5，6两个物品全要为31，所以不要前四个物品的右子树肯定不需要考虑了。</p>
+</blockquote>
+<h1 id="分支限界"><a href="#分支限界" class="headerlink" title="分支限界"></a>分支限界</h1><h2 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h2><p><strong>解空间</strong>  子集树（单源最短路径问题）与排列树（售货商）</p>
+<p><strong>搜索方式</strong>  广度优先或最小耗费优先</p>
+<p><strong>适用问题</strong>  存在性问题（找出满足约束条件的一个解）与最优化问题（在满足约束条件的解中找出在某种意义下的最优解） </p>
+<p><strong>活结点表（其实叫队列更好一点）</strong></p>
+<ul>
+<li>每一个活结点只有一次机会成为扩展结点</li>
+<li>活结点一旦成为扩展结点，一次性产生其所有儿子结点（导致不可行解或导致非最优解的儿子结点被舍弃，其余儿子结点被加入活结点表中）</li>
+<li>从活结点表中取出下一结点成为当前扩展结点，并重复结点扩展过程</li>
+<li>直到找到所需的解或活结点表为空时为止</li>
+</ul>
+<p><strong>选择扩展结点的两种常用方法</strong>  队列式（先进先出）、优先队列式（按照耗费/收益优先级选取下一个结点作为当前拓展结点）</p>
+<h2 id="单源最短路径"><a href="#单源最短路径" class="headerlink" title="单源最短路径"></a>单源最短路径</h2><p>子集树</p>
+<p>剪枝的原则：在扩展顶点i时，如果从当前扩展结点i到j有边可达，且从源出发途经i再到j的所对应路径长度小于当前最优路径长度，则将该顶点作为活结点插入到活结点优先队列中</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p><img src="https://i.loli.net/2021/11/16/wrZ41YiqExp6QSc.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" /></p>
+<p><strong>解答</strong></p>
+<ol>
+<li><p>队列法</p>
+<p><img src="https://i.loli.net/2021/11/16/bjfoQFy5YwlKaDS.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+</li>
+<li><p>优先队列法（dist短的优先）</p>
+<p><img src="https://i.loli.net/2021/11/16/uymLatcUjOD2ksX.png" srcset="/img/loading.gif" lazyload style="zoom:35%;" /></p>
+</li>
+</ol>
+<p>结果</p>
+<p><strong>dist=(10,30,60,16,50)</strong></p>
+<p><strong>prev=(0,0,5,1,2)</strong></p>
+</blockquote>
+<h2 id="装载问题-1"><a href="#装载问题-1" class="headerlink" title="装载问题"></a>装载问题</h2><p>子集树</p>
+<p>约束函数：已装容量与c1容量</p>
+<p>限界函数：un=已经装载的重量ew+剩余重量r</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>n=4,c_1=12,W={8,6,3,2}</p>
+<p><strong>解答</strong></p>
+<p>优先队列法（un大的先拓展）</p>
+<p>叶子结点成为扩展结点，得到一个最优解</p>
+<p><img src="https://i.loli.net/2021/11/16/X4e2TVIv6z8GZsO.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p>解为(1,0,1,0)</p>
+</blockquote>
+<h2 id="0-1背包-3"><a href="#0-1背包-3" class="headerlink" title="0-1背包"></a>0-1背包</h2><blockquote>
+<p><strong>例题</strong></p>
+<p>n=3, w=[20,15,15], v=[45,25,25], c= 30</p>
+<p><strong>解答</strong></p>
+<ol>
+<li><p>队列法</p>
+<p><img src="https://i.loli.net/2021/11/14/o8DeUcu1SzGlpP6.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+</li>
+<li><p>优先队列法（价值大的先拓展）</p>
+<p><img src="C:\Users\hujunyao\AppData\Roaming\Typora\typora-user-images\image-20211114211254872.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+</li>
+</ol>
+<p>取(0,1,1)</p>
+</blockquote>
+<h2 id="最大团"><a href="#最大团" class="headerlink" title="最大团"></a>最大团</h2><p>完全子图（图中所有点任意连线都在原图中）</p>
+<p>团（最大完全子图）</p>
+<p>空子图（图中所有点任意连线不在原图中）</p>
+<p>最大独立集（最大空子图）</p>
+<p>补图（原图的完全图-原图，点不变）</p>
+<p>有：若U是G的一个最大团，则U是G的补图G‘的一个最大独立集</p>
+<p><img src="https://i.loli.net/2021/11/16/PK1ROEXvV3mJlcY.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+<p>约束条件：是否是团（该顶点与当前团中其它顶点之间是否有边相连）</p>
+<p>限界函数：当前团尺寸cn+剩余顶点数目r≤当前已求出最大尺寸bestn</p>
+<p>优先级：un=cn+r</p>
+<p>终止条件：遇到子集树中的一个叶结点（即n+1层结点）成为当前扩展结点</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p><img src="https://i.loli.net/2021/11/16/ZKs1IP4xDRMmgbO.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><strong>解答</strong></p>
+<p>优先队列法（un大的先拓展）</p>
+<p><img src="https://i.loli.net/2021/11/16/PMr6sCnxNp7hkGo.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" /></p>
+<p>一个可行结果为(1，1，1，0)</p>
+</blockquote>
+<h2 id="回溯与分支限界对比"><a href="#回溯与分支限界对比" class="headerlink" title="回溯与分支限界对比"></a>回溯与分支限界对比</h2><p><img src="https://i.loli.net/2021/11/16/QEZtAoMVafKiuY4.png" srcset="/img/loading.gif" lazyload alt="回溯与分支限界对比" style="zoom:67%;" /></p>
+
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/CUMT%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">CUMT课程笔记</a>
+                    
+                  </div>
                 
                 
                   <div class="post-meta">
@@ -716,7 +1129,15 @@ Size(i-1,j) && j<\pi(i)
                     
                       <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%AF%BE%E7%A8%8B/">课程</a>
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E6%B2%BB/">分治</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%B4%AA%E5%BF%83/">贪心</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%9E%E6%BA%AF/">回溯</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E6%94%AF%E9%99%90%E7%95%8C/">分支限界</a>
                     
                   </div>
                 
@@ -732,6 +1153,12 @@ Size(i-1,j) && j<\pi(i)
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/11/14/%E3%80%8A%E5%AE%9E%E7%94%A8%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-2021%E7%A7%8B%E3%80%8B%E8%AF%BE%E7%A8%8B%E5%B0%8F%E7%BB%93/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《实用优化算法-2021秋》课程小结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
