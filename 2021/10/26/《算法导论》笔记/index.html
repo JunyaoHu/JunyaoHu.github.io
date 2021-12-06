@@ -16,15 +16,22 @@
   <meta name="description" content="">
   <meta name="author" content="胡椒">
   <meta name="keywords" content="">
-  <meta name="description" content="概论重要特性  输入、输出、确定性、有限性 算法描述  自然语言、流程图、伪代码、程序代码 算法的复杂性  时间复杂性、空间复杂性 算法的渐进性态 O(g(n)) 上界 Ω(g(n)) 下界 Θ(g(n)) 确界 logn &lt; n &lt; nlogn &lt; n^2 &lt; n^3 &lt;2^n NP完全理论  能在多项式时间内求解的判定性问题称为P问题，在多项式时间能验证猜测解的正">
+  <meta name="description" content="概论重要特性  输入、输出、确定性、有限性 算法描述  自然语言、流程图、伪代码、程序代码 算法的复杂性  时间复杂性、空间复杂性 算法的渐进性态 $O(g(n))$ 上界 $Ω(g(n))$ 下界 $Θ(g(n))$ 确界 $logn &lt; n &lt; nlogn &lt; n^2 &lt; n^3 &lt;2^n$ NP完全理论  能在多项式时间内求解的判定性问题称为P问题，在多项式时间">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《算法导论》笔记">
 <meta property="og:url" content="http://example.com/2021/10/26/%E3%80%8A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="胡椒的 Coding Room">
-<meta property="og:description" content="概论重要特性  输入、输出、确定性、有限性 算法描述  自然语言、流程图、伪代码、程序代码 算法的复杂性  时间复杂性、空间复杂性 算法的渐进性态 O(g(n)) 上界 Ω(g(n)) 下界 Θ(g(n)) 确界 logn &lt; n &lt; nlogn &lt; n^2 &lt; n^3 &lt;2^n NP完全理论  能在多项式时间内求解的判定性问题称为P问题，在多项式时间能验证猜测解的正">
+<meta property="og:description" content="概论重要特性  输入、输出、确定性、有限性 算法描述  自然语言、流程图、伪代码、程序代码 算法的复杂性  时间复杂性、空间复杂性 算法的渐进性态 $O(g(n))$ 上界 $Ω(g(n))$ 下界 $Θ(g(n))$ 确界 $logn &lt; n &lt; nlogn &lt; n^2 &lt; n^3 &lt;2^n$ NP完全理论  能在多项式时间内求解的判定性问题称为P问题，在多项式时间">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i.loli.net/2021/10/26/Gm4dM5kU1rN2K9Y.jpg">
+<meta property="og:image" content="c:/Users/hujunyao/AppData/Roaming/Typora/typora-user-images/image-20211206233548105.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/06/U93fnXqQmOthd68.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/03/AiVcQH3dqO6XTpa.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/07/isJWTNkCPd4ORfS.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/07/sTxqwMUX5JoyA3g.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/07/ViKmFwAuHB3PQ27.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/07/8d7TXheayMsRpr1.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/07/PUfmEldrnXp9W8B.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/05/KxYhMGgwmodsyIp.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/13/Gn7oYtlkrdaIzhC.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/14/5kI9jcio2xabpgC.png">
@@ -48,7 +55,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/11/16/PMr6sCnxNp7hkGo.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/16/QEZtAoMVafKiuY4.png">
 <meta property="article:published_time" content="2021-10-26T05:30:03.000Z">
-<meta property="article:modified_time" content="2021-11-16T16:02:13.304Z">
+<meta property="article:modified_time" content="2021-12-06T16:20:21.920Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="分治">
@@ -242,7 +249,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.6k 字
+      7.7k 字
     </span>
   
 
@@ -251,7 +258,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      27 分钟
+      24 分钟
     </span>
   
 
@@ -287,10 +294,10 @@
 <p><strong>算法描述</strong>  自然语言、流程图、伪代码、程序代码</p>
 <p><strong>算法的复杂性</strong>  时间复杂性、空间复杂性</p>
 <p><strong>算法的渐进性态</strong></p>
-<p>O(g(n)) 上界</p>
-<p>Ω(g(n)) 下界</p>
-<p>Θ(g(n)) 确界</p>
-<p>logn &lt; n &lt; nlogn &lt; n^2 &lt; n^3 &lt;2^n</p>
+<p>$O(g(n))$ 上界</p>
+<p>$Ω(g(n))$ 下界</p>
+<p>$Θ(g(n))$ 确界</p>
+<p>$logn &lt; n &lt; nlogn &lt; n^2 &lt; n^3 &lt;2^n$</p>
 <p><strong>NP完全理论</strong>  能在多项式时间内求解的判定性问题称为P问题，在多项式时间能验证猜测解的正确性为NP问题</p>
 <h1 id="递归与分治"><a href="#递归与分治" class="headerlink" title="递归与分治"></a>递归与分治</h1><h2 id="递归概念"><a href="#递归概念" class="headerlink" title="递归概念"></a>递归概念</h2><p><strong>递归定义</strong>  用函数自身定义的函数 GNU is Not Unix</p>
 <p><strong>递归函数两个要素</strong>  边界条件与递归方程</p>
@@ -403,6 +410,10 @@ O(1)  & n=1\\
 <li>设P1是S1中距垂直分割线l的距离在d之内的所有点组成的集合；P2是S2中距分割线l的距离在d之内所有点组成的集合；将P1和P2中点依其y坐标值排序；并设X和Y是相应的已排好序的点列    O(nlogn)</li>
 <li>通过扫描X以及对于X中每个点检查Y中与其距离在d之内的所有点(最多6个)可以完成合并；当X中的扫描指针逐次向上移动时，Y中的扫描指针可在宽为2d的区间内移动；设dl是按这种扫描方式找到的点对间的最小距离；    O(n)</li>
 </ol>
+<h2 id="循环赛日程表"><a href="#循环赛日程表" class="headerlink" title="循环赛日程表"></a>循环赛日程表</h2><p><strong>问题描述</strong>  设有n(n = 2^k)位选手参加网球循环赛，循环赛共进行n-1天，每位选手要与其他n-1位选手比赛一场，且每位选手每天必须比赛一场，不能轮空。</p>
+<p><strong>发现规律</strong></p>
+<p><img src="C:\Users\hujunyao\AppData\Roaming\Typora\typora-user-images\image-20211206233548105.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://s2.loli.net/2021/12/06/U93fnXqQmOthd68.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <h1 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p><strong>基本思想</strong>  基本思想是在对一个多阶段决策的问题，按照某一顺序，根据每一步所选决策的不同，会引起状态的转移，最后会在变化的状态中获取到一个决策序列。</p>
 <p><strong>基本要素</strong></p>
 <ol>
@@ -589,7 +600,7 @@ m[1][1]+m[2][3]+p_0p_1p_3=7875▲
 </div>
 <p>从右上角的元素开始分割，从A3后面分为A[1,3]与A[4,6]，s[1,3]=1，从A1后面拆分，s[4,6]=5，从A5后面拆分，<strong>得到((A1(A2A3)((A4A5)A6)，次数最少是15125</strong></p>
 </blockquote>
-<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LCSLength</span></span><br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword">int</span> m,<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">char</span> *x, <span class="hljs-keyword">char</span> *y,<span class="hljs-keyword">int</span> c[][], <span class="hljs-keyword">int</span> b[][])</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i, j;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>;i&lt;m;i++) c[<span class="hljs-number">0</span>][i]=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>;i&lt;n;i++) c[<span class="hljs-number">0</span>][i]=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;<br>            <span class="hljs-comment">//m,n是X和Y的长度</span><br>            <span class="hljs-keyword">if</span> (x[i]==y[j]) &#123;<br>                c[i][j]=c[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>;<br>                b[i][j]=<span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c[i<span class="hljs-number">-1</span>][j]&gt;=c[i][j<span class="hljs-number">-1</span>]) &#123;<br>                c[i][j]=c[i<span class="hljs-number">-1</span>][j];<br>                b[i][j]=<span class="hljs-number">2</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                c[i][j]=c[i][j<span class="hljs-number">-1</span>];<br>                b[i][j]=<span class="hljs-number">3</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br> &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LCS</span><span class="hljs-params">(i, j, X, b)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (i==<span class="hljs-number">0</span> || j==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-keyword">if</span> (b[i,j]==<span class="hljs-string">&quot;1&quot;</span> ) &#123;<br>        <span class="hljs-built_in">LCS</span>(i<span class="hljs-number">-1</span>, j<span class="hljs-number">-1</span>, x, b);<br>        cout &lt;&lt;x[i];<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (b[i,j]==<span class="hljs-string">&quot;2&quot;</span> ) <br>       <span class="hljs-built_in">LCS</span>(i<span class="hljs-number">-1</span>, j, x, b);<br>    <span class="hljs-keyword">else</span> <span class="hljs-built_in">LCS</span>(i, j<span class="hljs-number">-1</span>, x, b);<br>&#125;   <span class="hljs-comment">//计算复杂性：O(m+n)</span><br><span class="hljs-comment">//LCS(i, j, X, b)实现根据b的内容打印出Xi与Yj的最长公共子序列。</span><br><span class="hljs-comment">//调用LCS(m,n,x,b) 可打印出序列X和Y的最长公共子序列。</span><br></code></pre></td></tr></table></figure>
+<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a>最长公共子序列</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LCSLength</span></span><br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-keyword">int</span> m,<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">char</span> *x, <span class="hljs-keyword">char</span> *y,<span class="hljs-keyword">int</span> c[][], <span class="hljs-keyword">int</span> b[][])</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i, j;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>;i&lt;m;i++) c[i][<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">1</span>;i&lt;n;i++) c[<span class="hljs-number">0</span>][i]=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= m; i++) &#123;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= n; j++) &#123;<br>            <span class="hljs-comment">//m,n是X和Y的长度</span><br>            <span class="hljs-keyword">if</span> (x[i]==y[j]) &#123;<br>                c[i][j]=c[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>]+<span class="hljs-number">1</span>;<br>                b[i][j]=<span class="hljs-number">1</span>;<br>            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (c[i<span class="hljs-number">-1</span>][j]&gt;=c[i][j<span class="hljs-number">-1</span>]) &#123;<br>                c[i][j]=c[i<span class="hljs-number">-1</span>][j];<br>                b[i][j]=<span class="hljs-number">2</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                c[i][j]=c[i][j<span class="hljs-number">-1</span>];<br>                b[i][j]=<span class="hljs-number">3</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br> &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">LCS</span><span class="hljs-params">(i, j, X, b)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (i==<span class="hljs-number">0</span> || j==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;<br>    <span class="hljs-keyword">if</span> (b[i,j]==<span class="hljs-string">&quot;1&quot;</span> ) &#123;<br>        <span class="hljs-built_in">LCS</span>(i<span class="hljs-number">-1</span>, j<span class="hljs-number">-1</span>, x, b);<br>        cout &lt;&lt;x[i];<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (b[i,j]==<span class="hljs-string">&quot;2&quot;</span> ) <br>       <span class="hljs-built_in">LCS</span>(i<span class="hljs-number">-1</span>, j, x, b);<br>    <span class="hljs-keyword">else</span> <span class="hljs-built_in">LCS</span>(i, j<span class="hljs-number">-1</span>, x, b);<br>&#125;   <span class="hljs-comment">//计算复杂性：O(m+n)</span><br><span class="hljs-comment">//LCS(i, j, X, b)实现根据b的内容打印出Xi与Yj的最长公共子序列。</span><br><span class="hljs-comment">//调用LCS(m,n,x,b) 可打印出序列X和Y的最长公共子序列。</span><br></code></pre></td></tr></table></figure>
 <script type="math/tex; mode=display">
 c[i][j]=\left\{\begin{array}{cc}
 0 & i=0, j=0 \\
@@ -631,7 +642,24 @@ j=1,𝑏[1]=\max\{𝑏[0]+𝑎[1],𝑎[1]\}=-2,i=1
 \\j=6,𝑏[6]=\max\{𝑏[5]+𝑎[6],𝑎[6]\}=15-2=13,i=2(不是15)
 \end{matrix}</script><p>比较各个b[i]，其中最大的就是最大子段和，也就是b[4]=20,i=2开始，j=4结束</p>
 </blockquote>
-<h2 id="凸多边形最优三角剖分"><a href="#凸多边形最优三角剖分" class="headerlink" title="凸多边形最优三角剖分"></a>凸多边形最优三角剖分</h2><h2 id="图像压缩"><a href="#图像压缩" class="headerlink" title="图像压缩"></a>图像压缩</h2><p><strong>问题描述</strong>  数字化图像是n×n的像素阵列。假定每个像素有一个0~255的灰度值，存储一个像素需8位。为了减少存储空间，采用变长模式，即不同像素用不同位数来存储。</p>
+<h2 id="凸多边形最优三角剖分"><a href="#凸多边形最优三角剖分" class="headerlink" title="凸多边形最优三角剖分"></a>凸多边形最优三角剖分</h2><p><strong>问题描述</strong>  给定一个凸多边形 以及定义在由多边形的边和弦组成的三角形上的权函数w。求一个三角剖分，使得剖分中诸三角形上的权之和为最小。 </p>
+<script type="math/tex; mode=display">
+t[i][j]=\left\{\begin{array}{cc}
+0 & i=j \\
+\min_{i\leq{k}<j} \{t[i][k]+t[k+1][j]+w(v_{i-1}v_kv_j)\} & i<j
+\end{array}\right.</script><p><strong>解释</strong></p>
+<p>定义$t[i][j]$为凸子多边形的最优剖分对应权函数值， $s[i][j]$记录了$v_{i-1}$和$ v_j$一起构成三角形的第3个顶点$k$的位置，据此，用$O(n)$时间就可以构造出<br>最优三角剖分中的所有三角形。</p>
+<p>计算最优值与矩阵连乘积相似。计算凸$n+1$多边形的最优值为$ t[1][n]$</p>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>（好难算啊不会考吧）</p>
+<p><img src="https://s2.loli.net/2021/12/07/isJWTNkCPd4ORfS.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://s2.loli.net/2021/12/07/sTxqwMUX5JoyA3g.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://s2.loli.net/2021/12/07/ViKmFwAuHB3PQ27.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://s2.loli.net/2021/12/07/8d7TXheayMsRpr1.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="https://s2.loli.net/2021/12/07/PUfmEldrnXp9W8B.png" srcset="/img/loading.gif" lazyload alt=""></p>
+</blockquote>
+<h2 id="图像压缩"><a href="#图像压缩" class="headerlink" title="图像压缩"></a>图像压缩</h2><p><strong>问题描述</strong>  数字化图像是n×n的像素阵列。假定每个像素有一个0~255的灰度值，存储一个像素需8位。为了减少存储空间，采用变长模式，即不同像素用不同位数来存储。</p>
 <ol>
 <li>线性化：图片拉直，转换为1×n^2向量</li>
 <li>分段：分成连续的m段，每段像素存储位数相同，每段最多含256个像素点</li>
@@ -785,11 +813,11 @@ Size(i-1,j) && j<\pi(i)
 </tr>
 <tr>
 <td style="text-align:center">M2结束</td>
-<td style="text-align:center"><strong>60↗</strong></td>
-<td style="text-align:center"><strong>140↗</strong></td>
-<td style="text-align:center"><strong>230↗</strong></td>
-<td style="text-align:center"><strong>330↗</strong></td>
-<td style="text-align:center">360×</td>
+<td style="text-align:center"><strong>80↗</strong></td>
+<td style="text-align:center"><strong>160↗</strong></td>
+<td style="text-align:center"><strong>250↗</strong></td>
+<td style="text-align:center"><strong>350↗</strong></td>
+<td style="text-align:center">380×</td>
 <td style="text-align:center"><strong>430</strong></td>
 </tr>
 </tbody>
