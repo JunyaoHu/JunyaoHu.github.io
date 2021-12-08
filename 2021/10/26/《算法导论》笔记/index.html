@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://s2.loli.net/2021/12/07/ViKmFwAuHB3PQ27.png">
 <meta property="og:image" content="https://s2.loli.net/2021/12/07/8d7TXheayMsRpr1.png">
 <meta property="og:image" content="https://s2.loli.net/2021/12/07/PUfmEldrnXp9W8B.png">
-<meta property="og:image" content="https://i.loli.net/2021/11/05/KxYhMGgwmodsyIp.png">
+<meta property="og:image" content="https://s2.loli.net/2021/12/07/k9Gt8KfjJzgrnBc.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/13/Gn7oYtlkrdaIzhC.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/14/5kI9jcio2xabpgC.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/14/VuRe1vE9fZ6tKcS.png">
@@ -46,7 +46,6 @@
 <meta property="og:image" content="https://i.loli.net/2021/11/14/ioq9NwWbhaYLnpT.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/16/wrZ41YiqExp6QSc.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/16/bjfoQFy5YwlKaDS.png">
-<meta property="og:image" content="https://i.loli.net/2021/11/16/uymLatcUjOD2ksX.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/16/X4e2TVIv6z8GZsO.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/14/o8DeUcu1SzGlpP6.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/16/okxtwCMfvdA1SsO.png">
@@ -55,7 +54,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/11/16/PMr6sCnxNp7hkGo.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/16/QEZtAoMVafKiuY4.png">
 <meta property="article:published_time" content="2021-10-26T05:30:03.000Z">
-<meta property="article:modified_time" content="2021-12-06T16:29:18.524Z">
+<meta property="article:modified_time" content="2021-12-07T16:36:24.645Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="分治">
@@ -249,7 +248,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.7k 字
+      8.4k 字
     </span>
   
 
@@ -258,7 +257,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24 分钟
+      26 分钟
     </span>
   
 
@@ -310,7 +309,7 @@
 <li><p>用栈模拟系统的运行过程，通过分析只保存必须保存的信息，从而用非递归算法替代递归算法，需要使用栈</p>
 </li>
 </ol>
-<h2 id="排列问题"><a href="#排列问题" class="headerlink" title="排列问题"></a>排列问题</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Template&lt;class type&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Perm</span><span class="hljs-params">(Type list[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> m)</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-comment">//递归地产生所有前缀是list[0:k-1],且后缀是list[k:m]的全排列的所有</span><br>	<span class="hljs-keyword">if</span> (k==m) &#123; <span class="hljs-comment">//只剩下一个元素</span><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;=m;i++) cout&lt;&lt;list[i];<br>        cout&lt;&lt;endl;<br>    &#125;<br>    <span class="hljs-keyword">else</span><span class="hljs-comment">//还有多个元素，递归产生后缀是list[k:m] 的全排列</span><br>	<span class="hljs-keyword">for</span>(i=k;i&lt;=m;i++) &#123;<br>	<span class="hljs-built_in">Swap</span>(list[k],list[i]);<br>    <span class="hljs-built_in">Perm</span>(list,k+<span class="hljs-number">1</span>,m);<br>    <span class="hljs-built_in">Swap</span>(list[k],list[i]); <span class="hljs-comment">//记得还原</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="排列问题"><a href="#排列问题" class="headerlink" title="排列问题"></a>排列问题</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Template&lt;class type&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Perm</span><span class="hljs-params">(Type list[], <span class="hljs-keyword">int</span> k, <span class="hljs-keyword">int</span> m)</span></span><br><span class="hljs-function"></span>&#123;<br><span class="hljs-comment">//递归地产生所有前缀是list[0:k-1],且后缀是list[k:m]的全排列的所有</span><br>	<span class="hljs-keyword">if</span> (k==m) &#123; <span class="hljs-comment">//只剩下一个元素</span><br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;=m;i++) cout&lt;&lt;list[i];<br>        cout&lt;&lt;endl;<br>    &#125;<br>    <span class="hljs-keyword">else</span><span class="hljs-comment">//还有多个元素，递归产生后缀是list[k:m] 的全排列</span><br>	<span class="hljs-keyword">for</span>(i=k;i&lt;=m;i++) &#123;<br>		<span class="hljs-built_in">Swap</span>(list[k],list[i]);<br>    	<span class="hljs-built_in">Perm</span>(list,k+<span class="hljs-number">1</span>,m);<br>    	<span class="hljs-built_in">Swap</span>(list[k],list[i]); <span class="hljs-comment">//记得还原</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <h2 id="整数划分"><a href="#整数划分" class="headerlink" title="整数划分"></a>整数划分</h2><p>对于数据n，最大加数不大于m的划分个数记作q(n,m)</p>
 <script type="math/tex; mode=display">
 q(n,m) = \left\{\begin{matrix}
@@ -377,7 +376,7 @@ O(1)  & n=1\\
 2T(\frac{n}{2} ) + O(n) & n>1 \\
 \end{matrix}\right.
 \end{array}</script><h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p><strong>问题描述</strong> 数组排序</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSoft</span><span class="hljs-params">(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span>(p&lt;r) &#123;<br>        <span class="hljs-keyword">int</span> q=<span class="hljs-built_in">Partition</span>(a, p, r)<br>        <span class="hljs-comment">//找到q的位置</span><br>        <span class="hljs-comment">//同时确保该位置右边的比基准元素大，左边的比基准元素小</span><br>        <span class="hljs-built_in">QuickSort</span>(a, p, q<span class="hljs-number">-1</span>); <span class="hljs-comment">//对左半段排序</span><br>        <span class="hljs-built_in">QuickSoft</span>(a, q+<span class="hljs-number">1</span>, r); <span class="hljs-comment">//对右半段排序</span><br>        &#125;<br>     &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Partition</span><span class="hljs-params">(Type a[],<span class="hljs-keyword">int</span> p , <span class="hljs-keyword">int</span> r )</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i = p; j = r+<span class="hljs-number">1</span>;<br>    type x = a[p];<br>	<span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) &#123; <br>         <span class="hljs-keyword">while</span>(a[++i] &lt; x &amp;&amp; i &lt; r);<br>         <span class="hljs-keyword">while</span>(a[--j] &gt; x);<br>         <span class="hljs-keyword">if</span> (i &gt;= j) <span class="hljs-keyword">break</span>;<br>         <span class="hljs-built_in">swap</span>(a[i],a[j]);<br>    &#125;<br>    a[p] = a[j]；<br>    a[j] = x;<br>    <span class="hljs-keyword">return</span> j;<br>&#125;<br><br><span class="hljs-comment">//随机选择基准点的快速排序</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">randomizedQuickSoft</span><span class="hljs-params">(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (p&lt;r) &#123;<br>        <span class="hljs-keyword">int</span> q=<span class="hljs-built_in">randomizedPartition</span>(a, p, r);<br>        <span class="hljs-built_in">randomizedQuickSort</span>(a, p, q<span class="hljs-number">-1</span>); <span class="hljs-comment">//对左半段排序</span><br>        <span class="hljs-built_in">randomizedQuickSoft</span>(a, q+<span class="hljs-number">1</span>, r); <span class="hljs-comment">//对右半段排序</span><br>        &#125;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">randomizedPartition</span><span class="hljs-params">(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i=<span class="hljs-built_in">random</span>(p, r);<br>    <span class="hljs-built_in">swap</span>(a[i], a[p]);<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Partition</span> (a,p,r);<br>&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">QuickSoft</span><span class="hljs-params">(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span>(p&lt;r) &#123;<br>        <span class="hljs-keyword">int</span> q=<span class="hljs-built_in">Partition</span>(a, p, r)<br>        <span class="hljs-comment">//找到q的位置</span><br>        <span class="hljs-comment">//同时确保该位置右边的比基准元素大，左边的比基准元素小</span><br>        <span class="hljs-built_in">QuickSort</span>(a, p, q<span class="hljs-number">-1</span>); <span class="hljs-comment">//对左半段排序</span><br>        <span class="hljs-built_in">QuickSoft</span>(a, q+<span class="hljs-number">1</span>, r); <span class="hljs-comment">//对右半段排序</span><br>        &#125;<br>     &#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Partition</span><span class="hljs-params">(Type a[],<span class="hljs-keyword">int</span> p , <span class="hljs-keyword">int</span> r )</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i = p; j = r+<span class="hljs-number">1</span>;<br>    type x = a[p];<br>	<span class="hljs-keyword">while</span>(<span class="hljs-literal">true</span>) &#123; <br>         <span class="hljs-keyword">while</span>(a[++i] &lt; x &amp;&amp; i &lt; r);<br>         <span class="hljs-keyword">while</span>(a[--j] &gt; x);<br>         <span class="hljs-keyword">if</span> (i &gt;= j) <span class="hljs-keyword">break</span>;<br>         <span class="hljs-built_in">swap</span>(a[i],a[j]);<br>    &#125;<br>    <span class="hljs-built_in">swap</span>(a[p], a[j]);<br>    <span class="hljs-keyword">return</span> j;<br>&#125;<br><br><span class="hljs-comment">//随机选择基准点的快速排序</span><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">randomizedQuickSoft</span><span class="hljs-params">(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (p&lt;r) &#123;<br>        <span class="hljs-keyword">int</span> q=<span class="hljs-built_in">randomizedPartition</span>(a, p, r);<br>        <span class="hljs-built_in">randomizedQuickSort</span>(a, p, q<span class="hljs-number">-1</span>); <span class="hljs-comment">//对左半段排序</span><br>        <span class="hljs-built_in">randomizedQuickSoft</span>(a, q+<span class="hljs-number">1</span>, r); <span class="hljs-comment">//对右半段排序</span><br>        &#125;<br>&#125;<br><br><span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Type</span>&gt;</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">randomizedPartition</span><span class="hljs-params">(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> i=<span class="hljs-built_in">random</span>(p, r);<br>    <span class="hljs-built_in">swap</span>(a[i], a[p]);<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Partition</span> (a,p,r);<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>解释</strong></p>
 <ol>
 <li>步骤<ul>
@@ -400,15 +399,36 @@ O(1)  & n=1\\
 <p><strong>基准点选择优化</strong></p>
 <p>例如可以分成五个组，取每组中位数的中位数。设所有元素互不相同。在每一组中有2个元素小于本组的中位数，而n/5个中位数中又有(n-5)/10个小于基准x,因此，找出的基准x至少比3(n-5)/10个元素大。同理，基准x也至少比3(n-5)/10个元素小。当n≥75时，3(n-5)/10≥n/4所以按此基准划分所得的2个子数组的长度都至少缩短1/4。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">Type <span class="hljs-title">Select</span><span class="hljs-params">(Type a[], <span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (r-p&lt;<span class="hljs-number">75</span>) &#123;<br>        TO DO<span class="hljs-comment">//用某个简单排序算法对数组a[p:r]排序;</span><br>        <span class="hljs-keyword">return</span> a[p+k<span class="hljs-number">-1</span>];<br>    <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;=(r-p<span class="hljs-number">-4</span>)/<span class="hljs-number">5</span>; i++ ) &#123;<br>        <span class="hljs-comment">//将a[p+5*i]至a[p+5*i+4]的第3小元素与a[p+i]交换位置;</span><br>        Type x = <span class="hljs-built_in">Select</span>(a, p, p+(r-p<span class="hljs-number">-4</span>)/<span class="hljs-number">5</span>, (r-p<span class="hljs-number">-4</span>)/<span class="hljs-number">10</span>);<br>        <span class="hljs-keyword">int</span> i=<span class="hljs-built_in">Partition</span>(a,p,r, x),<br>        j=i-p+<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">if</span> (k&lt;=j) <span class="hljs-keyword">return</span> <span class="hljs-built_in">Select</span>(a,p,i,k);<br>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-built_in">Select</span>(a,i+<span class="hljs-number">1</span>,r,k-j);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>例题</strong></p>
+<p>a=[2,6,9,1,4,10,20,6,22,11,10,9,4,3,7,16,11,8,2,5,4,1]</p>
+<p>寻找第5小元素</p>
+<p>(要求两个中位数选择较小的一个，支点放在第一个列表中)</p>
+<p><strong>解答</strong></p>
+<p>$n=22$，分组如下</p>
+<p>[2,6,9,1,4] [10,20,6,22,11] [10,9,4,3,7] [16,11,8,2,5] [4,1]</p>
+<p>中位数集合[4, 11, 7, 8, 4]，选择中位数的中位数为7作为支点</p>
+<p>把支点放在第一个列表中</p>
+<p>划分a[0:11]=[2, 6, 1, 4, 6, 4, 3, 2, 5, 4, 1, 7]<br>       a[12:21]=[9, 10, 20, 22, 11, 10, 9, 16, 11, 8] </p>
+<p>对a[0:11]继续分组 [2,6,1,4,6],[4,3,2,5,4],[1]</p>
+<p>中间元集合:[4,4,1]，中间元的中间元为4作为支点</p>
+<p>把支点放在第一个列表中，划分：[2,1,4,4,3,2,4,1] [6,6,5]</p>
+<p>对a[0:7]继续分组 [2,1,4,4,3],[2,4,1]</p>
+<p>中间元集合:[3,2]，中间元的中间元为2作为支点</p>
+<p>划分：[2,1,2,1] [4,4,3,4]</p>
+<p>第一组小于5了</p>
+<p>取第二组第5-4=1小的，也就是3</p>
+</blockquote>
 <h2 id="最接近点对"><a href="#最接近点对" class="headerlink" title="最接近点对"></a>最接近点对</h2><p><strong>一维情况</strong></p>
 <p>1) 将S上的n个点分成大致相等的2个子集S1和S2<br>2) 分别求S1和S2中的最接近点对<br>3) 求一点在S1、另一点在S2中的最接近点对<br>4) 从上述三对点中找距离最近的一对</p>
 <p><strong>二维情况</strong></p>
 <ol>
 <li>m为S中各点x间坐标的中位数，构造S1和S2    O(n)</li>
 <li>递归求S1和S2的最小距离    2T(n/2)</li>
-<li>求上述两个距离的最小值</li>
-<li>设P1是S1中距垂直分割线l的距离在d之内的所有点组成的集合；P2是S2中距分割线l的距离在d之内所有点组成的集合；将P1和P2中点依其y坐标值排序；并设X和Y是相应的已排好序的点列    O(nlogn)</li>
-<li>通过扫描X以及对于X中每个点检查Y中与其距离在d之内的所有点(最多6个)可以完成合并；当X中的扫描指针逐次向上移动时，Y中的扫描指针可在宽为2d的区间内移动；设dl是按这种扫描方式找到的点对间的最小距离；    O(n)</li>
+<li>求上述两个距离的最小值dm</li>
+<li>设P1是S1中距垂直分割线l的距离在dm之内的所有点组成的集合；P2是S2中距分割线l的距离在d之内所有点组成的集合；将P1和P2中的点依其y坐标值排序；并设X和Y是相应的已排好序的点列    O(nlogn)</li>
+<li>通过扫描X以及对于X中每个点检查Y中与其距离在dm之内的所有点(最多6个)可以完成合并；当X中的扫描指针逐次向上移动时，Y中的扫描指针可在宽为2dm的区间内移动；设dl是按这种扫描方式找到的点对间的最小距离；    O(n)</li>
+<li>选择dm dl的最小值</li>
 </ol>
 <h2 id="循环赛日程表"><a href="#循环赛日程表" class="headerlink" title="循环赛日程表"></a>循环赛日程表</h2><p><strong>问题描述</strong>  设有n(n = 2^k)位选手参加网球循环赛，循环赛共进行n-1天，每位选手要与其他n-1位选手比赛一场，且每位选手每天必须比赛一场，不能轮空。</p>
 <p><strong>发现规律</strong></p>
@@ -622,13 +642,13 @@ c[i-1][j-1]+1 & i, j>0 ; x_{i}=y_{j} \\
 \\i=7,X_7=\{ABCBDAB\}
 \\j=6,Y_6=\{BDCABA\},\max⁡\{ 𝑐[6][6],𝑐[7][5]\}=4, b[7][6]=2 or 3
 \end{matrix}</script><p><img src="https://i.loli.net/2021/11/03/AiVcQH3dqO6XTpa.png" srcset="/img/loading.gif" lazyload alt="c表与b表" style="zoom:50%;" /></p>
-<p>斜线箭头尾部位置对应的元素为公共子序列元素（下标从1开始），也就是有BCBA（x[2346]与y[1356]）\BCAB（x[2367]与y[1345]）</p>
+<p>斜线箭头尾部位置对应的元素为公共子序列元素（下标从1开始），也就是有BCBA（x[2346]与y[1356]）\BCAB（x[2367]与y[1345]）\BDAB（x[4567]与y[1245]）</p>
 <p>PS: 对于C[1,1]=max{c[0,1],c[1,0]}={0,0}=0等情况，此时，b[1,1]=2或3都可以，不影响最终的结果。可能有多个答案。</p>
 </blockquote>
 <h2 id="最大子段和"><a href="#最大子段和" class="headerlink" title="最大子段和"></a>最大子段和</h2><p><strong>问题描述</strong> n个整数组成的序列，求该序列连续子段和的最大值（规定当所有<br>整数均为负整数时定义其最大子段和为0）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MaxSum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> *a)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> sum=<span class="hljs-number">0</span>, b=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>        <span class="hljs-keyword">if</span> (b&gt;<span class="hljs-number">0</span>) b+=a[i];<br>        <span class="hljs-keyword">else</span> b=a[i];<br>        <span class="hljs-keyword">if</span> (b&gt;sum) sum=b;<br>    &#125;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure>
 <script type="math/tex; mode=display">
-b[j]= \min\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong> b[j]为以a[1,j]之间的任一位置开始，以a[j]为结束的最大子段和（必须要到j才行）。从i开始，到j-1结束的子段和的最大值&lt;=0，从i开始到j结束的子段和的最大值应该为a[j]自身。从i开始，到j-1结束的子段和的最大值大于0，此时，将a[j]加上（不是因为如果a[j]小于零就不加了，b[j]的定义就是要到j），所得到的值应该是从i开始到，j结束的子段和的最大值。 O(n)</p>
+b[j]= \min\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong> b[j]为以a[1,j]之间的任一位置开始，以a[j]为结束的最大子段和（必须要到j才行）。从i开始，到j-1结束的子段和的最大值&lt;=0，从i开始到j结束的子段和的最大值应该为a[j]自身。从i开始，到j-1结束的子段和的最大值大于0，此时，将a[j]加上（不是因为如果a[j]小于零就不加了，b[j]的定义就是要加到j），所得到的值应该是从i开始，到j结束的子段和的最大值。 O(n)</p>
 <blockquote>
 <p><strong>例题</strong></p>
 <p>a[1:6]=[-2,11,-4,13,-5,-2]</p>
@@ -637,12 +657,13 @@ b[j]= \min\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong
 \begin{matrix}
 j=1,𝑏[1]=\max\{𝑏[0]+𝑎[1],𝑎[1]\}=-2,i=1
 \\j=2,𝑏[2]=\max\{𝑏[1]+𝑎[2],𝑎[2]\}=11,i=2
-\\j=3,𝑏[3]=\max\{𝑏[2]+𝑎[3],𝑎[3]\}=11-4=7,i=2(不是11)
-\\...
-\\j=6,𝑏[6]=\max\{𝑏[5]+𝑎[6],𝑎[6]\}=15-2=13,i=2(不是15)
-\end{matrix}</script><p>比较各个b[i]，其中最大的就是最大子段和，也就是b[4]=20,i=2开始，j=4结束</p>
+\\j=3,𝑏[3]=\max\{𝑏[2]+𝑎[3],𝑎[3]\}=11-4=7,i=2
+\\j=4,𝑏[4]=\max\{𝑏[3]+𝑎[4],𝑎[5]\}=7+13=20,i=2
+\\j=5,𝑏[5]=\max\{𝑏[4]+𝑎[5],𝑎[5]\}=20-5=15,i=2
+\\j=6,𝑏[6]=\max\{𝑏[5]+𝑎[6],𝑎[6]\}=15-2=13,i=2
+\end{matrix}</script><p>比较各个$b[i]$，其中最大的就是最大子段和，也就是$b[4]=20$,$i=2$开始，$j=4$结束，也就是$[11,-4,13]$</p>
 </blockquote>
-<h2 id="凸多边形最优三角剖分"><a href="#凸多边形最优三角剖分" class="headerlink" title="凸多边形最优三角剖分"></a>凸多边形最优三角剖分</h2><p><strong>问题描述</strong>  给定一个凸多边形 以及定义在由多边形的边和弦组成的三角形上的权函数$w$。求一个三角剖分，使得剖分中诸三角形上的权之和为最小。 </p>
+<h2 id="凸多边形最优三角剖分"><a href="#凸多边形最优三角剖分" class="headerlink" title="凸多边形最优三角剖分"></a>凸多边形最优三角剖分</h2><p><strong>问题描述</strong>  给定一个凸多边形以及定义在由多边形的边和弦组成的三角形上的权函数$w$。求一个三角剖分，使得剖分中诸三角形上的权之和为最小。 </p>
 <script type="math/tex; mode=display">
 t[i][j]=\left\{\begin{array}{cc}
 0 & i=j \\
@@ -659,22 +680,22 @@ t[i][j]=\left\{\begin{array}{cc}
 <p><img src="https://s2.loli.net/2021/12/07/8d7TXheayMsRpr1.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
 <p><img src="https://s2.loli.net/2021/12/07/PUfmEldrnXp9W8B.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
 </blockquote>
-<h2 id="图像压缩"><a href="#图像压缩" class="headerlink" title="图像压缩"></a>图像压缩</h2><p><strong>问题描述</strong>  数字化图像是n×n的像素阵列。假定每个像素有一个0~255的灰度值，存储一个像素需8位。为了减少存储空间，采用变长模式，即不同像素用不同位数来存储。</p>
+<h2 id="图像压缩"><a href="#图像压缩" class="headerlink" title="图像压缩"></a>图像压缩</h2><p><strong>问题描述</strong>  数字化图像是的像素阵列。假定每个像素有一个0~255的灰度值，存储一个像素需8位。为了减少存储空间，采用变长模式，即不同像素用不同位数来存储。</p>
 <ol>
-<li>线性化：图片拉直，转换为1×n^2向量</li>
-<li>分段：分成连续的m段，每段像素存储位数相同，每段最多含256个像素点</li>
-<li>存放信息：第i段长度（8bit），第i段中像素存储位数（3bit）</li>
+<li>线性化：图片拉直，转换为$1×n^2$向量</li>
+<li>分段：分成连续的$m$段，每段像素存储位数相同，每段最多含256个像素点</li>
+<li>存放信息：第$i$段长度（8bit），第$i$段中像素存储位数（3bit）</li>
 </ol>
 <script type="math/tex; mode=display">
 \begin{matrix}
 s[i]=\min\limits_{1 \leq k \leq \min \{i,256\}}\{s[i-k]+k*bmax(i-k+1,i)  \}+11
 \\bmax(i,j)=\max\limits_{i\leq k \leq j}\{a[k]\}
 \end{matrix}</script><p><strong>解释</strong></p>
-<p>假设s[i]是序列{p1,p2,…,pi}的最优解，a[i]是第i个像素点的位数。</p>
+<p>假设$s[i]$是序列${p_1,p_2,…,p_i}$的最优解，$a[i]$是第i个像素点的位数。</p>
 <ol>
-<li>假设pi自成一段，则s[i]=s[i-1]+保存pi的代价</li>
-<li>取s[i]为min时对应的元素个数为k，s[i]=s[i-k]+保存最后k个像素的代价</li>
-<li>保存最后k个像素的代价=k*max{k个灰度值二进制位数}+11</li>
+<li>假设$p_i$自成一段，则$s[i]=s[i-1]$+保存$p_i$的代价</li>
+<li>取$s[i]$为min时对应的元素个数为$k$，$s[i]=s[i-k]$+保存最后$k$个像素的代价</li>
+<li>保存最后$k$个像素的代价=$k*max${$k$个灰度值二进制位数}+11</li>
 </ol>
 <blockquote>
 <p><strong>例题</strong></p>
@@ -701,6 +722,7 @@ s[0]+7* \max \{3,3,3,3,8,8,1\} + 11 = 67
 \end{matrix}</script><p>看s[7]=58，看58那一行是s[4]+3*max，前四个一起，后三个一起</p>
 <p>看s[4]=23，看23那一行是s[0]+4*max，前四个就在一起，不再分</p>
 <p>最后得到（4，6，5，7）（129，138，1）</p>
+<p>ps每次计算比大小可以不加上11但是最后求$s$的时候别忘了加11</p>
 </blockquote>
 <h2 id="电路布线"><a href="#电路布线" class="headerlink" title="电路布线"></a>电路布线</h2><p><strong>问题描述</strong> 确定将哪些连线安排在第一层上，使得该层上有尽可能多的连线且不相交</p>
 <script type="math/tex; mode=display">
@@ -723,8 +745,9 @@ Size(i-1,j) && j<\pi(i)
 <p>i=2，pi(2)=7，j&lt;<strong>7</strong>的size为size(<strong>1</strong>,j)，j&gt;=<strong>7</strong>的size为size(<strong>1</strong>,j)与size(<strong>1</strong>,<strong>6</strong>)+1=1的最大值</p>
 <p>i=3，pi(3)=4，j&lt;<strong>4</strong>的size为size(<strong>2</strong>,j)，j&gt;=<strong>4</strong>的size为size(<strong>2</strong>,j)与size(<strong>2</strong>,<strong>3</strong>)+1=1的最大值</p>
 <p>…</p>
-<p><img src="https://i.loli.net/2021/11/05/KxYhMGgwmodsyIp.png" srcset="/img/loading.gif" lazyload alt="size表" style="zoom:50%;" /></p>
-<p>最后size(10,10)=4，最多可以有四条不相交，斜角值改变时可以取得所求的子集，也就是[(3 4)(5 5)(7 9)(9 10)]</p>
+<p><img src="https://s2.loli.net/2021/12/07/k9Gt8KfjJzgrnBc.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+<p>最后size(10,10)=4，最多可以有四条不相交。</p>
+<p>蓝色是算法选择的路径（向上优先，也可以用向左优先，答案都是四个，但值会有一点不同）。在斜角值改变时可以取得所求的子集。答案也就是[(3 4)(5 5)(7 9)(9 10)]，[(4  2)(5 5)(7 9)(9 10)]</p>
 </blockquote>
 <h2 id="流水作业调度"><a href="#流水作业调度" class="headerlink" title="流水作业调度"></a>流水作业调度</h2><p><strong>问题描述</strong>   n个作业要在两台机器M1和M2上进行加工。每个作业加工的顺序都是先在M1上加工，然后在M2加工。M1和M2加工作业i所需的时间分别为ai 和bi。确定n个作业的最优加工顺序，使得加工完成所需的时间最少。</p>
 <p><strong>算法</strong></p>
@@ -1023,10 +1046,11 @@ m(i+1,j) && 0 \leq j<w_i
 <p><strong>解答</strong></p>
 <p><img src="https://i.loli.net/2021/11/14/zurCOpm69MXy3Hk.png" srcset="/img/loading.gif" lazyload  style="zoom: 67%;" /></p>
 </blockquote>
-<h2 id="0-1背包-2"><a href="#0-1背包-2" class="headerlink" title="0-1背包"></a>0-1背包</h2><p><strong>解释</strong>  子集树。只要左儿子节点是一个可行结点，搜索就进入左子树（不超过背包重量）（约束剪枝）。在右子树中有可能包含最优解是才进入右子树搜索，否则将右子树剪去（利用单价贪心求解价值上限）（限界剪枝）。cw是背包当前重量，M-cw是背包剩余的空间，cp是当前总收益，rp是贪心算法剩余的物品收益，bestw记录当前最优价值，也就是判断bp=cp+cp&gt;bestw是右节点的限界函数。（此外，回溯法解0/1背包的前置条件是物品已按pi/wi非增次序排序）</p>
+<h2 id="0-1背包-2"><a href="#0-1背包-2" class="headerlink" title="0-1背包"></a>0-1背包</h2><p><strong>解释</strong>  子集树。只要左儿子节点是一个可行结点，搜索就进入左子树（不超过背包重量）（约束剪枝）。在右子树中有可能包含最优解是才进入右子树搜索，否则将右子树剪去（利用单价贪心求解价值上限）（限界剪枝）。$cw$是背包当前重量，$M-cw$是背包剩余的空间，$cp$是当前总收益，$rp$是贪心算法剩余的物品收益，$bestw$记录当前最优价值，也就是判断$bp=cp+rp&gt;bestw$是右节点的限界函数。（此外，回溯法解0-1背包的前置条件是物品已按$p_i/w_i$非增次序排序）</p>
 <blockquote>
 <p><strong>例题</strong></p>
-<p>M=110，w=(1,11,21,23,33,43,45,55)，v=(11,21,31,33,43,53,55,65)</p>
+<p>M=110</p>
+<p>w=(1,11,21,23,33,43,45,55)，v=(11,21,31,33,43,53,55,65)</p>
 <p><strong>解答</strong></p>
 <div class="table-container">
 <table>
@@ -1083,7 +1107,7 @@ m(i+1,j) && 0 \leq j<w_i
 <p><img src="https://i.loli.net/2021/11/14/7TLS4elkFUYRHOu.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
 <p>最优解为<strong>(1,1,1,0,1,1,0,0)</strong></p>
 </blockquote>
-<h2 id="n后问题"><a href="#n后问题" class="headerlink" title="n后问题"></a>n后问题</h2><p><strong>问题描述</strong>   皇后问题要求在一个n×n的棋盘上放置n个皇后，使得它们彼此不受“攻击”。n皇后问题要求寻找在棋盘上放置这n个皇后的方案，使得它们中任何两个都不在同一行、同一列或同一斜线上。</p>
+<h2 id="n后问题"><a href="#n后问题" class="headerlink" title="n后问题"></a>n后问题</h2><p><strong>问题描述</strong>   皇后问题要求在一个n×n的棋盘上放置n个皇后，使得它们彼此不受”攻击”。n皇后问题要求寻找在棋盘上放置这n个皇后的方案，使得它们中任何两个都不在同一行、同一列或同一斜线上。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">nQueen</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>    Queen X；<br>    <span class="hljs-comment">//初始化X    </span><br>    X.n=n；<span class="hljs-comment">//皇后个数</span><br>    X.sum=<span class="hljs-number">0</span>；<br>    <span class="hljs-keyword">int</span>*p=<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span> [n+<span class="hljs-number">1</span>]；<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>；i&lt;=n；i++) p[i]= <span class="hljs-number">0</span>；<br>    X.x=p；<br>    X.<span class="hljs-built_in">Backtrack</span>(<span class="hljs-number">1</span>)；<br>    <span class="hljs-keyword">delete</span> [] p；<br>    returnX. sum;<br>&#125;<br><br><span class="hljs-keyword">bool</span> Queen:: <span class="hljs-built_in">Place</span>(<span class="hljs-keyword">int</span> k) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt; k; j++)<br>      <span class="hljs-keyword">if</span> ((<span class="hljs-built_in">abs</span>(k-j) == <span class="hljs-built_in">abs</span>(x[j] - x[k])) <br>        ||(x[j] == x[k] ))<br>          <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br> <br><span class="hljs-keyword">void</span> Queen:: <span class="hljs-built_in">Backtrack</span>(<span class="hljs-keyword">int</span> t) &#123;<br>    <span class="hljs-keyword">if</span> (t &gt; n) <br>        sum++;<br>    <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++) &#123;<br>         x[t] = i;<br>         <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Place</span>(t)) <br>             <span class="hljs-built_in">Backtrack</span>(t+<span class="hljs-number">1</span>);<br>      &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p><strong>解释</strong>  (x1, …, xn) , x[i]表示皇后i放在棋盘的第i行的第x[i]列，解空间是排列树。abs(i-j)≠abs(x[i] – x[j]))是约束函数（不在同一列已经实现）。如下图是4皇后的一个解。</p>
 <p><img src="https://i.loli.net/2021/11/14/8KqMfCEVO9LyBxs.png" srcset="/img/loading.gif" lazyload style="zoom: 67%;" /></p>
@@ -1127,7 +1151,6 @@ m(i+1,j) && 0 \leq j<w_i
 <p><img src="https://i.loli.net/2021/11/16/bjfoQFy5YwlKaDS.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
 </li>
 <li><p>优先队列法（dist短的优先）</p>
-<p><img src="https://i.loli.net/2021/11/16/uymLatcUjOD2ksX.png" srcset="/img/loading.gif" lazyload style="zoom:35%;" /></p>
 </li>
 </ol>
 <p>结果</p>
@@ -1143,7 +1166,7 @@ m(i+1,j) && 0 \leq j<w_i
 <p><strong>解答</strong></p>
 <p>优先队列法（un大的先拓展）</p>
 <p>叶子结点成为扩展结点，得到一个最优解</p>
-<p><img src="https://i.loli.net/2021/11/16/X4e2TVIv6z8GZsO.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="https://i.loli.net/2021/11/16/X4e2TVIv6z8GZsO.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" />1q</p>
 <p>解为(1,0,1,0)</p>
 </blockquote>
 <h2 id="0-1背包-3"><a href="#0-1背包-3" class="headerlink" title="0-1背包"></a>0-1背包</h2><blockquote>
