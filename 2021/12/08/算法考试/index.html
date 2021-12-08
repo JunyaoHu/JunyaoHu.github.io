@@ -16,20 +16,21 @@
   <meta name="description" content="">
   <meta name="author" content="胡椒">
   <meta name="keywords" content="">
-  <meta name="description" content="一维搜索 黄金分割法（第一题考了这个，迭代两次就行，不过这次考的不是二次函数，加了一个cos函数，所以计算器计算的时候要注意设置为弧度制） 斐波那契法  无约束搜索 下降方向（第二题第一小问考了这个，给出函数，点，方向，确定是否为下降方向，就是定义） 最优性条件（第二题第二小问考了这个，直接函数求导为0求解就行，正定矩阵大于零，是极小点） 梯度下降法（第三题第一小问考了这个，迭代一次；第三题第二小">
+  <meta name="description" content="适用人群：中国矿业大学计算机科学与技术专业学生  期末真题回忆版第一题（10）大整数乘法算法，仅作3次n&#x2F;2位的乘法和1次n位的加法  根据题意写出递归公式（5） 求算法复杂度（5）   考概述-主定理法等。  第二题（10）程序设计比赛公示名单，按照学号升序排列，现在插入学号为x的学生  写出算法描述，如何找到x之前的学生的最大序号i和x之后的学生的最小序号j（5） 最坏情况下的算法复杂度（5">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《实用优化算法-2021秋》课程小结">
-<meta property="og:url" content="http://example.com/2021/11/14/%E3%80%8A%E5%AE%9E%E7%94%A8%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-2021%E7%A7%8B%E3%80%8B%E8%AF%BE%E7%A8%8B%E5%B0%8F%E7%BB%93/index.html">
+<meta property="og:title" content="《算法导论-2021秋》课程小结">
+<meta property="og:url" content="http://example.com/2021/12/08/%E7%AE%97%E6%B3%95%E8%80%83%E8%AF%95/index.html">
 <meta property="og:site_name" content="胡椒的 Coding Room">
-<meta property="og:description" content="一维搜索 黄金分割法（第一题考了这个，迭代两次就行，不过这次考的不是二次函数，加了一个cos函数，所以计算器计算的时候要注意设置为弧度制） 斐波那契法  无约束搜索 下降方向（第二题第一小问考了这个，给出函数，点，方向，确定是否为下降方向，就是定义） 最优性条件（第二题第二小问考了这个，直接函数求导为0求解就行，正定矩阵大于零，是极小点） 梯度下降法（第三题第一小问考了这个，迭代一次；第三题第二小">
+<meta property="og:description" content="适用人群：中国矿业大学计算机科学与技术专业学生  期末真题回忆版第一题（10）大整数乘法算法，仅作3次n&#x2F;2位的乘法和1次n位的加法  根据题意写出递归公式（5） 求算法复杂度（5）   考概述-主定理法等。  第二题（10）程序设计比赛公示名单，按照学号升序排列，现在插入学号为x的学生  写出算法描述，如何找到x之前的学生的最大序号i和x之后的学生的最小序号j（5） 最坏情况下的算法复杂度（5">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-11-14T01:25:28.000Z">
-<meta property="article:modified_time" content="2021-11-28T09:50:35.345Z">
+<meta property="article:published_time" content="2021-12-08T08:12:54.000Z">
+<meta property="article:modified_time" content="2021-12-08T09:09:24.992Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="算法">
+<meta property="article:tag" content="CUMT课程笔记">
 <meta name="twitter:card" content="summary_large_image">
   
-  <title>《实用优化算法-2021秋》课程小结 - 胡椒的 Coding Room</title>
+  <title>《算法导论-2021秋》课程小结 - 胡椒的 Coding Room</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -191,7 +192,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="《实用优化算法-2021秋》课程小结">
+            <span class="h2" id="subtitle" title="《算法导论-2021秋》课程小结">
               
             </span>
 
@@ -201,8 +202,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-11-14 09:25" pubdate>
-        2021年11月14日 上午
+      <time datetime="2021-12-08 16:12" pubdate>
+        2021年12月8日 下午
       </time>
     </span>
   
@@ -212,7 +213,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      774 字
+      646 字
     </span>
   
 
@@ -250,53 +251,88 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">《实用优化算法-2021秋》课程小结</h1>
+            <h1 style="display: none">《算法导论-2021秋》课程小结</h1>
             
             <div class="markdown-body">
-              <h1 id="一维搜索"><a href="#一维搜索" class="headerlink" title="一维搜索"></a>一维搜索</h1><ul>
-<li>黄金分割法（第一题考了这个，迭代两次就行，不过这次考的不是二次函数，加了一个cos函数，所以计算器计算的时候要注意设置为弧度制）</li>
-<li>斐波那契法</li>
-</ul>
-<h1 id="无约束搜索"><a href="#无约束搜索" class="headerlink" title="无约束搜索"></a>无约束搜索</h1><ul>
-<li>下降方向（第二题第一小问考了这个，给出函数，点，方向，确定是否为下降方向，就是定义）</li>
-<li>最优性条件（第二题第二小问考了这个，直接函数求导为0求解就行，正定矩阵大于零，是极小点）</li>
-<li>梯度下降法（第三题第一小问考了这个，迭代一次；第三题第二小问要求证明xk的坐标与k的关系式，应该是证明每次α的值都是一样的，推导一下就行，考试没想出来，应该是这里扣的三分）</li>
-<li>牛顿法与阻尼牛顿法</li>
-<li>共轭梯度法</li>
-<li>拟牛顿法（第四题，DFP公式记牢）</li>
-</ul>
-<h1 id="有约束搜索"><a href="#有约束搜索" class="headerlink" title="有约束搜索"></a>有约束搜索</h1><ul>
-<li>有效集、KKT点、λ、σ（第六题考了数形结合画图，求最小值点，对于最小值点求出该点的λ参数，注意比如1≤x≤5是两个条件，要转换成x≥1与-x+5≥0才行）</li>
-<li>外罚函数法</li>
-<li>内罚函数法/内点法/障碍函数法（第五题考了这个，障碍函数使用对数函数，不等式约束，最后好像求出了两个点，都计算一下取最小值）</li>
-<li>增广拉格朗日/乘子法（第七题考了这个，等式约束）</li>
-</ul>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>最后老师发的练习题还是很管用的，好好做两遍，第一遍学算法步骤，第二遍验证计算能力，就差不多了</li>
-<li>学的知识很多，考的内容还好，主要是计算要准确，考试给的数字不难，大多可以手算，很少用到计算器，但是不要不带计算器，第一题还是需要的，有一题画图，所以最好带上铅笔直尺</li>
-<li>公式一定要记准确</li>
-<li>有的算到最后和结论不一样就知道要再算一遍，比如拟牛顿法二次函数计算x2时g2肯定为0也就是结束计算，算出来g2不对就要返回去检查计算了</li>
-<li>好多题做完第一遍后检查可以利用数形结合，基本上约束条件和函数比较好画，都是直线，椭圆，二次函数之类的，画个简单的图形判断最优解就知道自己算的对不对了，第一遍自己算错了三个，然后画图之后好像都改对了</li>
-<li>考了97，平时分98，总评98。</li>
-</ul>
+              <blockquote>
+<p>适用人群：中国矿业大学计算机科学与技术专业学生</p>
+</blockquote>
+<h1 id="期末真题回忆版"><a href="#期末真题回忆版" class="headerlink" title="期末真题回忆版"></a>期末真题回忆版</h1><h2 id="第一题（10）"><a href="#第一题（10）" class="headerlink" title="第一题（10）"></a>第一题（10）</h2><p>大整数乘法算法，仅作3次n/2位的乘法和1次n位的加法</p>
+<ol>
+<li>根据题意写出递归公式（5）</li>
+<li>求算法复杂度（5）</li>
+</ol>
+<blockquote>
+<p>考概述-主定理法等。</p>
+</blockquote>
+<h2 id="第二题（10）"><a href="#第二题（10）" class="headerlink" title="第二题（10）"></a>第二题（10）</h2><p>程序设计比赛公示名单，按照学号升序排列，现在插入学号为x的学生</p>
+<ol>
+<li>写出算法描述，如何找到x之前的学生的最大序号i和x之后的学生的最小序号j（5）</li>
+<li>最坏情况下的算法复杂度（5）</li>
+</ol>
+<blockquote>
+<p>考分治-二分搜索。</p>
+</blockquote>
+<h2 id="第三题（10）"><a href="#第三题（10）" class="headerlink" title="第三题（10）"></a>第三题（10）</h2><p>开了个小卖部，给出1-12月的盈利，含负数，负数就是亏损，求连续月份的最大盈利和</p>
+<ol>
+<li>写出算法描述（5）</li>
+<li>最坏时间复杂度分析（5）</li>
+</ol>
+<blockquote>
+<p>考动态规划-最大子段和。</p>
+</blockquote>
+<h2 id="第四题（20）"><a href="#第四题（20）" class="headerlink" title="第四题（20）"></a>第四题（20）</h2><p>体育馆预约，给出十个人预约的开始时间与结束时间，现在进行安排</p>
+<ol>
+<li>写出算法描述（10）</li>
+<li>能安排多少人（5）</li>
+<li>能安排哪些人（5）</li>
+</ol>
+<blockquote>
+<p>考贪心-活动安排问题。</p>
+</blockquote>
+<h2 id="第五题（20）"><a href="#第五题（20）" class="headerlink" title="第五题（20）"></a>第五题（20）</h2><p>有五堆石子，数量已知</p>
+<ol>
+<li>只能取得两个相邻石子合并，这一次合并的代价是两堆石子数量之和，求合并成一堆最小代价（<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">题目链接</a>）（10）</li>
+<li>任意取得两个石子合并，这一次合并的代价是两堆石子数量之和，求合并成一堆的最小代价（10）</li>
+</ol>
+<blockquote>
+<ol>
+<li>考动态规划-石子合并。</li>
+<li>考贪心-哈夫曼。</li>
+</ol>
+</blockquote>
+<h2 id="第六题（15）"><a href="#第六题（15）" class="headerlink" title="第六题（15）"></a>第六题（15）</h2><p>打算法比赛，还有五个小时，还有五个题目没做，给出题目价值和预计AC题目时间，利用回溯法求最优解</p>
+<ol>
+<li>什么集合类型（5）</li>
+<li>剪枝函数（5）</li>
+<li>画树（5）</li>
+</ol>
+<blockquote>
+<p>考回溯-01背包。</p>
+</blockquote>
+<h2 id="第七题（15）"><a href="#第七题（15）" class="headerlink" title="第七题（15）"></a>第七题（15）</h2><p>给出一个图，求最大团，要求利用分支限界法，利用优先队列</p>
+<ol>
+<li>什么集合类型（5）</li>
+<li>剪枝函数（5）</li>
+<li>画树（5）</li>
+</ol>
+<blockquote>
+<p>考分支限界-最大团问题。</p>
+</blockquote>
+<h1 id="感想"><a href="#感想" class="headerlink" title="感想"></a>感想</h1><p>考得很不好，待补充。</p>
 
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/CUMT%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">CUMT课程笔记</a>
-                    
-                  </div>
-                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
                       <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CUMT%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">CUMT课程笔记</a>
                     
                   </div>
                 
@@ -313,18 +349,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/08/%E7%AE%97%E6%B3%95%E8%80%83%E8%AF%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">《算法导论-2021秋》课程小结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/10/26/%E3%80%8A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA%E3%80%8B%E7%AC%94%E8%AE%B0/">
-                        <span class="hidden-mobile">《算法导论》笔记</span>
+                      <a href="/2021/11/14/%E3%80%8A%E5%AE%9E%E7%94%A8%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-2021%E7%A7%8B%E3%80%8B%E8%AF%BE%E7%A8%8B%E5%B0%8F%E7%BB%93/">
+                        <span class="hidden-mobile">《实用优化算法-2021秋》课程小结</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
