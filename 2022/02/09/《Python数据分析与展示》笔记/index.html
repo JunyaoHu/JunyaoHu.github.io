@@ -16,23 +16,39 @@
   <meta name="description" content="">
   <meta name="author" content="胡椒">
   <meta name="keywords" content="">
-  <meta name="description" content="适用人群：中国矿业大学计算机科学与技术专业学生  2021秋期末真题 题干为个人回忆版本，同时，由黄凯同学提供第四题题干，并进行题干二次核对，已尽力与原题目描述保持一致。答案来自本人理解，不确保与老师理解完全一致。  第一题（10）给出了一个大整数乘法算法的描述，对于n位乘法，仅作3次n&#x2F;2位的乘法和1次n位的加法即可  根据题意写出递归公式（5） 求算法复杂度（5）   考概述-主定理法等。">
+  <meta name="description" content="学习选择 基础：先看的这个，Python数据分析与展示，北京理工大学，中国大学MOOC(慕课) (icourse163.org)  numpy属性与方法      123456789101112131415161718#原数组不变new_a &#x3D; a.astype(new_type)#转listls &#x3D; a.tolist()#补充b[(b&gt;&#x3D;60) &amp; (b&lt;&#x3D;80)]# 显示">
 <meta property="og:type" content="article">
-<meta property="og:title" content="《算法导论-2021秋》课程小结">
-<meta property="og:url" content="http://example.com/2021/12/08/%E3%80%8A%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA-2021%E7%A7%8B%E3%80%8B%E7%BB%93%E8%AF%BE%E8%80%83%E8%AF%95%E5%B0%8F%E7%BB%93/index.html">
+<meta property="og:title" content="Python数据分析与展示">
+<meta property="og:url" content="http://example.com/2022/02/09/%E3%80%8APython%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E5%B1%95%E7%A4%BA%E3%80%8B%E7%AC%94%E8%AE%B0/index.html">
 <meta property="og:site_name" content="胡椒的 Coding Room">
-<meta property="og:description" content="适用人群：中国矿业大学计算机科学与技术专业学生  2021秋期末真题 题干为个人回忆版本，同时，由黄凯同学提供第四题题干，并进行题干二次核对，已尽力与原题目描述保持一致。答案来自本人理解，不确保与老师理解完全一致。  第一题（10）给出了一个大整数乘法算法的描述，对于n位乘法，仅作3次n&#x2F;2位的乘法和1次n位的加法即可  根据题意写出递归公式（5） 求算法复杂度（5）   考概述-主定理法等。">
+<meta property="og:description" content="学习选择 基础：先看的这个，Python数据分析与展示，北京理工大学，中国大学MOOC(慕课) (icourse163.org)  numpy属性与方法      123456789101112131415161718#原数组不变new_a &#x3D; a.astype(new_type)#转listls &#x3D; a.tolist()#补充b[(b&gt;&#x3D;60) &amp; (b&lt;&#x3D;80)]# 显示">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2021/12/10/rwO6NARU2zG5acW.png">
-<meta property="article:published_time" content="2021-12-08T08:12:54.000Z">
-<meta property="article:modified_time" content="2021-12-10T08:10:52.843Z">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120433655.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120605903.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120638406.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120736609.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209121143397.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209121252867.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209121757500.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209125542168.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209125714166.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209131258858.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209131653651.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209132009671.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/2233157-b77105789e36c847.jpg">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209132916324.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209133037338.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209130057579.png">
+<meta property="og:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209130302550.png">
+<meta property="article:published_time" content="2022-02-09T02:00:00.000Z">
+<meta property="article:modified_time" content="2022-02-10T13:00:16.584Z">
 <meta property="article:author" content="胡椒">
-<meta property="article:tag" content="算法">
-<meta property="article:tag" content="CUMT课程笔记">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="数据分析">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2021/12/10/rwO6NARU2zG5acW.png">
+<meta name="twitter:image" content="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120433655.png">
   
-  <title>《算法导论-2021秋》课程小结 - 胡椒的 Coding Room</title>
+  <title>Python数据分析与展示 - 胡椒的 Coding Room</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -194,7 +210,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="《算法导论-2021秋》课程小结">
+            <span class="h2" id="subtitle" title="Python数据分析与展示">
               
             </span>
 
@@ -204,8 +220,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-12-08 16:12" pubdate>
-        2021年12月8日 下午
+      <time datetime="2022-02-09 10:00" pubdate>
+        2022年2月9日 上午
       </time>
     </span>
   
@@ -215,7 +231,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      946 字
     </span>
   
 
@@ -224,7 +240,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8 分钟
+      3 分钟
     </span>
   
 
@@ -253,148 +269,65 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">《算法导论-2021秋》课程小结</h1>
+            <h1 style="display: none">Python数据分析与展示</h1>
             
             <div class="markdown-body">
               <blockquote>
-<p>适用人群：中国矿业大学计算机科学与技术专业学生</p>
+<p>学习选择</p>
+<p>基础：先看的这个，<a target="_blank" rel="noopener" href="https://www.icourse163.org/course/BIT-1001870002?tid=1462344444">Python数据分析与展示，北京理工大学，中国大学MOOC(慕课) (icourse163.org)</a></p>
 </blockquote>
-<h1 id="2021秋期末真题"><a href="#2021秋期末真题" class="headerlink" title="2021秋期末真题"></a>2021秋期末真题</h1><blockquote>
-<p>题干为个人回忆版本，同时，由黄凯同学提供第四题题干，并进行题干二次核对，已尽力与原题目描述保持一致。答案来自本人理解，不确保与老师理解完全一致。</p>
-</blockquote>
-<h2 id="第一题（10）"><a href="#第一题（10）" class="headerlink" title="第一题（10）"></a>第一题（10）</h2><p>给出了一个大整数乘法算法的描述，对于n位乘法，仅作3次n/2位的乘法和1次n位的加法即可</p>
-<ol>
-<li>根据题意写出递归公式（5）</li>
-<li>求算法复杂度（5）</li>
-</ol>
-<blockquote>
-<p>考概述-主定理法等。</p>
-<script type="math/tex; mode=display">
-\begin{array}
-{X}
-T(n) =\left\{\begin{matrix}
-O(1)  & n=1\\
-3T(\frac{n}{2} ) + O(1) & n>1 \\
-\end{matrix}\right. \\
-\\
-O(n^{\log_32})
-\end{array}</script></blockquote>
-<h2 id="第二题（10）"><a href="#第二题（10）" class="headerlink" title="第二题（10）"></a>第二题（10）</h2><p>现有程序设计比赛公示名单，已经按照学号非降序排列好了，现在插入学号为x的学生</p>
-<ol>
-<li>写出算法描述，如何找到x之前的学生的最大序号i和x之后的学生的最小序号j（5）</li>
-<li>最坏情况下的算法复杂度（5）</li>
-</ol>
-<blockquote>
-<p>考分治-二分搜索。</p>
-<ol>
-<li>结合题目内容描述二分搜索即可。（但我不是很理解为什么要说非降序排列，直接说升序排列不可以吗，难道有一个人学号出现多次，有重复元素吗，考试我是按照无重复元素写的），最后有<code>i = mid - 1</code>与<code>j = mid + 1</code></li>
-<li>$O(\log n)$</li>
-</ol>
-</blockquote>
-<h2 id="第三题（10）"><a href="#第三题（10）" class="headerlink" title="第三题（10）"></a>第三题（10）</h2><p>开了个小卖部，给出1-12月各月的盈利，含负数，负数就是亏损，求连续月份的最大盈利和</p>
-<ol>
-<li>写出算法描述（5）</li>
-<li>最坏时间复杂度分析（5）</li>
-</ol>
-<blockquote>
-<p>考动态规划-最大子段和。</p>
-<ol>
-<li>结合题目内容描述最大子段和算法即可。</li>
-<li>$O(n)$</li>
-</ol>
-</blockquote>
-<h2 id="第四题（20）"><a href="#第四题（20）" class="headerlink" title="第四题（20）"></a>第四题（20）</h2><p>体育馆预约，给出十个人预约的开始时间与结束时间，现在进行安排</p>
-<ol>
-<li>写出算法描述（10）</li>
-<li>能安排多少人（5）</li>
-<li>能安排哪些人（5）</li>
-</ol>
-<blockquote>
-<p>考贪心-活动安排问题。</p>
-<ol>
-<li>结合题目内容描述活动安排算法即可。</li>
-<li>算出来就出来了。</li>
-<li>算出来就出来了。</li>
-</ol>
-</blockquote>
-<h2 id="第五题（20）"><a href="#第五题（20）" class="headerlink" title="第五题（20）"></a>第五题（20）</h2><p>有五堆石子，数量已知</p>
-<ol>
-<li>只能取得两个相邻石子合并，这一次合并的代价是两堆石子数量之和，求合并成一堆最小代价（<a target="_blank" rel="noopener" href="https://www.acwing.com/problem/content/284/">题目链接</a>）（10）</li>
-<li>任意取得两个石子合并，这一次合并的代价是两堆石子数量之和，求合并成一堆的最小代价（10）</li>
-</ol>
-<blockquote>
-<ol>
-<li>考动态规划-石子合并。</li>
-<li>考贪心-哈夫曼。</li>
-<li>对于先入为主与考试时间分配策略问题，见感悟部分。</li>
-</ol>
-</blockquote>
-<h2 id="第六题（15）"><a href="#第六题（15）" class="headerlink" title="第六题（15）"></a>第六题（15）</h2><p>打算法比赛，还有五个小时，还有五个题目没做，给出题目价值和预计AC题目时间，利用回溯法求最优解</p>
-<ol>
-<li>什么集合类型（5）</li>
-<li>剪枝函数（5）</li>
-<li>画树（5）</li>
-</ol>
-<blockquote>
-<p>考回溯-01背包。</p>
-<ol>
-<li><p>子集树。</p>
-</li>
-<li><p>都是定义</p>
-<p>分支剪枝：$cw&gt;c$</p>
-<p>限界剪枝：$cp+cr \leq bestw$</p>
-</li>
-<li><p>都是定义，没啥说的。</p>
-</li>
-</ol>
-</blockquote>
-<h2 id="第七题（15）"><a href="#第七题（15）" class="headerlink" title="第七题（15）"></a>第七题（15）</h2><p>给出一个图，点是学生，线是学生存在闺蜜关系，求最大闺蜜团，要求利用分支限界法，利用优先队列。</p>
-<p><img src="https://s2.loli.net/2021/12/10/rwO6NARU2zG5acW.png" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
-<ol>
-<li>什么集合类型（5）</li>
-<li>剪枝函数（5）</li>
-<li>画树（5）</li>
-</ol>
-<blockquote>
-<p>考分支限界-最大团问题。</p>
-<ol>
-<li><p>子集树（对于知识点记忆与考试时间分配策略问题，见感悟部分）</p>
-</li>
-<li><p>分支剪枝：存在当前加入的点与任意已成团的某个点在原图没有连线</p>
-<p>限界剪枝：$num = c + r \leq best$</p>
-<p>优先级：$num$</p>
-</li>
-<li><p>都是定义，没啥说的。（1,3,4,5）</p>
-</li>
-</ol>
-</blockquote>
-<h1 id="关于考试的感想"><a href="#关于考试的感想" class="headerlink" title="关于考试的感想"></a>关于考试的感想</h1><ol>
-<li>考试整体时间感觉不是很充裕，如果每道题正常速度做完且不出错的话，应该只能预留出几分钟而已。</li>
-<li>我的个人建议是，即便题干小问没有说明要你写出最后大题干计算得出答案，最好也要把大题干的实际问题答案给求出来，并且明示计算结果放在最后。</li>
-<li>⚠<strong>关于第四大题</strong>：至于为什么第四题没有做，空白了，20分直接不要，是因为看到“合并石子”我就直接跳过了，其他的句子是<strong>一个字也没有多看</strong>，这是极为严重的错误。在我印象中很早就知道有合并石子这个题目，但是当时觉得很难，做不出来，后来学习算法之后也没有重新去学习该怎么做这个题（但是真的是很简单的…），因此条件反射看到“石子”我就认为自己不会做，导致直接跳题，甚至第二小问很简单的哈夫曼都没有注意到要去做。所以<strong>平时遇到不会的题目一定要及时去做，去分析相同点，多去遇见一些类似的题型，多刷题和总结，融会贯通。</strong></li>
-<li>⚠<strong>关于第七大题</strong>：首先是复习不认真，算法知识点记得不牢固，子集树还是排列树纠结了很久（特别是前面一题已经考了子集树为什么还是考子集树，我觉得不应该…导致误判，至少有20分钟我在研究怎么画排列数，节点的字母写到UVW的时候开始怀疑自己是不是弄错了，然后醒悟过来了…我的节点优先级一直都没有变（因为如果按照排列树的话，$num$一直都等于原图节点数量，不像子集树一样会减小）然后是明知道画树已经非常麻烦了，又要重画，为什么不再重新看看第四大题，哪怕看一看题目都好，<strong>不要这么固执</strong>，可能也是时间已经很紧张了，心理作用，过分看重考试结果了，所以心态愈发不稳定。</li>
-<li><strong>平时复习一定要全方位，第一是要课本知识记忆准确，第二是强调泛化能力，从课本脱离，应用到各个场景。</strong></li>
-<li>这波是真的寄了，战前准备和战术上都极其失误，预估考试卷面70左右，平时分看老师了，学弟学妹们一定要好好学啊，血泪教训已经摆在这里了。</li>
-</ol>
-<h1 id="关于课程的感想"><a href="#关于课程的感想" class="headerlink" title="关于课程的感想"></a>关于课程的感想</h1><ol>
-<li>上课的时候没有怎么认真听，注意力还是不够集中，其实认真听还是听得懂的，只是不能长期保持这种状态，老师教的还是不错的，就是不认真，课堂测验学压缩算法都是十分钟看ppt立马学会计算结果的，然后还算对了（所以感觉逼迫自己努力去学习的话，应该还是能学好的，也许不是自己学习能力的问题吧）基本上课程学会都是结课后看ppt，可能平时手机的影响确实是太大了…不够自律。上课时间还是要好好把握住的。</li>
-<li>算法是计算机专业非常重要的一门课程，算法能力也体现一个计算机人的专业程度，程序设计竞赛考算法，面试需要算法，管饭碗的东西为什么不认真学呢。</li>
-<li>也没有主动去多深入学习一下，特别是关于定理的证明，因为不考就不深入探究了，其实只是我们学校不考试，别的学校本科也会有考察的，可能研究生面试复试之类的也会考察。真要做只适应应试的做题家，肯定是走不远的。</li>
-<li>算法虐我千百遍…哎…不会再爱了…挺不好受的，希望今后有空多看黑书，多看看MIT的算法导论课程，以及面试算法题，然后多加实践，多码代码，刷刷leetcode和acwing等面试相关算法题，加油。</li>
-</ol>
-
+<h1 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h1><h2 id="属性与方法"><a href="#属性与方法" class="headerlink" title="属性与方法"></a>属性与方法</h2><p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120433655.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120605903.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120638406.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209120736609.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209121143397.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209121252867.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#原数组不变</span><br>new_a = a.astype(new_type)<br><span class="hljs-comment">#转list</span><br>ls = a.tolist()<br><br><span class="hljs-comment">#补充</span><br>b[(b&gt;=<span class="hljs-number">60</span>) &amp; (b&lt;=<span class="hljs-number">80</span>)]<br><span class="hljs-comment"># 显示60~80间的数据, 此处用&amp;, 不能用and</span><br>b[(b&lt;<span class="hljs-number">60</span>) | (b&gt;<span class="hljs-number">90</span>)]<br><span class="hljs-comment"># 显示&lt;60  或 &gt;90的数据,此处用|, 不能用or</span><br>b[~(b&lt;<span class="hljs-number">60</span>)]		<br><span class="hljs-comment"># ~非, 显示 &gt;=60的数据)</span><br><br>b&lt;<span class="hljs-number">70</span><br>np.where(b&lt;<span class="hljs-number">70</span>,b,<span class="hljs-number">0</span>)<br><br>b.T() <span class="hljs-comment"># 矩阵转置</span><br>b.I() <span class="hljs-comment"># 矩阵的逆</span><br></code></pre></td></tr></table></figure>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209121757500.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209125542168.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209125714166.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<ul>
+<li>随机数</li>
+</ul>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209131258858.png" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209131653651.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209132009671.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<ul>
+<li>统计函数</li>
+</ul>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/2233157-b77105789e36c847.jpg" srcset="/img/loading.gif" lazyload  style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209132916324.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209133037338.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#梯度 np.gradient(f) #两侧/一侧、偏导</span><br><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np<br>c = np.random.randint(<span class="hljs-number">0</span>,<span class="hljs-number">20</span>,(<span class="hljs-number">3</span>,<span class="hljs-number">4</span>))<br><span class="hljs-built_in">print</span>(c)<br>c_grad = np.gradient(c)<br><span class="hljs-built_in">print</span>(c_grad)<br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">[[13  6  9 19]</span><br><span class="hljs-string"> [ 4  4 16  4]</span><br><span class="hljs-string"> [13  7  2  3]]</span><br><span class="hljs-string">[array([[ -9. ,  -2. ,   7. , -15. ],</span><br><span class="hljs-string">        [  0. ,   0.5,  -3.5,  -8. ],</span><br><span class="hljs-string">        [  9. ,   3. , -14. ,  -1. ]]),</span><br><span class="hljs-string"> array([[ -7. ,  -2. ,   6.5,  10. ],</span><br><span class="hljs-string">        [  0. ,   6. ,   0. , -12. ],</span><br><span class="hljs-string">        [ -6. ,  -5.5,  -2. ,   1. ]])]</span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+<h2 id="数据存取"><a href="#数据存取" class="headerlink" title="数据存取"></a>数据存取</h2><ul>
+<li>csv只能有效存储一维、二维数组</li>
+</ul>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209130057579.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<p><img src="http://r6x04xz01.hd-bkt.clouddn.com/image-20220209130302550.png" srcset="/img/loading.gif" lazyload style="zoom:67%;" /></p>
+<ul>
+<li>任意维度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#1.</span><br><span class="hljs-comment">#sep=&#x27;&#x27;时，存取的是二进制文件</span><br>a.tofile(<span class="hljs-string">&quot;b.dat&quot;</span>, sep=<span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-built_in">format</span>=<span class="hljs-string">&#x27;%d&#x27;</span>)<br>np.fromfile(<span class="hljs-string">&quot;b.dat&quot;</span>, dtype=np.<span class="hljs-built_in">int</span>, sep=<span class="hljs-string">&#x27;,&#x27;</span>, count=-<span class="hljs-number">1</span>)<br><br><span class="hljs-comment">#2.便携文件存储</span><br><span class="hljs-comment">#存取文件扩展名.npy/.npz</span><br>np.save(fname, array)<br>np.load(frame)<br></code></pre></td></tr></table></figure>
+<h1 id="matplotlib"><a href="#matplotlib" class="headerlink" title="matplotlib"></a>matplotlib</h1><h1 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h1>
             </div>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E4%B9%A0/">课外学习</a>
+                    
+                  </div>
+                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                      <a class="hover-with-bg" href="/tags/Python/">Python</a>
                     
-                      <a class="hover-with-bg" href="/tags/CUMT%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/">CUMT课程笔记</a>
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">数据分析</a>
                     
                   </div>
                 
@@ -411,18 +344,12 @@ O(n^{\log_32})
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/12/17/%E3%80%8A%E7%BC%96%E8%AF%91%E6%8A%80%E6%9C%AF-2021%E7%A7%8B%E3%80%8B%E7%BB%93%E8%AF%BE%E8%80%83%E8%AF%95%E5%B0%8F%E7%BB%93/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">《编译技术-2021秋》结课考试小结</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/11/14/%E3%80%8A%E5%AE%9E%E7%94%A8%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95-2021%E7%A7%8B%E3%80%8B%E7%BB%93%E8%AF%BE%E8%80%83%E8%AF%95%E5%B0%8F%E7%BB%93/">
-                        <span class="hidden-mobile">《实用优化算法-2021秋》课程小结</span>
+                      <a href="/2022/02/06/%E3%80%8APython%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E4%B8%8E%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96%E3%80%8B%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">Python网络爬虫</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
