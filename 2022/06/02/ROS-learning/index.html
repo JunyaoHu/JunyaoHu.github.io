@@ -1,0 +1,715 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="胡椒">
+  <meta name="keywords" content="">
+  <meta name="description" content="主要内容：ROS相关重要知识点和遇到的问题 参考资料：http:&#x2F;&#x2F;www.autolabor.com.cn&#x2F;book&#x2F;ROSTutorials&#x2F;  基本情况安装win10系统使用vmware workstation 16 pro安装ubuntu 20.04版本，ros系统选择noetic版本。 12sudo rosdep initrosdep update 上述步骤遇到网络问题，主要考虑在“软">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ROS学习笔记">
+<meta property="og:url" content="http://example.com/2022/06/02/ROS-learning/index.html">
+<meta property="og:site_name" content="胡椒的 Coding Room">
+<meta property="og:description" content="主要内容：ROS相关重要知识点和遇到的问题 参考资料：http:&#x2F;&#x2F;www.autolabor.com.cn&#x2F;book&#x2F;ROSTutorials&#x2F;  基本情况安装win10系统使用vmware workstation 16 pro安装ubuntu 20.04版本，ros系统选择noetic版本。 12sudo rosdep initrosdep update 上述步骤遇到网络问题，主要考虑在“软">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2022/06/02/SE1dsfhrw4kqDM3.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/06/02/3USuK6L1VfpyWTo.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/06/02/BOEoabv9pwu4xNI.jpg">
+<meta property="og:image" content="https://s2.loli.net/2022/06/02/McH9TXoJZsgBvWp.jpg">
+<meta property="article:published_time" content="2022-06-02T02:47:46.000Z">
+<meta property="article:modified_time" content="2022-06-02T12:28:47.047Z">
+<meta property="article:author" content="胡椒">
+<meta property="article:tag" content="ROS">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2022/06/02/SE1dsfhrw4kqDM3.jpg">
+  
+  <title>ROS学习笔记 - 胡椒的 Coding Room</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.12","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":17340920,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>胡椒的 Coding Room</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                友链
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="ROS学习笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-06-02 10:47" pubdate>
+        2022年6月2日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ROS学习笔记</h1>
+            
+            <div class="markdown-body">
+              <blockquote>
+<p>主要内容：ROS相关重要知识点和遇到的问题</p>
+<p>参考资料：<a target="_blank" rel="noopener" href="http://www.autolabor.com.cn/book/ROSTutorials/">http://www.autolabor.com.cn/book/ROSTutorials/</a></p>
+</blockquote>
+<h1 id="基本情况"><a href="#基本情况" class="headerlink" title="基本情况"></a>基本情况</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>win10系统使用vmware workstation 16 pro安装ubuntu 20.04版本，ros系统选择noetic版本。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp">sudo rosdep <span class="hljs-keyword">init</span><br>rosdep update<br></code></pre></td></tr></table></figure>
+<p>上述步骤遇到网络问题，主要考虑在“软件与更新”中换中国的源（阿里、科大），然后主机使用手机热点联网。尝试过修改rawgithub的文件内容，把网站改成zhaoxuzuo的gitee（可能是现在gitee需要登录才行？）、给ubuntu装clash vpn尝试结果都不太行。</p>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li><p>ROS全称Robot Operating System(机器人操作系统)。在ROS中每一个功能点都是一个单独的进程，每一个进程都是独立运行的。</p>
+</li>
+<li><p>文件系统<br><img src="https://s2.loli.net/2022/06/02/SE1dsfhrw4kqDM3.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:80%;" /></p>
+</li>
+<li><p>rqt_graph：可以显示节点关系</p>
+</li>
+</ul>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">rosnode ping    测试到节点的连接状态<br>rosnode list    列出活动节点<br>rosnode <span class="hljs-keyword">info</span>    打印节点信息<br>rosnode machine 列出指定设备上节点<br>rosnode kill    杀死某个节点<br>rosnode cleanup 清除不可连接的节点<br>//清除无用节点，启动乌龟节点，然后 ctrl + c 关闭，该节点并没被彻底清除，可以使用 cleanup 清除节点<br><br>rostopic bw     显示主题使用的带宽<br>rostopic delay  显示带有 <span class="hljs-keyword">header</span> 的主题延迟<br>rostopic echo   打印消息到屏幕<br>rostopic find   根据类型查找主题<br>rostopic hz     显示主题的发布频率<br>rostopic <span class="hljs-keyword">info</span>   显示主题相关信息<br>rostopic list   显示所有活动状态下的主题<br>rostopic pub    将数据发布到主题<br>rostopic <span class="hljs-keyword">type</span>   打印主题类型<br><br>rosmsg <span class="hljs-keyword">show</span>     显示消息描述<br>rosmsg <span class="hljs-keyword">info</span>     显示消息信息<br>rosmsg list     列出所有消息<br>rosmsg md5      显示 md5 加密后的消息<br>rosmsg package  显示某个功能包下的所有消息<br>rosmsg packages 列出包含消息的功能包<br><br>rosservice args 打印服务参数<br>rosservice <span class="hljs-keyword">call</span> 使用提供的参数调用服务<br>rosservice find 按照服务类型查找服务<br>rosservice <span class="hljs-keyword">info</span> 打印有关服务的信息<br>rosservice list 列出所有活动的服务<br>rosservice <span class="hljs-keyword">type</span> 打印服务类型<br>rosservice uri  打印服务的 ROSRPC uri<br><br>rossrv <span class="hljs-keyword">show</span>     显示服务消息详情<br>rossrv <span class="hljs-keyword">info</span>     显示服务消息相关信息<br>rossrv list     列出所有服务信息<br>rossrv md5      显示 md5 加密后的服务消息<br>rossrv package  显示某个包下所有服务消息<br>rossrv packages 显示包含服务消息的所有包<br><br>rosparam <span class="hljs-keyword">set</span>    设置参数<br>rosparam <span class="hljs-keyword">get</span>    获取参数<br>rosparam <span class="hljs-keyword">load</span>   从外部文件加载参数<br>rosparam dump   将参数写出到外部文件<br>rosparam <span class="hljs-keyword">delete</span> 删除参数<br>rosparam list   列出所有参数<br><br>//rosservice和rossrv，前者是对ROS服务本身的管理，后者是对ROS服务类型的管理，相当于话题的rostopic和rosmsg。<br></code></pre></td></tr></table></figure>
+<h1 id="通信机制"><a href="#通信机制" class="headerlink" title="通信机制"></a>通信机制</h1><h2 id="话题通信-发布订阅模式"><a href="#话题通信-发布订阅模式" class="headerlink" title="话题通信(发布订阅模式)"></a>话题通信(发布订阅模式)</h2><ul>
+<li><p>基于<strong>发布订阅</strong>模式的，也即：一个节点发布消息，另一个节点订阅该消息。</p>
+</li>
+<li><p>用于不断更新的、少逻辑处理的数据传输场景。</p>
+</li>
+<li><p>模型</p>
+<p><img src="https://s2.loli.net/2022/06/02/3USuK6L1VfpyWTo.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+</li>
+<li><p>注意1:上述实现流程中，前五步使用的 RPC(Remote Procedure Call Protocol，远程过程调用）协议，最后两步使用的是 TCP 协议</p>
+<p>注意2: Talker 与 Listener 的启动无先后顺序要求</p>
+<p>注意3: Talker 与 Listener 都可以有多个</p>
+<p>注意4: Talker 与 Listener 连接建立后，不再需要 ROS Master。也即，即便关闭ROS Master，Talker 与 Listern 照常通信。</p>
+</li>
+<li><p>消息发布器一直循环发送msg到topic chatter上；消息订阅器一旦发现 chatter上有data，就会把msg放到一个队列回调函数中，但还未执行callback函数。当运行<code>ros::spin()</code>和<code>ros::spinOnce()</code>时，就会执行callback函数。<br>一般<code>ros::spin()</code>后便不在写程序了，后面直接<code>return 0</code>。而<code>ros::spinOnce()</code>的使用比较灵活，但需要注意的是，在使用这个函数时，需要考虑到消息的调用时机、频率、以及消息池的大小,这个函数比较灵活，尤其是我想控制接收速度的时候。配合<code>while (ros::ok())</code>效果极佳。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function">ros::Rate <span class="hljs-title">loop_rate</span><span class="hljs-params">(<span class="hljs-number">10</span>)</span></span>; <span class="hljs-comment">//10Hz</span><br><span class="hljs-keyword">while</span>(ros::<span class="hljs-built_in">ok</span>())<br>&#123;<br>    ros::<span class="hljs-built_in">spinOnce</span>();<br>    loop_rate.<span class="hljs-built_in">sleep</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>cpp文件在src下，python文件在script下</p>
+</li>
+<li><p>话题通信自定义msg</p>
+<ul>
+<li><p>字段类型：int8, int16, int32, int64 (或者无符号类型: uint*)、float32, float64、string、time, duration、variable-length array[] and fixed-length array[C]、header</p>
+</li>
+<li><p>string类型在c++代码中要使用<code>.c_str()</code>转换</p>
+</li>
+<li><p>步骤主要包括：构建msg/my_msg.msg数据结构，主程序中需要对该对象进行描述、配置package.xml和CMakeLists.txt等</p>
+<blockquote>
+<p>复习：Cpp中<code>.</code>和<code>-&gt;</code>说明</p>
+<ol>
+<li><code>.</code>是成员运算符，用于调取成员变量和成员函数；符号<code>.</code>的左边必须是实例对象（具体对象），举例为绿色字体；</li>
+<li><code>-&gt;</code>是地址运算符，用于引用成员变量和成员函数；符号<code>-&gt;</code>的左边是实例对象的地址或者类名（结构名），举例为黄色字体；</li>
+<li>等价形式：d.msg() 和 (*constpt).msg() 等价</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="服务通信-请求响应模式"><a href="#服务通信-请求响应模式" class="headerlink" title="服务通信(请求响应模式)"></a>服务通信(请求响应模式)</h2><ul>
+<li><p>服务通信是基于<strong>请求响应</strong>模式的，是一种应答机制。也即: 一个节点A向另一个节点B发送请求，B接收处理请求并产生响应结果返回给A。</p>
+</li>
+<li><p>服务通信更适用于对实时性有要求、具有一定逻辑处理的应用场景。</p>
+</li>
+<li><p>模型</p>
+<p><img src="https://s2.loli.net/2022/06/02/BOEoabv9pwu4xNI.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+</li>
+<li><p>1.客户端请求被处理时，需要保证服务器已经启动；</p>
+<p>2.服务端和客户端都可以存在多个。</p>
+</li>
+<li><p>服务通信自定义srv</p>
+<ul>
+<li>字段类型、格式，请求和响应用<code>---</code>隔开</li>
+<li>步骤主要包括：构建srv/my_srv.srv数据结构，主程序中需要对该对象进行描述、配置package.xml和CMakeLists.txt等</li>
+</ul>
+</li>
+</ul>
+<h2 id="参数服务器-参数共享模式"><a href="#参数服务器-参数共享模式" class="headerlink" title="参数服务器(参数共享模式)"></a>参数服务器(参数共享模式)</h2><ul>
+<li>参数服务器在ROS中主要用于实现不同节点之间的数据共享。参数服务器相当于是独立于所有节点的一个公共容器，可以将数据存储在该容器中，被不同的节点调用，不同的节点也可以往其中存储数据。</li>
+<li>存储一些多节点共享的数据，类似于全局变量。</li>
+<li>可以对参数进行增删改查。</li>
+<li><p>模型<br><img src="https://s2.loli.net/2022/06/02/McH9TXoJZsgBvWp.jpg" srcset="/img/loading.gif" lazyload alt="img" style="zoom: 67%;" /></p>
+</li>
+<li><p>数据类型：32-bit integers、booleans、strings、doubles、iso8601 dates、lists、base64-encoded binary data、字典（参数服务器不是为高性能而设计的，因此最好用于存储静态的非二进制的简单数据）</p>
+</li>
+</ul>
+<h2 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Topic(话题)</th>
+<th style="text-align:left">Service(服务)</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">通信模式</td>
+<td style="text-align:left">发布/订阅</td>
+<td>请求/响应</td>
+</tr>
+<tr>
+<td style="text-align:left">同步性</td>
+<td style="text-align:left">异步</td>
+<td>同步</td>
+</tr>
+<tr>
+<td style="text-align:left">底层协议</td>
+<td style="text-align:left">ROSTCP/ROSUDP</td>
+<td>ROSTCP/ROSUDP</td>
+</tr>
+<tr>
+<td style="text-align:left">缓冲区</td>
+<td style="text-align:left">有</td>
+<td>无</td>
+</tr>
+<tr>
+<td style="text-align:left">实时性</td>
+<td style="text-align:left">弱</td>
+<td>强</td>
+</tr>
+<tr>
+<td style="text-align:left">节点关系</td>
+<td style="text-align:left">多对多</td>
+<td>一对多(一个 Server)</td>
+</tr>
+<tr>
+<td style="text-align:left">通信数据</td>
+<td style="text-align:left">msg</td>
+<td>srv</td>
+</tr>
+<tr>
+<td style="text-align:left">使用场景</td>
+<td style="text-align:left">连续高频的数据发布与接收:雷达、里程计</td>
+<td>偶尔调用或执行某一项特定功能：拍照、语音识别</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="API"><a href="#API" class="headerlink" title="API"></a>API</h2><ul>
+<li>初始化</li>
+<li>话题服务相关</li>
+<li>回旋函数</li>
+<li>时间</li>
+<li>其他</li>
+</ul>
+<h1 id="运行管理"><a href="#运行管理" class="headerlink" title="运行管理"></a>运行管理</h1><h2 id="launch文件"><a href="#launch文件" class="headerlink" title="launch文件"></a>launch文件</h2><h2 id="工作空间覆盖"><a href="#工作空间覆盖" class="headerlink" title="工作空间覆盖"></a>工作空间覆盖</h2><h2 id="节点名称"><a href="#节点名称" class="headerlink" title="节点名称"></a>节点名称</h2><h2 id="话题名称"><a href="#话题名称" class="headerlink" title="话题名称"></a>话题名称</h2><h2 id="参数名称"><a href="#参数名称" class="headerlink" title="参数名称"></a>参数名称</h2><h2 id="分布式通信"><a href="#分布式通信" class="headerlink" title="分布式通信"></a>分布式通信</h2>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/ROS/">ROS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/18/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">自然语言处理学习笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/twikoo@1/dist/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://blog-comment-h866w5ycd-junyaohu.vercel.app/","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.plugins.initFancyBox('#twikoo .tk-content img:not(.tk-owo-emotion)');
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?17340920";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
