@@ -4,6 +4,62 @@
   
   
   <entry>
+    <title>糖尿病遗传风险检测挑战赛 - Coggle 30 Days of ML（22年7月）</title>
+    <link href="/2022/06/26/30days-of-ml-202207/"/>
+    <url>/2022/06/26/30days-of-ml-202207/</url>
+    
+    <content type="html"><![CDATA[<h1 id="打卡"><a href="#打卡" class="headerlink" title="打卡"></a>打卡</h1><p>114514</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>课外学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>数据分析</tag>
+      
+      <tag>Coggle 30 Days of ML</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>《动手学深度学习》笔记</title>
+    <link href="/2022/06/20/d2l/"/>
+    <url>/2022/06/20/d2l/</url>
+    
+    <content type="html"><![CDATA[<blockquote><p>参考资料</p><p>书籍：<a href="https://zh-v2.d2l.ai/">https://zh-v2.d2l.ai/</a></p><p>视频：<a href="https://www.bilibili.com/video/BV1eZ4y1w7PY">https://www.bilibili.com/video/BV1eZ4y1w7PY</a></p><p>ppt：<a href="https://courses.d2l.ai/zh-v2/">https://courses.d2l.ai/zh-v2/</a></p></blockquote><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><h2 id="数据操作"><a href="#数据操作" class="headerlink" title="数据操作"></a>数据操作</h2><h2 id="预处理"><a href="#预处理" class="headerlink" title="预处理"></a>预处理</h2><h2 id="线代"><a href="#线代" class="headerlink" title="线代"></a>线代</h2><p>各种乘积</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># dot product</span><br>torch.dot(x, y)<br><br><span class="hljs-comment"># matrix-vector product</span><br>torch.mv(A, x) <br><br><span class="hljs-comment"># matrix-vector product</span><br>torch.mm(A, B)<br><br><span class="hljs-comment"># Hadamard product</span><br>A * B<br></code></pre></td></tr></table></figure><ul><li>各种求导</li></ul><p><img src="https://s2.loli.net/2022/06/20/7X1DNQEuSG95JTL.png" alt="image-20220620110808338" style="zoom:50%;" /></p><p><img src="https://s2.loli.net/2022/06/20/h3HgpOxfqavZ6Wo.png" alt="image-20220620110827086" style="zoom:50%;" /></p><p><img src="https://s2.loli.net/2022/06/20/MI8UnOefJQuFjpY.png" alt="image-20220620111224505" style="zoom:50%;" /></p><h2 id="微积分"><a href="#微积分" class="headerlink" title="微积分"></a>微积分</h2><p>基础知识，略</p><h2 id="自动微分"><a href="#自动微分" class="headerlink" title="自动微分"></a>自动微分</h2><ul><li><p>在指定值上的导数，不同于符号求导和数值求导</p></li><li><p>automatic differentiation</p></li><li>涉及到 computational graph 和 backpropagate</li><li><p>为什么DL耗资源原因之一：反向传播求梯度需要存储正向所有中间结果，复杂度 O(n)</p></li><li><p>非标量变量的反向传播一般是单独计算批量中每个样本的偏导数之和</p></li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> torch<br><br>x = torch.arange(<span class="hljs-number">4.0</span>)<br>x.requires_grad_(<span class="hljs-literal">True</span>)  <span class="hljs-comment"># 等价于x=torch.arange(4.0,requires_grad=True)</span><br>x.grad  <span class="hljs-comment"># 默认值是None</span><br>y = <span class="hljs-number">2</span> * torch.dot(x, x)<br>y.backward()<br>x.grad<br><span class="hljs-comment"># tensor([ 0., 4., 8., 12.])</span><br><br>x.grad.zero_()<br>y = x * x<br><span class="hljs-comment"># 等价于y.backward(torch.ones(len(x)))</span><br>y.<span class="hljs-built_in">sum</span>().backward()<br>x.grad<br><span class="hljs-comment"># tensor([0., 2., 4., 6.])</span><br></code></pre></td></tr></table></figure><h2 id="概率"><a href="#概率" class="headerlink" title="概率"></a>概率</h2><ul><li>Bayes’ theorem</li><li>joint distribution</li><li>conditional distribution</li><li>marginal distribution</li></ul><h1 id="线性神经网络"><a href="#线性神经网络" class="headerlink" title="线性神经网络"></a>线性神经网络</h1><h2 id="线性回归"><a href="#线性回归" class="headerlink" title="线性回归"></a>线性回归</h2><ul><li>linear regression</li><li><p>analytical solution $\mathbf{w}^* = (\mathbf X^\top \mathbf X)^{-1}\mathbf X^\top \mathbf{y}$</p></li><li><p>线性回归是对n维输入的加权，外加偏差</p></li><li>使用平方损失来衡量预测值和真实值的差异</li><li>线性回归有显式解</li><li>线性回归可以看做是单层神经网络</li><li>梯度下降通过不断沿着反梯度方向更新参数求解</li><li>小批量随机梯度下降是深度学习默认的求解算法</li><li>两个重要的超参数是批量大小和学习率</li></ul><h2 id="softmax"><a href="#softmax" class="headerlink" title="softmax"></a>softmax</h2><ul><li><p>$\hat{\mathbf{y}} = \mathrm{softmax}(\mathbf{o})\quad \text{其中}\quad \hat{y}_j = \frac{\exp(o_j)}{\sum_k \exp(o_k)}$</p></li><li><p>$\partial<em>{o_j} l(\mathbf{y}, \hat{\mathbf{y}}) = \frac{\exp(o_j)}{\sum</em>{k=1}^q \exp(o_k)} - y_j = \mathrm{softmax}(\mathbf{o})_j - y_j$</p></li><li><p>尽管softmax是一个非线性函数，但softmax回归的输出仍然由输入特征的仿射变换决定。 因此，softmax回归是一个线性模型（linear model）。</p></li><li><p>熵（entropy）</p></li><li><p>$H[P] = \sum_j - P(j) \log P(j).$</p></li><li><p>可以从两方面来考虑交叉熵（cross-entropy loss）分类目标： （i）最大化观测数据的似然；（ii）最小化传达标签所需的惊异。</p></li><li><p>损失函数：L1，L2，Huber</p></li><li><p>LogSumExp类似技巧</p><p>$\begin{split}\begin{aligned}<br>\log{(\hat y_j)} &amp; = \log\left( \frac{\exp(o_j - \max(o_k))}{\sum_k \exp(o_k - \max(o_k))}\right) \<br>&amp; = \log{(\exp(o_j - \max(o_k)))}-\log{\left( \sum_k \exp(o_k - \max(o_k)) \right)} \<br>&amp; = o_j - \max(o_k) -\log{\left( \sum_k \exp(o_k - \max(o_k)) \right)}.<br>\end{aligned}\end{split}$</p></li></ul><h1 id=""><a href="#" class="headerlink" title=" "></a> </h1><h2 id="-1"><a href="#-1" class="headerlink" title=" "></a> </h2><ul><li>单层线性无法识别XOR</li><li>multilayer perceptrons 使用 hidden layer 和 activation function 来得到非线性模型</li><li>sigmoid、tanh、ReLu（rectified linear unit）</li><li>softmax处理多分类</li></ul><h2 id="-2"><a href="#-2" class="headerlink" title=" "></a> </h2><ul><li>underfitting &amp; overfitting</li><li>对抗过拟合的技术称为正则化（regularization）</li></ul><h2 id="-3"><a href="#-3" class="headerlink" title=" "></a> </h2><ul><li>weight decay</li><li>L1：lasso regression: 偏向于在大量特征上均匀分布权重的模型</li><li>L2：ridge regression: 会导致模型将权重集中在一小部分特征上， 而将其他权重清除为零</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>课外学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>ROS学习笔记</title>
     <link href="/2022/06/02/ROS-learning/"/>
     <url>/2022/06/02/ROS-learning/</url>
@@ -39,11 +95,11 @@
     
     <tags>
       
-      <tag>人工智能</tag>
-      
       <tag>机器学习</tag>
       
       <tag>深度学习</tag>
+      
+      <tag>人工智能</tag>
       
       <tag>自然语言处理</tag>
       
@@ -145,9 +201,9 @@
     
     <tags>
       
-      <tag>Python</tag>
-      
       <tag>数据分析</tag>
+      
+      <tag>Python</tag>
       
     </tags>
     
