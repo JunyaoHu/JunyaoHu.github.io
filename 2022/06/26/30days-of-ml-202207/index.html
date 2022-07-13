@@ -37,8 +37,11 @@
 <meta property="og:image" content="https://s2.loli.net/2022/07/13/yJ8ETg9nGNVmQ3S.png">
 <meta property="og:image" content="https://s2.loli.net/2022/07/13/7EMaGfbzAut3wce.png">
 <meta property="og:image" content="https://s2.loli.net/2022/07/13/QAY75s23eIFTGbC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/14/qOxUhPkgrz58u1D.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/14/hQP2Y69DwZsk8pX.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/14/thgHBEsFrGkubyZ.png">
 <meta property="article:published_time" content="2022-06-26T02:05:23.000Z">
-<meta property="article:modified_time" content="2022-07-13T14:50:30.041Z">
+<meta property="article:modified_time" content="2022-07-13T17:20:14.362Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="数据分析">
@@ -229,7 +232,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.6k 字
+      8.5k 字
     </span>
   
 
@@ -238,7 +241,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21 分钟
+      26 分钟
     </span>
   
 
@@ -357,8 +360,20 @@
 <p><img src="https://s2.loli.net/2022/07/13/QAY75s23eIFTGbC.png" srcset="/img/loading.gif" lazyload alt="随机森林提交结果" style="zoom:67%;" /></p>
 <h1 id="任务4：特征工程（使用pandas完成）"><a href="#任务4：特征工程（使用pandas完成）" class="headerlink" title="任务4：特征工程（使用pandas完成）"></a>任务4：特征工程（使用pandas完成）</h1><ul>
 <li>步骤1：统计每个性别对应的【体重指数】、【舒张压】平均值</li>
-<li>步骤2：计算每个患者与每个性别平均值的差异；</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">index = <span class="hljs-built_in">int</span>(<span class="hljs-built_in">len</span>(train_df)*<span class="hljs-number">0.8</span>)<br>train_df = shuffle(train_df)<br><span class="hljs-comment"># groupby真好用</span><br>woman_BMI_average, man_BMI_average = train_df.groupby(<span class="hljs-string">&#x27;性别&#x27;</span>).mean()[<span class="hljs-string">&#x27;体重指数&#x27;</span>]<br>woman_pressure_average, man_pressure_average = train_df.groupby(<span class="hljs-string">&#x27;性别&#x27;</span>).mean()[<span class="hljs-string">&#x27;舒张压&#x27;</span>]<br>woman_BMI_average, man_BMI_average, woman_pressure_average, man_pressure_average<br></code></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/07/14/qOxUhPkgrz58u1D.png" srcset="/img/loading.gif" lazyload alt="使用groupby得到性别差异" style="zoom:67%;" /></p>
+<ul>
+<li>步骤2：计算每个患者与每个性别平均值的差异</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python">train_df[<span class="hljs-string">&#x27;BMI_delta&#x27;</span>] = <span class="hljs-number">0</span><br>train_df[<span class="hljs-string">&#x27;pressure_delta&#x27;</span>] = <span class="hljs-number">0</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(train_df)):<br>    <span class="hljs-keyword">if</span> train_df.iloc[i, <span class="hljs-number">1</span>] == <span class="hljs-number">0</span>:<br>        train_df[<span class="hljs-string">&#x27;BMI_delta&#x27;</span>][i] = train_df[<span class="hljs-string">&#x27;体重指数&#x27;</span>][i] - woman_BMI_average<br>        train_df[<span class="hljs-string">&#x27;pressure_delta&#x27;</span>][i] = train_df[<span class="hljs-string">&#x27;舒张压&#x27;</span>][i] - woman_pressure_average<br>    <span class="hljs-keyword">else</span>:<br>        train_df[<span class="hljs-string">&#x27;BMI_delta&#x27;</span>][i] = train_df[<span class="hljs-string">&#x27;体重指数&#x27;</span>][i] - man_BMI_average<br>        train_df[<span class="hljs-string">&#x27;pressure_delta&#x27;</span>][i] = train_df[<span class="hljs-string">&#x27;舒张压&#x27;</span>][i] - man_pressure_average<br><br>train_df<br><br>test_df[<span class="hljs-string">&#x27;BMI_delta&#x27;</span>] = <span class="hljs-number">0</span><br>test_df[<span class="hljs-string">&#x27;pressure_delta&#x27;</span>] = <span class="hljs-number">0</span><br><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(test_df)):<br>    <span class="hljs-keyword">if</span> test_df.iloc[i, <span class="hljs-number">1</span>] == <span class="hljs-number">0</span>:<br>        test_df[<span class="hljs-string">&#x27;BMI_delta&#x27;</span>][i] = test_df[<span class="hljs-string">&#x27;体重指数&#x27;</span>][i] - woman_BMI_average<br>        test_df[<span class="hljs-string">&#x27;pressure_delta&#x27;</span>][i] = test_df[<span class="hljs-string">&#x27;舒张压&#x27;</span>][i] - woman_pressure_average<br>    <span class="hljs-keyword">else</span>:<br>        test_df[<span class="hljs-string">&#x27;BMI_delta&#x27;</span>][i] = test_df[<span class="hljs-string">&#x27;体重指数&#x27;</span>][i] - man_BMI_average<br>        test_df[<span class="hljs-string">&#x27;pressure_delta&#x27;</span>][i] = test_df[<span class="hljs-string">&#x27;舒张压&#x27;</span>][i] - man_pressure_average<br><br>test_df<br></code></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/07/14/hQP2Y69DwZsk8pX.png" srcset="/img/loading.gif" lazyload alt="计算每个患者与每个性别平均值的差异" style="zoom:67%;" /></p>
+<ul>
 <li>步骤3：在上述基础上将训练集20%划分为验证集，使用逻辑回归完成训练，精度是否有提高？</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">train_y = train_df.iloc[:index, -<span class="hljs-number">3</span>].values<br>val_y   = train_df.iloc[index:, -<span class="hljs-number">3</span>].values<br>train_edit_df = train_df.drop(columns=<span class="hljs-string">&#x27;患有糖尿病标识&#x27;</span>)<br>train_X = train_edit_df.iloc[:index, <span class="hljs-number">1</span>:].values<br>val_X   = train_edit_df.iloc[index:, <span class="hljs-number">1</span>:].values<br><br>test_X  = test_df.iloc[:, <span class="hljs-number">1</span>:].values<br><br><span class="hljs-comment"># lr3 = linear_model.LogisticRegression(random_state=42, max_iter=150, C=100).fit(train_X, train_y)</span><br><span class="hljs-comment"># lr3.score(val_X, val_y) #0.8303747534516766 对于逻辑回归有很大提高</span><br><br>clf2 = RandomForestClassifier(n_estimators=<span class="hljs-number">30</span>).fit(train_X, train_y) <span class="hljs-comment">#参数30</span><br>clf2.score(val_X, val_y) <span class="hljs-comment">#0.9585798816568047</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/07/14/thgHBEsFrGkubyZ.png" srcset="/img/loading.gif" lazyload alt="加入两个新特征后的成绩" style="zoom:67%;" /></p>
+<ul>
 <li>步骤4：思考字段含义，尝试新的特征，将你的尝试写入博客；</li>
 </ul>
 <h1 id="任务5：特征筛选"><a href="#任务5：特征筛选" class="headerlink" title="任务5：特征筛选"></a>任务5：特征筛选</h1><ul>
