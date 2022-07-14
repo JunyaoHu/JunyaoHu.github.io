@@ -40,8 +40,12 @@
 <meta property="og:image" content="https://s2.loli.net/2022/07/14/qOxUhPkgrz58u1D.png">
 <meta property="og:image" content="https://s2.loli.net/2022/07/14/hQP2Y69DwZsk8pX.png">
 <meta property="og:image" content="https://s2.loli.net/2022/07/14/thgHBEsFrGkubyZ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/14/GhTgwfWYlKOmQs4.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/14/srqPIeHxQtUd4fJ.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/14/SEBuITsPhUGeYWC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/07/14/5TPZ32oHCq7gyxB.png">
 <meta property="article:published_time" content="2022-06-26T02:05:23.000Z">
-<meta property="article:modified_time" content="2022-07-13T17:20:14.362Z">
+<meta property="article:modified_time" content="2022-07-14T06:08:29.632Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="数据分析">
@@ -232,7 +236,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.5k 字
+      11k 字
     </span>
   
 
@@ -241,7 +245,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      26 分钟
+      36 分钟
     </span>
   
 
@@ -374,21 +378,44 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">train_y = train_df.iloc[:index, -<span class="hljs-number">3</span>].values<br>val_y   = train_df.iloc[index:, -<span class="hljs-number">3</span>].values<br>train_edit_df = train_df.drop(columns=<span class="hljs-string">&#x27;患有糖尿病标识&#x27;</span>)<br>train_X = train_edit_df.iloc[:index, <span class="hljs-number">1</span>:].values<br>val_X   = train_edit_df.iloc[index:, <span class="hljs-number">1</span>:].values<br><br>test_X  = test_df.iloc[:, <span class="hljs-number">1</span>:].values<br><br><span class="hljs-comment"># lr3 = linear_model.LogisticRegression(random_state=42, max_iter=150, C=100).fit(train_X, train_y)</span><br><span class="hljs-comment"># lr3.score(val_X, val_y) #0.8303747534516766 对于逻辑回归有很大提高</span><br><br>clf2 = RandomForestClassifier(n_estimators=<span class="hljs-number">30</span>).fit(train_X, train_y) <span class="hljs-comment">#参数30</span><br>clf2.score(val_X, val_y) <span class="hljs-comment">#0.9585798816568047</span><br></code></pre></td></tr></table></figure>
 <p><img src="https://s2.loli.net/2022/07/14/thgHBEsFrGkubyZ.png" srcset="/img/loading.gif" lazyload alt="加入两个新特征后的成绩" style="zoom:67%;" /></p>
 <ul>
-<li>步骤4：思考字段含义，尝试新的特征，将你的尝试写入博客；</li>
+<li>步骤4：思考字段含义，尝试新的特征</li>
 </ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">depth_type</span>(<span class="hljs-params">depth</span>):</span><br>    <span class="hljs-keyword">if</span> depth &lt; <span class="hljs-number">10</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">elif</span> depth &lt; <span class="hljs-number">40</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">3</span><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">BMI_type</span>(<span class="hljs-params">bmi</span>):</span><br>    <span class="hljs-keyword">if</span> bmi &lt;= <span class="hljs-number">18.4</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span><br>    <span class="hljs-keyword">elif</span> bmi &lt;= <span class="hljs-number">23.9</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">elif</span> bmi &lt;= <span class="hljs-number">27.9</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">4</span><br><span class="hljs-comment"># 偏瘦	&lt;= 18.4</span><br><span class="hljs-comment"># 正常	18.5 ~ 23.9</span><br><span class="hljs-comment"># 过重	24.0 ~ 27.9</span><br><span class="hljs-comment"># 肥胖	&gt;= 28.0</span><br><br>train_df[<span class="hljs-string">&#x27;bmi_type&#x27;</span>] = train_df[<span class="hljs-string">&#x27;体重指数&#x27;</span>].<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: BMI_type(x))<br>train_df[<span class="hljs-string">&#x27;depth_type&#x27;</span>] = train_df[<span class="hljs-string">&#x27;肱三头肌皮褶厚度&#x27;</span>].<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: depth_type(x))<br>train_df<br><br>test_df[<span class="hljs-string">&#x27;bmi_type&#x27;</span>] = test_df[<span class="hljs-string">&#x27;体重指数&#x27;</span>].<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: BMI_type(x))<br>test_df[<span class="hljs-string">&#x27;depth_type&#x27;</span>] = test_df[<span class="hljs-string">&#x27;肱三头肌皮褶厚度&#x27;</span>].<span class="hljs-built_in">map</span>(<span class="hljs-keyword">lambda</span> x: depth_type(x))<br>test_df<br><br>train_y = train_df.iloc[:index, -<span class="hljs-number">5</span>].values<br>val_y = train_df.iloc[index:, -<span class="hljs-number">5</span>].values<br>train_edit_df = train_df.drop(columns=<span class="hljs-string">&#x27;患有糖尿病标识&#x27;</span>)<br>train_X = train_edit_df.iloc[:index, <span class="hljs-number">1</span>:].values<br>val_X = train_edit_df.iloc[index:, <span class="hljs-number">1</span>:].values<br><br>test_X = test_df.iloc[:, <span class="hljs-number">1</span>:].values<br><br><span class="hljs-comment"># lr4 = linear_model.LogisticRegression(random_state=42, max_iter=500, C=100).fit(train_X, train_y)</span><br><span class="hljs-comment"># lr4.score(val_X, val_y) #0.8451676528599605 逻辑回归有部分提高</span><br><br>clf3 = RandomForestClassifier(n_estimators=<span class="hljs-number">30</span>).fit(train_X, train_y)  <span class="hljs-comment">#参数30</span><br>val_y_predict = clf3.predict(val_X)<br>clf3.score(val_X, val_y)  <span class="hljs-comment">#0.9585798816568047 0.9615384615384616 提升效果不理想 没有上次好 时好时坏</span><br></code></pre></td></tr></table></figure>
 <h1 id="任务5：特征筛选"><a href="#任务5：特征筛选" class="headerlink" title="任务5：特征筛选"></a>任务5：特征筛选</h1><ul>
 <li>步骤1：使用树模型完成模型的训练，通过特征重要性筛选出Top5的特征；</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">data=&#123;<span class="hljs-string">&#x27;featureName&#x27;</span>:train_edit_df.columns[<span class="hljs-number">1</span>:],<span class="hljs-string">&#x27;importances&#x27;</span>:clf2.feature_importances_.tolist()&#125;<br>df = pd.DataFrame(data)<br>df=df.sort_values(by=[<span class="hljs-string">&#x27;importances&#x27;</span>],ascending=<span class="hljs-literal">False</span>)<br>df<br></code></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2022/07/14/GhTgwfWYlKOmQs4.png" srcset="/img/loading.gif" lazyload alt="权重表格" style="zoom:67%;" /></p>
+<ul>
 <li>步骤2：使用筛选出的特征和逻辑回归进行训练，在验证集精度是否有提高？</li>
-<li>步骤3：如果有提高，为什么？如果没有提高，为什么？</li>
-<li>步骤4：将你的尝试写入博客；</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">train_X = train_df[[<span class="hljs-string">&quot;体重指数&quot;</span>,<span class="hljs-string">&quot;肱三头肌皮褶厚度&quot;</span>,<span class="hljs-string">&quot;BMI_delta&quot;</span>,<span class="hljs-string">&quot;口服耐糖量测试&quot;</span>,<span class="hljs-string">&quot;胰岛素释放实验&quot;</span>]].iloc[:index, :].values<br>train_y = train_df[<span class="hljs-string">&quot;患有糖尿病标识&quot;</span>].iloc[:index].values<br>val_X = train_df[[<span class="hljs-string">&quot;体重指数&quot;</span>,<span class="hljs-string">&quot;肱三头肌皮褶厚度&quot;</span>,<span class="hljs-string">&quot;BMI_delta&quot;</span>,<span class="hljs-string">&quot;口服耐糖量测试&quot;</span>,<span class="hljs-string">&quot;胰岛素释放实验&quot;</span>]].iloc[index:, :].values<br>val_y =  train_df[<span class="hljs-string">&quot;患有糖尿病标识&quot;</span>].iloc[index:].values<br><br>test_X = test_df[[<span class="hljs-string">&quot;体重指数&quot;</span>,<span class="hljs-string">&quot;肱三头肌皮褶厚度&quot;</span>,<span class="hljs-string">&quot;BMI_delta&quot;</span>,<span class="hljs-string">&quot;口服耐糖量测试&quot;</span>,<span class="hljs-string">&quot;胰岛素释放实验&quot;</span>]].values<br><br><span class="hljs-comment"># lr5 = linear_model.LogisticRegression(random_state=42, max_iter=500, C=100).fit(train_X, train_y)</span><br><span class="hljs-comment"># lr5.score(val_X, val_y) #0.8067061143984221 逻辑回归下降了</span><br><br>clf4 = RandomForestClassifier(n_estimators=<span class="hljs-number">50</span>).fit(train_X, train_y)  <span class="hljs-comment">#参数50</span><br>val_y_predict = clf4.predict(val_X)<br>clf4.score(val_X, val_y)  <span class="hljs-comment">#0.9230769230769231 也下降了</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>步骤3：如果有提高，为什么？如果没有提高，为什么？</p>
+<p>没有提高，其他特征也比较重要，筛选的特征太少了导致细节丢失，切换到8个主要特征后，基本回升到原来的状态，应该是到了随机森林模型极限了，修改随机森林的参数也没有太大提升</p>
+</li>
 </ul>
 <h1 id="任务6：高阶树模型"><a href="#任务6：高阶树模型" class="headerlink" title="任务6：高阶树模型"></a>任务6：高阶树模型</h1><ul>
-<li>步骤1：安装LightGBM，并学习基础的使用方法；</li>
-<li>步骤2：将训练集20%划分为验证集，使用LightGBM完成训练，精度是否有提高？</li>
-<li>步骤3：将步骤2预测的结果文件提交到比赛，截图分数；</li>
-<li>步骤4：尝试调节搜索LightGBM的参数；</li>
-<li>步骤5：将步骤4调参之后的模型从新训练，将最新预测的结果文件提交到比赛，截图分数；</li>
+<li>步骤1：安装LightGBM，并学习基础的使用方法</li>
 </ul>
+<p><img src="https://s2.loli.net/2022/07/14/srqPIeHxQtUd4fJ.png" srcset="/img/loading.gif" lazyload alt="下载lightgbm" style="zoom:67%;" /></p>
+<ul>
+<li>步骤2：将训练集20%划分为验证集，使用LightGBM完成训练，精度是否有提高？</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> lightgbm <span class="hljs-keyword">as</span> lgb<br><br>clf6 = lgb.LGBMClassifier()<br>clf6.fit(train_X, train_y, eval_set=[(val_X,val_y)], callbacks=[lgb.early_stopping(<span class="hljs-number">50</span>)])<br>val_y_predict = clf6.predict(val_X)<br><br><span class="hljs-comment"># clf6.score(val_X, val_y)  # 0.9595660749506904</span><br>f1_score(val_y, val_y_predict) <span class="hljs-comment"># 0.9465449804432854 还是差不多，需要调参</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>步骤3：将步骤2预测的结果文件提交到比赛，截图分数，没有前面的好</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/07/14/SEBuITsPhUGeYWC.png" srcset="/img/loading.gif" lazyload alt="无调参LightGBM.png" style="zoom: 67%;" /></p>
+<ul>
+<li>步骤4：尝试调节搜索LightGBM的参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python">clf7 = lgb.LGBMClassifier(<br>    max_depth=<span class="hljs-number">5</span>,<br>    n_estimators=<span class="hljs-number">1000</span>,<br>    n_jobs=-<span class="hljs-number">1</span>,<br>    verbose=-<span class="hljs-number">1</span>,<br>    verbosity=-<span class="hljs-number">1</span>,<br>    learning_rate=<span class="hljs-number">0.015</span>,<br>)<br>clf7.fit(train_X, train_y, eval_set=[(val_X,val_y)], callbacks=[lgb.early_stopping(<span class="hljs-number">50</span>)])<br>val_y_predict = clf7.predict(val_X)<br><br><span class="hljs-comment"># clf7.score(val_X, val_y)  # 0.9674556213017751 看起来还行</span><br>f1_score(val_y, val_y_predict) <span class="hljs-comment"># 0.9573091849935317 看起来可以</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>步骤5：将步骤4调参之后的模型从新训练，将最新预测的结果文件提交到比赛，截图分数</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/07/14/5TPZ32oHCq7gyxB.png" srcset="/img/loading.gif" lazyload alt="调参后LightGBM.png" style="zoom: 67%;" /></p>
+<p>明天提交 今天次数满了</p>
 <h1 id="任务7：多折训练与集成"><a href="#任务7：多折训练与集成" class="headerlink" title="任务7：多折训练与集成"></a>任务7：多折训练与集成</h1><ul>
 <li>步骤1：使用KFold完成数据划分；</li>
 <li>步骤2：使用StratifiedKFold完成数据划分；</li>
