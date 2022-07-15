@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>汽车领域多语种迁移学习挑战赛 - Coggle 30 Days of ML（22年7月）</title>
+    <link href="/2022/07/15/30days-of-ml-202207-nlp/"/>
+    <url>/2022/07/15/30days-of-ml-202207-nlp/</url>
+    
+    <content type="html"><![CDATA[<h1 id="任务1：报名比赛"><a href="#任务1：报名比赛" class="headerlink" title="任务1：报名比赛"></a>任务1：报名比赛</h1><ul><li>步骤1：报名比赛<a href="http://challenge.xfyun.cn/topic/info?type=car-multilingual&amp;ch=ds22-dw-zmt05">http://challenge.xfyun.cn/topic/info?type=car-multilingual&amp;ch=ds22-dw-zmt05</a></li></ul><p><img src="https://s2.loli.net/2022/07/15/BvGtFJzsZ8nUuSY.png" alt="image-20220715215032892"></p><ul><li>步骤2：下载比赛数据（点击比赛页面的赛题数据）</li><li>步骤3：解压比赛数据，并使用pandas进行读取；</li><li>步骤4：查看训练集和测试集字段类型，并将数据读取代码写到博客；</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>课外学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>自然语言处理</tag>
+      
+      <tag>Coggle 30 Days of ML</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>糖尿病遗传风险检测挑战赛 - Coggle 30 Days of ML（22年7月）</title>
     <link href="/2022/06/26/30days-of-ml-202207/"/>
     <url>/2022/06/26/30days-of-ml-202207/</url>
@@ -20,11 +49,11 @@
     
     <tags>
       
-      <tag>数据分析</tag>
-      
       <tag>机器学习</tag>
       
       <tag>Coggle 30 Days of ML</tag>
+      
+      <tag>数据分析</tag>
       
     </tags>
     
@@ -97,11 +126,11 @@
       
       <tag>机器学习</tag>
       
+      <tag>自然语言处理</tag>
+      
       <tag>深度学习</tag>
       
       <tag>人工智能</tag>
-      
-      <tag>自然语言处理</tag>
       
     </tags>
     
