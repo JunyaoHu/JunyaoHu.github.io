@@ -4,11 +4,36 @@
   
   
   <entry>
+    <title>和鲸社区2022咸鱼打挺夏令营-机器学习原理与实践·闯关-作业答案与部分解析</title>
+    <link href="/2022/07/20/heywhale-summer-camp-ai/"/>
+    <url>/2022/07/20/heywhale-summer-camp-ai/</url>
+    
+    <content type="html"><![CDATA[<h1 id="第一关-逻辑回归"><a href="#第一关-逻辑回归" class="headerlink" title="第一关 - 逻辑回归"></a>第一关 - 逻辑回归</h1><ul><li><p>作业1：逻辑回归的表达式：</p><p>A: h(x)=wx+b</p><p>B：h(x)=wx</p><p>C: h(x)=sigmoid(wx+b)</p><p>D: h(x)=sigmoid(wx)</p></li><li><p>作业2：下面关于逻辑回归的表述是正确的(多选)：</p><p>A:逻辑回归的输出结果是概率值，在0-1之间</p><p>B:使用正则化可以提高模型的泛化性</p><p>C:逻辑回归可以直接用于多分类</p><p>D:逻辑回归是无参模型</p><p>E:逻辑回归的损失函数是交叉熵</p></li><li><p>作业3：计算 $y=sigmoid(w_1<em>x_1+w_2</em>x_2+1)$ 当 w=(0.2, 0.3)时，样本X=(1,1),y=1的时w1,w2的梯度和loss：(保存3位小数，四舍五入)</p></li><li><p>作业4：在cal_grad梯度函数的基础上加上L2正则化，下面的函数是否正确?(Y/N)</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cal_grad</span>(<span class="hljs-params">y, t,x,w</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    x:输入X</span><br><span class="hljs-string">    y:样本y</span><br><span class="hljs-string">    t:预测t</span><br><span class="hljs-string">    w:参数w</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    grad = np.<span class="hljs-built_in">sum</span>(t - y) / t.shape[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">return</span> grad*x+<span class="hljs-number">2</span>*w<br></code></pre></td></tr></table></figure></li></ul><p>答案</p><div class="table-container"><table><thead><tr><th style="text-align:center"></th><th style="text-align:center">id</th><th style="text-align:center">answer</th></tr></thead><tbody><tr><td style="text-align:center">0</td><td style="text-align:center">a1</td><td style="text-align:center">C</td></tr><tr><td style="text-align:center">1</td><td style="text-align:center">a2</td><td style="text-align:center">ABE</td></tr><tr><td style="text-align:center">2</td><td style="text-align:center">a3</td><td style="text-align:center">-0.182</td></tr><tr><td style="text-align:center">3</td><td style="text-align:center">a4</td><td style="text-align:center">-0.182</td></tr><tr><td style="text-align:center">4</td><td style="text-align:center">a5</td><td style="text-align:center">0.201</td></tr><tr><td style="text-align:center">5</td><td style="text-align:center">a6</td><td style="text-align:center">Y</td></tr></tbody></table></div><p>作业三代码</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">sigmoid</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span> / (<span class="hljs-number">1</span> + np.exp(-x))<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cal_grad</span>(<span class="hljs-params">y, t</span>):</span><br>    grad = np.<span class="hljs-built_in">sum</span>(t - y) / t.shape[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">return</span> grad<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">cal_cross_loss</span>(<span class="hljs-params">y, t</span>):</span><br>    loss=np.<span class="hljs-built_in">sum</span>(-y * np.log(t)- (<span class="hljs-number">1</span> - y) * np.log(<span class="hljs-number">1</span> - t))/t.shape[<span class="hljs-number">0</span>]<br>    <span class="hljs-keyword">return</span> loss<br>    <br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">linearRegression</span>(<span class="hljs-params">x</span>):</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">sum</span>([x[i]*w[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(x))])+b<br>linearRegression([<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>])<br><br>w=[<span class="hljs-number">0.2</span>,<span class="hljs-number">0.3</span>]<br>b=<span class="hljs-number">1</span><br>    <br>linearRegression([<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>])<br>sigmoid(linearRegression([<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>])<br>cal_grad(<span class="hljs-number">1</span>,sigmoid(linearRegression([<span class="hljs-number">1.0</span>,<span class="hljs-number">1.0</span>])))<br></code></pre></td></tr></table></figure><h1 id="第二关-朴素贝叶斯法"><a href="#第二关-朴素贝叶斯法" class="headerlink" title="第二关 - 朴素贝叶斯法"></a>第二关 - 朴素贝叶斯法</h1>]]></content>
+    
+    
+    <categories>
+      
+      <category>课外学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>汽车领域多语种迁移学习挑战赛 - Coggle 30 Days of ML（22年7月）</title>
     <link href="/2022/07/15/30days-of-ml-202207-nlp/"/>
     <url>/2022/07/15/30days-of-ml-202207-nlp/</url>
     
-    <content type="html"><![CDATA[<h1 id="任务1：报名比赛"><a href="#任务1：报名比赛" class="headerlink" title="任务1：报名比赛"></a>任务1：报名比赛</h1><ul><li>步骤1：报名比赛<a href="http://challenge.xfyun.cn/topic/info?type=car-multilingual&amp;ch=ds22-dw-zmt05">http://challenge.xfyun.cn/topic/info?type=car-multilingual&amp;ch=ds22-dw-zmt05</a></li></ul><p><img src="https://s2.loli.net/2022/07/15/BvGtFJzsZ8nUuSY.png" alt="image-20220715215032892"></p><ul><li>步骤2：下载比赛数据（点击比赛页面的赛题数据）</li><li>步骤3：解压比赛数据，并使用pandas进行读取；</li><li>步骤4：查看训练集和测试集字段类型，并将数据读取代码写到博客；</li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="任务1：报名比赛"><a href="#任务1：报名比赛" class="headerlink" title="任务1：报名比赛"></a>任务1：报名比赛</h1><ul><li>步骤1：报名比赛<a href="http://challenge.xfyun.cn/topic/info?type=car-multilingual&amp;ch=ds22-dw-zmt05">http://challenge.xfyun.cn/topic/info?type=car-multilingual&amp;ch=ds22-dw-zmt05</a></li></ul><p><img src="https://s2.loli.net/2022/07/15/BvGtFJzsZ8nUuSY.png" alt="报名页面" style="zoom:67%;" /></p><ul><li>步骤2：下载比赛数据（点击比赛页面的赛题数据）</li></ul><p><img src="https://s2.loli.net/2022/07/16/S6ctKn7GO52JhdN.png" alt="下载页面" style="zoom:67%;" /></p><ul><li>步骤3：解压比赛数据，并使用pandas进行读取</li></ul><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><br>train_cn = pd.read_excel(<span class="hljs-string">&#x27;中文_trian.xlsx&#x27;</span>)<br>train_ja = pd.read_excel(<span class="hljs-string">&#x27;日语_train.xlsx&#x27;</span>)<br>train_en = pd.read_excel(<span class="hljs-string">&#x27;英文_train.xlsx&#x27;</span>)<br>test_ja = pd.read_excel(<span class="hljs-string">&#x27;testA.xlsx&#x27;</span>, sheet_name=<span class="hljs-string">&#x27;日语_testA&#x27;</span>)<br>test_en = pd.read_excel(<span class="hljs-string">&#x27;testA.xlsx&#x27;</span>, sheet_name=<span class="hljs-string">&#x27;英文_testA&#x27;</span>)<br><br>train_ja.head()<br></code></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2022/07/16/1YnVbiERJqGULSC.png" alt="读取比赛数据" style="zoom:67%;" /></p><ul><li>步骤4：查看训练集和测试集字段类型，并将数据读取代码写到博客</li></ul><p>日语和英语的训练集相较中文会多一个中文翻译，提交测试还需要提交意图、槽值1（如果有）、槽值2（如果有）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">train_cn.info()<br>train_ja.info()<br>test_ja.info()<br></code></pre></td></tr></table></figure><p><img src="https://s2.loli.net/2022/07/16/cN5S4WLTC8O7r2M.png" alt="查看训练集和测试集字段类型" style="zoom: 50%;" /></p><h1 id="任务2：文本分析与文本分词"><a href="#任务2：文本分析与文本分词" class="headerlink" title="任务2：文本分析与文本分词"></a>任务2：文本分析与文本分词</h1><ul><li>步骤1：使用jieba对中文进行分词</li><li>步骤2：使用nagisa对日语进行分词</li></ul>]]></content>
     
     
     <categories>
@@ -366,9 +391,9 @@
     
     <tags>
       
-      <tag>算法</tag>
-      
       <tag>CUMT课程笔记</tag>
+      
+      <tag>算法</tag>
       
     </tags>
     
