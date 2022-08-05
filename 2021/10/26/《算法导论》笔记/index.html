@@ -54,7 +54,7 @@
 <meta property="og:image" content="https://i.loli.net/2021/11/16/PMr6sCnxNp7hkGo.png">
 <meta property="og:image" content="https://i.loli.net/2021/11/16/QEZtAoMVafKiuY4.png">
 <meta property="article:published_time" content="2021-10-26T05:30:03.000Z">
-<meta property="article:modified_time" content="2021-12-10T06:13:27.903Z">
+<meta property="article:modified_time" content="2022-08-02T11:38:26.598Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="算法">
 <meta property="article:tag" content="分治">
@@ -648,7 +648,7 @@ c[i-1][j-1]+1 & i, j>0 ; x_{i}=y_{j} \\
 <h2 id="最大子段和"><a href="#最大子段和" class="headerlink" title="最大子段和"></a>最大子段和</h2><p><strong>问题描述</strong> n个整数组成的序列，求该序列连续子段和的最大值（规定当所有<br>整数均为负整数时定义其最大子段和为0）</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">MaxSum</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span> *a)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> sum=<span class="hljs-number">0</span>, b=<span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>; i &lt;= n; i++) &#123;<br>        <span class="hljs-keyword">if</span> (b&gt;<span class="hljs-number">0</span>) b+=a[i];<br>        <span class="hljs-keyword">else</span> b=a[i];<br>        <span class="hljs-keyword">if</span> (b&gt;sum) sum=b;<br>    &#125;<br>    <span class="hljs-keyword">return</span> sum;<br>&#125;<br></code></pre></td></tr></table></figure>
 <script type="math/tex; mode=display">
-b[j]= \min\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong> b[j]为以a[1,j]之间的任一位置开始，以a[j]为结束的最大子段和（必须要到j才行）。从i开始，到j-1结束的子段和的最大值&lt;=0，从i开始到j结束的子段和的最大值应该为a[j]自身。从i开始，到j-1结束的子段和的最大值大于0，此时，将a[j]加上（不是因为如果a[j]小于零就不加了，b[j]的定义就是要加到j），所得到的值应该是从i开始，到j结束的子段和的最大值。 O(n)</p>
+b[j]= \max\{b[j-1]+a[j],a[j]\}(1\leq j \leq n)</script><p><strong>解释</strong> b[j]为以a[1,j]之间的任一位置开始，以a[j]为结束的最大子段和（必须要到j才行）。从i开始，到j-1结束的子段和的最大值&lt;=0，从i开始到j结束的子段和的最大值应该为a[j]自身。从i开始，到j-1结束的子段和的最大值大于0，此时，将a[j]加上（不是因为如果a[j]小于零就不加了，b[j]的定义就是要加到j），所得到的值应该是从i开始，到j结束的子段和的最大值。 O(n)</p>
 <blockquote>
 <p><strong>例题</strong></p>
 <p>a[1:6]=[-2,11,-4,13,-5,-2]</p>
