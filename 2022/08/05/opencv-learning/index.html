@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://learnopencv.com/wp-content/uploads/2021/06/Pg4-Read-Display-and-Write-an-Image-using-OpenCV.jpg">
 <meta property="article:published_time" content="2022-08-05T12:24:01.000Z">
-<meta property="article:modified_time" content="2022-08-06T03:28:55.648Z">
+<meta property="article:modified_time" content="2022-08-06T06:04:39.608Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="图像处理">
 <meta property="article:tag" content="OpenCV">
@@ -215,7 +215,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12k 字
+      15k 字
     </span>
   
 
@@ -224,7 +224,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      37 分钟
+      46 分钟
     </span>
   
 
@@ -377,7 +377,55 @@
 <h2 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">imageText = img.copy()<br><br>text = <span class="hljs-string">&#x27;I am a Happy dog!&#x27;</span><br>org = (<span class="hljs-number">50</span>,<span class="hljs-number">350</span>)<br><span class="hljs-comment"># write the text on the input image</span><br>cv2.putText(imageText, text, org, fontFace = cv2.FONT_HERSHEY_COMPLEX, fontScale = <span class="hljs-number">1.5</span>, color = (<span class="hljs-number">250</span>,<span class="hljs-number">225</span>,<span class="hljs-number">100</span>))<br><span class="hljs-comment"># display the output image with text over it</span><br>cv2.imshow(<span class="hljs-string">&quot;Image Text&quot;</span>,imageText)<br>cv2.waitKey(<span class="hljs-number">0</span>)<br>cv2.destroyAllWindows()<br></code></pre></td></tr></table></figure>
 <p><code>org</code> specifies the starting location for the <strong>top left</strong> corner of the text string. </p>
 <p>OpenCV supports several font-face styles from the Hershey font collection, and an italic font as well.</p>
-<h1 id="Color-spaces"><a href="#Color-spaces" class="headerlink" title="Color spaces"></a>Color spaces</h1>
+<h1 id="Color-spaces"><a href="#Color-spaces" class="headerlink" title="Color spaces"></a>Color spaces</h1><h2 id="RGB-Color-Space"><a href="#RGB-Color-Space" class="headerlink" title="RGB Color Space"></a>RGB Color Space</h2><p>The RGB colorspace has the following properties</p>
+<ul>
+<li>It is an <strong>additive colorspace</strong> where colors are obtained by a linear combination of Red, Green, and Blue values.</li>
+<li>The three channels are correlated by the amount of <strong>light hitting the surface</strong>.</li>
+</ul>
+<p>the inherent problems associated with the RGB Color space:</p>
+<ul>
+<li>significant <strong>perceptual non-uniformity</strong>.</li>
+<li>mixing of chrominance ( <strong>Color</strong> related information ) and luminance ( <strong>Intensity</strong> related information ) data.</li>
+</ul>
+<h2 id="LAB-Color-Space"><a href="#LAB-Color-Space" class="headerlink" title="LAB Color-Space"></a>LAB Color-Space</h2><ol>
+<li>L – Lightness ( Intensity ).</li>
+<li>a – color component ranging from Green to Magenta(洋红色).</li>
+<li>b – color component ranging from Blue to Yellow.</li>
+</ol>
+<p>properties</p>
+<ul>
+<li><strong>Perceptually uniform</strong> color space which approximates how we perceive color.</li>
+<li><strong>Independent of device</strong> ( capturing or displaying ).</li>
+<li>Used extensively in Adobe Photoshop.</li>
+<li>Is related to the RGB color space by a complex transformation equation.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">img = cv2.imread(<span class="hljs-string">&#x27;cube1.jpg&#x27;</span>)<br>imgLAB = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)<br></code></pre></td></tr></table></figure>
+<h2 id="YCrCb-Color-Space"><a href="#YCrCb-Color-Space" class="headerlink" title="YCrCb Color-Space"></a>YCrCb Color-Space</h2><p>pass</p>
+<h2 id="HSV-Color-Space"><a href="#HSV-Color-Space" class="headerlink" title="HSV Color Space"></a>HSV Color Space</h2><ol>
+<li>H – Hue  色相 ( Dominant Wavelength ).</li>
+<li>S – Saturation 色相  ( Purity / shades of the color ).</li>
+<li>V – Value ( Intensity ).</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">img</span> = cv<span class="hljs-number">2</span>.imread(&#x27;cube<span class="hljs-number">1</span>.jpg&#x27;)<br><span class="hljs-attribute">imgLAB</span> = cv<span class="hljs-number">2</span>.cvtColor(img, cv<span class="hljs-number">2</span>.COLOR_BGR<span class="hljs-number">2</span>HSV)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>There is drastic difference between the values of the red piece of outdoor and Indoor image. This is because Hue is represented as a circle and red is at the starting angle. So, it may take values between [300, 360] and again [0, 60].</li>
+</ul>
+<h2 id="segmentation"><a href="#segmentation" class="headerlink" title="segmentation"></a>segmentation</h2><h3 id="simplest-way"><a href="#simplest-way" class="headerlink" title="simplest way"></a>simplest way</h3><h3 id="Data-Analysis-for-a-Better-Solution"><a href="#Data-Analysis-for-a-Better-Solution" class="headerlink" title="Data Analysis for a Better Solution"></a>Data Analysis for a Better Solution</h3><h1 id="Filtering"><a href="#Filtering" class="headerlink" title="Filtering"></a>Filtering</h1><p><a target="_blank" rel="noopener" href="https://learnopencv.com/image-filtering-using-convolution-in-opencv/">Image Filtering Using Convolution in OpenCV | LearnOpenCV #</a></p>
+<p>pass</p>
+<h1 id="Thresholding"><a href="#Thresholding" class="headerlink" title="Thresholding"></a>Thresholding</h1><h2 id="Binary-Thresholding"><a href="#Binary-Thresholding" class="headerlink" title="Binary Thresholding"></a>Binary Thresholding</h2><p>Binary Thresholding ( THRESH_BINARY )</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># Binary Threshold</span><br><span class="hljs-keyword">if</span> src(x,y) &gt; thresh<br>  dst(x,y) = maxValue<br><span class="hljs-keyword">else</span><br>  dst(x,y) = <span class="hljs-number">0</span><br>  <br><span class="hljs-comment"># ---------------</span><br><span class="hljs-keyword">import</span> cv2<br><br>src = cv2.imread(<span class="hljs-string">&quot;threshold.png&quot;</span>, cv2.IMREAD_GRAYSCALE)<br><br><span class="hljs-comment"># Set threshold and maxValue</span><br>thresh = <span class="hljs-number">0</span><br>maxValue = <span class="hljs-number">255</span> <br><br><span class="hljs-comment"># Basic threshold example</span><br>th, dst = cv2.threshold(src, thresh, maxValue, cv2.THRESH_BINARY);<br></code></pre></td></tr></table></figure>
+<h2 id="Inverse-Binary-Thresholding"><a href="#Inverse-Binary-Thresholding" class="headerlink" title="Inverse-Binary Thresholding"></a>Inverse-Binary Thresholding</h2><p>Inverse-Binary Thresholding ( THRESH_BINARY_INV )</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs PYTHON"><span class="hljs-comment"># Inverse Binary Threshold</span><br><span class="hljs-keyword">if</span> src(x,y) &gt; thresh<br>  dst(x,y) = <span class="hljs-number">0</span><br><span class="hljs-keyword">else</span><br>  dst(x,y) = maxValue<br><br><span class="hljs-comment"># ---------------</span><br>th, dst = cv2.threshold(src, thresh, maxValue, cv2.THRESH_BINARY_INV);<br></code></pre></td></tr></table></figure>
+<h2 id="Truncate-Thresholding"><a href="#Truncate-Thresholding" class="headerlink" title="Truncate Thresholding"></a>Truncate Thresholding</h2><p>Truncate Thresholding ( THRESH_TRUNC )</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs PYTHON"><span class="hljs-comment"># Truncate Threshold</span><br><span class="hljs-keyword">if</span> src(x,y) &gt; thresh<br>  dst(x,y) = thresh<br><span class="hljs-keyword">else</span><br>  dst(x,y) = src(x,y)<br><br><span class="hljs-comment"># ---------------</span><br>th, dst = cv2.threshold(src, thresh, maxValue, cv2.THRESH_TRUNC);<br></code></pre></td></tr></table></figure>
+<h2 id="Threshold-to-Zero"><a href="#Threshold-to-Zero" class="headerlink" title="Threshold to Zero"></a>Threshold to Zero</h2><p>Threshold to Zero ( THRESH_TOZERO )</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs PYTHON"><span class="hljs-comment"># Threshold to Zero</span><br><span class="hljs-keyword">if</span> src(x,y) &gt; thresh<br>  dst(x,y) = src(x,y)<br><span class="hljs-keyword">else</span><br>  dst(x,y) = <span class="hljs-number">0</span><br>  <br><span class="hljs-comment"># ---------------</span><br>th, dst = cv2.threshold(src, thresh, maxValue, cv2.THRESH_TOZERO);<br></code></pre></td></tr></table></figure>
+<h2 id="Inverted-Threshold-to-Zero"><a href="#Inverted-Threshold-to-Zero" class="headerlink" title="Inverted Threshold to Zero"></a>Inverted Threshold to Zero</h2><p>Inverted Threshold to Zero ( THRESH_TOZERO_INV )</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs PYTHON"><span class="hljs-comment"># Inverted Threshold to Zero</span><br><span class="hljs-keyword">if</span> src(x,y) &gt; thresh<br>  dst(x,y) = <span class="hljs-number">0</span><br><span class="hljs-keyword">else</span><br>  dst(x,y) = src(x,y)<br><br><span class="hljs-comment"># ---------------</span><br>th, dst = cv2.threshold(src, thresh, maxValue, cv2.THRESH_TOZERO_INV);<br></code></pre></td></tr></table></figure>
+<h1 id="Blob-Detection"><a href="#Blob-Detection" class="headerlink" title="Blob Detection"></a>Blob Detection</h1><p>pass</p>
+<h1 id="Edge-Detection"><a href="#Edge-Detection" class="headerlink" title="Edge Detection"></a>Edge Detection</h1><p>pass</p>
+<h1 id="Mouse-and-Trackbar"><a href="#Mouse-and-Trackbar" class="headerlink" title="Mouse and Trackbar"></a>Mouse and Trackbar</h1><p>pass</p>
+<h1 id="Contour-Detection"><a href="#Contour-Detection" class="headerlink" title="Contour Detection"></a>Contour Detection</h1><h1 id="Simple-Background-Estimation"><a href="#Simple-Background-Estimation" class="headerlink" title="Simple Background Estimation"></a>Simple Background Estimation</h1><h1 id="Deep-Learning-with-OpenCV-DNN"><a href="#Deep-Learning-with-OpenCV-DNN" class="headerlink" title="Deep Learning with OpenCV DNN"></a>Deep Learning with OpenCV DNN</h1>
             </div>
             <hr>
             <div>
