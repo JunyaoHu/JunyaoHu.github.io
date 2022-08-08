@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://learnopencv.com/wp-content/uploads/2021/06/Pg4-Read-Display-and-Write-an-Image-using-OpenCV.jpg">
 <meta property="article:published_time" content="2022-08-05T12:24:01.000Z">
-<meta property="article:modified_time" content="2022-08-06T06:04:39.608Z">
+<meta property="article:modified_time" content="2022-08-07T09:44:24.864Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="图像处理">
 <meta property="article:tag" content="OpenCV">
@@ -288,10 +288,6 @@
 </li>
 <li><p>Initialize a video capture object (as discussed in the previous sections), to read the video stream into memory, using any of the sources previously described.</p>
 </li>
-</ul>
-</li>
-</ul>
-<ul>
 <li><p>Create a video writer object.</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">output = cv2.VideoWriter(<span class="hljs-string">&#x27;Resources/output_video_from_file.avi&#x27;</span>, cv2.VideoWriter_fourcc(<span class="hljs-string">&#x27;M&#x27;</span>,<span class="hljs-string">&#x27;J&#x27;</span>,<span class="hljs-string">&#x27;P&#x27;</span>,<span class="hljs-string">&#x27;G&#x27;</span>), <span class="hljs-number">20</span>, frame_size)<br></code></pre></td></tr></table></figure>
 <ul>
@@ -313,6 +309,8 @@
 </li>
 <li><p>Use the video writer object to save the video stream to disk. </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">while</span>(vid_capture.isOpened()):<br>    ret, frame = vid_capture.read()<br>    <span class="hljs-keyword">if</span> ret == <span class="hljs-literal">True</span>:<br>         output.write(frame)<br>    <span class="hljs-keyword">else</span>:<br>         <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;Stream disconnected&#x27;</span>)<br>         <span class="hljs-keyword">break</span><br>        <br>vid_capture.release()<br>output.release()<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
 </li>
 </ul>
 <h2 id="Errors"><a href="#Errors" class="headerlink" title="Errors"></a>Errors</h2><h3 id="reading-1"><a href="#reading-1" class="headerlink" title="reading"></a>reading</h3><p>While reading frames it can throw an error if the path is wrong or the file is corrupted or frame is missing.</p>
@@ -425,7 +423,8 @@
 <h1 id="Blob-Detection"><a href="#Blob-Detection" class="headerlink" title="Blob Detection"></a>Blob Detection</h1><p>pass</p>
 <h1 id="Edge-Detection"><a href="#Edge-Detection" class="headerlink" title="Edge Detection"></a>Edge Detection</h1><p>pass</p>
 <h1 id="Mouse-and-Trackbar"><a href="#Mouse-and-Trackbar" class="headerlink" title="Mouse and Trackbar"></a>Mouse and Trackbar</h1><p>pass</p>
-<h1 id="Contour-Detection"><a href="#Contour-Detection" class="headerlink" title="Contour Detection"></a>Contour Detection</h1><h1 id="Simple-Background-Estimation"><a href="#Simple-Background-Estimation" class="headerlink" title="Simple Background Estimation"></a>Simple Background Estimation</h1><h1 id="Deep-Learning-with-OpenCV-DNN"><a href="#Deep-Learning-with-OpenCV-DNN" class="headerlink" title="Deep Learning with OpenCV DNN"></a>Deep Learning with OpenCV DNN</h1>
+<h1 id="Contour-Detection"><a href="#Contour-Detection" class="headerlink" title="Contour Detection"></a>Contour Detection</h1><h1 id="Simple-Background-Estimation"><a href="#Simple-Background-Estimation" class="headerlink" title="Simple Background Estimation"></a>Simple Background Estimation</h1><h1 id="Deep-Learning-with-OpenCV-DNN"><a href="#Deep-Learning-with-OpenCV-DNN" class="headerlink" title="Deep Learning with OpenCV DNN"></a>Deep Learning with OpenCV DNN</h1><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs routeros">InputImg<br><br>Input.float().<span class="hljs-keyword">to</span>(Device)<br><br>ValDataLoader<br><br>ValDataLoader = PipeDatasetLoader(FolderPath, 1)<br><br>ValDataLoader = DataLoader(ValDataset, <span class="hljs-attribute">batch_size</span>=1, <span class="hljs-attribute">shuffle</span>=<span class="hljs-literal">False</span>, <span class="hljs-attribute">drop_last</span>=<span class="hljs-literal">False</span>, <span class="hljs-attribute">num_workers</span>=0, <span class="hljs-attribute">pin_memory</span>=<span class="hljs-literal">True</span>)<br><br><br></code></pre></td></tr></table></figure>
+
             </div>
             <hr>
             <div>
