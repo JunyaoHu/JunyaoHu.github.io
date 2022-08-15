@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>李宏毅机器学习| Datawhale202208 组队学习</title>
+    <link href="/2022/08/14/lhy-ml/"/>
+    <url>/2022/08/14/lhy-ml/</url>
+    
+    <content type="html"><![CDATA[<h1 id="课程概述"><a href="#课程概述" class="headerlink" title="课程概述"></a>课程概述</h1><blockquote><p><strong><em>注：</em></strong></p><ol><li>笔记基于Datawhale 202208的组队学习活动，参考李宏毅机器学习课程，对AI基础知识进行梳理，了解的事物不再做记录，仅作不了解的细节的补充。</li><li>李宏毅2021偏向深度学习，相对前沿一点的知识；2017/2019等偏向机器学习，经典的知识</li><li>李宏毅课程资料：太多了，可以去老师官网、油管也有视频，B站也有很多搬运视频，比如啥都会一点的研究生的（他的是两次课程合并了，我不太习惯，看自己情况），看Datawhale的分开的两次视频也行，同时<a href="https://linklearner.com/datawhale-homepage/#/learn/detail/93">Datawhale官网</a>还提供了2017/2019版本的文字版便于快速过知识点。</li><li>其他的老师还有公司的资料也挺多的，以后有时间会对比不同课程（如李沐、吴恩达、还有飞桨平台的等等教程进行总结）。</li></ol></blockquote><p><img src="https://s2.loli.net/2022/08/14/bHUWXMrhzDcx8Cv.png" alt="image-20220814095418109"></p><h1 id="第一章-机器学习介绍"><a href="#第一章-机器学习介绍" class="headerlink" title="第一章 机器学习介绍"></a>第一章 机器学习介绍</h1><ul><li><p>监督学习中的结构化学习：一般说ML是两大类的问题，regression和classification。其实还应该包括structure learning，举例：在语音辨识里面，机器输入是声音讯号，输出是一个句子。句子是要很多词汇拼凑完成。它是一个有结构性的object。或者是说在机器翻译里面你说一句话，你输入中文希望机器翻成英文，它的输出也是有结构性的。或者你今天要做的是人脸辨识，来给机器看张图片。然后机器要把这些东西标出来，这也是一个structure learning问题。</p><blockquote><p>个人理解其实狭义ML就指的是分类和回归，主要针对的是结构化数据（表格数据）的处理。ML另一部分就是DL，DL包括上文所说的NLP、CV，其实本质也是转为了vector向量然后进行各种处理。总之认为ML主要是使用数学化的一些方法（随机森林等），DL需要搭建深度的网络结构。</p></blockquote></li></ul><p><img src="https://oss.linklearner.com/leeml/chapter1/res/chapter1-50.png" alt="img"></p><h1 id="第二章-为什么要学习机器学习"><a href="#第二章-为什么要学习机器学习" class="headerlink" title="第二章 为什么要学习机器学习"></a>第二章 为什么要学习机器学习</h1><ul><li>这章笑死了，直接朗读文本</li><li>“我们知道要训练出厉害的AI，AI训练师功不可没”逗号直接读出来，没字读成mei2而不是mo4，这大概也是需要ML/AI的一个原因hhh</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>课外学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+      <tag>深度学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>广告-信息流跨域CTR预估 - Coggle 30 Days of ML（22年8月）</title>
     <link href="/2022/08/10/30days-of-ml-202208-sd/"/>
     <url>/2022/08/10/30days-of-ml-202208-sd/</url>
@@ -551,9 +578,9 @@
     
     <tags>
       
-      <tag>CUMT课程笔记</tag>
-      
       <tag>算法</tag>
+      
+      <tag>CUMT课程笔记</tag>
       
     </tags>
     
