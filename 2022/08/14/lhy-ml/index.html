@@ -25,8 +25,12 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2022/08/14/bHUWXMrhzDcx8Cv.png">
 <meta property="og:image" content="https://oss.linklearner.com/leeml/chapter1/res/chapter1-50.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/23/rIhjORzb8ZTFUCB.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/23/BtizQbIKyoN1eJO.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/23/aTcij8fKCRFh239.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/23/S69QjpuhEbwAOeC.png">
 <meta property="article:published_time" content="2022-08-14T01:52:37.000Z">
-<meta property="article:modified_time" content="2022-08-20T04:29:47.673Z">
+<meta property="article:modified_time" content="2022-08-24T01:58:52.031Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
@@ -228,7 +232,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.8k 字
+      6.5k 字
     </span>
   
 
@@ -237,7 +241,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12 分钟
+      20 分钟
     </span>
   
 
@@ -278,7 +282,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年8月20日 中午
+                  本文最后更新于：2022年8月24日 上午
                 
               </p>
             
@@ -407,6 +411,87 @@ L(\mathbf{w}, b) =\frac{1}{n}\sum_{i=1}^n l^{(i)}(\mathbf{w}, b) =\frac{1}{n} \s
 <h1 id="第十四章-反向传播"><a href="#第十四章-反向传播" class="headerlink" title="第十四章 反向传播"></a>第十四章 反向传播</h1><ul>
 <li>我们的目标是要求计算$\frac{\partial z}{\partial w}$（Forward pass的部分）和计算$\frac{\partial l}{\partial z}$ ( Backward pass的部分 )，然后把$\frac{\partial z}{\partial w}$和$\frac{\partial l}{\partial z}$相乘，我们就可以得到$\frac{\partial l}{\partial w}$,所有我们就可以得到神经网络中所有的参数，然后用梯度下降就可以不断更新，得到损失最小的函数</li>
 <li>反向传播其实就是为了简化求导过程，将递归计算导数转换为递推计算倒数，效率更高</li>
+</ul>
+<h1 id="Lecture-2-神经网络训练不起来怎么办"><a href="#Lecture-2-神经网络训练不起来怎么办" class="headerlink" title="Lecture 2: 神经网络训练不起来怎么办"></a>Lecture 2: 神经网络训练不起来怎么办</h1><h2 id="局部最小值与鞍点"><a href="#局部最小值与鞍点" class="headerlink" title="局部最小值与鞍点"></a>局部最小值与鞍点</h2><ul>
+<li>Loacl Minima, Saddle Point</li>
+<li>维度较高的情况下大部分遇到的都是鞍点</li>
+<li>可以通过hessian矩阵、$\lambda$ 的正负判断点的类型</li>
+<li>在Saddle Point的下降方法</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/08/23/rIhjORzb8ZTFUCB.png" srcset="/img/loading.gif" lazyload alt="image-20220823141323115" style="zoom: 67%;" /></p>
+<h2 id="批次和动量"><a href="#批次和动量" class="headerlink" title="批次和动量"></a>批次和动量</h2><ul>
+<li><p>小批次和动量帮助避免陷入关键点</p>
+</li>
+<li><p>每一轮分批次的之前可以shuffle</p>
+</li>
+<li><p>比较</p>
+<p><img src="https://s2.loli.net/2022/08/23/BtizQbIKyoN1eJO.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom: 67%;" /></p>
+</li>
+<li><p>动量</p>
+<p>李宏毅版本 $\begin{split}\begin{aligned}<br>\mathbf{m}<em>t &amp;\leftarrow \lambda \mathbf{m}</em>{t-1} -  \eta<em>t \mathbf{g}</em>{t-1}, \<br>\mathbf{\theta}<em>t &amp;\leftarrow \mathbf{\theta}</em>{t-1} +  \mathbf{m}_t.<br>\end{aligned}\end{split}$</p>
+<p><img src="https://s2.loli.net/2022/08/23/aTcij8fKCRFh239.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+<p>李沐版本 $\begin{split}\begin{aligned}<br>\mathbf{v}<em>t &amp;\leftarrow \beta \mathbf{v}</em>{t-1} + \mathbf{g}<em>{t, t-1}, \<br>\mathbf{x}_t &amp;\leftarrow \mathbf{x}</em>{t-1} - \eta_t \mathbf{v}_t.<br>\end{aligned}\end{split}$ </p>
+<p><img src="https://s2.loli.net/2022/08/23/S69QjpuhEbwAOeC.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+</li>
+</ul>
+<h2 id="自动调整学习率"><a href="#自动调整学习率" class="headerlink" title="自动调整学习率"></a>自动调整学习率</h2><ul>
+<li><p>AdaGrad (前面已介绍)</p>
+<script type="math/tex; mode=display">
+\begin{split}\begin{aligned}
+    \mathbf{g}_t & = \partial_{\mathbf{w}} l(y_t, f(\mathbf{x}_t, \mathbf{w})), \\
+    \mathbf{s}_t & = \mathbf{s}_{t-1} + \mathbf{g}_t^2, \\
+    \mathbf{w}_t & = \mathbf{w}_{t-1} - \frac{\eta}{\sqrt{\mathbf{s}_t + \epsilon}} \cdot \mathbf{g}_t.
+\end{aligned}\end{split}</script></li>
+<li><p>RMSProp</p>
+<p>改进：Adagrad算法将梯度 $\mathbf{g}_t$ 的平方累加成状态矢量。因此，由于缺乏规范化，没有约束力，持续增长，几乎上是在算法收敛时呈线性递增。</p>
+<script type="math/tex; mode=display">
+\begin{split}\begin{aligned}
+    \mathbf{s}_t & \leftarrow \gamma \mathbf{s}_{t-1} + (1 - \gamma) \mathbf{g}_t^2, \\
+    \mathbf{x}_t & \leftarrow \mathbf{x}_{t-1} - \frac{\eta}{\sqrt{\mathbf{s}_t + \epsilon}} \odot \mathbf{g}_t.
+\end{aligned}\end{split}</script></li>
+<li><p>Adam</p>
+<p>$\beta_1 = 0.9, \beta_2 = 0.999, \mathbf{v}_0 = \mathbf{s}_0 = 0$</p>
+<script type="math/tex; mode=display">
+\begin{split}\begin{aligned}
+    \mathbf{v}_t & \leftarrow \beta_1 \mathbf{v}_{t-1} + (1 - \beta_1) \mathbf{g}_t, \\
+    \mathbf{s}_t & \leftarrow \beta_2 \mathbf{s}_{t-1} + (1 - \beta_2) \mathbf{g}_t^2.
+\end{aligned}\end{split}</script><script type="math/tex; mode=display">
+\hat{\mathbf{v}}_t = \frac{\mathbf{v}_t}{1 - \beta_1^t} \text{ and } \hat{\mathbf{s}}_t = \frac{\mathbf{s}_t}{1 - \beta_2^t}.</script><script type="math/tex; mode=display">
+\mathbf{x}_t \leftarrow \mathbf{x}_{t-1} - \mathbf{g}_t' = \mathbf{x}_{t-1} - \frac{\eta \hat{\mathbf{v}}_t}{\sqrt{\hat{\mathbf{s}}_t} + \epsilon}.</script></li>
+<li><p>学习率调整</p>
+<ul>
+<li>衰减</li>
+<li>warm up （可能的解释：在开始，simga的统计还不够精确）</li>
+</ul>
+</li>
+</ul>
+<h2 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h2><ul>
+<li>MSE（回归）</li>
+<li>交叉熵 Cross-entropy（分类）</li>
+</ul>
+<h2 id="批次标准化"><a href="#批次标准化" class="headerlink" title="批次标准化"></a>批次标准化</h2><ul>
+<li><p>batch normalization</p>
+</li>
+<li><p>由于在训练过程中，中间层的变化幅度不能过于剧烈，而批量规范化将每一层主动居中，并将它们重新调整为给定的平均值和大小</p>
+</li>
+<li><p>原因</p>
+<ul>
+<li>数据预处理的方式通常会对最终结果产生巨大影响，它可以将参数的量级进行统一</li>
+<li>对于典型的多层感知机或卷积神经网络，中间层中的变量可能具有更广的变化范围批量规范化的发明者非正式地假设，这些变量分布中的这种偏移可能会阻碍网络的收敛。我们可能会猜想，如果一个层的可变值是另一层的100倍，这可能需要对学习率进行补偿调整。</li>
+<li>更深层的网络很复杂，容易过拟合。 这意味着正则化变得更加重要。</li>
+</ul>
+</li>
+<li><p>公式</p>
+<script type="math/tex; mode=display">
+\mathrm{BN}(\mathbf{x}) = \boldsymbol{\gamma} \odot \frac{\mathbf{x} - \hat{\boldsymbol{\mu}}_\mathcal{B}}{\hat{\boldsymbol{\sigma}}_\mathcal{B}} + \boldsymbol{\beta}.</script><script type="math/tex; mode=display">
+\begin{split}\begin{aligned} \hat{\boldsymbol{\mu}}_\mathcal{B} &= \frac{1}{|\mathcal{B}|} \sum_{\mathbf{x} \in \mathcal{B}} \mathbf{x},\\
+\hat{\boldsymbol{\sigma}}_\mathcal{B}^2 &= \frac{1}{|\mathcal{B}|} \sum_{\mathbf{x} \in \mathcal{B}} (\mathbf{x} - \hat{\boldsymbol{\mu}}_{\mathcal{B}})^2 + \epsilon.\end{aligned}\end{split}</script></li>
+<li><p>ps:优化中的各种噪声源通常会导致更快的训练和较少的过拟合：这种变化似乎是正则化的一种形式。 </p>
+</li>
+<li><p>争议：在提出批量规范化的论文中，作者解释了其原理：通过减少<em>内部协变量偏移</em>（internal covariate shift）。 据推测，作者所说的“内部协变量转移”类似于上述的投机直觉，即变量值的分布在训练过程中会发生变化。 然而，这种解释有两个问题： 1、这种偏移与严格定义的<em>协变量偏移</em>（covariate shift）非常不同，所以这个名字用词不当。 2、这种解释只提供了一种不明确的直觉，但留下了一个有待后续挖掘的问题：为什么这项技术如此有效？</p>
+</li>
+<li><p>test的batch normalization：使用移动加权平均迭代计算</p>
+</li>
 </ul>
 
             </div>
