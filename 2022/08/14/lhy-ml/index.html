@@ -30,7 +30,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/08/23/aTcij8fKCRFh239.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/23/S69QjpuhEbwAOeC.png">
 <meta property="article:published_time" content="2022-08-14T01:52:37.000Z">
-<meta property="article:modified_time" content="2022-08-24T02:05:19.456Z">
+<meta property="article:modified_time" content="2022-08-26T02:46:15.259Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
@@ -232,7 +232,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.5k 字
+      7k 字
     </span>
   
 
@@ -241,7 +241,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      20 分钟
+      22 分钟
     </span>
   
 
@@ -282,7 +282,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年8月24日 上午
+                  本文最后更新于：2022年8月26日 上午
                 
               </p>
             
@@ -499,6 +499,24 @@ L(\mathbf{w}, b) =\frac{1}{n}\sum_{i=1}^n l^{(i)}(\mathbf{w}, b) =\frac{1}{n} \s
 <li><p>争议：在提出批量规范化的论文中，作者解释了其原理：通过减少<em>内部协变量偏移</em>（internal covariate shift）。 据推测，作者所说的“内部协变量转移”类似于上述的投机直觉，即变量值的分布在训练过程中会发生变化。 然而，这种解释有两个问题： 1、这种偏移与严格定义的<em>协变量偏移</em>（covariate shift）非常不同，所以这个名字用词不当。 2、这种解释只提供了一种不明确的直觉，但留下了一个有待后续挖掘的问题：为什么这项技术如此有效？</p>
 </li>
 <li><p>test的batch normalization：使用移动加权平均迭代计算</p>
+</li>
+</ul>
+<h1 id="第二十一章-卷积神经网络"><a href="#第二十一章-卷积神经网络" class="headerlink" title="第二十一章 卷积神经网络"></a>第二十一章 卷积神经网络</h1><ul>
+<li>cnn能够有效的原理<ul>
+<li>一个神经元探测的是整的图片的一小部分（卷积）</li>
+<li>不同的位置的同一个模式不需要不同类型的神经元（卷积）</li>
+<li>下采样之后数据减少了但是对识别基本没有影响（池化）</li>
+</ul>
+</li>
+<li>属性参数：通道数、filter大小（长宽）、步长、填充padding</li>
+<li>cnn基本架构：（卷积+池化）×n+展平+全连接网络</li>
+<li>卷积和全连接的关系：拿掉了一些权重，不是全连接，是一种有规律的dropout，减少了需要的参数数量。如何减小：shared weight，一个filter滚动着进行计算，只需要filter尺寸大小的参数即可。</li>
+<li>应用<ul>
+<li>图像处理（最多）</li>
+<li>围棋：并没有用到pooling，每一个位置都用48个value来描述</li>
+<li>语音：时频图，在语音上，我们通常只考虑在frequency方向上移动的filter</li>
+<li>文字：nlp相关，word embedding，构建词向量。你把filter沿着句子里面词汇的顺序来移动，然后你就会得到一个vector。在文字处理上，filter只在时间的序列上移动（可以单向也可以双向，和时间有关，加入LSTM），不会在embedding 维度这个方向上移动。</li>
+</ul>
 </li>
 </ul>
 
