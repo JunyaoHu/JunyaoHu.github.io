@@ -29,8 +29,11 @@
 <meta property="og:image" content="https://s2.loli.net/2022/08/23/BtizQbIKyoN1eJO.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/23/aTcij8fKCRFh239.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/23/S69QjpuhEbwAOeC.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/28/bQB7fGdmDRxwzHO.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/29/nQo7ZEK3bv8rJUc.png">
+<meta property="og:image" content="https://s2.loli.net/2022/08/29/gdK4mOEhNLkDnfw.png">
 <meta property="article:published_time" content="2022-08-14T01:52:37.000Z">
-<meta property="article:modified_time" content="2022-08-28T03:05:19.156Z">
+<meta property="article:modified_time" content="2022-08-30T07:57:25.232Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
@@ -232,7 +235,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.3k 字
+      7.6k 字
     </span>
   
 
@@ -241,7 +244,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23 分钟
+      24 分钟
     </span>
   
 
@@ -282,7 +285,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年8月28日 上午
+                  本文最后更新于：2022年8月30日 下午
                 
               </p>
             
@@ -412,7 +415,7 @@ L(\mathbf{w}, b) =\frac{1}{n}\sum_{i=1}^n l^{(i)}(\mathbf{w}, b) =\frac{1}{n} \s
 <li>我们的目标是要求计算$\frac{\partial z}{\partial w}$（Forward pass的部分）和计算$\frac{\partial l}{\partial z}$ ( Backward pass的部分 )，然后把$\frac{\partial z}{\partial w}$和$\frac{\partial l}{\partial z}$相乘，我们就可以得到$\frac{\partial l}{\partial w}$,所有我们就可以得到神经网络中所有的参数，然后用梯度下降就可以不断更新，得到损失最小的函数</li>
 <li>反向传播其实就是为了简化求导过程，将递归计算导数转换为递推计算倒数，效率更高</li>
 </ul>
-<h1 id="Lecture-2-神经网络训练不起来怎么办"><a href="#Lecture-2-神经网络训练不起来怎么办" class="headerlink" title="Lecture 2: 神经网络训练不起来怎么办"></a>Lecture 2: 神经网络训练不起来怎么办</h1><h2 id="局部最小值与鞍点"><a href="#局部最小值与鞍点" class="headerlink" title="局部最小值与鞍点"></a>局部最小值与鞍点</h2><ul>
+<h1 id="Lecture-2-What-to-do-if-my-network-fails-to-train"><a href="#Lecture-2-What-to-do-if-my-network-fails-to-train" class="headerlink" title="Lecture 2: What to do if my network fails to train"></a>Lecture 2: What to do if my network fails to train</h1><h2 id="局部最小值与鞍点"><a href="#局部最小值与鞍点" class="headerlink" title="局部最小值与鞍点"></a>局部最小值与鞍点</h2><ul>
 <li>Loacl Minima, Saddle Point</li>
 <li>维度较高的情况下大部分遇到的都是鞍点</li>
 <li>可以通过hessian矩阵、$\lambda$ 的正负判断点的类型</li>
@@ -502,16 +505,24 @@ L(\mathbf{w}, b) =\frac{1}{n}\sum_{i=1}^n l^{(i)}(\mathbf{w}, b) =\frac{1}{n} \s
 </li>
 </ul>
 <h1 id="第二十一章-卷积神经网络"><a href="#第二十一章-卷积神经网络" class="headerlink" title="第二十一章 卷积神经网络"></a>第二十一章 卷积神经网络</h1><ul>
-<li>cnn能够有效的原理<ul>
+<li><p>cnn能够有效的原理</p>
+<ul>
 <li>一个神经元探测的是整的图片的一小部分（卷积）</li>
 <li>不同的位置的同一个模式不需要不同类型的神经元（卷积）</li>
 <li>下采样之后数据减少了但是对识别基本没有影响（池化）</li>
 </ul>
 </li>
-<li>属性参数：通道数、filter大小（长宽）、步长、填充padding</li>
-<li>cnn基本架构：（卷积+池化）×n+展平+全连接网络</li>
-<li>卷积和全连接的关系：拿掉了一些权重，不是全连接，是一种有规律的dropout，减少了需要的参数数量。如何减小：shared weight，一个filter滚动着进行计算，只需要filter尺寸大小的参数即可。</li>
-<li>应用<ul>
+<li><p>属性参数：通道数、filter大小（长宽）、步长、填充padding</p>
+</li>
+<li><p>cnn基本架构：（卷积+池化）×n+展平+全连接网络</p>
+</li>
+<li><p>卷积和全连接的关系：拿掉了一些权重，不是全连接，是一种有规律的dropout，减少了需要的参数数量。如何减小：shared weight，一个filter滚动着进行计算，只需要filter尺寸大小的参数即可。</p>
+</li>
+<li><p>2021关系图</p>
+<p><img src="https://s2.loli.net/2022/08/28/bQB7fGdmDRxwzHO.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:67%;" /></p>
+</li>
+<li><p>应用</p>
+<ul>
 <li>图像处理（最多）</li>
 <li>围棋：并没有用到pooling，每一个位置都用48个value来描述</li>
 <li>语音：时频图，在语音上，我们通常只考虑在frequency方向上移动的filter</li>
@@ -523,6 +534,27 @@ L(\mathbf{w}, b) =\frac{1}{n}\sum_{i=1}^n l^{(i)}(\mathbf{w}, b) =\frac{1}{n} \s
 <li>关于学习：只学习了李宏毅机器学习的机器学习部分，对于2021新版的话后面深度学习的部分不在这次组队学习的学习范围内，首先是自己对机器学习的知识有了更深入的学习，不限于表面了，加深了对理论方法形成的过程的认知，以及记住了实现的公式。当然学习无止境，接下来自己会继续学习完剩余的章节，主动学习知识。</li>
 <li>关于社区：第一次参加组队学习的活动hh，之前参加过一些DataWhale的教程内测活动，感觉挺不错的，是个很对新手很友好的社区，基本上理论、代码、实践竞赛都有涉及，大佬们也是很用心在经营社区，也有很多志同道合的同学在社区相互讨论交流，相互进步，希望DataWhale越来越好 ^ ^</li>
 </ul>
+<h1 id="Lecture-4-Sequence-as-input"><a href="#Lecture-4-Sequence-as-input" class="headerlink" title="Lecture 4: Sequence as input"></a>Lecture 4: Sequence as input</h1><ul>
+<li>one-hot：看不出来距离</li>
+<li>word enbbedding：也是向量，但是相似词语距离相近</li>
+<li>output：n2n（词性标注），n21（正负情感分析），n2x（句子翻译）</li>
+<li>Self-attention：主要是，先考虑了整个句子vec2vec，然后fc，也有变式</li>
+</ul>
+<ul>
+<li>过程<ol>
+<li>在原向量列表中确定当前向量相关的向量距离（关联程度）<ul>
+<li>dot-product常用</li>
+<li>additive</li>
+</ul>
+</li>
+<li>自主性提示称为查询（query）。感官输入被称为值（value）</li>
+<li>计算得到当前query和其他key的不同attention score</li>
+<li>根据分数抽取重要资讯，attention score和矩阵v相乘得到当前向量b，谁分量大谁关联强</li>
+</ol>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/08/29/nQo7ZEK3bv8rJUc.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+<p><img src="https://s2.loli.net/2022/08/29/gdK4mOEhNLkDnfw.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
 
             </div>
             <hr>
