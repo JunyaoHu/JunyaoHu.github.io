@@ -32,8 +32,22 @@
 <meta property="og:image" content="https://s2.loli.net/2022/08/28/bQB7fGdmDRxwzHO.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/29/nQo7ZEK3bv8rJUc.png">
 <meta property="og:image" content="https://s2.loli.net/2022/08/29/gdK4mOEhNLkDnfw.png">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/GFqkjaPMVAWs1mB.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/2669842-b8933c08a5e2715e.png?imageMogr2/auto-orient/strip|imageView2/2/format/webp">
+<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20181009/fa4095296646408da5fedf29aefa5b56.jpeg">
+<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20181009/201ce8577815486295c841531d6a2fa6.jpeg">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/Im2QnS8pTHeyZtG.png">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/lcZjT5k8IyKQx1H.png">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/xTrdMYvH537SQmq.png">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/Mb1CROVp9Ev6dmf.png">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/S8NEo3wXjpJROt1.png">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/4KcJvdBIo1Oa6Gu.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/d86dfd9159a14c448ad80c3f5baf1cbb.png">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/OGWBmZMUntIXs8V.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/5d35be3527aa4c6c9f14a488ece09a39.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6Zi_6IyD5ZCM5a2m,size_20,color_FFFFFF,t_70,g_se,x_16">
+<meta property="og:image" content="https://s2.loli.net/2022/09/05/46swQg3WDIeFrqd.png">
 <meta property="article:published_time" content="2022-08-14T01:52:37.000Z">
-<meta property="article:modified_time" content="2022-08-30T07:57:25.232Z">
+<meta property="article:modified_time" content="2022-09-05T14:10:44.076Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="机器学习">
 <meta property="article:tag" content="深度学习">
@@ -235,7 +249,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.6k 字
+      11k 字
     </span>
   
 
@@ -244,7 +258,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24 分钟
+      33 分钟
     </span>
   
 
@@ -285,7 +299,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2022年8月30日 下午
+                  本文最后更新于：2022年9月5日 晚上
                 
               </p>
             
@@ -555,6 +569,156 @@ L(\mathbf{w}, b) =\frac{1}{n}\sum_{i=1}^n l^{(i)}(\mathbf{w}, b) =\frac{1}{n} \s
 </ul>
 <p><img src="https://s2.loli.net/2022/08/29/nQo7ZEK3bv8rJUc.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
 <p><img src="https://s2.loli.net/2022/08/29/gdK4mOEhNLkDnfw.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+<p><img src="https://s2.loli.net/2022/09/05/GFqkjaPMVAWs1mB.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+<ul>
+<li>position encoding 的ei直接加在ai上面，和位置有关，一般是手工设计好</li>
+<li>自注意力和卷积：卷积是简化版的自注意力，cnn受一定限制，自注意力泛化效果好（数据量很大时）</li>
+<li>自注意力和循环神经网络：平行和不平行运算，RNN中每个向量的关系和句子间距离也有关系越远影响越小，自注意力句子间和相对位置的差关系不大</li>
+</ul>
+<h1 id="Lecture-5-Sequence-to-sequence"><a href="#Lecture-5-Sequence-to-sequence" class="headerlink" title="Lecture 5:Sequence to sequence"></a>Lecture 5:Sequence to sequence</h1><ul>
+<li><p>大多NLP任务可以看作是阅读理解的问答模型QA，转换为seq2seq（问题+内容→回答）</p>
+</li>
+<li><p>seq2seq化简就是input - encoder - decoder - output</p>
+</li>
+<li><p>transformer</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/2669842-b8933c08a5e2715e.png?imageMogr2/auto-orient/strip|imageView2/2/format/webp" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20181009/fa4095296646408da5fedf29aefa5b56.jpeg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" /></p>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20181009/201ce8577815486295c841531d6a2fa6.jpeg" srcset="/img/loading.gif" lazyload alt="img" style="zoom:50%;" /></p>
+</li>
+<li><p>encoder内部部分</p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/09/05/Im2QnS8pTHeyZtG.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+<p><img src="https://s2.loli.net/2022/09/05/lcZjT5k8IyKQx1H.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+<ul>
+<li><p>decoder内部部分 （有个mask）</p>
+<ul>
+<li><p>autoregressive </p>
+<p><img src="https://s2.loli.net/2022/09/05/xTrdMYvH537SQmq.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+</li>
+<li><p>no autoregressive </p>
+</li>
+</ul>
+<p><img src="https://s2.loli.net/2022/09/05/Mb1CROVp9Ev6dmf.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+</li>
+<li><p>encoder-decoder的cross attention</p>
+<p><img src="https://s2.loli.net/2022/09/05/S8NEo3wXjpJROt1.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+</li>
+<li><p>对于每一个字 评估用最小交叉熵 对一句话用bleu和n-gram等方法</p>
+</li>
+<li>tips<ul>
+<li>copy特定的词汇</li>
+<li>guided attention 输入和输出单调对齐（语音由左向右方向）</li>
+<li>beam search：beam search有一个超参数beam size（束宽），设为k  。第一个时间步长，选取当前条件概率最大的 k 个词，当做候选输出序列的第一个词。之后的每个时间步长，基于上个步长的输出序列，挑选出所有组合中条件概率最大的k  个，作为该时间步长下的候选输出序列。始终保持 k 个候选。最后从k 个候选中挑出最优的。</li>
+<li>scheduleed sampling ：把正确答案做为decoder的一部分input,为了防止mismatch（exposure bias 一步错步步错）就任意改动输入的几个字（但是伤害到transfomer的平行化）</li>
+</ul>
+</li>
+</ul>
+<h1 id="Lecture-6-Generation"><a href="#Lecture-6-Generation" class="headerlink" title="Lecture 6: Generation"></a>Lecture 6: Generation</h1><ul>
+<li><p>GAN的基本思想就是两个神经网络分别是generator和discriminator，其中生成器每次生成图像然后鉴别器会去判定判别生成器生成的图像 ，两者不断地生成判别相互对抗相互提升，到最后生成器生成的图像质量不断提升，判别器判别的能力也不断提升，这就是生成对抗式网络的基本思想，互相制约互相提高。</p>
+</li>
+<li><p>步骤</p>
+<ol>
+<li><p>准备一个真实图片的数据集</p>
+</li>
+<li><p>随机初始化Generator和Discriminator，此时Generator生成图片是瞎生成，Discriminator也是瞎分辨</p>
+</li>
+<li><p>训练Discriminator:</p>
+<p> 3.1 让Generator生成一组图片，然后让Discriminator来分辨真假，同时也会告诉Discriminator真实的图片长什么样子</p>
+<p> 3.2. 根据第 3.1 步的损失来更新Discriminator</p>
+</li>
+<li><p>训练Generator:</p>
+<p> 4.1. 继续让Generator生成一组图片，然后让Discriminator来分别真假。注意，本次只会让Discriminator看生成的图片</p>
+<p> 4.2. 根据第 4.1 步得到的损失来更新Generator</p>
+</li>
+<li><p>重复迭代3,4步，直到满意为止</p>
+</li>
+</ol>
+</li>
+<li><p>如果给定两个噪音向量之间连续的内差，Generator会告诉你这两个图片之间的过渡过程</p>
+</li>
+<li><p>GAN中生成器的目标是将输入的正态分布数据经过生成网络变成类似真实标签分布的数据，而为了让分布尽可能相似就必须最小化两个数据分布之间的距离</p>
+</li>
+<li><p>既然生成器的目标是最小化生成数据和真实数据之间的距离那么鉴别器就是最大化两者的距离，针对如何计算生成数据和真实数据之间的距离，引入了JS散度的概念来计算，事实上也可以看成是交叉熵乘一个负号</p>
+<ul>
+<li>之前在计算网络输出和真实数据时往往都是一一对应的标签并且直接计算两者的L1或L2距离即可方便判断两个的差距，而在GAN中生成数据和真实数据往往不是一一对应，这就是JS divergence的巧妙之处，不需要知道生成数据和真实数据的具体形式，只需要通过鉴别器输出值和JS即可，当然不仅仅只有JS函数可以用还可以用其他很多的函数</li>
+<li>使用JS divergence的很大缺点就是在于如果生成数据和真实数据采样不够多，两者之间没有任何重叠部分没有交集，那么JS计算出来的距离将恒等于log2，这将会直接导致generator无法提高 ，两者如果没有重叠即假设让divergence处于最大时即判别器最理想的时候，那么这时候计算出来的就是log2</li>
+<li>推土机距离也称作Wasserstein distance，它最直观的好处就是当生成数据和真实数据无任何交集的时候它不会像JS一样处于恒等值的情况，这就使得generator可以一直往好的方向去发展而不是直接停止</li>
+</ul>
+</li>
+<li><p>公式</p>
+<p><img src="https://s2.loli.net/2022/09/05/4KcJvdBIo1Oa6Gu.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+</li>
+<li><p>其中对于判别器，WGAN作出了限制即必须满足1-lipschitz的条件，该条件的目的是为了让生成数据和真实数据之间不会相差太大使得推算出来的推土机距离不会过大否则无任何意义，而WGAN中让判别器满足1-lipschitz的条件的方法其实相对较为简单</p>
+<ul>
+<li>WGAN中使用的就是推土机距离代替了JS距离，如图所示即为WGAN中新的距离公式：</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/d86dfd9159a14c448ad80c3f5baf1cbb.png" srcset="/img/loading.gif" lazyload alt="" style="zoom:50%;" /></p>
+</li>
+<li><p>条件GAN：额外输入一段向量规定生成的图像需要包含什么特征，这就是条件GAN，如其中额外输入的向量就是一段文字即将一段文字转换成vector输入generator和discriminator中 。</p>
+</li>
+<li><p>问题</p>
+<ul>
+<li><p>quality</p>
+</li>
+<li><p>Diversity - Mode Collapse （找到了一个能骗过D的局部区域）</p>
+</li>
+<li><p>Diversity - Mode Dropping （类型没找完）</p>
+</li>
+<li><p>对于一张图片，类型要准确，对于一堆照片，要有多样性</p>
+</li>
+<li><p>三种标签 查看 xy是否匹配</p>
+<p><img src="https://s2.loli.net/2022/09/05/OGWBmZMUntIXs8V.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+</li>
+</ul>
+</li>
+<li><p>Learning from Unpaired Data: CycleGAN是典型风格转化生成的GAN，其主题思想是训练四个网络并形成一个Cycle输入一幅图像生成另一个风格图像再让生成图像生成回原来的图像风格，这样的一个形式就是CycleGAN的主要思想，事实上它在训练四个网络包括两个生成器和两个判别器</p>
+<p><img src="https://img-blog.csdnimg.cn/5d35be3527aa4c6c9f14a488ece09a39.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA6Zi_6IyD5ZCM5a2m,size_20,color_FFFFFF,t_70,g_se,x_16" srcset="/img/loading.gif" lazyload style="zoom:50%;" /></p>
+</li>
+</ul>
+<h1 id="Recent-Advance-of-Self-supervised-learning-for-NLP"><a href="#Recent-Advance-of-Self-supervised-learning-for-NLP" class="headerlink" title="Recent Advance of Self-supervised learning for NLP"></a>Recent Advance of Self-supervised learning for NLP</h1><ul>
+<li><p>bert</p>
+<ul>
+<li><p>监督学习和自监督学习self-supervised learning（在没有标注的情况下自行将数据进行分类/聚类，类似无监督学习）</p>
+</li>
+<li><p>bert在训练时执行，只学会做填空题（产生bert的过程叫做pre-train）</p>
+<ul>
+<li>mask input：加mask或者random，得到最小交叉熵 </li>
+<li>Next Sentence Prediction（【cls】最初二分类预测两个句子相接与否 和【sep】）</li>
+</ul>
+</li>
+<li><p>但是可以做很多下游任务，只需要进行fine-tune</p>
+<ul>
+<li><p>分类（情感分析）：【cls】的输出进行训练</p>
+</li>
+<li><p>词性标注：每一个词向量的输出进行训练</p>
+</li>
+<li><p>两个句子输出一个类别（Natural Language Inferencee，NLI）：【cls】…【sep】….，只取【cls】训练</p>
+</li>
+<li><p>抽取式（QA Extraction-based Question Answering）输入文章D问题Q两个向量，输出切片索引值A</p>
+<p><img src="https://s2.loli.net/2022/09/05/46swQg3WDIeFrqd.png" srcset="/img/loading.gif" lazyload alt="image.png" style="zoom:50%;" /></p>
+</li>
+</ul>
+</li>
+<li><p>mask方法、bart方法：对ecoding的句子进行部分毁坏</p>
+<ul>
+<li>Transfer Text-to-Text Transformer (T5)</li>
+<li>Colossal Clean Crawled Corpus (C4)</li>
+</ul>
+</li>
+<li><p>bert填空类似word embbedding中的cbow</p>
+</li>
+</ul>
+</li>
+<li><p>gpt</p>
+<ul>
+<li><p>进行Predict Next Token（可以用于文章生成）</p>
+</li>
+<li><p>Few-shot/1-shot/0-shot Learning （不是梯度下降）“In-context” Learning</p>
+</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr>
