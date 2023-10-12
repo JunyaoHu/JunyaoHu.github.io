@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/10/06/KIoAywa7gDbziVm.png">
 <meta property="og:image" content="https://s2.loli.net/2023/10/06/6YqQrefNb5xZyDO.png">
 <meta property="article:published_time" content="2023-10-05T10:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-06T07:25:45.452Z">
+<meta property="article:modified_time" content="2023-10-12T06:49:11.048Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
@@ -536,7 +536,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年10月6日 15:25
+                    本文最后更新于：2023年10月12日 14:49
                   
                 
               </p>
@@ -566,7 +566,7 @@
 <p><img src="https://s2.loli.net/2023/10/06/KIoAywa7gDbziVm.png" srcset="/img/loading.gif" lazyload alt="image-20231006152516828"></p>
 <h1 id="实验室服务器配置"><a href="#实验室服务器配置" class="headerlink" title="实验室服务器配置"></a>实验室服务器配置</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>略</p>
 <h2 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h2><h3 id="frp配置-1"><a href="#frp配置-1" class="headerlink" title="frp配置"></a>frp配置</h3><p>以配置u15为例，在/home/ubuntu15/hjy/frp/文件夹下创建frphjy.ini，内容如下，7025和云服务器相连，6025和自己的电脑相连，总的配置见附表</p>
-<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Plain">mkdir -p ...<br>sudo touch /home/ubuntu15/hjy/frp/frphjy.ini<br>sudo vim /home/ubuntu15/hjy/frp/frphjy.ini<br><br>##################################<br>[common]<br># 云服务器公网ip<br>server_addr = 43.140.252.26<br>server_port = 7025<br><br>[ssh]<br>type = tcp<br>local_ip = 127.0.0.1<br>local_port = 22<br>remote_port = 6025<br>#################################<br></code></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs Plain">mkdir -p ...<br>sudo touch /home/ubuntu15/hjy/frp/frphjy.ini<br>sudo vim /home/ubuntu15/hjy/frp/frphjy.ini<br><br>##################################<br>[common]<br># 云服务器公网ip<br>server_addr = 我会告诉你？<br>server_port = 7025<br><br>[ssh]<br>type = tcp<br>local_ip = 127.0.0.1<br>local_port = 22<br>remote_port = 6025<br>#################################<br></code></pre></td></tr></table></figure>
 <h3 id="service配置-1"><a href="#service配置-1" class="headerlink" title="service配置"></a>service配置</h3><p>在/lib/systemd/system/下创建u15的frps15.service</p>
 <figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs Plain">sudo touch /lib/systemd/system/frphjy.service<br>sudo vim /lib/systemd/system/frphjy.service<br><br>########################################################<br>[Unit]<br>Description=fraps service<br>After=network.target network-online.target syslog.target<br>Wants=network.target network-online.target<br><br>[Service]<br>Type=simple<br><br># 启动服务的命令 第一个是客户端服务（是c） 第二个是frp配置<br>ExecStart=/home/ubuntu15/zzc/frp/frpc -c /home/ubuntu15/hjy/frp/frphjy.ini<br>KillSignal=SIGQUIT<br>TimeoutStopSec=5<br>KillMode=process<br>PrivateTmp=true<br>StandardOutput=syslog<br>StandardError=inherit<br><br>[Install]<br>WantedBy=multi-user.target<br>########################################################<br></code></pre></td></tr></table></figure>
 <h2 id="启动-1"><a href="#启动-1" class="headerlink" title="启动"></a>启动</h2><figure class="highlight plaintext"><figcaption><span>Text</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Plain">systemctl enable frphjy.service<br>systemctl start frphjy.service<br>systemctl status frphjy.service<br></code></pre></td></tr></table></figure>
@@ -635,7 +635,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年10月6日 15:25</div>
+          <div>2023年10月12日 14:49</div>
         </div>
       
       
