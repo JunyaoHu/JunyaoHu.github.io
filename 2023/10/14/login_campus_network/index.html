@@ -16,18 +16,18 @@
   <meta name="author" content="胡椒">
   <meta name="keywords" content="计算机视觉,深度学习">
   
-    <meta name="description" content="使用 ipconfig 命令获取远程服务器的内网ip  注销本地电脑校园网，进入校园网登录界面，如南开校园网 http:&#x2F;&#x2F;202.113.18.106&#x2F;a70.htm  按 F12 打开浏览器审查元素，进入“网络”页签，勾选“保留日志”  填写好用户名和密码，点击登录，观察“网络”页签下的GET请求   右键该行日志，选择“复制为cURL（bash）”   在远程服务器终端粘贴该命令，并将 w">
+    <meta name="description" content="在使用校园服务器时，我们可能会遇到一些棘手的问题，比如远程校园服务器已经连接到内网，具有内网ip，但却无法ping通外网，这可能导致无法联网更新、创建不了新的conda虚拟环境、安装不了各种python第三方库等各种各样的问题，总之限制很多……这种情况下，我们应该如何处理呢？本文将详细解析这个问题，并提供我亲测使用可行的一个解决方案。  使用 ipconfig 命令获取远程服务器的内网ip  注销">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux远程连接校园网">
+<meta property="og:title" content="Linux通过命令行远程连接校园网">
 <meta property="og:url" content="https://junyaohu.github.io/2023/10/14/login_campus_network/index.html">
 <meta property="og:site_name" content="胡椒的 Coding Room">
-<meta property="og:description" content="使用 ipconfig 命令获取远程服务器的内网ip  注销本地电脑校园网，进入校园网登录界面，如南开校园网 http:&#x2F;&#x2F;202.113.18.106&#x2F;a70.htm  按 F12 打开浏览器审查元素，进入“网络”页签，勾选“保留日志”  填写好用户名和密码，点击登录，观察“网络”页签下的GET请求   右键该行日志，选择“复制为cURL（bash）”   在远程服务器终端粘贴该命令，并将 w">
+<meta property="og:description" content="在使用校园服务器时，我们可能会遇到一些棘手的问题，比如远程校园服务器已经连接到内网，具有内网ip，但却无法ping通外网，这可能导致无法联网更新、创建不了新的conda虚拟环境、安装不了各种python第三方库等各种各样的问题，总之限制很多……这种情况下，我们应该如何处理呢？本文将详细解析这个问题，并提供我亲测使用可行的一个解决方案。  使用 ipconfig 命令获取远程服务器的内网ip  注销">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/10/14/qvu9lw2NBJsKQxD.png">
 <meta property="og:image" content="https://s2.loli.net/2023/10/14/zUwuKLvkEZdpABW.png">
 <meta property="og:image" content="https://s2.loli.net/2023/10/14/VRD3iBIlpuLZnAX.png">
 <meta property="article:published_time" content="2023-10-14T07:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-14T07:22:00.688Z">
+<meta property="article:modified_time" content="2023-10-14T08:08:02.782Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
@@ -37,7 +37,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Linux远程连接校园网 - 胡椒的 Coding Room</title>
+  <title>Linux通过命令行远程连接校园网 - 胡椒的 Coding Room</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -271,7 +271,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">Linux远程连接校园网</span>
+            <span id="subtitle">Linux通过命令行远程连接校园网</span>
           
         </div>
 
@@ -295,7 +295,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          245 字
+          465 字
         
       </span>
     
@@ -307,7 +307,7 @@
         
         
           <!-- compatible with older versions-->
-          2 分钟
+          3 分钟
         
       </span>
     
@@ -379,10 +379,10 @@
     
       
       
-        <a href="/2023/10/14/login_campus_network/" title="Linux远程连接校园网"
+        <a href="/2023/10/14/login_campus_network/" title="Linux通过命令行远程连接校园网"
            class="list-group-item list-group-item-action
            active">
-          <span class="category-post">Linux远程连接校园网</span>
+          <span class="category-post">Linux通过命令行远程连接校园网</span>
         </a>
       
     
@@ -539,12 +539,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Linux远程连接校园网</h1>
+            <h1 id="seo-header">Linux通过命令行远程连接校园网</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年10月14日 15:22
+                    本文最后更新于：2023年10月14日 16:08
                   
                 
               </p>
@@ -552,7 +552,8 @@
             
               <div class="markdown-body">
                 
-                <ol>
+                <p>在使用校园服务器时，我们可能会遇到一些棘手的问题，比如远程校园服务器已经连接到内网，具有内网ip，但却无法ping通外网，这可能导致无法联网更新、创建不了新的conda虚拟环境、安装不了各种python第三方库等各种各样的问题，总之限制很多……这种情况下，我们应该如何处理呢？本文将详细解析这个问题，并提供我亲测使用可行的一个解决方案。</p>
+<ol>
 <li><p>使用 <code>ipconfig</code> 命令获取远程服务器的内网ip</p>
 </li>
 <li><p>注销本地电脑校园网，进入校园网登录界面，如南开校园网 <a target="_blank" rel="noopener" href="http://202.113.18.106/a70.htm">http://202.113.18.106/a70.htm</a></p>
@@ -562,13 +563,13 @@
 <li><p>填写好用户名和密码，点击登录，观察“网络”页签下的GET请求</p>
 <p><img src="https://s2.loli.net/2023/10/14/qvu9lw2NBJsKQxD.png" srcset="/img/loading.gif" lazyload alt="image-20231014152106180" style="zoom: 80%;" /></p>
 </li>
-<li><p>右键该行日志，选择“复制为cURL（bash）”</p>
+<li><p>右键该行日志，选择“复制为cURL（bash）”。网上很多方法就说加上用户名和密码参数就可以了，似乎不行，还不如直接全部参数都复制过去，这样更加方便一些。</p>
 <p><img src="https://s2.loli.net/2023/10/14/zUwuKLvkEZdpABW.png" srcset="/img/loading.gif" lazyload alt="image-20231014151552198" style="zoom:80%;" /></p>
 </li>
 <li><p>在远程服务器终端粘贴该命令，并将 <code>wlanuserip</code> 参数修改为远程服务器的ip（如果不行，就对 <code>wlanuserip</code> 和 <code>ip</code> 参数都进行修改），然后就能ping通了。</p>
+<p><img src="https://s2.loli.net/2023/10/14/VRD3iBIlpuLZnAX.png" srcset="/img/loading.gif" lazyload alt="image-20231014151904446" style="zoom:80%;" /></p>
 </li>
 </ol>
-<p>​    <img src="https://s2.loli.net/2023/10/14/VRD3iBIlpuLZnAX.png" srcset="/img/loading.gif" lazyload alt="image-20231014151904446" style="zoom:80%;" /></p>
 
                 
               </div>
@@ -614,7 +615,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux远程连接校园网</div>
+      <div>Linux通过命令行远程连接校园网</div>
       <div>https://junyaohu.github.io/2023/10/14/login_campus_network/</div>
     </div>
     <div class="license-meta">
@@ -633,7 +634,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年10月14日 15:22</div>
+          <div>2023年10月14日 16:08</div>
         </div>
       
       
