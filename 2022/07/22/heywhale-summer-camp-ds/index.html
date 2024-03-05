@@ -303,7 +303,7 @@
         
         
           <!-- compatible with older versions-->
-          75 分钟
+          76 分钟
         
       </span>
     
@@ -1603,7 +1603,14 @@
 <p>B C D D D</p>
 <p>B A C A C(平台错了，应选D)</p>
 <p>a5,a11,a25</p>
-
+<script type="text/javascript">(function (document) {
+    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
+        panel.getElementsByClassName('fold-title')[0].onclick = function() {
+            panel.classList.toggle("collapsed");
+            panel.classList.toggle("expanded");
+        }
+    });
+})(document);</script>
                 
               </div>
             

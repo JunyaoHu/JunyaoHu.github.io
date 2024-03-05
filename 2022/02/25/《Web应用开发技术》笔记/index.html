@@ -315,7 +315,7 @@
         
         
           <!-- compatible with older versions-->
-          109 分钟
+          111 分钟
         
       </span>
     
@@ -1336,7 +1336,14 @@
 <li>自己提一个相关的题目 </li>
 <li>展示一些自己的作品</li>
 </ul>
-
+<script type="text/javascript">(function (document) {
+    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
+        panel.getElementsByClassName('fold-title')[0].onclick = function() {
+            panel.classList.toggle("collapsed");
+            panel.classList.toggle("expanded");
+        }
+    });
+})(document);</script>
                 
               </div>
             

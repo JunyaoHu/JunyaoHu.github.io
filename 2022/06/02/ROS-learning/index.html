@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://s2.loli.net/2022/06/02/BOEoabv9pwu4xNI.jpg">
 <meta property="og:image" content="https://s2.loli.net/2022/06/02/McH9TXoJZsgBvWp.jpg">
 <meta property="article:published_time" content="2022-06-02T02:47:46.000Z">
-<meta property="article:modified_time" content="2022-09-13T00:00:03.560Z">
+<meta property="article:modified_time" content="2024-03-05T01:31:01.912Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="ROS">
 <meta name="twitter:card" content="summary_large_image">
@@ -296,7 +296,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          3.2k 字
+          3.6k 字
         
       </span>
     
@@ -308,7 +308,7 @@
         
         
           <!-- compatible with older versions-->
-          17 分钟
+          18 分钟
         
       </span>
     
@@ -358,7 +358,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2022年9月13日 08:00
+                    本文最后更新于：2024年3月5日 09:31
                   
                 
               </p>
@@ -373,6 +373,10 @@
 <h1 id="基本情况"><a href="#基本情况" class="headerlink" title="基本情况"></a>基本情况</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>win10系统使用vmware workstation 16 pro安装ubuntu 20.04版本，ros系统选择noetic版本。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs csharp">sudo rosdep <span class="hljs-keyword">init</span><br>rosdep update<br></code></pre></td></tr></table></figure>
 <p>上述步骤遇到网络问题，主要考虑在“软件与更新”中换中国的源（阿里、科大），然后主机使用手机热点联网。尝试过修改rawgithub的文件内容，把网站改成zhaoxuzuo的gitee（可能是现在gitee需要登录才行？）、给ubuntu装clash vpn尝试结果都不太行。</p>
+<blockquote>
+<p>更新 2024年3月4日</p>
+<p>在树莓派上安装 ubuntu20.04 支持 noetic 版本的 ros，可以用树莓派官方镜像下载服务器版本，然后再命令行安装（见 <a target="_blank" rel="noopener" href="https://askubuntu.com/a/1348561">link</a>, <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_61692649/article/details/128405529">link2</a>）</p>
+</blockquote>
 <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
 <li><p>ROS全称Robot Operating System(机器人操作系统)。在ROS中每一个功能点都是一个单独的进程，每一个进程都是独立运行的。</p>
 </li>
@@ -506,7 +510,14 @@
 <li>时间</li>
 <li>其他</li>
 </ul>
-<h1 id="运行管理"><a href="#运行管理" class="headerlink" title="运行管理"></a>运行管理</h1><h2 id="launch文件"><a href="#launch文件" class="headerlink" title="launch文件"></a>launch文件</h2><h2 id="工作空间覆盖"><a href="#工作空间覆盖" class="headerlink" title="工作空间覆盖"></a>工作空间覆盖</h2><h2 id="节点名称"><a href="#节点名称" class="headerlink" title="节点名称"></a>节点名称</h2><h2 id="话题名称"><a href="#话题名称" class="headerlink" title="话题名称"></a>话题名称</h2><h2 id="参数名称"><a href="#参数名称" class="headerlink" title="参数名称"></a>参数名称</h2><h2 id="分布式通信"><a href="#分布式通信" class="headerlink" title="分布式通信"></a>分布式通信</h2>
+<h1 id="运行管理"><a href="#运行管理" class="headerlink" title="运行管理"></a>运行管理</h1><h2 id="launch文件"><a href="#launch文件" class="headerlink" title="launch文件"></a>launch文件</h2><h2 id="工作空间覆盖"><a href="#工作空间覆盖" class="headerlink" title="工作空间覆盖"></a>工作空间覆盖</h2><h2 id="节点名称"><a href="#节点名称" class="headerlink" title="节点名称"></a>节点名称</h2><h2 id="话题名称"><a href="#话题名称" class="headerlink" title="话题名称"></a>话题名称</h2><h2 id="参数名称"><a href="#参数名称" class="headerlink" title="参数名称"></a>参数名称</h2><h2 id="分布式通信"><a href="#分布式通信" class="headerlink" title="分布式通信"></a>分布式通信</h2><script type="text/javascript">(function (document) {
+    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
+        panel.getElementsByClassName('fold-title')[0].onclick = function() {
+            panel.classList.toggle("collapsed");
+            panel.classList.toggle("expanded");
+        }
+    });
+})(document);</script>
                 
               </div>
             
@@ -570,7 +581,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年9月13日 08:00</div>
+          <div>2024年3月5日 09:31</div>
         </div>
       
       

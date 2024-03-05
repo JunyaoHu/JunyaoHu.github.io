@@ -855,6 +855,9 @@ i.iconfont {
   --inlinecode-bg-color: rgba(175,184,193,0.2);
   --button-bg-color: #2f4154;
   --button-text-color: #fff;
+  --fold-title-color: #3c4858;
+  --fold-bg-color: #e5efe7;
+  --fold-board-color: #e5efe7b8;
 }
 @media (prefers-color-scheme: dark) {
   :root {
@@ -881,6 +884,9 @@ i.iconfont {
     --button-hover-bg-color: #46647e;
     --highlight-bg-color: #1d1f21;
     --inlinecode-bg-color: rgba(99,110,123,0.4);
+    --fold-title-color: #c4c6c9;
+    --fold-bg-color: #4f665b;
+    --fold-board-color: #4f665bb8;
   }
   :root:not([data-user-color-scheme]) img {
     -webkit-filter: brightness(0.9);
@@ -918,6 +924,9 @@ i.iconfont {
     --button-hover-bg-color: #46647e;
     --highlight-bg-color: #1d1f21;
     --inlinecode-bg-color: rgba(99,110,123,0.4);
+    --fold-title-color: #c4c6c9;
+    --fold-bg-color: #4f665b;
+    --fold-board-color: #4f665bb8;
   }
   [data-user-color-scheme="dark"] img {
     -webkit-filter: brightness(0.9);
@@ -1789,6 +1798,59 @@ mjx-container svg:focus,
     -webkit-transform: translateX(0);
     transform: translateX(0);
   }
+}
+.fold {
+  margin: 5px 0;
+  padding: 0 15px;
+  border: 0.5px solid var(--fold-board-color);
+  position: relative;
+  clear: both;
+  border-radius: 4px;
+}
+.fold .fold-title {
+  background: var(--fold-bg-color);
+  color: var(--fold-title-color);
+  margin: 0 -15px;
+  padding: 5px 15px;
+  font-weight: bold;
+  font-size: 14px;
+  display: block;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.fold .fold-title:before {
+  font-weight: bold;
+}
+.fold.collapsed .fold-title:before {
+  content: "👉 ";
+}
+.fold.expanded .fold-title:before {
+  content: "👇 ";
+}
+.fold .fold-content {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  -moz-transition-duration: 0.8s;
+  -webkit-transition-duration: 0.8s;
+  -o-transition-duration: 0.8s;
+  transition-duration: 0.8s;
+  -moz-transition-timing-function: ease-in-out;
+  -webkit-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+.fold.collapsed .fold-content {
+  overflow: hidden;
+  max-height: 0;
+}
+.fold.expanded .fold-content {
+  max-height: 3000px;
+  overflow: auto;
+}
+.fold .fold-content p:first-child {
+  margin-top: 0 !important;
 }
 .note {
   padding: 0.75rem;

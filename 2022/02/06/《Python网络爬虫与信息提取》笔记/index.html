@@ -319,7 +319,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          14k 字
+          15k 字
         
       </span>
     
@@ -331,7 +331,7 @@
         
         
           <!-- compatible with older versions-->
-          73 分钟
+          74 分钟
         
       </span>
     
@@ -522,7 +522,14 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#items.py</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScrapyDangdang095Item</span>(<span class="hljs-params">scrapy.Item</span>):</span><br>    <span class="hljs-comment"># name = scrapy.Field()</span><br>    <span class="hljs-comment"># 通俗的说就是你要下载的数据都有什么</span><br>    src = scrapy.Field()<br>    name = scrapy.Field()<br>    price = scrapy.Field()<br></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#pipelines.py</span><br><span class="hljs-keyword">from</span> itemadapter <span class="hljs-keyword">import</span> ItemAdapter<br><br><span class="hljs-comment"># 如果想使用管道的话 那么就必须在settings中开启管道</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScrapyDangdang095Pipeline</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">open_spider</span>(<span class="hljs-params">self,spider</span>):</span><br>        self.fp = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;book.json&#x27;</span>,<span class="hljs-string">&#x27;w&#x27;</span>,encoding=<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>        <br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">process_item</span>(<span class="hljs-params">self, item, spider</span>):</span><br>        self.fp.write(<span class="hljs-built_in">str</span>(item))<br>        <span class="hljs-keyword">return</span> item<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">close_spider</span>(<span class="hljs-params">self,spider</span>):</span><br>        self.fp.close()<br><br><span class="hljs-keyword">import</span> urllib.request<br><br><span class="hljs-comment"># 多条管道开启</span><br><span class="hljs-comment"># 定义管道类 + 在settings中开启管道</span><br><span class="hljs-comment">#&#x27;scrapy_dangdang_095.pipelines.DangDangDownloadPipeline&#x27;:301</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DangDangDownloadPipeline</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">process_item</span>(<span class="hljs-params">self, item, spider</span>):</span><br>        url = <span class="hljs-string">&#x27;http:&#x27;</span> + item.get(<span class="hljs-string">&#x27;src&#x27;</span>)<br>        filename = <span class="hljs-string">&#x27;./books/&#x27;</span> + item.get(<span class="hljs-string">&#x27;name&#x27;</span>) + <span class="hljs-string">&#x27;.jpg&#x27;</span><br>        urllib.request.urlretrieve(url = url, filename= filename)<br>        <span class="hljs-keyword">return</span> item<br></code></pre></td></tr></table></figure>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#settings.py文件中被修改</span><br>ITEM_PIPELINES = &#123;<br>    <span class="hljs-comment">#  管道可以有很多个  那么管道是有优先级的  优先级的范围是1到1000   值越小优先级越高</span><br>    <span class="hljs-string">&#x27;scrapy_dangdang_095.pipelines.ScrapyDangdang095Pipeline&#x27;</span>: <span class="hljs-number">300</span>,<br>    <span class="hljs-comment">#DangDangDownloadPipeline</span><br>    <span class="hljs-string">&#x27;scrapy_dangdang_095.pipelines.DangDangDownloadPipeline&#x27;</span>:<span class="hljs-number">301</span><br>&#125;<br></code></pre></td></tr></table></figure>
-
+<script type="text/javascript">(function (document) {
+    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
+        panel.getElementsByClassName('fold-title')[0].onclick = function() {
+            panel.classList.toggle("collapsed");
+            panel.classList.toggle("expanded");
+        }
+    });
+})(document);</script>
                 
               </div>
             

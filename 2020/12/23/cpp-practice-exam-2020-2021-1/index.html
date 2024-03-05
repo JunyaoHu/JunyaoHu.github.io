@@ -293,7 +293,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          2.5k 字
+          2.8k 字
         
       </span>
     
@@ -305,7 +305,7 @@
         
         
           <!-- compatible with older versions-->
-          13 分钟
+          14 分钟
         
       </span>
     
@@ -382,7 +382,14 @@
 <h2 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入"></a>样例输入</h2><p><code>4.3 5.6</code></p>
 <h2 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出"></a>样例输出</h2><p><code>15.9014 89.0478</code></p>
 <h2 id="考试AC代码"><a href="#考试AC代码" class="headerlink" title="考试AC代码"></a>考试AC代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Circle</span></span><br><span class="hljs-class">&#123;</span><br>    <span class="hljs-keyword">private</span>:<br>        <span class="hljs-keyword">double</span> radius;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-built_in">Circle</span>():<span class="hljs-built_in">radius</span>(<span class="hljs-number">0</span>)&#123;&#125;<br>        <span class="hljs-built_in">Circle</span>(<span class="hljs-keyword">double</span> r):<span class="hljs-built_in">radius</span>(r)&#123;&#125;<br>        <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">ShowR</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">return</span> radius;&#125;<br>        <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Area</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-number">3.14</span>*radius*radius;&#125;  <br>&#125;;<br> <br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Zhu</span>:</span> <span class="hljs-keyword">public</span> Circle<br>&#123;<br>    <span class="hljs-keyword">private</span>:<br>        <span class="hljs-keyword">double</span> height;<br>    <span class="hljs-keyword">public</span>:<br>        <span class="hljs-built_in">Zhu</span>():<span class="hljs-built_in">height</span>(<span class="hljs-number">0</span>)&#123;&#125;<br>        <span class="hljs-built_in">Zhu</span>(<span class="hljs-keyword">double</span> r, <span class="hljs-keyword">double</span> h):<span class="hljs-built_in">Circle</span>(r),<span class="hljs-built_in">height</span>(h)&#123;&#125;<br>        <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">BottomArea</span><span class="hljs-params">()</span></span><br><span class="hljs-function">        </span>&#123;<br>            <span class="hljs-keyword">double</span> ra=<span class="hljs-number">0</span>;<br>            ra=<span class="hljs-built_in">ShowR</span>();<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">4</span>*ra*ra-<span class="hljs-built_in">Area</span>();<br>        &#125;<br>        <span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">Volumn</span><span class="hljs-params">()</span> </span>&#123;<span class="hljs-keyword">return</span> <span class="hljs-built_in">BottomArea</span>()*height;&#125;<br>&#125;;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">double</span> r,h;<br>    cin&gt;&gt;r&gt;&gt;h;<br>    <span class="hljs-function">Zhu <span class="hljs-title">z</span><span class="hljs-params">(r,h)</span></span>;<br>    cout&lt;&lt;z.<span class="hljs-built_in">BottomArea</span>()&lt;&lt;<span class="hljs-string">&#x27; &#x27;</span>&lt;&lt;z.<span class="hljs-built_in">Volumn</span>()&lt;&lt;endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-
+<script type="text/javascript">(function (document) {
+    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
+        panel.getElementsByClassName('fold-title')[0].onclick = function() {
+            panel.classList.toggle("collapsed");
+            panel.classList.toggle("expanded");
+        }
+    });
+})(document);</script>
                 
               </div>
             

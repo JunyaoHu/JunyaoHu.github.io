@@ -306,7 +306,7 @@
         
         
           <!-- compatible with older versions-->
-          74 分钟
+          76 分钟
         
       </span>
     
@@ -532,7 +532,14 @@
 <h1 id="Edge-Detection"><a href="#Edge-Detection" class="headerlink" title="Edge Detection"></a>Edge Detection</h1><p>pass</p>
 <h1 id="Mouse-and-Trackbar"><a href="#Mouse-and-Trackbar" class="headerlink" title="Mouse and Trackbar"></a>Mouse and Trackbar</h1><p>pass</p>
 <h1 id="Contour-Detection"><a href="#Contour-Detection" class="headerlink" title="Contour Detection"></a>Contour Detection</h1><h1 id="Simple-Background-Estimation"><a href="#Simple-Background-Estimation" class="headerlink" title="Simple Background Estimation"></a>Simple Background Estimation</h1><h1 id="Deep-Learning-with-OpenCV-DNN"><a href="#Deep-Learning-with-OpenCV-DNN" class="headerlink" title="Deep Learning with OpenCV DNN"></a>Deep Learning with OpenCV DNN</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs -">InputImg<br><br>Input.float().to(Device)<br><br>ValDataLoader<br><br>ValDataLoader = PipeDatasetLoader(FolderPath, 1)<br><br>ValDataLoader = DataLoader(ValDataset, batch_size=1, shuffle=False, drop_last=False, num_workers=0, pin_memory=True)<br><br><br></code></pre></td></tr></table></figure>
-
+<script type="text/javascript">(function (document) {
+    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
+        panel.getElementsByClassName('fold-title')[0].onclick = function() {
+            panel.classList.toggle("collapsed");
+            panel.classList.toggle("expanded");
+        }
+    });
+})(document);</script>
                 
               </div>
             

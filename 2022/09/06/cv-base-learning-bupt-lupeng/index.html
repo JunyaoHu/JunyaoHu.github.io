@@ -361,7 +361,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          13k 字
+          14k 字
         
       </span>
     
@@ -373,7 +373,7 @@
         
         
           <!-- compatible with older versions-->
-          67 分钟
+          68 分钟
         
       </span>
     
@@ -1307,7 +1307,14 @@ I & 0
 </ul>
 </li>
 </ul>
-
+<script type="text/javascript">(function (document) {
+    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
+        panel.getElementsByClassName('fold-title')[0].onclick = function() {
+            panel.classList.toggle("collapsed");
+            panel.classList.toggle("expanded");
+        }
+    });
+})(document);</script>
                 
               </div>
             
