@@ -16,18 +16,20 @@
   <meta name="author" content="胡椒">
   <meta name="keywords" content="计算机视觉,深度学习">
   
-    <meta name="description" content="理论基础 语言模型演化过程 | 名称           | 原理             | 代表模型                      || ——————— | ———————— | ——————————————- || 统计语言模型   | 马尔可夫假设     | 𝑛-gram                        || 神经语言模型   | 词嵌入">
+    <meta name="description" content="理论基础 语言模型演化过程      名称 原理 代表模型     统计语言模型 马尔可夫假设 𝑛-gram   神经语言模型 词嵌入 word2vec   预训练语言模型 LSTM&#x2F;Transformer ELMo、BERT、GPT-1&#x2F;2   大语言模型 Scaling Law GPT-3、ChatGPT、Claude、Llama      大模型构建过程 预训练 数据：首要任务是搜集和清洗">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Datawhale AI 夏令营 | 动手学大模型应用全栈开发-任务1">
 <meta property="og:url" content="https://junyaohu.github.io/2024/08/10/llm-learning-datawhale-task1/index.html">
 <meta property="og:site_name" content="胡椒的 Coding Room">
-<meta property="og:description" content="理论基础 语言模型演化过程 | 名称           | 原理             | 代表模型                      || ——————— | ———————— | ——————————————- || 统计语言模型   | 马尔可夫假设     | 𝑛-gram                        || 神经语言模型   | 词嵌入">
+<meta property="og:description" content="理论基础 语言模型演化过程      名称 原理 代表模型     统计语言模型 马尔可夫假设 𝑛-gram   神经语言模型 词嵌入 word2vec   预训练语言模型 LSTM&#x2F;Transformer ELMo、BERT、GPT-1&#x2F;2   大语言模型 Scaling Law GPT-3、ChatGPT、Claude、Llama      大模型构建过程 预训练 数据：首要任务是搜集和清洗">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/08/10/lhyrCtQNJpDHUoK.png">
 <meta property="article:published_time" content="2024-08-10T12:00:00.000Z">
-<meta property="article:modified_time" content="2024-08-10T13:46:16.911Z">
+<meta property="article:modified_time" content="2024-08-10T14:31:00.914Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://s2.loli.net/2024/08/10/lhyrCtQNJpDHUoK.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -327,7 +329,7 @@
         
         
           <!-- compatible with older versions-->
-          14 分钟
+          13 分钟
         
       </span>
     
@@ -573,7 +575,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年8月10日 21:46
+                    本文最后更新于：2024年8月10日 22:31
                   
                 
               </p>
@@ -582,11 +584,43 @@
               <div class="markdown-body">
                 
                 <h1 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h1><ul>
-<li><p>语言模型演化过程</p>
-<p>| 名称           | 原理             | 代表模型                      |<br>| ——————— | ———————— | ——————————————- |<br>| 统计语言模型   | 马尔可夫假设     | 𝑛-gram                        |<br>| 神经语言模型   | 词嵌入           | word2vec                      |<br>| 预训练语言模型 | LSTM/Transformer | ELMo、BERT、GPT-1/2           |<br>| 大语言模型     | Scaling Law      | GPT-3、ChatGPT、Claude、Llama |</p>
-</li>
-<li><p>大模型构建过程</p>
+<li>语言模型演化过程</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>原理</th>
+<th>代表模型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>统计语言模型</td>
+<td>马尔可夫假设</td>
+<td>𝑛-gram</td>
+</tr>
+<tr>
+<td>神经语言模型</td>
+<td>词嵌入</td>
+<td>word2vec</td>
+</tr>
+<tr>
+<td>预训练语言模型</td>
+<td>LSTM/Transformer</td>
+<td>ELMo、BERT、GPT-1/2</td>
+</tr>
+<tr>
+<td>大语言模型</td>
+<td>Scaling Law</td>
+<td>GPT-3、ChatGPT、Claude、Llama</td>
+</tr>
+</tbody>
+</table>
+</div>
 <ul>
+<li>大模型构建过程<ul>
 <li>预训练<ul>
 <li>数据：首要任务是搜集和清洗海量的文本数据，质量、多样性、安全性</li>
 <li>计算资源：以Llama-1的65B，在2048块A100 80GB GPU集群上接近三周训练</li>
@@ -642,6 +676,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">streamlit run AICamp_yuan_baseline/Task\ 1：零基础玩转源大模型/web_demo_2b.py --server.address 127.0.0.1 --server.port 6006<br></code></pre></td></tr></table></figure>
 </li>
 </ul>
+<p><img src="https://s2.loli.net/2024/08/10/lhyrCtQNJpDHUoK.png" srcset="/img/loading.gif" lazyload alt="image-20240810223028272" style="zoom: 33%;" /></p>
 <script type="text/javascript">(function (document) {
     [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
         panel.getElementsByClassName('fold-title')[0].onclick = function() {
@@ -713,7 +748,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年8月10日 21:46</div>
+          <div>2024年8月10日 22:31</div>
         </div>
       
       
