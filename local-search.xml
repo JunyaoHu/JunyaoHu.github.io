@@ -8,7 +8,7 @@
     <link href="/2024/08/12/llm-learning-datawhale-task2/"/>
     <url>/2024/08/12/llm-learning-datawhale-task2/</url>
     
-    <content type="html"><![CDATA[<h1 id="会议学习"><a href="#会议学习" class="headerlink" title="会议学习"></a>会议学习</h1><ul><li>短时间快速迭代制作产品原型<ul><li>队长<ul><li>目标明确：清晰地知道赛事的重要目标是什么，分清主次，良好地规划项目周期</li><li><strong>任务分解</strong>：将大型项目拆解为多个小任务，分配给具备相应技能的成员，确保每个人都能贡献自己的优势。</li><li>学习与培训：提供必要的学习资源，帮助团队成员提升技能，特别是对于新技术的学习。</li><li>沟通机制：建立有效的沟通渠道，确保信息流通顺畅，团队成员能够及时解决问题和分享进展。</li></ul></li><li>队员：至少有会技术的人，前端(最简单的就是Gradio/Streamlit)、后端(偏大模型选型与部署)、产品设计都要有人，尽量让所有人都能发挥所长</li><li>目标：设定清晰的目标和期望，把控风险，多次迭代，开放沟通、互相促进和激发创意，项目管理工具</li></ul></li><li>经验之谈<ul><li>快速写前端界面效果：通过快速原型展示功能目标，促进团队理解和用户反馈。</li><li>编程：善于利用官方文档和社区资源，激发灵感。</li><li>从自己的场景出发：基于个人经验和用户需求，进行功能设计。</li><li>遇到问题，思考解决方案：灵活应对挑战，适时调整策略。</li><li><strong>创意优先</strong>：想到更多的创意点和对应的功能，进行组合设计</li><li><strong>用户体验优先</strong>：关注用户界面的清晰度和交互性。</li><li>功能更新与代码复用：优化代码结构，实现多功能复用。</li><li>功能扩展：根据竞赛要求和用户反馈，适时增加新功能，以增强产品的竞争力。</li><li>独立功能集成：先独立实现功能，再集成到整体项目中。</li><li>把演示材料做好(如PPT)：这个是不管是赛事还是项目发展都很需要的点，既是与团队对齐目标和远期愿景，又是 赛事评审/外部资源 最高效了解项目的方案，是替你说话的部分(很多时候这个材料不够好到不了答辩的环节)</li></ul></li><li>从概念到落地<ul><li>创意的可行性需要经过技术评估</li><li>团队需要具备跨学科的知识，包括但不限于技术、设计、市场和业务策略</li><li>资源限制、时间管理及市场动态</li><li>制定详细的计划，设定优先级，并灵活调整策略以应对不确定性</li></ul></li><li>生产场景中产品的稳定性<ul><li>对于比赛来说，最初就考虑系统的可扩展性和健壮性，并不现实</li><li>微服务架构、冗余设计和自动化测试</li><li>持续集成/持续部署（CI/CD）</li><li>监控和日志记录机制</li></ul></li><li>产品设计<ul><li>产品有趣<ul><li>通过引入互动元素、游戏化机制或个性化体验，可以提升用户参与度。例如，设置成就系统、排行榜或虚拟奖励可以激励用户持续使用产品。</li><li>同时，保持界面简洁直观，避免过度复杂化，也能让用户感到轻松愉悦。</li><li>创意和幽默感的融入，如有趣的动画、俏皮的文案或独特的视觉风格，也能让产品脱颖而出。</li></ul></li><li>需求来源<ul><li>组内交流：关注自己和队友的信息需求，解决痛点，作为产品设计的核心。</li><li>市场导向：部分人更注重市场需求，产品设计细节需逐步完善。</li><li>创意征集：通过社群收集创意(让大家体验和提需求共创)，用以改进产品，增加趣味性。</li></ul></li></ul></li></ul><h1 id="项目阐述"><a href="#项目阐述" class="headerlink" title="项目阐述"></a>项目阐述</h1><ul><li>名称：别再PUA啦：基于多智能体的被PUA指数心理测评游戏</li><li>目的：”别再PUA啦”是一款创新的心理测评游戏，它基于多智能体技术，旨在通过互动游戏的形式，测量个体对PUA策略的抵抗力和识别能力，从而帮助用户提高自我保护意识和社交技巧。</li><li>一句话介绍：机智选择，远离PUA</li><li>涉及模型能力：多智能体</li><li>参考案例：<ul><li>用大模型测试人格/抑郁/认知模式！通过游戏剧情发展测量心理特质：提出一种新的心理学测量范式，将传统问卷转化成基于游戏的交互测量；在保证心理测量信度和效度的基础上，提升参与者的沉浸感，改善被测体验。<a href="https://hub.baai.ac.cn/view/35761">https://hub.baai.ac.cn/view/35761</a></li><li>壹心理测评：你有多容易被PUA，本测评结合依恋理论、印象管理理论，参考精神控制等心理学概念，由壹心理专业心理测评研发团队研发而成。<a href="https://m.xinli001.com/ceping/815">https://m.xinli001.com/ceping/815</a></li><li>什么是PUA？从理解到防御 <a href="https://www.xinli001.com/info/100487885?source=pc-home">https://www.xinli001.com/info/100487885?source=pc-home</a></li><li>【互动视频】测测你反PUA能力多强？<a href="https://www.bilibili.com/video/BV1zJ41167T3">https://www.bilibili.com/video/BV1zJ41167T3</a></li></ul></li><li><p>与赛题的联系：心理健康专题</p></li><li><p>应用开发期望效果图</p></li></ul><p><img src="https://smms.app/image/QBRom4Ji8cpLksN" alt=""></p><script type="text/javascript">(function (document) {    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {        panel.getElementsByClassName('fold-title')[0].onclick = function() {            panel.classList.toggle("collapsed");            panel.classList.toggle("expanded");        }    });})(document);</script>]]></content>
+    <content type="html"><![CDATA[<h1 id="会议学习"><a href="#会议学习" class="headerlink" title="会议学习"></a>会议学习</h1><ul><li>短时间快速迭代制作产品原型<ul><li>队长<ul><li>目标明确：清晰地知道赛事的重要目标是什么，分清主次，良好地规划项目周期</li><li><strong>任务分解</strong>：将大型项目拆解为多个小任务，分配给具备相应技能的成员，确保每个人都能贡献自己的优势。</li><li>学习与培训：提供必要的学习资源，帮助团队成员提升技能，特别是对于新技术的学习。</li><li>沟通机制：建立有效的沟通渠道，确保信息流通顺畅，团队成员能够及时解决问题和分享进展。</li></ul></li><li>队员：至少有会技术的人，前端(最简单的就是Gradio/Streamlit)、后端(偏大模型选型与部署)、产品设计都要有人，尽量让所有人都能发挥所长</li><li>目标：设定清晰的目标和期望，把控风险，多次迭代，开放沟通、互相促进和激发创意，项目管理工具</li></ul></li><li>经验之谈<ul><li>快速写前端界面效果：通过快速原型展示功能目标，促进团队理解和用户反馈。</li><li>编程：善于利用官方文档和社区资源，激发灵感。</li><li>从自己的场景出发：基于个人经验和用户需求，进行功能设计。</li><li>遇到问题，思考解决方案：灵活应对挑战，适时调整策略。</li><li><strong>创意优先</strong>：想到更多的创意点和对应的功能，进行组合设计</li><li><strong>用户体验优先</strong>：关注用户界面的清晰度和交互性。</li><li>功能更新与代码复用：优化代码结构，实现多功能复用。</li><li>功能扩展：根据竞赛要求和用户反馈，适时增加新功能，以增强产品的竞争力。</li><li>独立功能集成：先独立实现功能，再集成到整体项目中。</li><li>把演示材料做好(如PPT)：这个是不管是赛事还是项目发展都很需要的点，既是与团队对齐目标和远期愿景，又是 赛事评审/外部资源 最高效了解项目的方案，是替你说话的部分(很多时候这个材料不够好到不了答辩的环节)</li></ul></li><li>从概念到落地<ul><li>创意的可行性需要经过技术评估</li><li>团队需要具备跨学科的知识，包括但不限于技术、设计、市场和业务策略</li><li>资源限制、时间管理及市场动态</li><li>制定详细的计划，设定优先级，并灵活调整策略以应对不确定性</li></ul></li><li>生产场景中产品的稳定性<ul><li>对于比赛来说，最初就考虑系统的可扩展性和健壮性，并不现实</li><li>微服务架构、冗余设计和自动化测试</li><li>持续集成/持续部署（CI/CD）</li><li>监控和日志记录机制</li></ul></li><li>产品设计<ul><li>产品有趣<ul><li>通过引入互动元素、游戏化机制或个性化体验，可以提升用户参与度。例如，设置成就系统、排行榜或虚拟奖励可以激励用户持续使用产品。</li><li>同时，保持界面简洁直观，避免过度复杂化，也能让用户感到轻松愉悦。</li><li>创意和幽默感的融入，如有趣的动画、俏皮的文案或独特的视觉风格，也能让产品脱颖而出。</li></ul></li><li>需求来源<ul><li>组内交流：关注自己和队友的信息需求，解决痛点，作为产品设计的核心。</li><li>市场导向：部分人更注重市场需求，产品设计细节需逐步完善。</li><li>创意征集：通过社群收集创意(让大家体验和提需求共创)，用以改进产品，增加趣味性。</li></ul></li></ul></li></ul><h1 id="项目阐述"><a href="#项目阐述" class="headerlink" title="项目阐述"></a>项目阐述</h1><ul><li>名称：别再PUA啦：基于多智能体的被PUA指数心理测评游戏</li><li>目的：”别再PUA啦”是一款创新的心理测评游戏，它基于多智能体技术，旨在通过互动游戏的形式，测量个体对PUA策略的抵抗力和识别能力，从而帮助用户提高自我保护意识和社交技巧。</li><li>一句话介绍：机智选择，远离PUA</li><li>涉及模型能力：多智能体</li><li>参考案例：<ul><li>用大模型测试人格/抑郁/认知模式！通过游戏剧情发展测量心理特质：提出一种新的心理学测量范式，将传统问卷转化成基于游戏的交互测量；在保证心理测量信度和效度的基础上，提升参与者的沉浸感，改善被测体验。<a href="https://hub.baai.ac.cn/view/35761">https://hub.baai.ac.cn/view/35761</a></li><li>壹心理测评：你有多容易被PUA，本测评结合依恋理论、印象管理理论，参考精神控制等心理学概念，由壹心理专业心理测评研发团队研发而成。<a href="https://m.xinli001.com/ceping/815">https://m.xinli001.com/ceping/815</a></li><li>什么是PUA？从理解到防御 <a href="https://www.xinli001.com/info/100487885?source=pc-home">https://www.xinli001.com/info/100487885?source=pc-home</a></li><li>【互动视频】测测你反PUA能力多强？<a href="https://www.bilibili.com/video/BV1zJ41167T3">https://www.bilibili.com/video/BV1zJ41167T3</a></li></ul></li><li><p>与赛题的联系：心理健康专题</p></li><li><p>应用开发期望效果图</p></li></ul><p><img src="https://s2.loli.net/2024/08/13/QBRom4Ji8cpLksN.jpg" style="zoom:67%;" /></p><script type="text/javascript">(function (document) {    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {        panel.getElementsByClassName('fold-title')[0].onclick = function() {            panel.classList.toggle("collapsed");            panel.classList.toggle("expanded");        }    });})(document);</script>]]></content>
     
     
     <categories>
@@ -348,9 +348,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>深度学习</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
@@ -537,9 +537,9 @@
     
     <tags>
       
-      <tag>机器学习</tag>
-      
       <tag>深度学习</tag>
+      
+      <tag>机器学习</tag>
       
     </tags>
     
