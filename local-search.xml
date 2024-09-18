@@ -208,6 +208,33 @@
   
   
   <entry>
+    <title>基于TCP的Qt通信上位机软件 - 航天智慧物流2022</title>
+    <link href="/2022/09/12/zhihuiwuliu2022-TCP-demo/"/>
+    <url>/2022/09/12/zhihuiwuliu2022-TCP-demo/</url>
+    
+    <content type="html"><![CDATA[<h1 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h1><h2 id="信号（Signal）与槽（Slot）机制"><a href="#信号（Signal）与槽（Slot）机制" class="headerlink" title="信号（Signal）与槽（Slot）机制"></a>信号（Signal）与槽（Slot）机制</h2><ul><li><p>信号和槽机制是Qt的核心机制，要精通Qt编程，就必须对信号和槽有所了解。信号和槽是一种高级接口，应用于对象之间的通信，它是Qt的核心特性，也是Qt区别于其它工具包的重要地方。信号和槽是Qt自行定义的一种通信机制，它独立于标准的C/C++语言，因此要正确的处理信号和槽，必须借助一个称为MOC（Meta Object Compiler）的Qt工具，该工具是一个C++预处理程序，它为高层次的事件处理自动生成所需要的附加代码。</p></li><li><p>信号就是在特定情况下被发射的事件，例如PushButton最常见的信号就是鼠标单击时发射的clicked()信号，一个ComboBox最常见的信号是选择的列表项变化时发射的CurrentIndexChanged()信号。</p></li><li><p>槽就是对信号响应的函数。槽就是一个函数，与一般的C++函数是一样的，可以定义在类的任何部分（public、private或protected），可以具有任何参数，也可以被直接调用。槽函数与一般的函数不同的是：槽函数可以与一个信号关联，当信号被发射时，关联的槽函数被自动执行。</p><p>一种编码设置信号与槽的方法是：使用connect()函数关联，其典型代码如下，按钮的clicked()信号和槽函数print()被连接在一起。</p><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">connect(<span class="hljs-name">pBtn</span>, SIGNAL(<span class="hljs-name">clicked</span>()), this, SLOT(<span class="hljs-name">Print</span>()))<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure></li><li><p>此外，还可以使用Qt Designer的GUI设计界面选择信号与槽的类型即可进行连接，无需手工写代码，而是交给程序完成。</p></li></ul><h2 id="套接字（Socket）"><a href="#套接字（Socket）" class="headerlink" title="套接字（Socket）"></a>套接字（Socket）</h2><ul><li><p>Socket是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元。它是网络通信过程中端点的抽象表示，包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。应用层通过传输层进行数据通信时，TCP会遇到同时为多个应用程序进程提供并发服务的问题。多个TCP连接或多个应用程序进程可能需要通过同一个TCP协议端口传输数据。为了区别不同的应用程序进程和连接，许多计算机操作系统为应用程序与TCP／IP协议交互提供了Socket接口。应用层可以和传输层通过Socket接口，区分来自不同应用程序进程或网络连接的通信，实现数据传输的并发服务。建立Socket连接至少需要一对套接字，其中一个运行于客户端（Client Socket），另一个运行于服务器端（Server Socket）。</p></li><li><p>Socket连接步骤</p><p><img src="https://s2.loli.net/2022/09/12/ELwa86omi4JIy3W.png" alt="image-20220912214108937" style="zoom:50%;" /></p></li></ul><h2 id="Python多线程"><a href="#Python多线程" class="headerlink" title="Python多线程"></a>Python多线程</h2><p>Python主要是通过thread和threading这两个模块来实现多线程支持。Python的thread模块是比较底层的模块，python的threading模块是对thread做了一些封装，可以更加方便的被使用。Python3.x中已经摒弃了Python2.x中采用函数式thread模块中的start_new_thread()函数来产生新线程方式。</p><p>Python3.x中通过threading模块创建新的线程有两种方法：一种是通过threading.Thread(Target=executable Method)，即传递给Thread对象一个可执行方法（或对象）;第二种是继承threading.Thread定义子类并重写run()方法。为了能够连续发送信息而不是发送一条信息后必须接收信息才能继续发送信息，客户端可以通过按键实现，但服务器没有可视化界面，考虑使用多线程，建立一个接收线程和发送线程，即可实现同时可以进行接收和发送信息。</p><h1 id="项目实践"><a href="#项目实践" class="headerlink" title="项目实践"></a>项目实践</h1><h2 id="要点概述"><a href="#要点概述" class="headerlink" title="要点概述"></a>要点概述</h2><ol><li>实现题目要求的基本功能：Socket通信，不同系统之间互传信息；</li><li>设置了程序的初始化步骤，打开程序时，自动填充本机的IP地址，设置默认端口，减少用户操作步骤；</li><li>支持多行文本一次性传输；</li><li>使用表格对Socket信息进行记录，相比命令行输出可视化效果更佳，同时也提供了筛选信息类型、检索信息内容的功能；</li><li>可以将表格内的数据以XML文件形式保存到本地，作为程序日志记录；</li><li>对于各类无效或者出错的情况（如无法连接到对方服务器、关闭了程序窗口、发送空字符串等）进行了不同处理，程序具有较高鲁棒性；</li><li>美化了程序界面，简介大方，具有现代感。</li></ol><h2 id="界面设计"><a href="#界面设计" class="headerlink" title="界面设计"></a>界面设计</h2><p>程序界面主要由三个模块构成，由上到下是连接配置、交互状态记录、信息发送框。</p><p>在连接配置模块中，最上方的单选按钮，选择本机需要设置的类型（客户端或者服务器），接着需要使用单行文本框填写服务器IP和端口（对于服务器是填写自己监听的地址和端口，对于客户端是需要连接的服务器的地址和端口），便于后续连接操作。右侧有三个按钮，包括一键获取本机IP地址、监听/连接到服务器、停止监听/断开连接。</p><p>在交互状态记录模块中，左上方是一个下拉菜单，可以选择信息输入输出的方向，对信息类型进行筛选，上方是单行文本框，可以输入需要搜索的信息，对信息内容进行筛选。中间的表格控件则是把输入和接收各种信息按照时间顺序显示在表格中，其中一条信息主要显示的内容包括发送/接收时间、发送/接收的地址和端口，信息方向（输入/输出）、服务器/客户端当前状态信息或者发送/接收的信息。下方是两个按钮，左下方的清空可以清空当前表格信息，右下方的保存可以将当前表格内的数据以XML文件的形式保存到本地。</p><p>在信息发送框模块中，中间是发送文本框，支持中英文、emoji表情等，支持多行输入一次性输出，左下方是清空文本框按钮，按下后当前文本框的文本被清空，右下角是发送按钮，按下后当前文本框中的内容将被发送。</p><p>本程序借鉴的主题风格是Qt-Frameless-Window-DarkStyle。这是一款免费开源的样式，主要是深色风格的实现Qt的MainWindow类的自定义深色样式。其作者是麻省理工大学的Juergen Skrotzky，这个开源项目在他的<a href="https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle">Github</a>上面。本程序是用Widget类制作的，对源代码进行适当修改即可适用于本程序。</p><p>本程序界面如下所示。</p><p><img src="https://s2.loli.net/2022/09/12/uAG5rM142qHndLl.png" alt="image-20220912214252001"></p><h2 id="基础功能运行效果"><a href="#基础功能运行效果" class="headerlink" title="基础功能运行效果"></a>基础功能运行效果</h2><p>首先在Ubuntu系统中使用ifconfig查询到本机的IP地址，然后修改<code>hello.py</code>中的ip_port，重新对程序进行编译，然后运行。</p> <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">catkin_make<br>roscore<br><span class="hljs-keyword">source</span> ~<span class="hljs-regexp">/ROS_TCP_Server/</span>devel/setup.bash<br>rosrun ros_tcp_server hello.py<br></code></pre></td></tr></table></figure><p>再打开Windows系统的TCPdemo程序，选择客户端类型，将服务器的IP地址和端口号复制粘贴到客户端程序中。点击连接到服务器，即可成功创建连接，Windows系统程序标题显示连接的端口号，Ubuntu系统输出Socket的相关信息。</p><p><img src="https://s2.loli.net/2022/09/12/eXBs1rWKO4gMQkZ.png" alt="image-20220912221017263"></p><p> 建立连接后，客户端和服务器可以互发消息。</p><p><img src="https://s2.loli.net/2022/09/12/gYnaev8fqOJuwGU.png" alt="image-20220912221049268"></p><p>客户端选择断开连接，此时服务器再发送消息会自动退出，信息传输结束。</p><p><img src="https://s2.loli.net/2022/09/12/Ui83HTgPBKLeQFo.png" alt="image-20220912221103070"></p><script type="text/javascript">(function (document) {    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {        panel.getElementsByClassName('fold-title')[0].onclick = function() {            panel.classList.toggle("collapsed");            panel.classList.toggle("expanded");        }    });})(document);</script>]]></content>
+    
+    
+    <categories>
+      
+      <category>开发项目</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>计算机网络</tag>
+      
+      <tag>Qt</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>基于Unet3p的车道中线检测模型 - 航天智慧物流2022</title>
     <link href="/2022/09/12/zhihuiwuliu2022-CarLineDetection-Unet-demo/"/>
     <url>/2022/09/12/zhihuiwuliu2022-CarLineDetection-Unet-demo/</url>
@@ -229,33 +256,6 @@
       <tag>计算机视觉</tag>
       
       <tag>语义分割</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>基于TCP的Qt通信上位机软件 - 航天智慧物流2022</title>
-    <link href="/2022/09/12/zhihuiwuliu2022-TCP-demo/"/>
-    <url>/2022/09/12/zhihuiwuliu2022-TCP-demo/</url>
-    
-    <content type="html"><![CDATA[<h1 id="理论基础"><a href="#理论基础" class="headerlink" title="理论基础"></a>理论基础</h1><h2 id="信号（Signal）与槽（Slot）机制"><a href="#信号（Signal）与槽（Slot）机制" class="headerlink" title="信号（Signal）与槽（Slot）机制"></a>信号（Signal）与槽（Slot）机制</h2><ul><li><p>信号和槽机制是Qt的核心机制，要精通Qt编程，就必须对信号和槽有所了解。信号和槽是一种高级接口，应用于对象之间的通信，它是Qt的核心特性，也是Qt区别于其它工具包的重要地方。信号和槽是Qt自行定义的一种通信机制，它独立于标准的C/C++语言，因此要正确的处理信号和槽，必须借助一个称为MOC（Meta Object Compiler）的Qt工具，该工具是一个C++预处理程序，它为高层次的事件处理自动生成所需要的附加代码。</p></li><li><p>信号就是在特定情况下被发射的事件，例如PushButton最常见的信号就是鼠标单击时发射的clicked()信号，一个ComboBox最常见的信号是选择的列表项变化时发射的CurrentIndexChanged()信号。</p></li><li><p>槽就是对信号响应的函数。槽就是一个函数，与一般的C++函数是一样的，可以定义在类的任何部分（public、private或protected），可以具有任何参数，也可以被直接调用。槽函数与一般的函数不同的是：槽函数可以与一个信号关联，当信号被发射时，关联的槽函数被自动执行。</p><p>一种编码设置信号与槽的方法是：使用connect()函数关联，其典型代码如下，按钮的clicked()信号和槽函数print()被连接在一起。</p><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lisp">connect(<span class="hljs-name">pBtn</span>, SIGNAL(<span class="hljs-name">clicked</span>()), this, SLOT(<span class="hljs-name">Print</span>()))<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure></li><li><p>此外，还可以使用Qt Designer的GUI设计界面选择信号与槽的类型即可进行连接，无需手工写代码，而是交给程序完成。</p></li></ul><h2 id="套接字（Socket）"><a href="#套接字（Socket）" class="headerlink" title="套接字（Socket）"></a>套接字（Socket）</h2><ul><li><p>Socket是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元。它是网络通信过程中端点的抽象表示，包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。应用层通过传输层进行数据通信时，TCP会遇到同时为多个应用程序进程提供并发服务的问题。多个TCP连接或多个应用程序进程可能需要通过同一个TCP协议端口传输数据。为了区别不同的应用程序进程和连接，许多计算机操作系统为应用程序与TCP／IP协议交互提供了Socket接口。应用层可以和传输层通过Socket接口，区分来自不同应用程序进程或网络连接的通信，实现数据传输的并发服务。建立Socket连接至少需要一对套接字，其中一个运行于客户端（Client Socket），另一个运行于服务器端（Server Socket）。</p></li><li><p>Socket连接步骤</p><p><img src="https://s2.loli.net/2022/09/12/ELwa86omi4JIy3W.png" alt="image-20220912214108937" style="zoom:50%;" /></p></li></ul><h2 id="Python多线程"><a href="#Python多线程" class="headerlink" title="Python多线程"></a>Python多线程</h2><p>Python主要是通过thread和threading这两个模块来实现多线程支持。Python的thread模块是比较底层的模块，python的threading模块是对thread做了一些封装，可以更加方便的被使用。Python3.x中已经摒弃了Python2.x中采用函数式thread模块中的start_new_thread()函数来产生新线程方式。</p><p>Python3.x中通过threading模块创建新的线程有两种方法：一种是通过threading.Thread(Target=executable Method)，即传递给Thread对象一个可执行方法（或对象）;第二种是继承threading.Thread定义子类并重写run()方法。为了能够连续发送信息而不是发送一条信息后必须接收信息才能继续发送信息，客户端可以通过按键实现，但服务器没有可视化界面，考虑使用多线程，建立一个接收线程和发送线程，即可实现同时可以进行接收和发送信息。</p><h1 id="项目实践"><a href="#项目实践" class="headerlink" title="项目实践"></a>项目实践</h1><h2 id="要点概述"><a href="#要点概述" class="headerlink" title="要点概述"></a>要点概述</h2><ol><li>实现题目要求的基本功能：Socket通信，不同系统之间互传信息；</li><li>设置了程序的初始化步骤，打开程序时，自动填充本机的IP地址，设置默认端口，减少用户操作步骤；</li><li>支持多行文本一次性传输；</li><li>使用表格对Socket信息进行记录，相比命令行输出可视化效果更佳，同时也提供了筛选信息类型、检索信息内容的功能；</li><li>可以将表格内的数据以XML文件形式保存到本地，作为程序日志记录；</li><li>对于各类无效或者出错的情况（如无法连接到对方服务器、关闭了程序窗口、发送空字符串等）进行了不同处理，程序具有较高鲁棒性；</li><li>美化了程序界面，简介大方，具有现代感。</li></ol><h2 id="界面设计"><a href="#界面设计" class="headerlink" title="界面设计"></a>界面设计</h2><p>程序界面主要由三个模块构成，由上到下是连接配置、交互状态记录、信息发送框。</p><p>在连接配置模块中，最上方的单选按钮，选择本机需要设置的类型（客户端或者服务器），接着需要使用单行文本框填写服务器IP和端口（对于服务器是填写自己监听的地址和端口，对于客户端是需要连接的服务器的地址和端口），便于后续连接操作。右侧有三个按钮，包括一键获取本机IP地址、监听/连接到服务器、停止监听/断开连接。</p><p>在交互状态记录模块中，左上方是一个下拉菜单，可以选择信息输入输出的方向，对信息类型进行筛选，上方是单行文本框，可以输入需要搜索的信息，对信息内容进行筛选。中间的表格控件则是把输入和接收各种信息按照时间顺序显示在表格中，其中一条信息主要显示的内容包括发送/接收时间、发送/接收的地址和端口，信息方向（输入/输出）、服务器/客户端当前状态信息或者发送/接收的信息。下方是两个按钮，左下方的清空可以清空当前表格信息，右下方的保存可以将当前表格内的数据以XML文件的形式保存到本地。</p><p>在信息发送框模块中，中间是发送文本框，支持中英文、emoji表情等，支持多行输入一次性输出，左下方是清空文本框按钮，按下后当前文本框的文本被清空，右下角是发送按钮，按下后当前文本框中的内容将被发送。</p><p>本程序借鉴的主题风格是Qt-Frameless-Window-DarkStyle。这是一款免费开源的样式，主要是深色风格的实现Qt的MainWindow类的自定义深色样式。其作者是麻省理工大学的Juergen Skrotzky，这个开源项目在他的<a href="https://github.com/Jorgen-VikingGod/Qt-Frameless-Window-DarkStyle">Github</a>上面。本程序是用Widget类制作的，对源代码进行适当修改即可适用于本程序。</p><p>本程序界面如下所示。</p><p><img src="https://s2.loli.net/2022/09/12/uAG5rM142qHndLl.png" alt="image-20220912214252001"></p><h2 id="基础功能运行效果"><a href="#基础功能运行效果" class="headerlink" title="基础功能运行效果"></a>基础功能运行效果</h2><p>首先在Ubuntu系统中使用ifconfig查询到本机的IP地址，然后修改<code>hello.py</code>中的ip_port，重新对程序进行编译，然后运行。</p> <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gradle">catkin_make<br>roscore<br><span class="hljs-keyword">source</span> ~<span class="hljs-regexp">/ROS_TCP_Server/</span>devel/setup.bash<br>rosrun ros_tcp_server hello.py<br></code></pre></td></tr></table></figure><p>再打开Windows系统的TCPdemo程序，选择客户端类型，将服务器的IP地址和端口号复制粘贴到客户端程序中。点击连接到服务器，即可成功创建连接，Windows系统程序标题显示连接的端口号，Ubuntu系统输出Socket的相关信息。</p><p><img src="https://s2.loli.net/2022/09/12/eXBs1rWKO4gMQkZ.png" alt="image-20220912221017263"></p><p> 建立连接后，客户端和服务器可以互发消息。</p><p><img src="https://s2.loli.net/2022/09/12/gYnaev8fqOJuwGU.png" alt="image-20220912221049268"></p><p>客户端选择断开连接，此时服务器再发送消息会自动退出，信息传输结束。</p><p><img src="https://s2.loli.net/2022/09/12/Ui83HTgPBKLeQFo.png" alt="image-20220912221103070"></p><script type="text/javascript">(function (document) {    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {        panel.getElementsByClassName('fold-title')[0].onclick = function() {            panel.classList.toggle("collapsed");            panel.classList.toggle("expanded");        }    });})(document);</script>]]></content>
-    
-    
-    <categories>
-      
-      <category>开发项目</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>计算机网络</tag>
-      
-      <tag>Qt</tag>
       
     </tags>
     
