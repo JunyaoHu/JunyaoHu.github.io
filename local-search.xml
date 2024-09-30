@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>书生大模型实战营-L0-Linux基础知识</title>
+    <link href="/2024/09/30/internlm-L0-linux/"/>
+    <url>/2024/09/30/internlm-L0-linux/</url>
+    
+    <content type="html"><![CDATA[<h1 id="本节任务要点"><a href="#本节任务要点" class="headerlink" title="本节任务要点"></a>本节任务要点</h1><ul><li><p>完成SSH连接与端口映射并运行<code>hello_world.py</code></p></li><li><p>将Linux基础命令在开发机上完成一遍</p></li><li><p>使用 VSCODE 远程连接开发机并创建一个conda环境</p></li></ul><h1 id="实践流程"><a href="#实践流程" class="headerlink" title="实践流程"></a>实践流程</h1><h2 id="创建开发机、远程连接、端口映射"><a href="#创建开发机、远程连接、端口映射" class="headerlink" title="创建开发机、远程连接、端口映射"></a>创建开发机、远程连接、端口映射</h2><p>在InternStudio创建开发机</p><p>网址：<a href="https://studio.intern-ai.org.cn/console/dashboard">https://studio.intern-ai.org.cn/console/dashboard</a></p><p>创建个人开发机，名称为junyaohu，cuda版本为12.2，资源配置选择10%，时长默认就行。</p><p><img src="./assets/image-20240930104534962.png" alt="image-20240930104534962"></p><p>开发机界面提示</p><p><img src="./assets/image-20240930105434216.png" alt="image-20240930105434216"></p><p>使用密码进行SSH远程连接</p><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">ssh -p 33006 root@ssh.intern-ai.org.cn -o <span class="hljs-attribute">StrictHostKeyChecking</span>=<span class="hljs-literal">no</span> -o <span class="hljs-attribute">UserKnownHostsFile</span>=/dev/null<br></code></pre></td></tr></table></figure><p><img src="./assets/image-20240930105814732.png" alt="image-20240930105814732"></p><p>测试基本命令</p><p><img src="./assets/image-20240930110039173.png" alt="image-20240930110039173"></p><p>使用配置SSH密钥进行SSH远程连接（之前连接code的时候已经生成过，直接用）</p><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen -t rsa</span><br></code></pre></td></tr></table></figure><p>在官网添加ssh连接，重启终端</p><p><img src="./assets/image-20240930110709046.png" alt="image-20240930110709046"></p><p>在本地配置好config后直接使用code连接</p><p><img src="./assets/image-20240930110921402.png" alt="image-20240930110921402"></p><p>code连接成功</p><p><img src="./assets/image-20240930111054210.png" alt="image-20240930111054210"></p><h2 id="使用-ssh-code进行端口映射"><a href="#使用-ssh-code进行端口映射" class="headerlink" title="使用 ssh/code进行端口映射"></a>使用 ssh/code进行端口映射</h2><p>开发机界面，找到我们的开发机，点击自定义服务，复制命令到本地终端</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus">ssh -<span class="hljs-selector-tag">p</span> <span class="hljs-number">33006</span> root@ssh<span class="hljs-selector-class">.intern-ai</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.cn</span> -CNg -L &#123;本地机器_PORT&#125;:<span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:&#123;开发机_PORT&#125; -o StrictHostKeyChecking=no<br><br>ssh -<span class="hljs-selector-tag">p</span> <span class="hljs-number">33006</span> root@ssh<span class="hljs-selector-class">.intern-ai</span><span class="hljs-selector-class">.org</span><span class="hljs-selector-class">.cn</span> -CNg -L <span class="hljs-number">7860</span>:<span class="hljs-number">127.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">7860</span> -o StrictHostKeyChecking=no<br></code></pre></td></tr></table></figure><p>开发机运行</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim">gradio hello_world.<span class="hljs-keyword">py</span> 或者 <span class="hljs-keyword">python</span> hello_world.<span class="hljs-keyword">py</span> <br></code></pre></td></tr></table></figure><p>在本地浏览器打开 <a href="http://127.0.0.1:7860，成功连接">http://127.0.0.1:7860，成功连接</a></p><p><img src="./assets/image-20240930112555795.png" alt="image-20240930112555795"></p><p>使用 vscode 进行端口映射</p><p><img src="./assets/image-20240930113053900.png" alt="image-20240930113053900"></p><h2 id="Linux基础命令"><a href="#Linux基础命令" class="headerlink" title="Linux基础命令"></a>Linux基础命令</h2><p><img src="./assets/image-20240930113407837.png" alt="image-20240930113407837" style="zoom:50%;" /></p><h2 id="创建conda环境"><a href="#创建conda环境" class="headerlink" title="创建conda环境"></a>创建conda环境</h2><p>开发机远程执行命令</p><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">conda</span> create -n hjy python=<span class="hljs-number">3</span>.<span class="hljs-number">10</span><br><span class="hljs-attribute">conda</span> activate hjy<br><span class="hljs-attribute">conda</span> deactivate<br></code></pre></td></tr></table></figure><p><img src="./assets/image-20240930114738592.png" alt="image-20240930114738592" style="zoom:50%;" /></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>回顾基础，温故知新</p><script type="text/javascript">(function (document) {    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {        panel.getElementsByClassName('fold-title')[0].onclick = function() {            panel.classList.toggle("collapsed");            panel.classList.toggle("expanded");        }    });})(document);</script>]]></content>
+    
+    
+    <categories>
+      
+      <category>课外学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>大模型</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2024/08/22/hello-world/"/>
     <url>/2024/08/22/hello-world/</url>
