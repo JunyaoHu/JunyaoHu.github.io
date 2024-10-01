@@ -16,28 +16,28 @@
   <meta name="author" content="胡椒">
   <meta name="keywords" content="计算机视觉,深度学习">
   
-    <meta name="description" content="在使用校园服务器时，我们可能会遇到一些棘手的问题，比如远程校园服务器已经连接到内网，具有内网ip，但却无法ping通外网，这可能导致无法联网更新、创建不了新的conda虚拟环境、安装不了各种python第三方库等各种各样的问题，总之限制很多……这种情况下，我们应该如何处理呢？本文将详细解析这个问题，并提供我亲测使用可行的一个解决方案。  使用 ipconfig 命令获取远程服务器的内网ip  注销">
+    <meta name="description" content="本节任务要点 任务要求：基于 LlamaIndex 构建自己的 RAG 知识库，寻找一个问题 A 在使用 LlamaIndex 之前InternLM2-Chat-1.8B模型不会回答，借助 LlamaIndex 后 InternLM2-Chat-1.8B 模型具备回答 A 的能力，截图保存。  实践流程新开一个30% A100机器 Cuda11.7-conda 镜像 不要选错&#x2F;用之前的那个！！！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux通过命令行远程连接校园网">
-<meta property="og:url" content="https://junyaohu.github.io/2023/10/14/login_campus_network/index.html">
+<meta property="og:title" content="书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践">
+<meta property="og:url" content="https://junyaohu.github.io/2024/10/01/internlm-L1-rag/index.html">
 <meta property="og:site_name" content="胡椒的 Coding Room">
-<meta property="og:description" content="在使用校园服务器时，我们可能会遇到一些棘手的问题，比如远程校园服务器已经连接到内网，具有内网ip，但却无法ping通外网，这可能导致无法联网更新、创建不了新的conda虚拟环境、安装不了各种python第三方库等各种各样的问题，总之限制很多……这种情况下，我们应该如何处理呢？本文将详细解析这个问题，并提供我亲测使用可行的一个解决方案。  使用 ipconfig 命令获取远程服务器的内网ip  注销">
+<meta property="og:description" content="本节任务要点 任务要求：基于 LlamaIndex 构建自己的 RAG 知识库，寻找一个问题 A 在使用 LlamaIndex 之前InternLM2-Chat-1.8B模型不会回答，借助 LlamaIndex 后 InternLM2-Chat-1.8B 模型具备回答 A 的能力，截图保存。  实践流程新开一个30% A100机器 Cuda11.7-conda 镜像 不要选错&#x2F;用之前的那个！！！">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2023/10/14/qvu9lw2NBJsKQxD.png">
-<meta property="og:image" content="https://s2.loli.net/2023/10/14/zUwuKLvkEZdpABW.png">
-<meta property="og:image" content="https://s2.loli.net/2023/10/14/VRD3iBIlpuLZnAX.png">
-<meta property="article:published_time" content="2023-10-14T07:00:00.000Z">
-<meta property="article:modified_time" content="2023-10-14T08:08:02.782Z">
+<meta property="og:image" content="https://s2.loli.net/2024/10/01/gf1z8FnNp6EtUuk.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/01/aBSAhNfxdlqQbpg.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/01/gEloWuK6sjizd8b.png">
+<meta property="article:published_time" content="2024-10-01T01:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-01T08:34:28.965Z">
 <meta property="article:author" content="胡椒">
-<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2023/10/14/qvu9lw2NBJsKQxD.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/01/gf1z8FnNp6EtUuk.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Linux通过命令行远程连接校园网 - 胡椒的 Coding Room</title>
+  <title>书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践 - 胡椒的 Coding Room</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -295,7 +295,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">Linux通过命令行远程连接校园网</span>
+            <span id="subtitle">书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践</span>
           
         </div>
 
@@ -306,8 +306,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-10-14 15:00" pubdate>
-          2023年10月14日 下午
+        <time datetime="2024-10-01 09:00" pubdate>
+          2024年10月1日 上午
         </time>
       </span>
     
@@ -319,7 +319,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          710 字
+          6.7k 字
         
       </span>
     
@@ -331,7 +331,7 @@
         
         
           <!-- compatible with older versions-->
-          4 分钟
+          34 分钟
         
       </span>
     
@@ -423,7 +423,7 @@
       
         <a href="/2024/10/01/internlm-L1-rag/" title="书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践</span>
         </a>
       
@@ -486,7 +486,7 @@
       
         <a href="/2023/10/14/login_campus_network/" title="Linux通过命令行远程连接校园网"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">Linux通过命令行远程连接校园网</span>
         </a>
       
@@ -644,12 +644,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Linux通过命令行远程连接校园网</h1>
+            <h1 id="seo-header">书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2023年10月14日 16:08
+                    本文最后更新于：2024年10月1日 16:34
                   
                 
               </p>
@@ -657,23 +657,37 @@
             
               <div class="markdown-body">
                 
-                <p>在使用校园服务器时，我们可能会遇到一些棘手的问题，比如远程校园服务器已经连接到内网，具有内网ip，但却无法ping通外网，这可能导致无法联网更新、创建不了新的conda虚拟环境、安装不了各种python第三方库等各种各样的问题，总之限制很多……这种情况下，我们应该如何处理呢？本文将详细解析这个问题，并提供我亲测使用可行的一个解决方案。</p>
-<ol>
-<li><p>使用 <code>ipconfig</code> 命令获取远程服务器的内网ip</p>
+                <h1 id="本节任务要点"><a href="#本节任务要点" class="headerlink" title="本节任务要点"></a>本节任务要点</h1><ul>
+<li><strong>任务要求</strong>：基于 LlamaIndex 构建自己的 RAG 知识库，寻找一个问题 A 在使用 LlamaIndex 之前InternLM2-Chat-1.8B模型不会回答，借助 LlamaIndex 后 InternLM2-Chat-1.8B 模型具备回答 A 的能力，截图保存。</li>
+</ul>
+<h1 id="实践流程"><a href="#实践流程" class="headerlink" title="实践流程"></a>实践流程</h1><p>新开一个<strong>30%</strong> A100机器 <strong>Cuda11.7-conda 镜像</strong> 不要选错/用之前的那个！！！</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 安装新环境</span><br><span class="hljs-attribute">conda</span> create -n llamaindex python=<span class="hljs-number">3</span>.<span class="hljs-number">10</span><br><span class="hljs-attribute">conda</span> activate llamaindex<br><br><span class="hljs-attribute">conda</span> install pytorch==<span class="hljs-number">2</span>.<span class="hljs-number">0</span>.<span class="hljs-number">1</span> torchvision==<span class="hljs-number">0</span>.<span class="hljs-number">15</span>.<span class="hljs-number">2</span> torchaudio==<span class="hljs-number">2</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span> pytorch-cuda=<span class="hljs-number">11</span>.<span class="hljs-number">7</span> -c pytorch -c nvidia<br><br><span class="hljs-attribute">pip</span> install einops==<span class="hljs-number">0</span>.<span class="hljs-number">7</span>.<span class="hljs-number">0</span> protobuf==<span class="hljs-number">5</span>.<span class="hljs-number">26</span>.<span class="hljs-number">1</span><br><br><span class="hljs-attribute">pip</span> install llama-index==<span class="hljs-number">0</span>.<span class="hljs-number">10</span>.<span class="hljs-number">38</span> <br><span class="hljs-attribute">pip</span> install llama-index-llms-huggingface==<span class="hljs-number">0</span>.<span class="hljs-number">2</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">pip</span> install <span class="hljs-string">&quot;transformers[torch]==4.41.1&quot;</span><br><span class="hljs-attribute">pip</span> install <span class="hljs-string">&quot;huggingface_hub[inference]==0.23.1&quot;</span><br><span class="hljs-attribute">pip</span> install huggingface_hub==<span class="hljs-number">0</span>.<span class="hljs-number">23</span>.<span class="hljs-number">1</span><br><span class="hljs-attribute">pip</span> install sentence-transformers==<span class="hljs-number">2</span>.<span class="hljs-number">7</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">pip</span> install sentencepiece==<span class="hljs-number">0</span>.<span class="hljs-number">2</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<h2 id="下载-Sentence-Transformer-模型"><a href="#下载-Sentence-Transformer-模型" class="headerlink" title="下载 Sentence Transformer 模型"></a>下载 Sentence Transformer 模型</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 不使用download_hf.py，直接使用命令行</span><br><br>export HF_ENDPOINT=https:<span class="hljs-regexp">//</span>hf-mirror.com<br>huggingface-cli download --resume-download sentence-transformers<span class="hljs-regexp">/paraphrase-multilingual-MiniLM-L12-v2 --local-dir /</span>root<span class="hljs-regexp">/project/</span>rag<span class="hljs-regexp">/model/</span>sentence-transformer<br><br><span class="hljs-comment"># 下载 NLTK 相关资源</span><br>cd <span class="hljs-regexp">/root/</span>project/rag<br>git clone https:<span class="hljs-regexp">//gi</span>tee.com<span class="hljs-regexp">/yzy0612/</span>nltk_data.git  --branch gh-pages<br>cd nltk_data<br>mv packages<span class="hljs-regexp">/*  ./</span><br>cd tokenizers<br>unzip punkt.zip<br>cd ../taggers<br>unzip averaged_perceptron_tagger.zip<br></code></pre></td></tr></table></figure>
+<h2 id="InternLM2-1-8B-配置"><a href="#InternLM2-1-8B-配置" class="headerlink" title="InternLM2 1.8B 配置"></a>InternLM2 1.8B 配置</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs gradle"># 运行以下指令，把 InternLM2 <span class="hljs-number">1.8</span>B 软连接出来, 天才<br>cd <span class="hljs-regexp">/root/</span><span class="hljs-keyword">project</span><span class="hljs-regexp">/rag/m</span>odel<br>ln -s <span class="hljs-regexp">/root/</span>share<span class="hljs-regexp">/new_models/</span>Shanghai_AI_Laboratory<span class="hljs-regexp">/internlm2-chat-1_8b/</span> ./<br><br># 创建llamaindex_demo/llamaindex_internlm.py<br><br><span class="hljs-keyword">from</span> llama_index.llms.huggingface <span class="hljs-keyword">import</span> HuggingFaceLLM<br><span class="hljs-keyword">from</span> llama_index.core.llms <span class="hljs-keyword">import</span> ChatMessage<br><br>llm = HuggingFaceLLM(<br>    model_name=<span class="hljs-string">&quot;/root/project/rag/model/internlm2-chat-1_8b&quot;</span>,<br>    tokenizer_name=<span class="hljs-string">&quot;/root/project/rag/model/internlm2-chat-1_8b&quot;</span>,<br>    model_kwargs=&#123;<span class="hljs-string">&quot;trust_remote_code&quot;</span>:<span class="hljs-keyword">True</span>&#125;,<br>    tokenizer_kwargs=&#123;<span class="hljs-string">&quot;trust_remote_code&quot;</span>:<span class="hljs-keyword">True</span>&#125;<br>)<br><br>rsp = llm.chat(messages=[ChatMessage(content=<span class="hljs-string">&quot;什么是PUA？&quot;</span>)])<br><span class="hljs-keyword">print</span>(rsp)<br><br># 运行程序<br>cd <span class="hljs-regexp">/root/</span><span class="hljs-keyword">project</span><span class="hljs-regexp">/rag/</span>llamaindex_demo<br>python llamaindex_internlm.py<br></code></pre></td></tr></table></figure>
+<p>虽然懂一点但不全面，而且停不下来了这哥们</p>
+<p><img src="https://s2.loli.net/2024/10/01/gf1z8FnNp6EtUuk.png" srcset="/img/loading.gif" lazyload alt="image-20241001153742644"></p>
+<h2 id="安装-LlamaIndex-RAG"><a href="#安装-LlamaIndex-RAG" class="headerlink" title="安装 LlamaIndex RAG"></a>安装 LlamaIndex RAG</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pip</span> install llama-index-embeddings-huggingface==<span class="hljs-number">0</span>.<span class="hljs-number">2</span>.<span class="hljs-number">0</span> llama-index-embeddings-instructor==<span class="hljs-number">0</span>.<span class="hljs-number">1</span>.<span class="hljs-number">3</span><br><br><span class="hljs-comment"># xtuner 知识库 （后面数据收集部分，换了别的）</span><br><span class="hljs-attribute">cd</span> ~/llamaindex_demo<br><span class="hljs-attribute">mkdir</span> data<br><span class="hljs-attribute">cd</span> data<br><span class="hljs-attribute">git</span> clone https://github.com/InternLM/xtuner.git<br><span class="hljs-attribute">mv</span> xtuner/README_zh-CN.md ./<br></code></pre></td></tr></table></figure>
+<p>编辑 llamaindex_demo/llamaindex_RAG.py</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs nix">from llama_index.core <span class="hljs-built_in">import</span> VectorStoreIndex, SimpleDirectoryReader, Settings<br><br>from llama_index.embeddings.huggingface <span class="hljs-built_in">import</span> HuggingFaceEmbedding<br>from llama_index.llms.huggingface <span class="hljs-built_in">import</span> HuggingFaceLLM<br><br><span class="hljs-comment">#初始化一个HuggingFaceEmbedding对象，用于将文本转换为向量表示</span><br><span class="hljs-attr">embed_model</span> = HuggingFaceEmbedding(<br><span class="hljs-comment">#指定了一个预训练的sentence-transformer模型的路径</span><br>    <span class="hljs-attr">model_name=&quot;/root/project/rag/model/sentence-transformer&quot;</span><br>)<br><span class="hljs-comment">#将创建的嵌入模型赋值给全局设置的embed_model属性，</span><br><span class="hljs-comment">#这样在后续的索引构建过程中就会使用这个模型。</span><br>Settings.<span class="hljs-attr">embed_model</span> = embed_model<br><br><span class="hljs-attr">llm</span> = HuggingFaceLLM(<br>    <span class="hljs-attr">model_name=&quot;/root/project/rag/model/internlm2-chat-1_8b&quot;,</span><br>    <span class="hljs-attr">tokenizer_name=&quot;/root/project/rag/model/internlm2-chat-1_8b&quot;,</span><br>    <span class="hljs-attr">model_kwargs=&#123;&quot;trust_remote_code&quot;:True&#125;,</span><br>    <span class="hljs-attr">tokenizer_kwargs=&#123;&quot;trust_remote_code&quot;:True&#125;</span><br>)<br><span class="hljs-comment">#设置全局的llm属性，这样在索引查询时会使用这个模型。</span><br>Settings.<span class="hljs-attr">llm</span> = llm<br><br><span class="hljs-comment">#从指定目录读取所有文档，并加载数据到内存中</span><br><span class="hljs-attr">documents</span> = SimpleDirectoryReader(<span class="hljs-string">&quot;/root/llamaindex_demo/data&quot;</span>).load_data()<br><span class="hljs-comment">#创建一个VectorStoreIndex，并使用之前加载的文档来构建索引。</span><br><span class="hljs-comment"># 此索引将文档转换为向量，并存储这些向量以便于快速检索。</span><br><span class="hljs-attr">index</span> = VectorStoreIndex.from_documents(documents)<br><span class="hljs-comment"># 创建一个查询引擎，这个引擎可以接收查询并返回相关文档的响应。</span><br><span class="hljs-attr">query_engine</span> = index.as_query_engine()<br><span class="hljs-attr">response</span> = query_engine.query(<span class="hljs-string">&quot;啥是PUA？&quot;</span>)<br><br>print(response)<br></code></pre></td></tr></table></figure>
+<p>执行结果</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">cd <span class="hljs-regexp">/root/</span><span class="hljs-keyword">project</span><span class="hljs-regexp">/rag/</span>llamaindex_demo<br>python llamaindex_RAG.py<br></code></pre></td></tr></table></figure>
+<p>这里找到了和PUA定义基本概念相关的内容切片，内容比较全面</p>
+<p><img src="https://s2.loli.net/2024/10/01/aBSAhNfxdlqQbpg.png" srcset="/img/loading.gif" lazyload alt="image-20241001154636655"></p>
+<h2 id="LlamaIndex-web"><a href="#LlamaIndex-web" class="headerlink" title="LlamaIndex web"></a>LlamaIndex web</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">pip</span> install streamlit==<span class="hljs-number">1</span>.<span class="hljs-number">36</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<p>编辑 llamaindex_demo/app.py</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs vim">import streamlit <span class="hljs-keyword">as</span> <span class="hljs-keyword">st</span><br>from llama_index.core import VectorStoreIndex, SimpleDirectoryReader, Settings<br>from llama_index.embeddings.huggingface import HuggingFaceEmbedding<br>from llama_index.llms.huggingface import HuggingFaceLLM<br><br><span class="hljs-keyword">st</span>.set_page_config(page_title=<span class="hljs-string">&quot;llama_index_demo&quot;</span>, page_icon=<span class="hljs-string">&quot;🦜🔗&quot;</span>)<br><span class="hljs-keyword">st</span>.title(<span class="hljs-string">&quot;llama_index_demo&quot;</span>)<br><br># 初始化模型<br>@st.cache_resource<br>def init_models():<br>    embed_model = HuggingFaceEmbedding(<br>        model_name=<span class="hljs-string">&quot;/root/project/rag/model/sentence-transformer&quot;</span><br>    )<br>    Settings.embed_model = embed_model<br><br>    llm = HuggingFaceLLM(<br>        model_name=<span class="hljs-string">&quot;/root/project/rag/model/internlm2-chat-1_8b&quot;</span>,<br>        tokenizer_name=<span class="hljs-string">&quot;/root/project/rag/model/internlm2-chat-1_8b&quot;</span>,<br>        model_kwargs=&#123;<span class="hljs-string">&quot;trust_remote_code&quot;</span>: True&#125;,<br>        tokenizer_kwargs=&#123;<span class="hljs-string">&quot;trust_remote_code&quot;</span>: True&#125;<br>    )<br>    Settings.llm = llm<br><br>    documents = SimpleDirectoryReader(<span class="hljs-string">&quot;/root/project/rag/data&quot;</span>).load_data()<br>    <span class="hljs-built_in">index</span> = VectorStoreIndex.from_documents(documents)<br>    query_engine = <span class="hljs-built_in">index</span>.as_query_engine()<br><br>    <span class="hljs-keyword">return</span> query_engine<br><br># 检查是否需要初始化模型<br><span class="hljs-keyword">if</span> <span class="hljs-string">&#x27;query_engine&#x27;</span> not in <span class="hljs-keyword">st</span>.session_state:<br>    <span class="hljs-keyword">st</span>.session_state[<span class="hljs-string">&#x27;query_engine&#x27;</span>] = init_models()<br><br>def greet2(question):<br>    response = <span class="hljs-keyword">st</span>.session_state[<span class="hljs-string">&#x27;query_engine&#x27;</span>].query(question)<br>    <span class="hljs-keyword">return</span> response<br><br>      <br># Store LLM generated responses<br><span class="hljs-keyword">if</span> <span class="hljs-string">&quot;messages&quot;</span> not in <span class="hljs-keyword">st</span>.session_state.<span class="hljs-built_in">keys</span>():<br>    <span class="hljs-keyword">st</span>.session_state.<span class="hljs-keyword">messages</span> = [&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;assistant&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;你好，我是你的助手，有什么我可以帮助你的吗？&quot;</span>&#125;]    <br><br>    # Display <span class="hljs-built_in">or</span> clear chat <span class="hljs-keyword">messages</span><br><span class="hljs-keyword">for</span> message in <span class="hljs-keyword">st</span>.session_state.message<span class="hljs-variable">s:</span><br>    with <span class="hljs-keyword">st</span>.chat_message(message[<span class="hljs-string">&quot;role&quot;</span>]):<br>        <span class="hljs-keyword">st</span>.<span class="hljs-keyword">write</span>(message[<span class="hljs-string">&quot;content&quot;</span>])<br><br>def clear_chat_history():<br>    <span class="hljs-keyword">st</span>.session_state.<span class="hljs-keyword">messages</span> = [&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;assistant&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: <span class="hljs-string">&quot;你好，我是你的助手，有什么我可以帮助你的吗？&quot;</span>&#125;]<br><br><span class="hljs-keyword">st</span>.sidebar.button(<span class="hljs-string">&#x27;Clear Chat History&#x27;</span>, on_click=clear_chat_history)<br><br># Function <span class="hljs-keyword">for</span> generating LLaMA2 response<br>def generate_llama_index_response(prompt_input):<br>    <span class="hljs-keyword">return</span> greet2(prompt_input)<br><br># User-provided prompt<br><span class="hljs-keyword">if</span> prompt := <span class="hljs-keyword">st</span>.chat_input():<br>    <span class="hljs-keyword">st</span>.session_state.<span class="hljs-keyword">messages</span>.<span class="hljs-keyword">append</span>(&#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;user&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: prompt&#125;)<br>    with <span class="hljs-keyword">st</span>.chat_message(<span class="hljs-string">&quot;user&quot;</span>):<br>        <span class="hljs-keyword">st</span>.<span class="hljs-keyword">write</span>(prompt)<br><br># Gegenerate_llama_index_response <span class="hljs-keyword">last</span> message <span class="hljs-keyword">is</span> not from assistant<br><span class="hljs-keyword">if</span> <span class="hljs-keyword">st</span>.session_state.<span class="hljs-keyword">messages</span>[-<span class="hljs-number">1</span>][<span class="hljs-string">&quot;role&quot;</span>] != <span class="hljs-string">&quot;assistant&quot;</span>:<br>    with <span class="hljs-keyword">st</span>.chat_message(<span class="hljs-string">&quot;assistant&quot;</span>):<br>        with <span class="hljs-keyword">st</span>.spinner(<span class="hljs-string">&quot;Thinking...&quot;</span>):<br>            response = generate_llama_index_response(prompt)<br>            placeholder = <span class="hljs-keyword">st</span>.<span class="hljs-built_in">empty</span>()<br>            placeholder.markdown(response)<br>    message = &#123;<span class="hljs-string">&quot;role&quot;</span>: <span class="hljs-string">&quot;assistant&quot;</span>, <span class="hljs-string">&quot;content&quot;</span>: response&#125;<br>    <span class="hljs-keyword">st</span>.session_state.<span class="hljs-keyword">messages</span>.<span class="hljs-keyword">append</span>(message)<br></code></pre></td></tr></table></figure>
+<p>运行</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">streamlit <span class="hljs-builtin-name">run</span> app.py<br></code></pre></td></tr></table></figure>
+<p>执行结果</p>
+<p><img src="https://s2.loli.net/2024/10/01/gEloWuK6sjizd8b.png" srcset="/img/loading.gif" lazyload alt="image-20241001163325770"></p>
+<h2 id="数据收集"><a href="#数据收集" class="headerlink" title="数据收集"></a>数据收集</h2><p>收集关于PUA定义、危害、特点、不同场景、解决方案等相关资料</p>
+<p>来源：百度百科：<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/PUA/5999185">https://baike.baidu.com/item/PUA/5999185</a></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li><p>学会使用hf镜像下载文件，<a target="_blank" rel="noopener" href="https://hf-mirror.com/">https://hf-mirror.com/</a></p>
 </li>
-<li><p>注销本地电脑校园网，进入校园网登录界面，如南开校园网 <a target="_blank" rel="noopener" href="http://202.113.18.106/a70.htm">http://202.113.18.106/a70.htm</a></p>
+<li><p>SimpleDirectoryReader 默认会尝试读取它找到的所有文件，将它们作为文本处理。它显式支持以下文件类型，这些类型会根据文件扩展名自动检测：.csv .docx .epub .ipynb .jpeg .jpg .md .mp3 .mp4 .pdf .png .ppt等</p>
 </li>
-<li><p>按 <code>F12</code> 打开浏览器审查元素，进入“网络”页签，勾选“保留日志”</p>
-</li>
-<li><p>填写好用户名和密码，点击登录，观察“网络”页签下的GET请求</p>
-<p><img src="https://s2.loli.net/2023/10/14/qvu9lw2NBJsKQxD.png" srcset="/img/loading.gif" lazyload alt="image-20231014152106180" style="zoom: 80%;" /></p>
-</li>
-<li><p>右键该行日志，选择“复制为cURL（bash）”。网上很多方法就说加上用户名和密码参数就可以了，似乎不行，还不如直接全部参数都复制过去，这样更加方便一些。</p>
-<p><img src="https://s2.loli.net/2023/10/14/zUwuKLvkEZdpABW.png" srcset="/img/loading.gif" lazyload alt="image-20231014151552198" style="zoom:80%;" /></p>
-</li>
-<li><p>在远程服务器终端粘贴该命令，并将 <code>wlanuserip</code> 参数修改为远程服务器的ip（如果不行，就对 <code>wlanuserip</code> 和 <code>ip</code> 参数都进行修改），然后就能ping通了。</p>
-<p><img src="https://s2.loli.net/2023/10/14/VRD3iBIlpuLZnAX.png" srcset="/img/loading.gif" lazyload alt="image-20231014151904446" style="zoom:80%;" /></p>
-</li>
+<li>数据质量重要，学会洗数据</li>
 </ol>
 <script type="text/javascript">(function (document) {
     [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
@@ -715,7 +729,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="print-no-link">#计算机网络</a>
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
       
     </div>
   
@@ -727,8 +741,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux通过命令行远程连接校园网</div>
-      <div>https://junyaohu.github.io/2023/10/14/login_campus_network/</div>
+      <div>书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践</div>
+      <div>https://junyaohu.github.io/2024/10/01/internlm-L1-rag/</div>
     </div>
     <div class="license-meta">
       
@@ -740,13 +754,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年10月14日 15:00</div>
+          <div>2024年10月1日 09:00</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年10月14日 16:08</div>
+          <div>2024年10月1日 16:34</div>
         </div>
       
       
@@ -777,9 +791,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/12/2023-review/" title="用AI回顾我去年所有周报，差点破防了丨2023总结">
+                      <a href="/2024/10/01/internlm-L1-xtuner/" title="书生大模型实战营-L1-XTuner微调个人小助手认知">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">用AI回顾我去年所有周报，差点破防了丨2023总结</span>
+                        <span class="hidden-mobile">书生大模型实战营-L1-XTuner微调个人小助手认知</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -787,8 +801,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/10/05/frp-setting/" title="内网穿透配置">
-                        <span class="hidden-mobile">内网穿透配置</span>
+                      <a href="/2024/09/30/internlm-L1-prompt/" title="书生大模型实战营-L1-浦语提示词工程实践">
+                        <span class="hidden-mobile">书生大模型实战营-L1-浦语提示词工程实践</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
