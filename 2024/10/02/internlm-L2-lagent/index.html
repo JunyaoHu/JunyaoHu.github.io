@@ -16,28 +16,30 @@
   <meta name="author" content="胡椒">
   <meta name="keywords" content="计算机视觉,深度学习">
   
-    <meta name="description" content="本节任务要点 任务1: 破冰活动：自我介绍  PR：https:&#x2F;&#x2F;github.com&#x2F;InternLM&#x2F;Tutorial&#x2F;pull&#x2F;1941   任务2: 实践项目：构建个人项目  仓库：https:&#x2F;&#x2F;github.com&#x2F;JunyaoHu&#x2F;AntiPUA    实践流程破冰活动：自我介绍每位参与者提交一份自我介绍。 提交地址：https:&#x2F;&#x2F;github.com&#x2F;InternLM&#x2F;Tuto">
+    <meta name="description" content="本节任务要点 使用 Lagent 自定义一个智能体，并使用 Lagent Web Demo 成功部署与调用，记录复现过程并截图。  实践流程环境配置开发机选择 30% A100，镜像选择为 Cuda12.2-conda。 12345678910111213141516171819# 创建环境conda create -n agent_camp3 python&#x3D;3.10 -y# 激活环境conda">
 <meta property="og:type" content="article">
-<meta property="og:title" content="书生大模型实战营-L0-Git基础知识">
-<meta property="og:url" content="https://junyaohu.github.io/2024/09/30/internlm-L0-git/index.html">
+<meta property="og:title" content="书生大模型实战营-L2-Lagent自定义你的Agent智能体">
+<meta property="og:url" content="https://junyaohu.github.io/2024/10/02/internlm-L2-lagent/index.html">
 <meta property="og:site_name" content="胡椒的 Coding Room">
-<meta property="og:description" content="本节任务要点 任务1: 破冰活动：自我介绍  PR：https:&#x2F;&#x2F;github.com&#x2F;InternLM&#x2F;Tutorial&#x2F;pull&#x2F;1941   任务2: 实践项目：构建个人项目  仓库：https:&#x2F;&#x2F;github.com&#x2F;JunyaoHu&#x2F;AntiPUA    实践流程破冰活动：自我介绍每位参与者提交一份自我介绍。 提交地址：https:&#x2F;&#x2F;github.com&#x2F;InternLM&#x2F;Tuto">
+<meta property="og:description" content="本节任务要点 使用 Lagent 自定义一个智能体，并使用 Lagent Web Demo 成功部署与调用，记录复现过程并截图。  实践流程环境配置开发机选择 30% A100，镜像选择为 Cuda12.2-conda。 12345678910111213141516171819# 创建环境conda create -n agent_camp3 python&#x3D;3.10 -y# 激活环境conda">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/09/30/uwUWNcY5g2qEiRV.png">
-<meta property="og:image" content="https://s2.loli.net/2024/09/30/qr7dLUXO68j4oZI.png">
-<meta property="og:image" content="https://s2.loli.net/2024/09/30/8DX9ovCtVgW37Rd.png">
-<meta property="article:published_time" content="2024-09-30T02:00:02.000Z">
-<meta property="article:modified_time" content="2024-09-30T11:29:03.428Z">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/gGMTvDm4SbUpcHw.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/TUgQC8E64iJHdnR.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/ciBNVLmIt5EZ6sb.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/PnhH2qzcjtB4da7.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/Ks4xIRvP9QYc8iJ.png">
+<meta property="article:published_time" content="2024-10-02T07:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-02T09:29:50.391Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/09/30/uwUWNcY5g2qEiRV.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/02/gGMTvDm4SbUpcHw.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>书生大模型实战营-L0-Git基础知识 - 胡椒的 Coding Room</title>
+  <title>书生大模型实战营-L2-Lagent自定义你的Agent智能体 - 胡椒的 Coding Room</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -295,7 +297,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">书生大模型实战营-L0-Git基础知识</span>
+            <span id="subtitle">书生大模型实战营-L2-Lagent自定义你的Agent智能体</span>
           
         </div>
 
@@ -306,8 +308,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-30 10:00" pubdate>
-          2024年9月30日 上午
+        <time datetime="2024-10-02 15:00" pubdate>
+          2024年10月2日 下午
         </time>
       </span>
     
@@ -319,7 +321,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          948 字
+          4.4k 字
         
       </span>
     
@@ -331,7 +333,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          22 分钟
         
       </span>
     
@@ -414,7 +416,7 @@
       
         <a href="/2024/10/02/internlm-L2-lagent/" title="书生大模型实战营-L2-Lagent自定义你的Agent智能体"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">书生大模型实战营-L2-Lagent自定义你的Agent智能体</span>
         </a>
       
@@ -477,7 +479,7 @@
       
         <a href="/2024/09/30/internlm-L0-git/" title="书生大模型实战营-L0-Git基础知识"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">书生大模型实战营-L0-Git基础知识</span>
         </a>
       
@@ -662,12 +664,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">书生大模型实战营-L0-Git基础知识</h1>
+            <h1 id="seo-header">书生大模型实战营-L2-Lagent自定义你的Agent智能体</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年9月30日 19:29
+                    本文最后更新于：2024年10月2日 17:29
                   
                 
               </p>
@@ -676,33 +678,46 @@
               <div class="markdown-body">
                 
                 <h1 id="本节任务要点"><a href="#本节任务要点" class="headerlink" title="本节任务要点"></a>本节任务要点</h1><ul>
-<li><p><strong>任务1</strong>: 破冰活动：自我介绍</p>
-<ul>
-<li>PR：<a target="_blank" rel="noopener" href="https://github.com/InternLM/Tutorial/pull/1941">https://github.com/InternLM/Tutorial/pull/1941</a></li>
+<li>使用 Lagent 自定义一个智能体，并使用 Lagent Web Demo 成功部署与调用，记录复现过程并截图。</li>
 </ul>
-</li>
-<li><p><strong>任务2</strong>: 实践项目：构建个人项目</p>
-<ul>
-<li>仓库：<a target="_blank" rel="noopener" href="https://github.com/JunyaoHu/AntiPUA">https://github.com/JunyaoHu/AntiPUA</a></li>
+<h1 id="实践流程"><a href="#实践流程" class="headerlink" title="实践流程"></a>实践流程</h1><h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>开发机选择 30% A100，镜像选择为 Cuda12.2-conda。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-comment"># 创建环境</span><br><span class="hljs-attribute">conda</span> create -n agent_camp<span class="hljs-number">3</span> python=<span class="hljs-number">3</span>.<span class="hljs-number">10</span> -y<br><span class="hljs-comment"># 激活环境</span><br><span class="hljs-attribute">conda</span> activate agent_camp<span class="hljs-number">3</span><br><span class="hljs-comment"># 安装 torch</span><br><span class="hljs-attribute">conda</span> install pytorch==<span class="hljs-number">2</span>.<span class="hljs-number">1</span>.<span class="hljs-number">2</span> torchvision==<span class="hljs-number">0</span>.<span class="hljs-number">16</span>.<span class="hljs-number">2</span> torchaudio==<span class="hljs-number">2</span>.<span class="hljs-number">1</span>.<span class="hljs-number">2</span> pytorch-cuda=<span class="hljs-number">12</span>.<span class="hljs-number">1</span> -c pytorch -c nvidia -y<br><span class="hljs-comment"># 安装其他依赖包</span><br><span class="hljs-attribute">pip</span> install termcolor==<span class="hljs-number">2</span>.<span class="hljs-number">4</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">pip</span> install lmdeploy==<span class="hljs-number">0</span>.<span class="hljs-number">5</span>.<span class="hljs-number">2</span><br><br><span class="hljs-comment"># 创建目录以存放代码</span><br><span class="hljs-attribute">mkdir</span> -p /root/project/agent_camp<span class="hljs-number">3</span><br><span class="hljs-attribute">cd</span> /root/project/agent_camp<span class="hljs-number">3</span><br><span class="hljs-attribute">git</span> clone https://github.com/InternLM/lagent.git<br><span class="hljs-attribute">cd</span> lagent &amp;&amp; git checkout <span class="hljs-number">81</span>e<span class="hljs-number">7</span>ace &amp;&amp; pip install -e . &amp;&amp; cd ..<br><span class="hljs-attribute">pip</span> install griffe==<span class="hljs-number">0</span>.<span class="hljs-number">48</span>.<span class="hljs-number">0</span><br><br><span class="hljs-comment"># 加上这个</span><br><span class="hljs-attribute">pip</span> install class_registry<br></code></pre></td></tr></table></figure>
+<h2 id="Lagent-Web-Demo-使用"><a href="#Lagent-Web-Demo-使用" class="headerlink" title="Lagent Web Demo 使用"></a>Lagent Web Demo 使用</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">lmdeploy</span> serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm<span class="hljs-number">2</span>_<span class="hljs-number">5</span>-<span class="hljs-number">7</span>b-chat --model-name internlm<span class="hljs-number">2</span>_<span class="hljs-number">5</span>-<span class="hljs-number">7</span>b-chat<br><br><span class="hljs-comment"># 再开一个窗口</span><br><span class="hljs-attribute">conda</span> activate agent_camp<span class="hljs-number">3</span><br><span class="hljs-attribute">cd</span> /root/project/agent_camp<span class="hljs-number">3</span>/lagent<br><br><span class="hljs-attribute">streamlit</span> run examples/internlm<span class="hljs-number">2</span>_agent_web_demo.py<br></code></pre></td></tr></table></figure>
+<p>接下来，在本地浏览器中打开 <code>localhost:8501</code>，并修改<strong>模型名称</strong>一栏为 <code>internlm2_5-7b-chat</code>，修改<strong>模型 ip</strong>一栏为<code>127.0.0.1:23333</code>。</p>
+<p>输入后需要按下回车以确认！</p>
+<p>然后，我们在插件选择一栏选择 <code>ArxivSearch</code>，并输入指令“帮我搜索一下 MindSearch 论文”。</p>
+<p>这里搜索还可以按照作者进行搜索</p>
+<p><img src="https://s2.loli.net/2024/10/02/gGMTvDm4SbUpcHw.png" srcset="/img/loading.gif" lazyload alt="image-20241002163426156"></p>
+<h2 id="基于-Lagent-自定义智能体"><a href="#基于-Lagent-自定义智能体" class="headerlink" title="基于 Lagent 自定义智能体"></a>基于 Lagent 自定义智能体</h2><p>使用 Lagent 自定义工具主要分为以下几步：</p>
+<ol>
+<li>继承 <code>BaseAction</code> 类</li>
+<li>实现简单工具的 <code>run</code> 方法；或者实现工具包内每个子工具的功能</li>
+<li>简单工具的 <code>run</code> 方法可选被 <code>tool_api</code> 装饰；工具包内每个子工具的功能都需要被 <code>tool_api</code> 装饰</li>
+</ol>
+<p>下面我们将实现一个调用 MagicMaker API 以完成文生图的功能。</p>
+<p>首先，我们先来创建工具文件：</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle">cd <span class="hljs-regexp">/root/</span><span class="hljs-keyword">project</span><span class="hljs-regexp">/agent_camp3/</span>lagent<br>touch lagent<span class="hljs-regexp">/actions/m</span>agicmaker.py<br></code></pre></td></tr></table></figure>
+<p>然后，我们将下面的代码复制进入</p>
+<p>/root/project/agent_camp3/lagent/lagent/actions/magicmaker.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> requests<br><br><span class="hljs-keyword">from</span> lagent.actions.base_action <span class="hljs-keyword">import</span> BaseAction, tool_api<br><span class="hljs-keyword">from</span> lagent.actions.parser <span class="hljs-keyword">import</span> BaseParser, JsonParser<br><span class="hljs-keyword">from</span> lagent.schema <span class="hljs-keyword">import</span> ActionReturn, ActionStatusCode<br><br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MagicMaker</span>(<span class="hljs-params">BaseAction</span>):</span><br>    styles_option = [<br>        <span class="hljs-string">&#x27;dongman&#x27;</span>,  <span class="hljs-comment"># 动漫</span><br>        <span class="hljs-string">&#x27;guofeng&#x27;</span>,  <span class="hljs-comment"># 国风</span><br>        <span class="hljs-string">&#x27;xieshi&#x27;</span>,   <span class="hljs-comment"># 写实</span><br>        <span class="hljs-string">&#x27;youhua&#x27;</span>,   <span class="hljs-comment"># 油画</span><br>        <span class="hljs-string">&#x27;manghe&#x27;</span>,   <span class="hljs-comment"># 盲盒</span><br>    ]<br>    aspect_ratio_options = [<br>        <span class="hljs-string">&#x27;16:9&#x27;</span>, <span class="hljs-string">&#x27;4:3&#x27;</span>, <span class="hljs-string">&#x27;3:2&#x27;</span>, <span class="hljs-string">&#x27;1:1&#x27;</span>,<br>        <span class="hljs-string">&#x27;2:3&#x27;</span>, <span class="hljs-string">&#x27;3:4&#x27;</span>, <span class="hljs-string">&#x27;9:16&#x27;</span><br>    ]<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self,</span></span><br><span class="hljs-params"><span class="hljs-function">                 style=<span class="hljs-string">&#x27;guofeng&#x27;</span>,</span></span><br><span class="hljs-params"><span class="hljs-function">                 aspect_ratio=<span class="hljs-string">&#x27;4:3&#x27;</span></span>):</span><br>        <span class="hljs-built_in">super</span>().__init__()<br>        <span class="hljs-keyword">if</span> style <span class="hljs-keyword">in</span> self.styles_option:<br>            self.style = style<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&#x27;The style must be one of <span class="hljs-subst">&#123;self.styles_option&#125;</span>&#x27;</span>)<br>        <br>        <span class="hljs-keyword">if</span> aspect_ratio <span class="hljs-keyword">in</span> self.aspect_ratio_options:<br>            self.aspect_ratio = aspect_ratio<br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f&#x27;The aspect ratio must be one of <span class="hljs-subst">&#123;aspect_ratio&#125;</span>&#x27;</span>)<br>    <br><span class="hljs-meta">    @tool_api</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">generate_image</span>(<span class="hljs-params">self, keywords: <span class="hljs-built_in">str</span></span>) -&gt; <span class="hljs-built_in">dict</span>:</span><br>        <span class="hljs-string">&quot;&quot;&quot;Run magicmaker and get the generated image according to the keywords.</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Args:</span><br><span class="hljs-string">            keywords (:class:`str`): the keywords to generate image</span><br><span class="hljs-string"></span><br><span class="hljs-string">        Returns:</span><br><span class="hljs-string">            :class:`dict`: the generated image</span><br><span class="hljs-string">                * image (str): path to the generated image</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-keyword">try</span>:<br>            response = requests.post(<br>                url=<span class="hljs-string">&#x27;https://magicmaker.openxlab.org.cn/gw/edit-anything/api/v1/bff/sd/generate&#x27;</span>,<br>                data=json.dumps(&#123;<br>                    <span class="hljs-string">&quot;official&quot;</span>: <span class="hljs-literal">True</span>,<br>                    <span class="hljs-string">&quot;prompt&quot;</span>: keywords,<br>                    <span class="hljs-string">&quot;style&quot;</span>: self.style,<br>                    <span class="hljs-string">&quot;poseT&quot;</span>: <span class="hljs-literal">False</span>,<br>                    <span class="hljs-string">&quot;aspectRatio&quot;</span>: self.aspect_ratio<br>                &#125;),<br>                headers=&#123;<span class="hljs-string">&#x27;content-type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>&#125;<br>            )<br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> exc:<br>            <span class="hljs-keyword">return</span> ActionReturn(<br>                errmsg=<span class="hljs-string">f&#x27;MagicMaker exception: <span class="hljs-subst">&#123;exc&#125;</span>&#x27;</span>,<br>                state=ActionStatusCode.HTTP_ERROR)<br>        image_url = response.json()[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;imgUrl&#x27;</span>]<br>        <span class="hljs-keyword">return</span> &#123;<span class="hljs-string">&#x27;image&#x27;</span>: image_url&#125;<br></code></pre></td></tr></table></figure>
+<p>最后，我们修改 <code>/root/project/agent_camp3/lagent/examples/internlm2_agent_web_demo.py</code> 来适配我们的自定义工具。</p>
+<ol>
+<li>在 <code>from lagent.actions import ActionExecutor, ArxivSearch, IPythonInterpreter</code> 的下一行添加 <code>from lagent.actions.magicmaker import MagicMaker</code></li>
+<li>在第27行添加 <code>MagicMaker()</code>。</li>
+</ol>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">from</span> lagent.actions <span class="hljs-keyword">import</span> ActionExecutor, ArxivSearch, IPythonInterpreter<br>+ <span class="hljs-keyword">from</span> lagent.actions.magicmaker <span class="hljs-keyword">import</span> MagicMaker<br><span class="hljs-keyword">from</span> lagent.agents.<span class="hljs-built_in">int</span>ernlm2_agent <span class="hljs-keyword">import</span> INTERPRETER_CN, META_CN, PLUGIN_CN, Internlm2Agent, Internlm2Protocol<br><br>...<br>        action_list = [<br>            ArxivSearch(),<br>+             MagicMaker(),<br>        ]<br></code></pre></td></tr></table></figure>
+<p>接下来，启动 Web Demo 来体验一下吧！</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">lmdeploy</span> serve api_server /share/new_models/Shanghai_AI_Laboratory/internlm<span class="hljs-number">2</span>_<span class="hljs-number">5</span>-<span class="hljs-number">7</span>b-chat --model-name internlm<span class="hljs-number">2</span>_<span class="hljs-number">5</span>-<span class="hljs-number">7</span>b-chat<br><br><span class="hljs-attribute">streamlit</span> run examples/internlm<span class="hljs-number">2</span>_agent_web_demo.py<br></code></pre></td></tr></table></figure>
+<p>我们同时启用两个工具，然后输入“请帮我生成一幅山水画”</p>
+<p><img src="https://s2.loli.net/2024/10/02/TUgQC8E64iJHdnR.png" srcset="/img/loading.gif" lazyload alt="image-20241002171435449"></p>
+<p><strong>按照教程运行，检查到./lagent/lagent/actions/magicmaker.py中response = requests.post()返回的json如下图所示，提示返回成功为false，进官网（<a target="_blank" rel="noopener" href="https://magicmaker.openxlab.org.cn/home）发现已经停止维护了">https://magicmaker.openxlab.org.cn/home）发现已经停止维护了</a></strong></p>
+<p><img src="https://s2.loli.net/2024/10/02/ciBNVLmIt5EZ6sb.png" srcset="/img/loading.gif" lazyload alt="image-20241002171611636"></p>
+<p><img src="https://s2.loli.net/2024/10/02/PnhH2qzcjtB4da7.png" srcset="/img/loading.gif" lazyload alt="image-20241002171638684"></p>
+<p>然后，我们再试一下“帮我搜索一下 MindSearch 论文”。</p>
+<p><img src="https://s2.loli.net/2024/10/02/Ks4xIRvP9QYc8iJ.png" srcset="/img/loading.gif" lazyload alt="image-20241002171603394"></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>后面自己做项目的时候自己找合适的工具，多看文档</li>
 </ul>
-</li>
-</ul>
-<h1 id="实践流程"><a href="#实践流程" class="headerlink" title="实践流程"></a>实践流程</h1><h2 id="破冰活动：自我介绍"><a href="#破冰活动：自我介绍" class="headerlink" title="破冰活动：自我介绍"></a>破冰活动：自我介绍</h2><p>每位参与者提交一份自我介绍。 提交地址：<a target="_blank" rel="noopener" href="https://github.com/InternLM/Tutorial">https://github.com/InternLM/Tutorial</a> 的 camp3 分支～</p>
-<p>命名格式为 <code>camp3_&lt;id&gt;.md</code>，其中 <code>&lt;id&gt;</code> 是您的报名问卷ID。</p>
-<p>【大家可以叫我】内容可以是 GitHub 昵称、微信昵称或其他网名。</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">【大家可以叫我】: JunyaoHu</span><br>【坐标】：湖北<br>【专业/职业】：学生，计算机视觉，AIGC<br>【兴趣爱好】：吃饭睡觉<br>【项目技能】：前端<br>【组队情况】：solo<br>【本课程学习基础】：Python、CV<br>【本期活动目标】：卷<br></code></pre></td></tr></table></figure>
-<p>先把项目fork到自己，git clone下来</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/JunyaoHu/</span>Tutorial<br></code></pre></td></tr></table></figure>
-<p>文件路径应为 <code>./data/Git/task/</code>。</p>
-<p><img src="https://s2.loli.net/2024/09/30/uwUWNcY5g2qEiRV.png" srcset="/img/loading.gif" lazyload alt="image-20240930121554008"></p>
-<p>提交commit</p>
-<p><img src="https://s2.loli.net/2024/09/30/qr7dLUXO68j4oZI.png" srcset="/img/loading.gif" lazyload alt="image-20240930121845213"></p>
-<p>在 GitHub 上创建一个 Pull Request，提供对应的 PR 链接。</p>
-<p><img src="https://s2.loli.net/2024/09/30/8DX9ovCtVgW37Rd.png" srcset="/img/loading.gif" lazyload alt="image-20240930122028887"></p>
-<h2 id="实践项目：构建个人项目"><a href="#实践项目：构建个人项目" class="headerlink" title="实践项目：构建个人项目"></a>实践项目：构建个人项目</h2><p>创建一个个人仓库，用于提交笔记、心得体会或分享项目。</p>
-<p>创建并维护一个公开的大模型相关项目或笔记仓库。</p>
-<p>将此项目报名参加第三期实战营项目评选将解锁 30% A100 和 168 团队算力点资源，报名链接：<a target="_blank" rel="noopener" href="https://aicarrier.feishu.cn/wiki/DjY6whCO0inTu2kQN9Cchxgynme">https://aicarrier.feishu.cn/wiki/DjY6whCO0inTu2kQN9Cchxgynme</a></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>温故知新，以赛代练，好好好。</p>
 <script type="text/javascript">(function (document) {
     [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
         panel.getElementsByClassName('fold-title')[0].onclick = function() {
@@ -755,8 +770,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>书生大模型实战营-L0-Git基础知识</div>
-      <div>https://junyaohu.github.io/2024/09/30/internlm-L0-git/</div>
+      <div>书生大模型实战营-L2-Lagent自定义你的Agent智能体</div>
+      <div>https://junyaohu.github.io/2024/10/02/internlm-L2-lagent/</div>
     </div>
     <div class="license-meta">
       
@@ -768,13 +783,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年9月30日 10:00</div>
+          <div>2024年10月2日 15:00</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年9月30日 19:29</div>
+          <div>2024年10月2日 17:29</div>
         </div>
       
       
@@ -805,9 +820,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/30/internlm-L1-intro/" title="书生大模型实战营-L1-书生·浦语大模型全链路开源开放体系介绍">
+                      <a href="/2024/10/02/internlm-L2-LMDeploy/" title="书生大模型实战营-L2-LMDeploy量化部署实践">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">书生大模型实战营-L1-书生·浦语大模型全链路开源开放体系介绍</span>
+                        <span class="hidden-mobile">书生大模型实战营-L2-LMDeploy量化部署实践</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -815,8 +830,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/30/internlm-L0-python/" title="书生大模型实战营-L0-Python基础知识">
-                        <span class="hidden-mobile">书生大模型实战营-L0-Python基础知识</span>
+                      <a href="/2024/10/01/internlm-L1-opencompass/" title="书生大模型实战营-L1-OpenCompass评测InternLM-1.8B实践">
+                        <span class="hidden-mobile">书生大模型实战营-L1-OpenCompass评测InternLM-1.8B实践</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

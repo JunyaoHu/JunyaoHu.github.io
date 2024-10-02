@@ -16,28 +16,33 @@
   <meta name="author" content="胡椒">
   <meta name="keywords" content="计算机视觉,深度学习">
   
-    <meta name="description" content="本节任务要点 任务1: 破冰活动：自我介绍  PR：https:&#x2F;&#x2F;github.com&#x2F;InternLM&#x2F;Tutorial&#x2F;pull&#x2F;1941   任务2: 实践项目：构建个人项目  仓库：https:&#x2F;&#x2F;github.com&#x2F;JunyaoHu&#x2F;AntiPUA    实践流程破冰活动：自我介绍每位参与者提交一份自我介绍。 提交地址：https:&#x2F;&#x2F;github.com&#x2F;InternLM&#x2F;Tuto">
+    <meta name="description" content="本节任务要点 使用结合W4A16量化与kv cache量化的internlm2_5-1_8b-chat模型封装本地API并与大模型进行一次对话，作业截图需包括显存占用情况与大模型回复，参考4.1 API开发(优秀学员必做)，请注意2.2.3节与4.1节应使用作业版本命令。 使用Function call功能让大模型完成一次简单的”加”与”乘”函数调用，作业截图需包括大模型回复的工具调用情况，参考4">
 <meta property="og:type" content="article">
-<meta property="og:title" content="书生大模型实战营-L0-Git基础知识">
-<meta property="og:url" content="https://junyaohu.github.io/2024/09/30/internlm-L0-git/index.html">
+<meta property="og:title" content="书生大模型实战营-L2-LMDeploy量化部署实践">
+<meta property="og:url" content="https://junyaohu.github.io/2024/10/02/internlm-L2-LMDeploy/index.html">
 <meta property="og:site_name" content="胡椒的 Coding Room">
-<meta property="og:description" content="本节任务要点 任务1: 破冰活动：自我介绍  PR：https:&#x2F;&#x2F;github.com&#x2F;InternLM&#x2F;Tutorial&#x2F;pull&#x2F;1941   任务2: 实践项目：构建个人项目  仓库：https:&#x2F;&#x2F;github.com&#x2F;JunyaoHu&#x2F;AntiPUA    实践流程破冰活动：自我介绍每位参与者提交一份自我介绍。 提交地址：https:&#x2F;&#x2F;github.com&#x2F;InternLM&#x2F;Tuto">
+<meta property="og:description" content="本节任务要点 使用结合W4A16量化与kv cache量化的internlm2_5-1_8b-chat模型封装本地API并与大模型进行一次对话，作业截图需包括显存占用情况与大模型回复，参考4.1 API开发(优秀学员必做)，请注意2.2.3节与4.1节应使用作业版本命令。 使用Function call功能让大模型完成一次简单的”加”与”乘”函数调用，作业截图需包括大模型回复的工具调用情况，参考4">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2024/09/30/uwUWNcY5g2qEiRV.png">
-<meta property="og:image" content="https://s2.loli.net/2024/09/30/qr7dLUXO68j4oZI.png">
-<meta property="og:image" content="https://s2.loli.net/2024/09/30/8DX9ovCtVgW37Rd.png">
-<meta property="article:published_time" content="2024-09-30T02:00:02.000Z">
-<meta property="article:modified_time" content="2024-09-30T11:29:03.428Z">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/hkFyr31dB2D9Hxf.png">
+<meta property="og:image" content="https://junyaohu.github.io/2024/10/02/internlm-L2-LMDeploy/assets/image-20241002190743254.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/nupCGgzRFWqty8l.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/YhziKNQPwyk3Dct.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/kgI13hEvf8jcSso.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/WOeVNck2iZSUgtz.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/02/FG5T9JeKqcUSLn3.png">
+<meta property="og:image" content="https://junyaohu.github.io/2024/10/02/internlm-L2-LMDeploy/assets/image-20241002191257082.png">
+<meta property="article:published_time" content="2024-10-02T09:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-02T11:15:45.854Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2024/09/30/uwUWNcY5g2qEiRV.png">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/02/hkFyr31dB2D9Hxf.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>书生大模型实战营-L0-Git基础知识 - 胡椒的 Coding Room</title>
+  <title>书生大模型实战营-L2-LMDeploy量化部署实践 - 胡椒的 Coding Room</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -295,7 +300,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">书生大模型实战营-L0-Git基础知识</span>
+            <span id="subtitle">书生大模型实战营-L2-LMDeploy量化部署实践</span>
           
         </div>
 
@@ -306,8 +311,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-09-30 10:00" pubdate>
-          2024年9月30日 上午
+        <time datetime="2024-10-02 17:00" pubdate>
+          2024年10月2日 下午
         </time>
       </span>
     
@@ -319,7 +324,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          948 字
+          4.8k 字
         
       </span>
     
@@ -331,7 +336,7 @@
         
         
           <!-- compatible with older versions-->
-          5 分钟
+          24 分钟
         
       </span>
     
@@ -405,7 +410,7 @@
       
         <a href="/2024/10/02/internlm-L2-LMDeploy/" title="书生大模型实战营-L2-LMDeploy量化部署实践"
            class="list-group-item list-group-item-action
-           ">
+           active">
           <span class="category-post">书生大模型实战营-L2-LMDeploy量化部署实践</span>
         </a>
       
@@ -477,7 +482,7 @@
       
         <a href="/2024/09/30/internlm-L0-git/" title="书生大模型实战营-L0-Git基础知识"
            class="list-group-item list-group-item-action
-           active">
+           ">
           <span class="category-post">书生大模型实战营-L0-Git基础知识</span>
         </a>
       
@@ -662,12 +667,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">书生大模型实战营-L0-Git基础知识</h1>
+            <h1 id="seo-header">书生大模型实战营-L2-LMDeploy量化部署实践</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年9月30日 19:29
+                    本文最后更新于：2024年10月2日 19:15
                   
                 
               </p>
@@ -676,34 +681,83 @@
               <div class="markdown-body">
                 
                 <h1 id="本节任务要点"><a href="#本节任务要点" class="headerlink" title="本节任务要点"></a>本节任务要点</h1><ul>
-<li><p><strong>任务1</strong>: 破冰活动：自我介绍</p>
+<li>使用结合W4A16量化与kv cache量化的<code>internlm2_5-1_8b-chat</code>模型封装本地API并与大模型进行一次对话，作业截图需包括显存占用情况与大模型回复，参考4.1 API开发(优秀学员必做)，<strong>请注意2.2.3节与4.1节应使用作业版本命令。</strong></li>
+<li>使用Function call功能让大模型完成一次简单的”加”与”乘”函数调用，作业截图需包括大模型回复的工具调用情况，参考4.2 Function call(选做)</li>
+</ul>
+<h1 id="实践流程"><a href="#实践流程" class="headerlink" title="实践流程"></a>实践流程</h1><p>选择 <strong>Cuda12.2-conda 30%A100 </strong>  (24GB显存容量)</p>
+<p>我们要运行参数量为7B的InternLM2.5，由<a target="_blank" rel="noopener" href="https://huggingface.co/internlm/internlm2_5-7b-chat/blob/main/config.json">InternLM2.5的码仓</a>查询InternLM2.5-7b-chat的config.json文件可知，该模型的权重被存储为<code>bfloat16</code>格式</p>
+<p>对于一个7B（70亿）参数的模型，每个参数使用16位浮点数（等于 2个 Byte）表示，则模型的权重大小约为：</p>
+<p><strong>70×10^9 parameters×2 Bytes/parameter=14GB</strong></p>
+<p><strong>70亿个参数×每个参数占用2个字节=14GB</strong></p>
+<p>所以我们需要大于14GB的显存</p>
+<p>在终端中，让我们输入以下指令，来创建一个名为lmdeploy的conda环境，python版本为3.10，创建成功后激活环境并安装0.5.3版本的lmdeploy及相关包。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">conda</span> create -n lmdeploy  python=<span class="hljs-number">3</span>.<span class="hljs-number">10</span> -y<br><span class="hljs-attribute">conda</span> activate lmdeploy<br><span class="hljs-attribute">conda</span> install pytorch==<span class="hljs-number">2</span>.<span class="hljs-number">1</span>.<span class="hljs-number">2</span> torchvision==<span class="hljs-number">0</span>.<span class="hljs-number">16</span>.<span class="hljs-number">2</span> torchaudio==<span class="hljs-number">2</span>.<span class="hljs-number">1</span>.<span class="hljs-number">2</span> pytorch-cuda=<span class="hljs-number">12</span>.<span class="hljs-number">1</span> -c pytorch -c nvidia -y<br><span class="hljs-attribute">pip</span> install timm==<span class="hljs-number">1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">8</span> openai==<span class="hljs-number">1</span>.<span class="hljs-number">40</span>.<span class="hljs-number">3</span> lmdeploy[<span class="hljs-literal">all</span>]==<span class="hljs-number">0</span>.<span class="hljs-number">5</span>.<span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+<h2 id="InternStudio环境获取模型"><a href="#InternStudio环境获取模型" class="headerlink" title="InternStudio环境获取模型"></a>InternStudio环境获取模型</h2><p>为方便文件管理，我们需要一个存放模型的目录，本教程统一放置在<code>/root/project/deploy/models/</code>目录。</p>
+<p>运行以下命令，创建文件夹并设置开发机共享目录的软链接。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs Plain">ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-7b-chat /root/project/deploy/models/<br>ln -s /root/share/new_models/Shanghai_AI_Laboratory/internlm2_5-1_8b-chat /root/project/deploy/models/<br>ln -s /root/share/new_models/OpenGVLab/InternVL2-26B /root/project/deploy/models/<br></code></pre></td></tr></table></figure>
+<p>此时，我们可以看到<code>/root/models</code>中会出现<code>internlm2_5-7b-chat</code>、<code>internlm2_5-1_8b-chat</code>和<code>InternVL2-26B</code>文件夹。</p>
+<p>教程使用internlm2_5-7b-chat和InternVL2-26B作为演示。</p>
+<p>由于上述模型量化会消耗大量时间(约8h)</p>
+<p><strong>量化作业请使用internlm2_5-1_8b-chat模型</strong>完成。</p>
+<h2 id="LMDeploy验证启动模型文件"><a href="#LMDeploy验证启动模型文件" class="headerlink" title="LMDeploy验证启动模型文件"></a>LMDeploy验证启动模型文件</h2><p>在量化工作正式开始前，我们还需要验证一下获取的模型文件能否正常工作，以免竹篮打水一场空。</p>
+<p>进入创建好的conda环境并启动internlm2_5-1_8b-chat</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs Plain">conda activate lmdeploy<br>lmdeploy chat /root/project/deploy/models/internlm2_5-1_8b-chat<br></code></pre></td></tr></table></figure>
+<p>需要按<strong>两次回车</strong>才能够执行，以下为示例。</p>
+<p><img src="https://s2.loli.net/2024/10/02/hkFyr31dB2D9Hxf.png" srcset="/img/loading.gif" lazyload alt="image-20241002182843305"></p>
+<p>1.8b 显存 20G</p>
+<p><img src="./assets/image-20241002190743254.png" srcset="/img/loading.gif" lazyload alt="image-20241002190743254"></p>
+<h2 id="LMDeploy-API部署InternLM2-5"><a href="#LMDeploy-API部署InternLM2-5" class="headerlink" title="LMDeploy API部署InternLM2.5"></a>LMDeploy API部署InternLM2.5</h2><h3 id="以命令行形式连接API服务器"><a href="#以命令行形式连接API服务器" class="headerlink" title="以命令行形式连接API服务器"></a>以命令行形式连接API服务器</h3><p>首先让我们进入创建好的conda环境，并通下命令启动API服务器，部署InternLM2.5模型：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Plain">conda activate lmdeploy<br>lmdeploy serve api_server \<br>    /root/project/deploy/models/internlm2_5-1_8b-chat \<br>    --model-format hf \<br>    --quant-policy 0 \<br>    --server-name 0.0.0.0 \<br>    --server-port 23333 \<br>    --tp 1<br></code></pre></td></tr></table></figure>
+<p>命令解释：</p>
+<ol>
+<li><code>lmdeploy serve api_server</code>：这个命令用于启动API服务器。</li>
+<li><code>/root/models/internlm2_5-1_8b-chat</code>：这是模型的路径。</li>
+<li><code>--model-format hf</code>：这个参数指定了模型的格式。<code>hf</code>代表“Hugging Face”格式。</li>
+<li><code>--quant-policy 0</code>：这个参数指定了量化策略。</li>
+<li><code>--server-name 0.0.0.0</code>：这个参数指定了服务器的名称。在这里，<code>0.0.0.0</code>是一个特殊的IP地址，它表示所有网络接口。</li>
+<li><code>--server-port 23333</code>：这个参数指定了服务器的端口号。在这里，<code>23333</code>是服务器将监听的端口号。</li>
+<li><code>--tp 1</code>：这个参数表示并行数量（GPU数量）。</li>
+</ol>
+<p>然后打开浏览器，访问<code>http://127.0.0.1:23333</code>看到如下界面即代表部署成功。</p>
+<p><img src="https://s2.loli.net/2024/10/02/nupCGgzRFWqty8l.png" srcset="/img/loading.gif" lazyload alt="image-20241002182955657"></p>
+<p>运行如下命令，激活conda环境并启动命令行客户端。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">conda activate lmdeploy<br>lmdeploy serve api_client http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">23333</span><br></code></pre></td></tr></table></figure>
+<p>稍待片刻，等出现<code>double enter to end input &gt;&gt;&gt;</code>的输入提示即启动成功，此时便可以随意与InternLM2.5对话，同样是两下回车确定，输入<code>exit</code>退出。</p>
+<p><img src="https://s2.loli.net/2024/10/02/YhziKNQPwyk3Dct.png" srcset="/img/loading.gif" lazyload alt="image-20241002183133639"></p>
+<h3 id="以Gradio网页形式连接API服务器"><a href="#以Gradio网页形式连接API服务器" class="headerlink" title="以Gradio网页形式连接API服务器"></a>以Gradio<strong>网页形式连接API服务器</strong></h3><p>保持第一个终端不动，在新建终端中输入<code>exit</code>退出。</p>
+<p>输入以下命令，使用Gradio作为前端，启动网页。</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arduino">lmdeploy serve gradio http:<span class="hljs-comment">//localhost:23333 \</span><br><span class="hljs-comment">    --server-name 0.0.0.0 \</span><br><span class="hljs-comment">    --server-port 6006</span><br></code></pre></td></tr></table></figure>
+<p>打开浏览器，访问地址<code>http://127.0.0.1:6006</code>，然后就可以与模型尽情对话了。</p>
+<p><img src="https://s2.loli.net/2024/10/02/kgI13hEvf8jcSso.png" srcset="/img/loading.gif" lazyload alt="image-20241002183457081"></p>
+<h2 id="LMDeploy-Lite"><a href="#LMDeploy-Lite" class="headerlink" title="LMDeploy Lite"></a>LMDeploy Lite</h2><h3 id="设置最大kv-cache缓存大小"><a href="#设置最大kv-cache缓存大小" class="headerlink" title="设置最大kv cache缓存大小"></a>设置最大kv cache缓存大小</h3><p>kv cache是一种缓存技术，通过存储键值对的形式来复用计算结果，以达到提高性能和降低内存消耗的目的。在大规模训练和推理中，kv cache可以显著减少重复计算量，从而提升模型的推理速度。理想情况下，kv cache全部存储于显存，以加快访存速度。</p>
+<p>模型在运行时，占用的显存可大致分为三部分：模型参数本身占用的显存、kv cache占用的显存，以及中间运算结果占用的显存。LMDeploy的kv cache管理器可以通过设置<code>--cache-max-entry-count</code>参数，控制kv缓存占用<strong>剩余显存</strong>的最大比例。默认的比例为0.8。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">lmdeploy</span> chat /root/project/deploy/models/internlm<span class="hljs-number">2</span>_<span class="hljs-number">5</span>-<span class="hljs-number">1</span>_<span class="hljs-number">8</span>b-chat --cache-max-entry-count <span class="hljs-number">0</span>.<span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
+<h3 id="设置在线-kv-cache-int4-int8-量化"><a href="#设置在线-kv-cache-int4-int8-量化" class="headerlink" title="设置在线 kv cache int4/int8 量化"></a>设置<strong>在线</strong> kv cache int4/int8 量化</h3><p>自 v0.4.0 起，LMDeploy 支持在线 kv cache int4/int8 量化，量化方式为 per-head per-token 的非对称量化。此外，通过 LMDeploy 应用 kv 量化非常简单，只需要设定 <code>quant_policy</code> 和<code>cache-max-entry-count</code>参数。目前，LMDeploy 规定 <code>quant_policy=4</code> 表示 kv int4 量化，<code>quant_policy=8</code> 表示 kv int8 量化。</p>
+<p>输入以下指令，启动API服务器。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">lmdeploy serve api_server \<br>    <span class="hljs-string">/root/project/deploy/models/internlm2_5-1_8b-chat</span> \<br>    <span class="hljs-params">--model-format</span> hf \<br>    <span class="hljs-params">--quant-policy</span> 4 \<br>    <span class="hljs-params">--cache-max-entry-count</span> 0.4\<br>    <span class="hljs-params">--server-name</span> 0.0.0.0 \<br>    <span class="hljs-params">--server-port</span> 23333 \<br>    <span class="hljs-params">--tp</span> 1<br></code></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2024/10/02/WOeVNck2iZSUgtz.png" srcset="/img/loading.gif" lazyload alt="image-20241002185940854"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">lmdeploy serve api_client http:<span class="hljs-regexp">//</span>localhost:<span class="hljs-number">23333</span><br></code></pre></td></tr></table></figure>
+<p><img src="https://s2.loli.net/2024/10/02/FG5T9JeKqcUSLn3.png" srcset="/img/loading.gif" lazyload alt="image-20241002190150351"></p>
+<p>查看显存 12.6G</p>
+<p><img src="./assets/image-20241002191257082.png" srcset="/img/loading.gif" lazyload alt="image-20241002191257082"></p>
+<h3 id="W4A16-模型量化和部署"><a href="#W4A16-模型量化和部署" class="headerlink" title="W4A16 模型量化和部署"></a>W4A16 模型量化和部署</h3><p>准确说，模型量化是一种优化技术，旨在减少机器学习模型的大小并提高其推理速度。量化通过将模型的权重和激活从高精度（如16位浮点数）转换为低精度（如8位整数、4位整数、甚至二值网络）来实现。</p>
+<p>那么标题中的W4A16又是什么意思呢？</p>
 <ul>
-<li>PR：<a target="_blank" rel="noopener" href="https://github.com/InternLM/Tutorial/pull/1941">https://github.com/InternLM/Tutorial/pull/1941</a></li>
+<li>W4：这通常表示权重量化为4位整数（int4）。这意味着模型中的权重参数将从它们原始的浮点表示（例如FP32、BF16或FP16，<strong>Internlm2.5精度为BF16</strong>）转换为4位的整数表示。这样做可以显著减少模型的大小。</li>
+<li>A16：这表示激活（或输入/输出）仍然保持在16位浮点数（例如FP16或BF16）。激活是在神经网络中传播的数据，通常在每层运算之后产生。</li>
 </ul>
-</li>
-<li><p><strong>任务2</strong>: 实践项目：构建个人项目</p>
+<p>因此，W4A16的量化配置意味着：</p>
 <ul>
-<li>仓库：<a target="_blank" rel="noopener" href="https://github.com/JunyaoHu/AntiPUA">https://github.com/JunyaoHu/AntiPUA</a></li>
+<li>权重被量化为4位整数。</li>
+<li>激活保持为16位浮点数。</li>
 </ul>
-</li>
-</ul>
-<h1 id="实践流程"><a href="#实践流程" class="headerlink" title="实践流程"></a>实践流程</h1><h2 id="破冰活动：自我介绍"><a href="#破冰活动：自我介绍" class="headerlink" title="破冰活动：自我介绍"></a>破冰活动：自我介绍</h2><p>每位参与者提交一份自我介绍。 提交地址：<a target="_blank" rel="noopener" href="https://github.com/InternLM/Tutorial">https://github.com/InternLM/Tutorial</a> 的 camp3 分支～</p>
-<p>命名格式为 <code>camp3_&lt;id&gt;.md</code>，其中 <code>&lt;id&gt;</code> 是您的报名问卷ID。</p>
-<p>【大家可以叫我】内容可以是 GitHub 昵称、微信昵称或其他网名。</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">【大家可以叫我】: JunyaoHu</span><br>【坐标】：湖北<br>【专业/职业】：学生，计算机视觉，AIGC<br>【兴趣爱好】：吃饭睡觉<br>【项目技能】：前端<br>【组队情况】：solo<br>【本课程学习基础】：Python、CV<br>【本期活动目标】：卷<br></code></pre></td></tr></table></figure>
-<p>先把项目fork到自己，git clone下来</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/JunyaoHu/</span>Tutorial<br></code></pre></td></tr></table></figure>
-<p>文件路径应为 <code>./data/Git/task/</code>。</p>
-<p><img src="https://s2.loli.net/2024/09/30/uwUWNcY5g2qEiRV.png" srcset="/img/loading.gif" lazyload alt="image-20240930121554008"></p>
-<p>提交commit</p>
-<p><img src="https://s2.loli.net/2024/09/30/qr7dLUXO68j4oZI.png" srcset="/img/loading.gif" lazyload alt="image-20240930121845213"></p>
-<p>在 GitHub 上创建一个 Pull Request，提供对应的 PR 链接。</p>
-<p><img src="https://s2.loli.net/2024/09/30/8DX9ovCtVgW37Rd.png" srcset="/img/loading.gif" lazyload alt="image-20240930122028887"></p>
-<h2 id="实践项目：构建个人项目"><a href="#实践项目：构建个人项目" class="headerlink" title="实践项目：构建个人项目"></a>实践项目：构建个人项目</h2><p>创建一个个人仓库，用于提交笔记、心得体会或分享项目。</p>
-<p>创建并维护一个公开的大模型相关项目或笔记仓库。</p>
-<p>将此项目报名参加第三期实战营项目评选将解锁 30% A100 和 168 团队算力点资源，报名链接：<a target="_blank" rel="noopener" href="https://aicarrier.feishu.cn/wiki/DjY6whCO0inTu2kQN9Cchxgynme">https://aicarrier.feishu.cn/wiki/DjY6whCO0inTu2kQN9Cchxgynme</a></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>温故知新，以赛代练，好好好。</p>
-<script type="text/javascript">(function (document) {
+<p>让我们回到LMDeploy，在最新的版本中，LMDeploy使用的是AWQ算法，能够实现模型的4bit权重量化。输入以下指令，执行量化工作。<strong>(不建议运行，在InternStudio上运行需要8小时)</strong></p>
+<p><strong>完成作业时请使用1.8B模型进行量化：(建议运行以下命令)</strong></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs gradle">lmdeploy lite auto_awq \<br>  <span class="hljs-regexp">/root/</span><span class="hljs-keyword">project</span><span class="hljs-regexp">/deploy/m</span>odels/internlm2_5-<span class="hljs-number">1</span>_8b-chat \<br>  --calib-dataset <span class="hljs-string">&#x27;ptb&#x27;</span> \<br>  --calib-samples <span class="hljs-number">128</span> \<br>  --calib-seqlen <span class="hljs-number">2048</span> \<br>  --w-bits <span class="hljs-number">4</span> \<br>  --w-<span class="hljs-keyword">group</span>-<span class="hljs-keyword">size</span> <span class="hljs-number">128</span> \<br>  --batch-<span class="hljs-keyword">size</span> <span class="hljs-number">1</span> \<br>  --search-scale <span class="hljs-keyword">False</span> \<br>  --work-dir <span class="hljs-regexp">/root/</span><span class="hljs-keyword">project</span><span class="hljs-regexp">/deploy/m</span>odels/internlm2_5-<span class="hljs-number">1</span>_8b-chat-w4a16-<span class="hljs-number">4</span>bit<br></code></pre></td></tr></table></figure>
+<h2 id="LMDeploy之FastAPI与Function-call"><a href="#LMDeploy之FastAPI与Function-call" class="headerlink" title="LMDeploy之FastAPI与Function call"></a>LMDeploy之FastAPI与Function call</h2><p>之前在启动API服务器是借助FastAPI封装一个API出来让LMDeploy自行进行访问，在这一章节中我们将依托于LMDeploy封装出来的API进行更加灵活更具DIY的开发。</p>
+<p>与之前一样，让我们进入创建好的conda环境并输入指令启动API服务器。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs Plain">conda activate lmdeploy<br>lmdeploy serve api_server \<br>    /root/models/internlm2_5-7b-chat-w4a16-4bit \<br>    --model-format awq \<br>    --cache-max-entry-count 0.4 \<br>    --quant-policy 4 \<br>    --server-name 0.0.0.0 \<br>    --server-port 23333 \<br>    --tp 1<br></code></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><script type="text/javascript">(function (document) {
     [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
         panel.getElementsByClassName('fold-title')[0].onclick = function() {
             panel.classList.toggle("collapsed");
@@ -755,8 +809,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>书生大模型实战营-L0-Git基础知识</div>
-      <div>https://junyaohu.github.io/2024/09/30/internlm-L0-git/</div>
+      <div>书生大模型实战营-L2-LMDeploy量化部署实践</div>
+      <div>https://junyaohu.github.io/2024/10/02/internlm-L2-LMDeploy/</div>
     </div>
     <div class="license-meta">
       
@@ -768,13 +822,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年9月30日 10:00</div>
+          <div>2024年10月2日 17:00</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年9月30日 19:29</div>
+          <div>2024年10月2日 19:15</div>
         </div>
       
       
@@ -805,18 +859,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/09/30/internlm-L1-intro/" title="书生大模型实战营-L1-书生·浦语大模型全链路开源开放体系介绍">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">书生大模型实战营-L1-书生·浦语大模型全链路开源开放体系介绍</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/09/30/internlm-L0-python/" title="书生大模型实战营-L0-Python基础知识">
-                        <span class="hidden-mobile">书生大模型实战营-L0-Python基础知识</span>
+                      <a href="/2024/10/02/internlm-L2-lagent/" title="书生大模型实战营-L2-Lagent自定义你的Agent智能体">
+                        <span class="hidden-mobile">书生大模型实战营-L2-Lagent自定义你的Agent智能体</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
