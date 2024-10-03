@@ -1,0 +1,1220 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="胡椒">
+  <meta name="keywords" content="计算机视觉,深度学习">
+  
+    <meta name="description" content="本节任务要点 按照教程，将 MindSearch 部署到 HuggingFace 并美化 Gradio 的界面，并提供截图和 Hugging Face 的Space的链接。  实践流程随着硅基流动提供了免费的 InternLM2.5-7B-Chat 服务（免费的 InternLM2.5-7B-Chat 真的很香），MindSearch 的部署与使用也就迎来了纯 CPU 版本，进一步降低了部署门槛。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="书生大模型实战营-MindSearch CPU-Only 版部署">
+<meta property="og:url" content="https://junyaohu.github.io/2024/10/03/internlm-L2-MindSearch/index.html">
+<meta property="og:site_name" content="胡椒的 Coding Room">
+<meta property="og:description" content="本节任务要点 按照教程，将 MindSearch 部署到 HuggingFace 并美化 Gradio 的界面，并提供截图和 Hugging Face 的Space的链接。  实践流程随着硅基流动提供了免费的 InternLM2.5-7B-Chat 服务（免费的 InternLM2.5-7B-Chat 真的很香），MindSearch 的部署与使用也就迎来了纯 CPU 版本，进一步降低了部署门槛。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://junyaohu.github.io/2024/10/03/internlm-L2-MindSearch/assets/image-20241003092505871.png">
+<meta property="og:image" content="https://junyaohu.github.io/2024/10/03/internlm-L2-MindSearch/assets/image-20241003103701017.png">
+<meta property="article:published_time" content="2024-10-03T02:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-03T02:38:19.216Z">
+<meta property="article:author" content="胡椒">
+<meta property="article:tag" content="大模型">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://junyaohu.github.io/2024/10/03/internlm-L2-MindSearch/assets/image-20241003092505871.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>书生大模型实战营-MindSearch CPU-Only 版部署 - 胡椒的 Coding Room</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"junyaohu.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":"home"},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":19383194,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+    <!-- Baidu Analytics -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?19383194";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        })();
+      }
+    </script>
+  
+
+  
+    <!-- Google tag (gtag.js) -->
+    <script async>
+      if (!Fluid.ctx.dnt) {
+        Fluid.utils.createScript("https://www.googletagmanager.com/gtag/js?id=", function() {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          gtag('js', new Date());
+          gtag('config', '');
+        });
+      }
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>胡椒的 Coding Room</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>主页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-books"></i>
+                <span>博客</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/articles/">
+                    <i class="iconfont icon-notebook"></i>
+                    <span>总览</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/archives/">
+                    <i class="iconfont icon-archive-fill"></i>
+                    <span>归档</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/categories/">
+                    <i class="iconfont icon-category-fill"></i>
+                    <span>分类</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/tags/">
+                    <i class="iconfont icon-tags-fill"></i>
+                    <span>标签</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/publication/">
+                <i class="iconfont icon-pen"></i>
+                <span>论文</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/CV/cv_en.pdf">
+                <i class="iconfont icon-note"></i>
+                <span>简历</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/gallery/">
+                <i class="iconfont icon-image"></i>
+                <span>图集</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle">书生大模型实战营-MindSearch CPU-Only 版部署</span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-03 10:00" pubdate>
+          2024年10月3日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          57 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar category-bar" style="margin-right: -1rem">
+    
+
+
+
+
+
+<div class="category-list">
+  
+  
+    
+    
+    
+    <div class="category row nomargin-x">
+      <a class="category-item 
+          list-group-item category-item-action col-10 col-md-11 col-xm-11" title="课外学习"
+        id="heading-3326ded7cd6e88a8b22c18d10cdb3c76" role="tab" data-toggle="collapse" href="#collapse-3326ded7cd6e88a8b22c18d10cdb3c76"
+        aria-expanded="true"
+      >
+        课外学习
+        <span class="list-group-count">(30)</span>
+        <i class="iconfont icon-arrowright"></i>
+      </a>
+      
+      <div class="category-collapse collapse show" id="collapse-3326ded7cd6e88a8b22c18d10cdb3c76"
+           role="tabpanel" aria-labelledby="heading-3326ded7cd6e88a8b22c18d10cdb3c76">
+        
+        
+          
+  <div class="category-post-list">
+    
+    
+      
+      
+        <a href="/2024/10/03/internlm-L2-MindSearch/" title="书生大模型实战营-MindSearch CPU-Only 版部署"
+           class="list-group-item list-group-item-action
+           active">
+          <span class="category-post">书生大模型实战营-MindSearch CPU-Only 版部署</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/03/internlm-L2-huixiangdou/" title="书生大模型实战营-茴香豆：企业级知识问答工具实践"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-茴香豆：企业级知识问答工具实践</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/02/internlm-L2-InternVL/" title="书生大模型实战营-L2-InternVL微调实践"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L2-InternVL微调实践</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/02/internlm-L2-LMDeploy/" title="书生大模型实战营-L2-LMDeploy量化部署实践"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L2-LMDeploy量化部署实践</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/02/internlm-L2-lagent/" title="书生大模型实战营-L2-Lagent自定义你的Agent智能体"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L2-Lagent自定义你的Agent智能体</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/01/internlm-L1-opencompass/" title="书生大模型实战营-L1-OpenCompass评测InternLM-1.8B实践"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L1-OpenCompass评测InternLM-1.8B实践</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/01/internlm-L1-xtuner/" title="书生大模型实战营-L1-XTuner微调个人小助手认知"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L1-XTuner微调个人小助手认知</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/10/01/internlm-L1-rag/" title="书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L1-InternLM + LlamaIndex RAG 实践</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/30/internlm-L1-prompt/" title="书生大模型实战营-L1-浦语提示词工程实践"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L1-浦语提示词工程实践</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/30/internlm-L1-8gdemo/" title="书生大模型实战营-L1-8G显存玩转书生大模型Demo"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L1-8G显存玩转书生大模型Demo</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/30/internlm-L1-intro/" title="书生大模型实战营-L1-书生·浦语大模型全链路开源开放体系介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L1-书生·浦语大模型全链路开源开放体系介绍</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/30/internlm-L0-git/" title="书生大模型实战营-L0-Git基础知识"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L0-Git基础知识</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/30/internlm-L0-python/" title="书生大模型实战营-L0-Python基础知识"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L0-Python基础知识</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2024/09/30/internlm-L0-linux/" title="书生大模型实战营-L0-Linux基础知识"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">书生大模型实战营-L0-Linux基础知识</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/10/14/login_campus_network/" title="Linux通过命令行远程连接校园网"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Linux通过命令行远程连接校园网</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2023/10/05/frp-setting/" title="内网穿透配置"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">内网穿透配置</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/09/06/cv-base-learning-bupt-lupeng/" title="北京邮电大学鲁鹏《计算机视觉（本科）》笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">北京邮电大学鲁鹏《计算机视觉（本科）》笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/14/lhy-ml/" title="李宏毅机器学习 | Datawhale202208 组队学习"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">李宏毅机器学习 | Datawhale202208 组队学习</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/05/opencv-learning/" title="OpenCV学习 (English Version)"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">OpenCV学习 (English Version)</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/08/04/common-stl-of-cpp/" title="C++常用STL"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">C++常用STL</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/22/heywhale-summer-camp-transformer/" title="和鲸社区2022咸鱼打挺夏令营-【NLP最佳实践】Huggingface Transformers实战教程-笔记、作业答案与部分解析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">和鲸社区2022咸鱼打挺夏令营-【NLP最佳实践】Huggingface Transformers实战教程-笔记、作业答案与部分解析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/22/heywhale-summer-camp-ds/" title="和鲸社区2022咸鱼打挺夏令营-数据结构·闯关-作业答案"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">和鲸社区2022咸鱼打挺夏令营-数据结构·闯关-作业答案</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/07/20/heywhale-summer-camp-ai/" title="和鲸社区2022咸鱼打挺夏令营-机器学习原理与实践·闯关-作业答案与部分解析"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">和鲸社区2022咸鱼打挺夏令营-机器学习原理与实践·闯关-作业答案与部分解析</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/26/30days-of-ml-202207/" title="糖尿病遗传风险检测挑战赛 - Coggle 30 Days of ML（22年7月）"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">糖尿病遗传风险检测挑战赛 - Coggle 30 Days of ML（22年7月）</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/20/d2l/" title="《动手学深度学习》笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">《动手学深度学习》笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/03/SLAM-learning/" title="SLAM学习笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">SLAM学习笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/06/02/ROS-learning/" title="ROS学习笔记"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">ROS学习笔记</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/09/%E3%80%8APython%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E5%B1%95%E7%A4%BA%E3%80%8B%E7%AC%94%E8%AE%B0/" title="Python数据分析与展示"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python数据分析与展示</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2022/02/06/%E3%80%8APython%E7%BD%91%E7%BB%9C%E7%88%AC%E8%99%AB%E4%B8%8E%E4%BF%A1%E6%81%AF%E6%8F%90%E5%8F%96%E3%80%8B%E7%AC%94%E8%AE%B0/" title="Python网络爬虫"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">Python网络爬虫</span>
+        </a>
+      
+    
+      
+      
+        <a href="/2021/12/30/%E4%BC%9A%E8%AE%AE%E6%9C%9F%E5%88%8A%E4%BB%8B%E7%BB%8D/" title="会议期刊介绍"
+           class="list-group-item list-group-item-action
+           ">
+          <span class="category-post">会议期刊介绍</span>
+        </a>
+      
+    
+  </div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">书生大模型实战营-MindSearch CPU-Only 版部署</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：2024年10月3日 10:38
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="本节任务要点"><a href="#本节任务要点" class="headerlink" title="本节任务要点"></a>本节任务要点</h1><ul>
+<li>按照教程，将 MindSearch 部署到 HuggingFace 并美化 Gradio 的界面，并提供截图和 Hugging Face 的Space的链接。</li>
+</ul>
+<h1 id="实践流程"><a href="#实践流程" class="headerlink" title="实践流程"></a>实践流程</h1><p>随着硅基流动提供了免费的 InternLM2.5-7B-Chat 服务（免费的 InternLM2.5-7B-Chat 真的很香），MindSearch 的部署与使用也就迎来了纯 CPU 版本，进一步降低了部署门槛。那就让我们来一起看看如何使用硅基流动的 API 来部署 MindSearch 吧。</p>
+<h2 id="创建开发机-amp-环境配置"><a href="#创建开发机-amp-环境配置" class="headerlink" title="创建开发机 &amp; 环境配置"></a>创建开发机 &amp; 环境配置</h2><p>打开<a target="_blank" rel="noopener" href="https://github.com/codespaces">codespace主页</a>，选择blank template。浏览器会自动在新的页面打开一个web版的vscode。</p>
+<p>接下来的操作就和我们使用vscode基本没差别了。</p>
+<p>然后我们新建一个目录用于存放 MindSearch 的相关代码，并把 MindSearch 仓库 clone 下来。在终端中运行下面的命令：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">mkdir -p <span class="hljs-regexp">/workspaces/mi</span>ndsearch<br>cd <span class="hljs-regexp">/workspaces/mi</span>ndsearch<br>git clone https:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/InternLM/</span>MindSearch.git<br>cd MindSearch &amp;&amp; git checkout b832275 &amp;&amp; cd ..<br></code></pre></td></tr></table></figure>
+<p>接下来，我们创建一个 conda 环境来安装相关依赖。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 创建环境</span><br>conda create -n mindsearch python=<span class="hljs-number">3.10</span> -y<br><span class="hljs-comment"># 激活环境</span><br>conda activate mindsearch<br><span class="hljs-comment"># requirements.txt 加上 class_registry==2.1.2</span><br><span class="hljs-comment"># 安装依赖</span><br>pip install -r <span class="hljs-regexp">/workspaces/mi</span>ndsearch<span class="hljs-regexp">/MindSearch/</span>requirements.txt<br></code></pre></td></tr></table></figure>
+<p><strong>获取硅基流动 API Key</strong></p>
+<p>因为要使用硅基流动的 API Key，所以接下来便是注册并获取 API Key 了。</p>
+<p>首先，我们打开 <a target="_blank" rel="noopener" href="https://account.siliconflow.cn/login">https://account.siliconflow.cn/login</a> 来注册硅基流动的账号（如果注册过，则直接登录即可）。</p>
+<p>在完成注册后，打开 <a target="_blank" rel="noopener" href="https://cloud.siliconflow.cn/account/ak">https://cloud.siliconflow.cn/account/ak</a> 来准备 API Key。首先创建新 API 密钥，然后点击密钥进行复制，以备后续使用。</p>
+<h2 id="启动-MindSearch"><a href="#启动-MindSearch" class="headerlink" title="启动 MindSearch"></a>启动 MindSearch</h2><p><strong>启动后端</strong></p>
+<p>由于硅基流动 API 的相关配置已经集成在了 MindSearch 中，所以我们可以直接执行下面的代码来启动 MindSearch 的后端。</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli">export SILICON_API_KEY=第二步中复制的密钥<br>conda activate mindsearch<br><span class="hljs-keyword">cd</span> <span class="hljs-string">/workspaces/mindsearch/MindSearch</span><br>python -m mindsearch.app <span class="hljs-params">--lang</span> cn <span class="hljs-params">--model_format</span> internlm_silicon <span class="hljs-params">--search_engine</span> DuckDuckGoSearch<br></code></pre></td></tr></table></figure>
+<p><strong>启动前端</strong></p>
+<p>在后端启动完成后，我们打开新终端运行如下命令来启动 MindSearch 的前端。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs vim">conda activate mindsearch<br><span class="hljs-keyword">cd</span> /workspaces/mindsearch/MindSearch<br><span class="hljs-keyword">python</span> frontend/mindsearch_gradio.<span class="hljs-keyword">py</span><br></code></pre></td></tr></table></figure>
+<p>简单问一下a股相关情况</p>
+<p><img src="./assets/image-20241003092505871.png" srcset="/img/loading.gif" lazyload alt="image-20241003092505871"></p>
+<p>回复</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><code class="hljs lua"><span class="hljs-number">2024</span>年国庆期间，A股市场表现异常强劲，创下了多项历史纪录。<br>这一现象引发了广泛关注和深入分析，包括专家、媒体以及投资者的观点。以下是对这一事件的详细分析：<br><br>### 市场表现<br><br><span class="hljs-number">1.</span> **指数创新高**：<br>   - <span class="hljs-number">2024</span>年<span class="hljs-number">9</span>月<span class="hljs-number">30</span>日，即国庆节前的最后一个交易日，上证指数<br>   和深证成指均创下年内新高。上证指数突破<span class="hljs-number">3300</span>点关口，深证<br>   成指则创下<span class="hljs-number">1996</span>年以来最大的单日涨幅记录<span class="hljs-string">[[0]]</span><span class="hljs-string">[[2]]</span>。<br>   - 当天沪深两市的总成交额达到<span class="hljs-number">2.6</span>万亿人民币（约合<span class="hljs-number">3630</span>亿<br>   美元），刷新了历史纪录<span class="hljs-string">[[0]]</span>。<br>   - 上证综指大涨<span class="hljs-number">8.06</span>%，收于<span class="hljs-number">3336.5</span>点；深证成指狂涨<span class="hljs-number">10.67</span>%<br>   ，收于<span class="hljs-number">10</span>,<span class="hljs-number">529.76</span>点；创业板指的涨幅最高达<span class="hljs-number">15.36</span>%且收于<br>   <span class="hljs-number">2175.09</span>点<span class="hljs-string">[[0]]</span>。<br><br><span class="hljs-number">2.</span> **行业表现**：<br>   - 半导体板块大幅飙涨；电力设备股涨幅靠前；房企和消费类<br>   股也先行看涨；银行股因早盘逆势下挫、收盘前涨幅垫底<span class="hljs-string">[[0]]</span>。<br>   - A股在国庆节后的第一个交易日通常会迎来反弹<span class="hljs-string">[[6]]</span><span class="hljs-string">[[9]]</span>。<br><br><span class="hljs-number">3.</span> **政策影响**：<br>   中国政府在国庆前夕连续推出一系列景气刺激政策组合拳（如<br>   降准降息、放水<span class="hljs-number">1</span>万亿人民币等）以提振股市和房市<span class="hljs-string">[[0]]</span><span class="hljs-string">[[9]]</span>。<br>   这些政策短期内有效拉抬了股市情绪和交易活跃度<span class="hljs-string">[[11]]</span><span class="hljs-string">[[13]]</span>。<br><br><span class="hljs-number">4.</span> **投资者情绪与行为**：<br>   A股市场的暴涨带动了投资者的乐观情绪提升至高点，许多投资<br>   者纷纷入市或加仓股票以期获得收益<span class="hljs-string">[[12]]</span><span class="hljs-string">[[13]]</span>。例如，<br>   部分券商甚至安排值班以应对开户热潮的到来<span class="hljs-string">[[12]]</span>.<br><br>### 专家评价<br><br>多位专家对此次A股大涨进行了分析和评价：<br><br><span class="hljs-number">1.</span> **高盛研究部首席中国股票策略师刘劲津**认为经济情势改善<br>有望推动企业盈利回升且因A股估值处于历史低位而维持对A股的<br>“高配”立场 <span class="hljs-string">[[23]]</span>. <br><br><span class="hljs-number">2.</span> **招商证券指出a股国庆节前后市场表现有一定的“日历效应”<br><br><span class="hljs-number">3.</span> **光大证券表示大消费板块在节假日后的市场表现通常较为<br>强劲 <span class="hljs-string">[[24]]</span>. <br><br><span class="hljs-number">4.</span><br>外资机构普遍认为当前是加仓中国股票的好时机并预计政策连续<br>发力将推动市场在第四季度继续上行 <span class="hljs-string">[[17]]</span><span class="hljs-string">[[20]]</span>. <br>此外央行资产互换举措为资本市场带来流动性支持也是此次股市<br>大涨的重要原因之一 <span class="hljs-string">[[20]]</span>. <br><br><span class="hljs-number">5.</span><br>尽管股市大涨带来了积极的市场情绪和投资机会但专家也提醒投<br>资者要保持理性态度并注意风险管理如三年来父母的账户虽然回<br>本了<span class="hljs-number">3</span>个账户但仍有较高的投资风险存在及分析师建议投资者要<br>笑不露齿地应对市场的波动性等观点都体现了对市场的审慎态度<br>和对长期投资的重视 <span class="hljs-string">[[16]]</span><span class="hljs-string">[[25]]</span><br><br>### 媒体报道<br><br>多家媒体对此事件进行了详细报道：<br><br><span class="hljs-number">1.</span><br>《中国a股“贺国庆”创史上最高》报道称北京当局祭出一系列景<br>气刺激政策导致A股指数连续数日大涨并在<span class="hljs-number">9</span>月<span class="hljs-number">30</span>日刷新单日<br>成交额史上最高纪录 &#123;&#123;<span class="hljs-number">26</span>&#125;&#125;.<br><br><span class="hljs-number">2.</span><br>《见证历史创业板指单日大涨<span class="hljs-number">10</span>%!》指出创业板指单日大涨超<br>过<span class="hljs-number">10</span>%带动市值一周增加<span class="hljs-number">10</span>万亿元人民币 &#123;&#123;<span class="hljs-number">27</span>&#125;&#125;.<br><br><span class="hljs-number">3.</span><br>《澎湃新闻 | A stock market rally <span class="hljs-keyword">in</span> China_澎湃<br>新闻》提到行业预测大消费板块十一假期预期提振整体领涨<br>且假期后全行业普涨大消费板块内部分化明显 &#123;&#123;<span class="hljs-number">40</span>&#125;&#125;.<br><br>综上所述,<span class="hljs-number">2024</span>年国庆期间A股指数表现出强劲上涨趋势主要<br>受政策利好的推动以及投资者乐观情绪的影响但长期效果仍<br>有待观察同时专家的分析和媒体的报道也为理解这一现象<br>提供了多角度视角<br></code></pre></td></tr></table></figure>
+<h2 id="部署到-HuggingFace-Space"><a href="#部署到-HuggingFace-Space" class="headerlink" title="部署到 HuggingFace Space"></a>部署到 HuggingFace Space</h2><p>最后，我们来将 MindSearch 部署到 HuggingFace Space。</p>
+<p>我们首先打开 <a target="_blank" rel="noopener" href="https://huggingface.co/spaces">https://huggingface.co/spaces</a> ，并点击 Create new Space。</p>
+<p>在输入 Space name 并选择 License 后，选择配置：</p>
+<p>gradio、blank、CPU basic 2 vCPU 16GB Free</p>
+<p>然后，我们进入 Settings，配置硅基流动的 API Key。</p>
+<p>选择 New secrets，name 一栏输入 SILICON_API_KEY，value 一栏输入你的 API Key 的内容。</p>
+<p>最后，我们先新建一个目录，准备提交到 HuggingFace Space 的全部文件。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-comment"># 创建新目录</span><br>mkdir -p <span class="hljs-regexp">/workspaces/mi</span>ndsearch/mindsearch_deploy<br><span class="hljs-comment"># 准备复制文件</span><br>cd <span class="hljs-regexp">/workspaces/mi</span>ndsearch<br>cp -r <span class="hljs-regexp">/workspaces/mi</span>ndsearch<span class="hljs-regexp">/MindSearch/mi</span>ndsearch <span class="hljs-regexp">/workspaces/mi</span>ndsearch/mindsearch_deploy<br>cp <span class="hljs-regexp">/workspaces/mi</span>ndsearch<span class="hljs-regexp">/MindSearch/</span>requirements.txt <span class="hljs-regexp">/workspaces/mi</span>ndsearch/mindsearch_deploy<br><span class="hljs-comment"># 创建 app.py 作为程序入口</span><br>touch <span class="hljs-regexp">/workspaces/mi</span>ndsearch<span class="hljs-regexp">/mindsearch_deploy/</span>app.py<br></code></pre></td></tr></table></figure>
+<p>其中，app.py 的内容如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> json<br><span class="hljs-keyword">import</span> os<br><br><span class="hljs-keyword">import</span> gradio <span class="hljs-keyword">as</span> gr<br><span class="hljs-keyword">import</span> requests<br><span class="hljs-keyword">from</span> lagent.schema <span class="hljs-keyword">import</span> AgentStatusCode<br><br>os.system(<span class="hljs-string">&quot;python -m mindsearch.app --lang cn --model_format internlm_silicon &amp;&quot;</span>)<br><br>PLANNER_HISTORY = []<br>SEARCHER_HISTORY = []<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">rst_mem</span>(<span class="hljs-params">history_planner: <span class="hljs-built_in">list</span>, history_searcher: <span class="hljs-built_in">list</span></span>):</span><br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    Reset the chatbot memory.</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    history_planner = []<br>    history_searcher = []<br>    <span class="hljs-keyword">if</span> PLANNER_HISTORY:<br>        PLANNER_HISTORY.clear()<br>    <span class="hljs-keyword">return</span> history_planner, history_searcher<br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">format_response</span>(<span class="hljs-params">gr_history, agent_return</span>):</span><br>    <span class="hljs-keyword">if</span> agent_return[<span class="hljs-string">&#x27;state&#x27;</span>] <span class="hljs-keyword">in</span> [<br>            AgentStatusCode.STREAM_ING, AgentStatusCode.ANSWER_ING<br>    ]:<br>        gr_history[-<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = agent_return[<span class="hljs-string">&#x27;response&#x27;</span>]<br>    <span class="hljs-keyword">elif</span> agent_return[<span class="hljs-string">&#x27;state&#x27;</span>] == AgentStatusCode.PLUGIN_START:<br>        thought = gr_history[-<span class="hljs-number">1</span>][<span class="hljs-number">1</span>].split(<span class="hljs-string">&#x27;```&#x27;</span>)[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">if</span> agent_return[<span class="hljs-string">&#x27;response&#x27;</span>].startswith(<span class="hljs-string">&#x27;```&#x27;</span>):<br>            gr_history[-<span class="hljs-number">1</span>][<span class="hljs-number">1</span>] = thought + <span class="hljs-string">&#x27;\n&#x27;</span> + agent_return[<span class="hljs-string">&#x27;response&#x27;</span>]<br>    <span class="hljs-keyword">elif</span> agent_return[<span class="hljs-string">&#x27;state&#x27;</span>] == AgentStatusCode.PLUGIN_END:<br>        thought = gr_history[-<span class="hljs-number">1</span>][<span class="hljs-number">1</span>].split(<span class="hljs-string">&#x27;```&#x27;</span>)[<span class="hljs-number">0</span>]<br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(agent_return[<span class="hljs-string">&#x27;response&#x27;</span>], <span class="hljs-built_in">dict</span>):<br>            gr_history[-<span class="hljs-number">1</span>][<br>                <span class="hljs-number">1</span>] = thought + <span class="hljs-string">&#x27;\n&#x27;</span> + <span class="hljs-string">f&#x27;```json\n<span class="hljs-subst">&#123;json.dumps(agent_return[<span class="hljs-string">&quot;response&quot;</span>], ensure_ascii=<span class="hljs-literal">False</span>, indent=<span class="hljs-number">4</span>)&#125;</span>\n```&#x27;</span>  <span class="hljs-comment"># noqa: E501</span><br>    <span class="hljs-keyword">elif</span> agent_return[<span class="hljs-string">&#x27;state&#x27;</span>] == AgentStatusCode.PLUGIN_RETURN:<br>        <span class="hljs-keyword">assert</span> agent_return[<span class="hljs-string">&#x27;inner_steps&#x27;</span>][-<span class="hljs-number">1</span>][<span class="hljs-string">&#x27;role&#x27;</span>] == <span class="hljs-string">&#x27;environment&#x27;</span><br>        item = agent_return[<span class="hljs-string">&#x27;inner_steps&#x27;</span>][-<span class="hljs-number">1</span>]<br>        gr_history.append([<br>            <span class="hljs-literal">None</span>,<br>            <span class="hljs-string">f&quot;```json\n<span class="hljs-subst">&#123;json.dumps(item[<span class="hljs-string">&#x27;content&#x27;</span>], ensure_ascii=<span class="hljs-literal">False</span>, indent=<span class="hljs-number">4</span>)&#125;</span>\n```&quot;</span><br>        ])<br>        gr_history.append([<span class="hljs-literal">None</span>, <span class="hljs-string">&#x27;&#x27;</span>])<br>    <span class="hljs-keyword">return</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict</span>(<span class="hljs-params">history_planner, history_searcher</span>):</span><br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">streaming</span>(<span class="hljs-params">raw_response</span>):</span><br>        <span class="hljs-keyword">for</span> chunk <span class="hljs-keyword">in</span> raw_response.iter_lines(chunk_size=<span class="hljs-number">8192</span>,<br>                                             decode_unicode=<span class="hljs-literal">False</span>,<br>                                             delimiter=<span class="hljs-string">b&#x27;\n&#x27;</span>):<br>            <span class="hljs-keyword">if</span> chunk:<br>                decoded = chunk.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>                <span class="hljs-keyword">if</span> decoded == <span class="hljs-string">&#x27;\r&#x27;</span>:<br>                    <span class="hljs-keyword">continue</span><br>                <span class="hljs-keyword">if</span> decoded[:<span class="hljs-number">6</span>] == <span class="hljs-string">&#x27;data: &#x27;</span>:<br>                    decoded = decoded[<span class="hljs-number">6</span>:]<br>                <span class="hljs-keyword">elif</span> decoded.startswith(<span class="hljs-string">&#x27;: ping - &#x27;</span>):<br>                    <span class="hljs-keyword">continue</span><br>                response = json.loads(decoded)<br>                <span class="hljs-keyword">yield</span> (response[<span class="hljs-string">&#x27;response&#x27;</span>], response[<span class="hljs-string">&#x27;current_node&#x27;</span>])<br><br>    <span class="hljs-keyword">global</span> PLANNER_HISTORY<br>    PLANNER_HISTORY.append(<span class="hljs-built_in">dict</span>(role=<span class="hljs-string">&#x27;user&#x27;</span>, content=history_planner[-<span class="hljs-number">1</span>][<span class="hljs-number">0</span>]))<br>    new_search_turn = <span class="hljs-literal">True</span><br><br>    url = <span class="hljs-string">&#x27;http://localhost:8002/solve&#x27;</span><br>    headers = &#123;<span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span>&#125;<br>    data = &#123;<span class="hljs-string">&#x27;inputs&#x27;</span>: PLANNER_HISTORY&#125;<br>    raw_response = requests.post(url,<br>                                 headers=headers,<br>                                 data=json.dumps(data),<br>                                 timeout=<span class="hljs-number">20</span>,<br>                                 stream=<span class="hljs-literal">True</span>)<br><br>    <span class="hljs-keyword">for</span> resp <span class="hljs-keyword">in</span> streaming(raw_response):<br>        agent_return, node_name = resp<br>        <span class="hljs-keyword">if</span> node_name:<br>            <span class="hljs-keyword">if</span> node_name <span class="hljs-keyword">in</span> [<span class="hljs-string">&#x27;root&#x27;</span>, <span class="hljs-string">&#x27;response&#x27;</span>]:<br>                <span class="hljs-keyword">continue</span><br>            agent_return = agent_return[<span class="hljs-string">&#x27;nodes&#x27;</span>][node_name][<span class="hljs-string">&#x27;detail&#x27;</span>]<br>            <span class="hljs-keyword">if</span> new_search_turn:<br>                history_searcher.append([agent_return[<span class="hljs-string">&#x27;content&#x27;</span>], <span class="hljs-string">&#x27;&#x27;</span>])<br>                new_search_turn = <span class="hljs-literal">False</span><br>            format_response(history_searcher, agent_return)<br>            <span class="hljs-keyword">if</span> agent_return[<span class="hljs-string">&#x27;state&#x27;</span>] == AgentStatusCode.END:<br>                new_search_turn = <span class="hljs-literal">True</span><br>            <span class="hljs-keyword">yield</span> history_planner, history_searcher<br>        <span class="hljs-keyword">else</span>:<br>            new_search_turn = <span class="hljs-literal">True</span><br>            format_response(history_planner, agent_return)<br>            <span class="hljs-keyword">if</span> agent_return[<span class="hljs-string">&#x27;state&#x27;</span>] == AgentStatusCode.END:<br>                PLANNER_HISTORY = agent_return[<span class="hljs-string">&#x27;inner_steps&#x27;</span>]<br>            <span class="hljs-keyword">yield</span> history_planner, history_searcher<br>    <span class="hljs-keyword">return</span> history_planner, history_searcher<br><br><br><span class="hljs-keyword">with</span> gr.Blocks() <span class="hljs-keyword">as</span> demo:<br>    gr.HTML(<span class="hljs-string">&quot;&quot;&quot;&lt;h1 align=&quot;center&quot;&gt;MindSearch Gradio Demo&lt;/h1&gt;&quot;&quot;&quot;</span>)<br>    gr.HTML(<span class="hljs-string">&quot;&quot;&quot;&lt;p style=&quot;text-align: center; font-family: Arial, sans-serif;&quot;&gt;MindSearch is an open-source AI Search Engine Framework with Perplexity.ai Pro performance. You can deploy your own Perplexity.ai-style search engine using either closed-source LLMs (GPT, Claude) or open-source LLMs (InternLM2.5-7b-chat).&lt;/p&gt;&quot;&quot;&quot;</span>)<br>    gr.HTML(<span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    &lt;div style=&quot;text-align: center; font-size: 16px;&quot;&gt;</span><br><span class="hljs-string">        &lt;a href=&quot;https://github.com/InternLM/MindSearch&quot; style=&quot;margin-right: 15px; text-decoration: none; color: #4A90E2;&quot;&gt;🔗 GitHub&lt;/a&gt;</span><br><span class="hljs-string">        &lt;a href=&quot;https://arxiv.org/abs/2407.20183&quot; style=&quot;margin-right: 15px; text-decoration: none; color: #4A90E2;&quot;&gt;📄 Arxiv&lt;/a&gt;</span><br><span class="hljs-string">        &lt;a href=&quot;https://huggingface.co/papers/2407.20183&quot; style=&quot;margin-right: 15px; text-decoration: none; color: #4A90E2;&quot;&gt;📚 Hugging Face Papers&lt;/a&gt;</span><br><span class="hljs-string">        &lt;a href=&quot;https://huggingface.co/spaces/internlm/MindSearch&quot; style=&quot;text-decoration: none; color: #4A90E2;&quot;&gt;🤗 Hugging Face Demo&lt;/a&gt;</span><br><span class="hljs-string">    &lt;/div&gt;</span><br><span class="hljs-string">    &quot;&quot;&quot;</span>)<br>    <span class="hljs-keyword">with</span> gr.Row():<br>        <span class="hljs-keyword">with</span> gr.Column(scale=<span class="hljs-number">10</span>):<br>            <span class="hljs-keyword">with</span> gr.Row():<br>                <span class="hljs-keyword">with</span> gr.Column():<br>                    planner = gr.Chatbot(label=<span class="hljs-string">&#x27;planner&#x27;</span>,<br>                                         height=<span class="hljs-number">700</span>,<br>                                         show_label=<span class="hljs-literal">True</span>,<br>                                         show_copy_button=<span class="hljs-literal">True</span>,<br>                                         bubble_full_width=<span class="hljs-literal">False</span>,<br>                                         render_markdown=<span class="hljs-literal">True</span>)<br>                <span class="hljs-keyword">with</span> gr.Column():<br>                    searcher = gr.Chatbot(label=<span class="hljs-string">&#x27;searcher&#x27;</span>,<br>                                          height=<span class="hljs-number">700</span>,<br>                                          show_label=<span class="hljs-literal">True</span>,<br>                                          show_copy_button=<span class="hljs-literal">True</span>,<br>                                          bubble_full_width=<span class="hljs-literal">False</span>,<br>                                          render_markdown=<span class="hljs-literal">True</span>)<br>            <span class="hljs-keyword">with</span> gr.Row():<br>                user_input = gr.Textbox(show_label=<span class="hljs-literal">False</span>,<br>                                        placeholder=<span class="hljs-string">&#x27;帮我搜索一下 InternLM 开源体系&#x27;</span>,<br>                                        lines=<span class="hljs-number">5</span>,<br>                                        container=<span class="hljs-literal">False</span>)<br>            <span class="hljs-keyword">with</span> gr.Row():<br>                <span class="hljs-keyword">with</span> gr.Column(scale=<span class="hljs-number">2</span>):<br>                    submitBtn = gr.Button(<span class="hljs-string">&#x27;Submit&#x27;</span>)<br>                <span class="hljs-keyword">with</span> gr.Column(scale=<span class="hljs-number">1</span>, min_width=<span class="hljs-number">20</span>):<br>                    emptyBtn = gr.Button(<span class="hljs-string">&#x27;Clear History&#x27;</span>)<br><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">user</span>(<span class="hljs-params">query, history</span>):</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>, history + [[query, <span class="hljs-string">&#x27;&#x27;</span>]]<br><br>    submitBtn.click(user, [user_input, planner], [user_input, planner],<br>                    queue=<span class="hljs-literal">False</span>).then(predict, [planner, searcher],<br>                                      [planner, searcher])<br>    emptyBtn.click(rst_mem, [planner, searcher], [planner, searcher],<br>                   queue=<span class="hljs-literal">False</span>)<br><br>demo.queue()<br>demo.launch(server_name=<span class="hljs-string">&#x27;0.0.0.0&#x27;</span>,<br>            server_port=<span class="hljs-number">7860</span>,<br>            inbrowser=<span class="hljs-literal">True</span>,<br>            share=<span class="hljs-literal">True</span>)<br></code></pre></td></tr></table></figure>
+<p>在最后，将 /root/mindsearch/mindsearch_deploy 目录下的文件（使用 git）提交到 HuggingFace Space 即可完成部署了。将代码提交到huggingface space的流程如下：</p>
+<p>首先huggingface创建一个有写权限的token。</p>
+<p>然后从huggingface把空的代码仓库clone到codespace。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/workspaces/</span>codespaces-blank<br>git clone https:<span class="hljs-regexp">//</span>huggingface.co<span class="hljs-regexp">/spaces/</span>hujunyao/mindsearch<br>cd mindsearch<br><span class="hljs-comment"># 把token挂到仓库上，让自己有写权限</span><br>git remote set-url origin https:<span class="hljs-regexp">//</span>&lt;user_name&gt;:&lt;token&gt;@huggingface.co<span class="hljs-regexp">/spaces/</span>&lt;user_name&gt;/&lt;repo_name&gt;<br>git pull origin<br></code></pre></td></tr></table></figure>
+<p>现在codespace就是本地仓库，huggingface space是远程仓库，接下来使用方法就和常规的git一样了。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">cd <span class="hljs-regexp">/workspaces/</span>codespaces-blank/mindsearch<br>cp <span class="hljs-regexp">/workspaces/mi</span>ndsearch<span class="hljs-regexp">/mindsearch_deploy/</span>* .<br></code></pre></td></tr></table></figure>
+<p>注意mindsearch文件夹其实是Mindsearch项目中的一个子文件夹，如果把这个Mindsearch的整个目录copy进来会有很多问题（git submodule无法提交代码，space中项目启动失败等）。</p>
+<p>最后把代码提交到huggingface space会自动启动项目。</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">git <span class="hljs-keyword">add</span> .<br>git commit -m <span class="hljs-string">&quot;update&quot;</span><br>git <span class="hljs-keyword">push</span><br></code></pre></td></tr></table></figure>
+<p>然后就可以测试啦。</p>
+<p><img src="./assets/image-20241003103701017.png" srcset="/img/loading.gif" lazyload alt="image-20241003103701017"></p>
+<p>输出</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs lua">为了回答南开大学<span class="hljs-number">2025</span>推荐面试研究生的条件，我们需要了<br>解南开大学的招生政策、推荐生资格要求以及面试流程。以<br>下是对南开大学<span class="hljs-number">2025</span>年研究生招生政策的详细介绍：<br><br><span class="hljs-number">1.</span> 推免生政策<br>南开大学积极接收推荐免试研究生（推免生），并提供了详<br>细的网上报名流程和申请条件。推免生需登录教育部推免服<br>务系统完成志愿申报、查看复试通知和待录取通知等流程<br><span class="hljs-string">[[1]]</span><span class="hljs-string">[[2]]</span>。具体申请条件包括获得本科所在高校推荐免<br>试研究生资格的<span class="hljs-number">2025</span>年应届毕业生，外语水平需符合一定标<br>准，如全国大学英语六级成绩<span class="hljs-number">425</span>分及以上或TOEFL成绩<span class="hljs-number">90</span><br>分及以上等<span class="hljs-string">[[6]]</span><span class="hljs-string">[[7]]</span>。<br><br><span class="hljs-number">2.</span> 专业范围及条件<br>南开大学各学院对接收推荐免试研究生的专业范围及条件进<br>行了明确规定。例如，社会学院所有专业均可接收本科所属<br>学科专业的学生，且要求通过全国大学英语六级考试或达到<br>其他相应的外语水平标准<span class="hljs-string">[[7]]</span>。历史学院则要求申请人具<br>备一定的外语水平和学术能力<span class="hljs-string">[[6]]</span>。<br><br><span class="hljs-number">3.</span> 奖学金与助学金<br>南开大学为推免研究生提供优厚的奖学金和助学金支持。<br>具体信息以学校最新文件为准<span class="hljs-string">[[5]]</span>。<br><br><span class="hljs-number">4.</span> 报名时间与截止日期<br>南开大学的网上报名时间为<span class="hljs-number">10</span>月<span class="hljs-number">8</span>日至<span class="hljs-number">10</span>月<span class="hljs-number">25</span>日，每天<br><span class="hljs-number">9</span>:<span class="hljs-number">00</span><span class="hljs-number">-22</span>:<span class="hljs-number">00</span>；预报名时间为<span class="hljs-number">9</span>月<span class="hljs-number">24</span>日至<span class="hljs-number">9</span>月<span class="hljs-number">27</span>日，每天<br><span class="hljs-number">9</span>:<span class="hljs-number">00</span><span class="hljs-number">-22</span>:<span class="hljs-number">00</span>；初试时间为<span class="hljs-number">12</span>月<span class="hljs-number">23</span>日至<span class="hljs-number">24</span>日（每天上午<br><span class="hljs-number">8</span>:<span class="hljs-number">30</span>——<span class="hljs-number">11</span>:<span class="hljs-number">30</span>，下午<span class="hljs-number">14</span>:<span class="hljs-number">00</span>——<span class="hljs-number">17</span>:<span class="hljs-number">00</span>）<span class="hljs-string">[[12]]</span>。<br><br><span class="hljs-number">5.</span> 其他注意事项<br>考生在填写信息时需确保信息的真实性和准确性；提交的<br>材料必须按照指定格式整理并发送至指定邮箱；未按要求<br>提交材料的申请将不被受理<span class="hljs-string">[[6]]</span><span class="hljs-string">[[7]]</span><span class="hljs-string">[[2]]</span>。<br><br>综上所述，南开大学的<span class="hljs-number">2025</span>年研究生招生政策涵盖了推<br>免生的详细申请流程、专业的广泛覆盖、优厚的奖学金<br>支持以及明确的报名时间和截止日期等信息点。这些政<br>策和规定旨在吸引优秀的学生加入南开大学的研究生队<br>伍中来提升学校的整体科研实力和社会影响力<br><span class="hljs-string">[[1]]</span><span class="hljs-string">[[2]]</span><span class="hljs-string">[[5]]</span><span class="hljs-string">[[6]]</span><span class="hljs-string">[[7]]</span>.<br></code></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>搜索 规划 总结 好好好</p>
+<script type="text/javascript">(function (document) {
+    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {
+        panel.getElementsByClassName('fold-title')[0].onclick = function() {
+            panel.classList.toggle("collapsed");
+            panel.classList.toggle("expanded");
+        }
+    });
+})(document);</script>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AF%BE%E5%A4%96%E5%AD%A6%E4%B9%A0/" class="category-chain-item">课外学习</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%A4%A7%E6%A8%A1%E5%9E%8B/" class="print-no-link">#大模型</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>书生大模型实战营-MindSearch CPU-Only 版部署</div>
+      <div>https://junyaohu.github.io/2024/10/03/internlm-L2-MindSearch/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>胡椒</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月3日 10:00</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年10月3日 10:38</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/03/internlm-L2-huixiangdou/" title="书生大模型实战营-茴香豆：企业级知识问答工具实践">
+                        <span class="hidden-mobile">书生大模型实战营-茴香豆：企业级知识问答工具实践</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="twikoo"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
+        var options = Object.assign(
+          {"envId":"https://blog-comment-h866w5ycd-junyaohu.vercel.app/","region":"ap-shanghai","path":"window.location.pathname"},
+          {
+            el: '#twikoo',
+            path: 'window.location.pathname',
+            onCommentLoaded: function() {
+              Fluid.utils.listenDOMLoaded(function() {
+                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
+                Fluid.plugins.imageCaption(imgSelector);
+                Fluid.plugins.fancyBox(imgSelector);
+              });
+            }
+          }
+        )
+        twikoo.init(options)
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  
+      <script>
+        if (!window.MathJax) {
+          window.MathJax = {
+            tex    : {
+              inlineMath: { '[+]': [['$', '$']] }
+            },
+            loader : {
+              load: ['ui/lazy']
+            },
+            options: {
+              renderActions: {
+                insertedScript: [200, () => {
+                  document.querySelectorAll('mjx-container').forEach(node => {
+                    let target = node.parentNode;
+                    if (target.nodeName.toLowerCase() === 'li') {
+                      target.parentNode.classList.add('has-jax');
+                    }
+                  });
+                }, '', false]
+              }
+            }
+          };
+        } else {
+          MathJax.startup.document.state(0);
+          MathJax.texReset();
+          MathJax.typeset();
+          MathJax.typesetPromise();
+        }
+
+        Fluid.events.registerRefreshCallback(function() {
+          if ('MathJax' in window && MathJax.startup.document && typeof MathJax.startup.document.state === 'function') {
+            MathJax.startup.document.state(0);
+            MathJax.texReset();
+            MathJax.typeset();
+            MathJax.typesetPromise();
+          }
+        });
+      </script>
+    
+
+  <script  src="https://lib.baomitu.com/mathjax/3.2.2/es5/tex-mml-chtml.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
