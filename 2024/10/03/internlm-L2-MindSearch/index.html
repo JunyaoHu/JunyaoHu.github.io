@@ -24,9 +24,9 @@
 <meta property="og:description" content="本节任务要点 按照教程，将 MindSearch 部署到 HuggingFace 并美化 Gradio 的界面，并提供截图和 Hugging Face 的Space的链接。  实践流程随着硅基流动提供了免费的 InternLM2.5-7B-Chat 服务（免费的 InternLM2.5-7B-Chat 真的很香），MindSearch 的部署与使用也就迎来了纯 CPU 版本，进一步降低了部署门槛。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://junyaohu.github.io/2024/10/03/internlm-L2-MindSearch/assets/image-20241003092505871.png">
-<meta property="og:image" content="https://junyaohu.github.io/2024/10/03/internlm-L2-MindSearch/assets/image-20241003103701017.png">
+<meta property="og:image" content="https://s2.loli.net/2024/10/03/oZ718kyEQWVxRYg.png">
 <meta property="article:published_time" content="2024-10-03T02:00:00.000Z">
-<meta property="article:modified_time" content="2024-10-03T02:38:19.216Z">
+<meta property="article:modified_time" content="2024-10-03T09:18:16.926Z">
 <meta property="article:author" content="胡椒">
 <meta property="article:tag" content="大模型">
 <meta name="twitter:card" content="summary_large_image">
@@ -693,7 +693,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：2024年10月3日 10:38
+                    本文最后更新于：2024年10月3日 17:18
                   
                 
               </p>
@@ -745,7 +745,7 @@
 <p>最后把代码提交到huggingface space会自动启动项目。</p>
 <figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs avrasm">git <span class="hljs-keyword">add</span> .<br>git commit -m <span class="hljs-string">&quot;update&quot;</span><br>git <span class="hljs-keyword">push</span><br></code></pre></td></tr></table></figure>
 <p>然后就可以测试啦。</p>
-<p><img src="./assets/image-20241003103701017.png" srcset="/img/loading.gif" lazyload alt="image-20241003103701017"></p>
+<p><img src="https://s2.loli.net/2024/10/03/oZ718kyEQWVxRYg.png" srcset="/img/loading.gif" lazyload alt="image-20241003103701017"></p>
 <p>输出</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs lua">为了回答南开大学<span class="hljs-number">2025</span>推荐面试研究生的条件，我们需要了<br>解南开大学的招生政策、推荐生资格要求以及面试流程。以<br>下是对南开大学<span class="hljs-number">2025</span>年研究生招生政策的详细介绍：<br><br><span class="hljs-number">1.</span> 推免生政策<br>南开大学积极接收推荐免试研究生（推免生），并提供了详<br>细的网上报名流程和申请条件。推免生需登录教育部推免服<br>务系统完成志愿申报、查看复试通知和待录取通知等流程<br><span class="hljs-string">[[1]]</span><span class="hljs-string">[[2]]</span>。具体申请条件包括获得本科所在高校推荐免<br>试研究生资格的<span class="hljs-number">2025</span>年应届毕业生，外语水平需符合一定标<br>准，如全国大学英语六级成绩<span class="hljs-number">425</span>分及以上或TOEFL成绩<span class="hljs-number">90</span><br>分及以上等<span class="hljs-string">[[6]]</span><span class="hljs-string">[[7]]</span>。<br><br><span class="hljs-number">2.</span> 专业范围及条件<br>南开大学各学院对接收推荐免试研究生的专业范围及条件进<br>行了明确规定。例如，社会学院所有专业均可接收本科所属<br>学科专业的学生，且要求通过全国大学英语六级考试或达到<br>其他相应的外语水平标准<span class="hljs-string">[[7]]</span>。历史学院则要求申请人具<br>备一定的外语水平和学术能力<span class="hljs-string">[[6]]</span>。<br><br><span class="hljs-number">3.</span> 奖学金与助学金<br>南开大学为推免研究生提供优厚的奖学金和助学金支持。<br>具体信息以学校最新文件为准<span class="hljs-string">[[5]]</span>。<br><br><span class="hljs-number">4.</span> 报名时间与截止日期<br>南开大学的网上报名时间为<span class="hljs-number">10</span>月<span class="hljs-number">8</span>日至<span class="hljs-number">10</span>月<span class="hljs-number">25</span>日，每天<br><span class="hljs-number">9</span>:<span class="hljs-number">00</span><span class="hljs-number">-22</span>:<span class="hljs-number">00</span>；预报名时间为<span class="hljs-number">9</span>月<span class="hljs-number">24</span>日至<span class="hljs-number">9</span>月<span class="hljs-number">27</span>日，每天<br><span class="hljs-number">9</span>:<span class="hljs-number">00</span><span class="hljs-number">-22</span>:<span class="hljs-number">00</span>；初试时间为<span class="hljs-number">12</span>月<span class="hljs-number">23</span>日至<span class="hljs-number">24</span>日（每天上午<br><span class="hljs-number">8</span>:<span class="hljs-number">30</span>——<span class="hljs-number">11</span>:<span class="hljs-number">30</span>，下午<span class="hljs-number">14</span>:<span class="hljs-number">00</span>——<span class="hljs-number">17</span>:<span class="hljs-number">00</span>）<span class="hljs-string">[[12]]</span>。<br><br><span class="hljs-number">5.</span> 其他注意事项<br>考生在填写信息时需确保信息的真实性和准确性；提交的<br>材料必须按照指定格式整理并发送至指定邮箱；未按要求<br>提交材料的申请将不被受理<span class="hljs-string">[[6]]</span><span class="hljs-string">[[7]]</span><span class="hljs-string">[[2]]</span>。<br><br>综上所述，南开大学的<span class="hljs-number">2025</span>年研究生招生政策涵盖了推<br>免生的详细申请流程、专业的广泛覆盖、优厚的奖学金<br>支持以及明确的报名时间和截止日期等信息点。这些政<br>策和规定旨在吸引优秀的学生加入南开大学的研究生队<br>伍中来提升学校的整体科研实力和社会影响力<br><span class="hljs-string">[[1]]</span><span class="hljs-string">[[2]]</span><span class="hljs-string">[[5]]</span><span class="hljs-string">[[6]]</span><span class="hljs-string">[[7]]</span>.<br></code></pre></td></tr></table></figure>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>搜索 规划 总结 好好好</p>
@@ -820,7 +820,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年10月3日 10:38</div>
+          <div>2024年10月3日 17:18</div>
         </div>
       
       
