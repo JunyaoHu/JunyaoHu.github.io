@@ -7,20 +7,20 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
-  <link rel="icon" href="/img/avatar.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/hujunyao_icon.ico">
+  <link rel="icon" href="/img/hujunyao_icon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="胡椒">
-  <meta name="keywords" content="计算机视觉,深度学习">
+  <meta name="author" content="JunyaoHu">
+  <meta name="keywords" content="计算机视觉,深度学习,AIGC,AI for Creativity">
   
     <meta name="description" content="免责声明：仅供学习计算机网络知识，内网穿透有风险，请谨慎对待。实验室学生有义务保障实验室网络安全，保护实验室设备资产。  云服务器购买选择轻量应用服务器 腾讯云45元每月，且买一年以上85折扣。选的这个。 阿里云60元每月。 配置防火墙配置在网站上配置，包含后面需要的端口即可 腾讯云界面  阿里云界面  frp配置下载最新的frp：https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="内网穿透配置">
 <meta property="og:url" content="https://junyaohu.github.io/2023/10/05/frp-setting/index.html">
-<meta property="og:site_name" content="胡椒的 Coding Room">
+<meta property="og:site_name" content="JunyaoHu (胡钧耀)">
 <meta property="og:description" content="免责声明：仅供学习计算机网络知识，内网穿透有风险，请谨慎对待。实验室学生有义务保障实验室网络安全，保护实验室设备资产。  云服务器购买选择轻量应用服务器 腾讯云45元每月，且买一年以上85折扣。选的这个。 阿里云60元每月。 配置防火墙配置在网站上配置，包含后面需要的端口即可 腾讯云界面  阿里云界面  frp配置下载最新的frp：https:&#x2F;&#x2F;github.com&#x2F;fatedier&#x2F;frp">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://s2.loli.net/2023/10/06/MTtO4ACF6LcQejw.png">
@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://s2.loli.net/2023/10/06/6YqQrefNb5xZyDO.png">
 <meta property="article:published_time" content="2023-10-05T10:00:00.000Z">
 <meta property="article:modified_time" content="2023-10-12T06:49:11.048Z">
-<meta property="article:author" content="胡椒">
+<meta property="article:author" content="JunyaoHu">
 <meta property="article:tag" content="计算机网络">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://s2.loli.net/2023/10/06/MTtO4ACF6LcQejw.png">
@@ -38,7 +38,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>内网穿透配置 - 胡椒的 Coding Room</title>
+  <title>内网穿透配置 - JunyaoHu (胡钧耀)</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -76,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"junyaohu.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":"home"},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":19383194,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"junyaohu.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":null},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":19383194,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -142,11 +142,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 60vh;">
+<div class="header-inner" style="height: 40vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>胡椒的 Coding Room</strong>
+      <strong>Junyao Hu (胡钧耀)</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -290,19 +290,24 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/hujunyao_bg.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">内网穿透配置</span>
+            <span id="subtitle" data-typed-text="内网穿透配置"></span>
           
         </div>
 
         
           
   <div class="mt-3">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-author" aria-hidden="true"></i>
+        JunyaoHu
+      </span>
     
     
       <span class="post-meta">
@@ -332,7 +337,7 @@
         
         
           <!-- compatible with older versions-->
-          13 分钟
+          9 分钟
         
       </span>
     
@@ -789,7 +794,7 @@
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>胡椒</div>
+          <div>JunyaoHu</div>
         </div>
       
       
@@ -1038,6 +1043,21 @@
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
 
 
 

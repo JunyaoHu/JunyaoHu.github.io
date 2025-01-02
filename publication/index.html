@@ -7,28 +7,30 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
-  <link rel="icon" href="/img/avatar.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/hujunyao_icon.ico">
+  <link rel="icon" href="/img/hujunyao_icon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="胡椒">
-  <meta name="keywords" content="计算机视觉,深度学习">
+  <meta name="author" content="JunyaoHu">
+  <meta name="keywords" content="计算机视觉,深度学习,AIGC,AI for Creativity">
   
     <meta name="description" content="Last updated on: 10:00 May 13, 2024                         😅 I’m still working … I can still learn …. Zzz … 😴             Note: # &#x3D; Equal Contribution , * &#x3D; Corresponding Author. 202">
 <meta property="og:type" content="website">
 <meta property="og:title" content="My Publication">
 <meta property="og:url" content="https://junyaohu.github.io/publication/index.html">
-<meta property="og:site_name" content="胡椒的 Coding Room">
+<meta property="og:site_name" content="JunyaoHu (胡钧耀)">
 <meta property="og:description" content="Last updated on: 10:00 May 13, 2024                         😅 I’m still working … I can still learn …. Zzz … 😴             Note: # &#x3D; Equal Contribution , * &#x3D; Corresponding Author. 202">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://junyaohu.github.io/paper/cvpr24-extdm/show.gif">
 <meta property="article:published_time" content="2024-04-20T12:09:12.000Z">
-<meta property="article:modified_time" content="2024-05-13T02:35:54.573Z">
-<meta property="article:author" content="胡椒">
+<meta property="article:modified_time" content="2025-01-02T11:46:31.943Z">
+<meta property="article:author" content="JunyaoHu">
 <meta property="article:tag" content="计算机视觉">
 <meta property="article:tag" content="深度学习">
+<meta property="article:tag" content="AIGC">
+<meta property="article:tag" content="AI for Creativity">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://junyaohu.github.io/paper/cvpr24-extdm/show.gif">
   
@@ -36,7 +38,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>My Publication - 胡椒的 Coding Room</title>
+  <title>My Publication - JunyaoHu (胡钧耀)</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -74,7 +76,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"junyaohu.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":"home"},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":19383194,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"junyaohu.github.io","root":"/","version":"1.9.5","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":null},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"#"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3","collapseDepth":2},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":19383194,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -140,11 +142,11 @@
   <header>
     
 
-<div class="header-inner" style="height: 60vh;">
+<div class="header-inner" style="height: 40vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <strong>胡椒的 Coding Room</strong>
+      <strong>Junyao Hu (胡钧耀)</strong>
     </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
@@ -288,13 +290,13 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/hujunyao_bg.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.1)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle">My Publication</span>
+            <span id="subtitle" data-typed-text="My Publication"></span>
           
         </div>
 
@@ -344,38 +346,6 @@
 })(document);</script>
 
   
-  
-  
-    <article id="comments" lazyload>
-      
-  <div id="twikoo"></div>
-  <script type="text/javascript">
-    Fluid.utils.loadComments('#comments', function() {
-      Fluid.utils.createScript('https://lib.baomitu.com/twikoo/1.6.8/twikoo.all.min.js', function() {
-        var options = Object.assign(
-          {"envId":"https://blog-comment-nvoz-8o7dxhfbd-junyaohus-projects.vercel.app/","region":"ap-shanghai","path":"window.location.pathname"},
-          {
-            el: '#twikoo',
-            path: 'window.location.pathname',
-            onCommentLoaded: function() {
-              Fluid.utils.listenDOMLoaded(function() {
-                var imgSelector = '#twikoo .tk-content img:not(.tk-owo-emotion)';
-                Fluid.plugins.imageCaption(imgSelector);
-                Fluid.plugins.fancyBox(imgSelector);
-              });
-            }
-          }
-        )
-        twikoo.init(options)
-      });
-    });
-  </script>
-  <noscript>Please enable JavaScript to view the comments</noscript>
-
-
-    </article>
-  
-
 
 </article>
 
@@ -510,6 +480,21 @@
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
 
 
 
