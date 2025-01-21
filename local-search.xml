@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Git Error ENOENT No Such File or Directory, Open Xxxx/--Git-Common-Dir/config</title>
+    <link href="/2025/01/21/server-git/"/>
+    <url>/2025/01/21/server-git/</url>
+    
+    <content type="html"><![CDATA[<h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p>vscode登录集群使用git的时候报错</p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">[Git][getRemotes] <span class="hljs-keyword">Error</span>: ENOENT: <span class="hljs-keyword">no</span> such <span class="hljs-keyword">file</span> or directory, <span class="hljs-keyword">open</span> &#x27;xxxxx/aaa/--git-common-<span class="hljs-keyword">dir</span>/config<br></code></pre></td></tr></table></figure><p>输出命令</p><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">git rev-<span class="hljs-keyword">parse</span>--git-<span class="hljs-keyword">dir</span> --git-common-<span class="hljs-keyword">dir</span><br></code></pre></td></tr></table></figure><p>得到</p><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">.git</span><br><span class="hljs-params">--git-common-dir</span><br></code></pre></td></tr></table></figure><p>就感觉<code>--git-common-dir</code>这个变量被设置成为了<code>--git-common-dir</code>这个值</p><p>但是我并没有找到设置这个值的地方，网上没有搜索到相关问题及其教程</p><p>集群的git版本是1.8，也没办法直接使用sudo进行更新git</p><h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>先用conda下载一个git，base环境下即可</p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">conda activate <span class="hljs-keyword">base</span><br><span class="hljs-keyword"></span>conda <span class="hljs-keyword">install </span>git<br></code></pre></td></tr></table></figure><p>然后找到git下载的地方</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">which git<br>xxxxxxx<span class="hljs-regexp">/miniconda3/</span>bin/git<br></code></pre></td></tr></table></figure><p>然后在vscode的设置中搜索集群服务器下的git path设置</p><p><img src="https://s2.loli.net/2025/01/21/sDvbNAz6a94Fyc1.png" alt=""></p><p>如此设置后，重启vscode，就可以使用新版本git，并且解决上述报错问题了，vscode的git也能正常使用</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;git.path&quot;</span>: <span class="hljs-string">&quot;xxxxx/miniconda3/bin/git&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure><script type="text/javascript">(function (document) {    [].forEach.call(document.getElementsByClassName('fold'), function(panel) {        panel.getElementsByClassName('fold-title')[0].onclick = function() {            panel.classList.toggle("collapsed");            panel.classList.toggle("expanded");        }    });})(document);</script>]]></content>
+    
+    
+    <categories>
+      
+      <category>课外学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Git</tag>
+      
+      <tag>配置</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>书生大模型实战营-MindSearch CPU-Only 版部署</title>
     <link href="/2024/10/03/internlm-L2-MindSearch/"/>
     <url>/2024/10/03/internlm-L2-MindSearch/</url>
