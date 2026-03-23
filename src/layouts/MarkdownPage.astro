@@ -6,7 +6,7 @@ import Header from '../components/Header.astro';
 interface Props {
 	title: string;
 	description?: string;
-	/** 与主页 .home__inner 同宽：min(88%, 960px) */
+	/** 与主页 .home__inner 同宽：min(90%, 960px) */
 	wideContent?: boolean;
 }
 
@@ -25,7 +25,7 @@ const metaDesc = description || title;
 				margin: 0;
 			}
 			main.markdown-page--wide {
-				--markdown-wide-max-pct: 88%;
+				--markdown-wide-max-pct: 90%;
 				--markdown-wide-max-px: 960px;
 				width: 100%;
 				max-width: 100%;
