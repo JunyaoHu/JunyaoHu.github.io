@@ -5,14 +5,24 @@ const today = new Date();
 ---
 
 <footer>
-	&copy; {today.getFullYear()} Junyao Hu. All rights reserved.
+	<p>&copy; {today.getFullYear()} Junyao Hu. All rights reserved.</p>
+	<p>
+		Powered by <a href="https://astro.build/" target="_blank" rel="noopener noreferrer">Astro</a>
+	</p>
 </footer>
 <BackToTop />
 <style>
 	footer {
-		padding: 2em 1em 6em 1em;
+		padding: 1.4em 1em 2.4em 1em;
 		background: linear-gradient(var(--gray-gradient)) no-repeat;
 		color: rgb(var(--gray));
 		text-align: center;
+	}
+	footer p {
+		margin: 0.2rem 0;
+	}
+	footer a {
+		color: inherit;
+		text-underline-offset: 0.15em;
 	}
 </style>
