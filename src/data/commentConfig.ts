@@ -1,6 +1,5 @@
 /** Twikoo 评论：https://twikoo.js.org/ */
 
-/** 与 `src/styles/twikoo.css` 配对；勿用 `twikoo.all.min.js`，否则会重复一套样式 */
 export const TWIKOO_CDN = `https://cdn.jsdelivr.net/npm/twikoo@1.7.4/dist/twikoo.min.js`;
 export const PUBLIC_TWIKOO_ENV_ID = "https://blog-comment-nvoz-n5uey7o4a-junyaohus-projects.vercel.app/"
 export const PUBLIC_TWIKOO_REGION = "ap-shanghai";
