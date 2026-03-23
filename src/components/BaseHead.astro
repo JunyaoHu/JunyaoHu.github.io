@@ -8,6 +8,7 @@ import "@/styles/markdown-extend.styl";
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/blog-placeholder-1.jpg';
 import { SITE_DOCUMENT_BRAND, SITE_TITLE } from '../consts';
+import { GA_CONFIG, LA_CONFIG, LA_SCRIPT_SRC } from '../data/analytics';
 
 interface Props {
 	title: string;
@@ -24,6 +25,7 @@ const documentTitle =
 	!titleTrim || titleTrim === SITE_DOCUMENT_BRAND || titleTrim.endsWith(` - ${SITE_DOCUMENT_BRAND}`)
 		? titleTrim || SITE_DOCUMENT_BRAND
 		: `${titleTrim} - ${SITE_DOCUMENT_BRAND}`;
+const gaScriptSrc = `https://www.googletagmanager.com/gtag/js?id=${GA_CONFIG.measurementId}`;
 
 /** public/favicon.ico；用 BASE_URL 才能适配 `base`（如 GitHub Project Pages） */
 const faviconIco = new URL('favicon.ico', new URL(import.meta.env.BASE_URL, Astro.url.origin)).href;
@@ -67,3 +69,32 @@ const faviconIco = new URL('favicon.ico', new URL(import.meta.env.BASE_URL, Astr
 <meta property="twitter:title" content={documentTitle} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+{
+	GA_CONFIG.enabled && (
+		<>
+			<!-- Google tag (gtag.js) -->
+			<script async src={gaScriptSrc}></script>
+			<script define:vars={{ measurementId: GA_CONFIG.measurementId }}>
+				window.dataLayer = window.dataLayer || [];
+				function gtag(...args) {
+					window.dataLayer.push(args);
+				}
+				gtag('js', new Date());
+				gtag('config', measurementId);
+			</script>
+		</>
+	)
+}
+
+{
+	LA_CONFIG.enabled && (
+		<>
+			<!-- 51LA Analytics -->
+			<script charset="UTF-8" id="LA_COLLECT" src={LA_SCRIPT_SRC}></script>
+			<script define:vars={{ laConfig: LA_CONFIG }}>
+				window.LA?.init(laConfig);
+			</script>
+		</>
+	)
+}
