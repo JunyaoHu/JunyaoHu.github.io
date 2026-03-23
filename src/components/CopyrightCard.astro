@@ -1,0 +1,131 @@
+---
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	author?: string;
+	publishedDate: Date;
+	updatedDate?: Date;
+	licenseName?: string;
+	pageUrl?: string;
+}
+
+const {
+	author = 'Junyao Hu',
+	publishedDate,
+	updatedDate,
+	licenseName = 'CC BY 4.0',
+	pageUrl = Astro.url.href,
+} = Astro.props;
+
+const licenseUrl = 'https://creativecommons.org/licenses/by/4.0/';
+---
+
+<div class="copyright-card">
+	<div class="copyright-card__body">
+		<div class="copyright-card__row">
+			<span class="copyright-card__label">Author</span>
+			<span class="copyright-card__value">{author}</span>
+		</div>
+		<div class="copyright-card__row">
+			<span class="copyright-card__label">Published</span>
+			<span class="copyright-card__value">
+				<FormattedDate date={publishedDate} />
+			</span>
+		</div>
+		{
+			updatedDate && (
+				<div class="copyright-card__row">
+					<span class="copyright-card__label">Updated</span>
+					<span class="copyright-card__value">
+						<FormattedDate date={updatedDate} />
+					</span>
+				</div>
+			)
+		}
+		<div class="copyright-card__row">
+			<span class="copyright-card__label">Link</span>
+			<a class="copyright-card__link" href={pageUrl} title={pageUrl}>{pageUrl}</a>
+		</div>
+		<div class="copyright-card__row">
+			<span class="copyright-card__label">Copyright</span>
+			<span class="copyright-card__value">
+				<a class="copyright-card__license-link" href={licenseUrl} target="_blank" rel="noopener noreferrer">
+					{licenseName}
+				</a>
+			</span>
+		</div>
+	</div>
+</div>
+
+<style>
+	.copyright-card {
+		margin-top: 2.5rem;
+		border-left: 3px solid var(--accent);
+		border-radius: 0 14px 14px 0;
+		background: color-mix(in oklch, #fff 96%, rgb(var(--gray-light)) 4%);
+		border-top: 1px solid rgba(var(--gray), 0.1);
+		border-right: 1px solid rgba(var(--gray), 0.1);
+		border-bottom: 1px solid rgba(var(--gray), 0.1);
+		box-shadow: 0 1px 2px rgba(var(--black), 0.03);
+		overflow: hidden;
+	}
+
+	.copyright-card__body {
+		padding: 1.1rem 1.4rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.45rem;
+	}
+
+	.copyright-card__row {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+		font-size: 0.8375rem;
+		line-height: 1.6;
+	}
+
+	.copyright-card__label {
+		flex-shrink: 0;
+		width: 4.5rem;
+		font-weight: 600;
+		font-size: 0.78rem;
+		color: color-mix(in oklch, var(--accent) 72%, rgb(var(--gray-dark)) 28%);
+		letter-spacing: 0.02em;
+	}
+
+	.copyright-card__value {
+		color: color-mix(in oklch, rgb(var(--gray-dark)) 82%, rgb(var(--gray)) 18%);
+	}
+
+	.copyright-card__link {
+		color: var(--link-text);
+		text-decoration: none;
+		text-underline-offset: 2px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 100%;
+		display: block;
+	}
+
+	.copyright-card__link:hover {
+		color: var(--link-hover-text);
+		text-decoration: underline;
+		text-decoration-color: var(--link-hover-underline);
+	}
+
+	.copyright-card__license-link {
+		color: var(--link-text);
+		text-decoration: underline;
+		text-decoration-color: var(--link-underline);
+		text-underline-offset: 2px;
+		font-weight: 600;
+		transition: color 0.15s ease;
+	}
+
+	.copyright-card__license-link:hover {
+		color: var(--link-hover-text);
+		text-decoration-color: var(--link-hover-underline);
+	}
+</style>

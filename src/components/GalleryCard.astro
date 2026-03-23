@@ -1,0 +1,219 @@
+---
+import type { GalleryAlbum } from '../data/gallery';
+
+interface Props {
+	album: GalleryAlbum;
+	coverSrc: string;
+	photoCount: number;
+}
+
+const { album, coverSrc, photoCount } = Astro.props;
+---
+
+<div class="gallery-card" data-tags={(album.tags ?? []).join('\n')}>
+	<a class="gallery-card__inner" href={`/gallery/${album.id}/`} aria-label={album.name}>
+		<div class="gallery-card__img-wrap">
+			<img
+				class="gallery-card__img"
+				src={coverSrc}
+				alt={album.name}
+				loading="lazy"
+				decoding="async"
+			/>
+		</div>
+		{photoCount > 0 && (
+			<div class="gallery-card__count">
+				<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+				{photoCount}
+			</div>
+		)}
+		<div class="gallery-card__overlay">
+			<div class="gallery-card__info">
+				<h3 class="gallery-card__name">{album.name}</h3>
+				{album.description && (
+					<p class="gallery-card__desc">{album.description}</p>
+				)}
+				<div class="gallery-card__meta">
+					{album.date && (
+						<span class="gallery-card__meta-item">
+							<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+							{album.date}
+						</span>
+					)}
+					{album.location && (
+						<span class="gallery-card__meta-item">
+							<svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+							{album.location}
+						</span>
+					)}
+				</div>
+				{album.tags && album.tags.length > 0 && (
+					<div class="gallery-card__tags">
+						{album.tags.map((t) => (
+							<span class="gallery-card__tag">{t}</span>
+						))}
+					</div>
+				)}
+			</div>
+		</div>
+	</a>
+</div>
+
+<style>
+	.gallery-card {
+		break-inside: avoid;
+	}
+
+	.gallery-card__inner {
+		display: block;
+		position: relative;
+		border-radius: 14px;
+		overflow: hidden;
+		text-decoration: none;
+		color: inherit;
+		background: rgb(var(--gray-light));
+		box-shadow: 0 1px 3px rgba(var(--black), 0.06), 0 4px 16px rgba(var(--gray), 0.06);
+		transition:
+			box-shadow 0.22s ease,
+			transform 0.22s ease;
+		aspect-ratio: 4 / 3;
+	}
+
+	.gallery-card__inner:hover {
+		box-shadow:
+			0 4px 12px rgba(var(--black), 0.1),
+			0 16px 40px rgba(var(--gray), 0.14);
+		transform: translateY(-3px);
+	}
+
+	.gallery-card__img-wrap {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+	}
+
+	.gallery-card__img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		transition: transform 0.3s ease;
+		display: block;
+	}
+
+	.gallery-card__inner:hover .gallery-card__img {
+		transform: scale(1.04);
+	}
+
+	/* 照片数角标 */
+	.gallery-card__count {
+		position: absolute;
+		top: 0.65rem;
+		right: 0.65rem;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 0.25em 0.6em;
+		font-size: 0.7rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		color: #fff;
+		background: rgba(0, 0, 0, 0.45);
+		backdrop-filter: blur(6px);
+		-webkit-backdrop-filter: blur(6px);
+		border-radius: 999px;
+		border: 1px solid rgba(255, 255, 255, 0.15);
+	}
+
+	/* 底部渐变遮罩 */
+	.gallery-card__overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.72) 0%,
+			rgba(0, 0, 0, 0.32) 45%,
+			transparent 70%
+		);
+		display: flex;
+		align-items: flex-end;
+		transition: background 0.22s ease;
+	}
+
+	.gallery-card__inner:hover .gallery-card__overlay {
+		background: linear-gradient(
+			to top,
+			rgba(0, 0, 0, 0.78) 0%,
+			rgba(0, 0, 0, 0.38) 50%,
+			transparent 72%
+		);
+	}
+
+	.gallery-card__info {
+		padding: 1rem 1.1rem;
+		width: 100%;
+	}
+
+	.gallery-card__name {
+		margin: 0 0 0.25rem;
+		font-size: 1.05rem;
+		font-weight: 700;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+		color: #fff;
+	}
+
+	.gallery-card__desc {
+		margin: 0 0 0.45rem;
+		font-size: 0.78rem;
+		line-height: 1.5;
+		color: rgba(255, 255, 255, 0.8);
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+	}
+
+	.gallery-card__meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem 0.75rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.gallery-card__meta-item {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.28rem;
+		font-size: 0.72rem;
+		color: rgba(255, 255, 255, 0.72);
+	}
+
+	.gallery-card__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.28rem 0.35rem;
+	}
+
+	.gallery-card__tag {
+		display: inline-block;
+		padding: 0.15em 0.55em 0.18em;
+		font-size: 0.65rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.18);
+		border: 1px solid rgba(255, 255, 255, 0.28);
+		color: rgba(255, 255, 255, 0.88);
+		backdrop-filter: blur(4px);
+		-webkit-backdrop-filter: blur(4px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.gallery-card__inner,
+		.gallery-card__img {
+			transition: none;
+		}
+	}
+</style>

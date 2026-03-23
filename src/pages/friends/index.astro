@@ -1,0 +1,100 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import Comments from '../../components/Comments.astro';
+import FriendsApplicationGuide from '../../components/friends/FriendsApplicationGuide.astro';
+import FriendsMatrix from '../../components/friends/FriendsMatrix.astro';
+import { friendsPageConfig, getEnabledFriends } from '../../data/friends';
+
+const friends = getEnabledFriends();
+
+const tagSet = new Set<string>();
+for (const f of friends) {
+	f.tags?.forEach((t) => tagSet.add(t));
+}
+const categories = Array.from(tagSet).sort((a, b) => a.localeCompare(b));
+
+const description = 'Friends — personal links to people and sites I recommend.';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Friends" description={description} />
+	</head>
+	<body>
+		<Header />
+		<main class="friends-page">
+			<div class="friends-page__inner">
+				<header class="friends-hero">
+					<h1 class="friends-hero__title">Friends</h1>
+					<p class="friends-hero__subtitle">Here are my friends — welcome to visit and say hello.</p>
+				</header>
+
+				<FriendsMatrix friends={friends} categories={categories} />
+
+				{friendsPageConfig.showCustomContent && <FriendsApplicationGuide />}
+
+				{
+					friendsPageConfig.showComment && (
+						<div class="friends-page__comments">
+							<Comments />
+						</div>
+					)
+				}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	main.friends-page {
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
+		margin-inline: auto;
+		padding: 2.5rem min(1rem, 4vw) 3.5rem;
+	}
+
+	.friends-page__inner {
+		width: min(88%, 960px);
+		max-width: 100%;
+		margin-inline: auto;
+		box-sizing: border-box;
+	}
+
+	.friends-hero {
+		margin-bottom: 1.65rem;
+		padding-bottom: 1.35rem;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+
+	.friends-hero__title {
+		margin: 0 0 0.28em;
+		font-size: 1.85rem;
+		font-weight: 700;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+		color: rgb(var(--black));
+	}
+
+	.friends-hero__subtitle {
+		margin: 0;
+		font-size: 0.9375rem;
+		line-height: 1.55;
+		color: rgb(var(--gray));
+		max-width: 36em;
+	}
+
+	.friends-page__comments {
+		margin-top: 2.75rem;
+		padding-top: 1.75rem;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+
+	.friends-page__comments :global(.comments-section) {
+		margin-bottom: 0;
+	}
+</style>

@@ -1,0 +1,14 @@
+---
+interface Props {
+	title?: string;
+}
+
+const { title = 'Academic Service' } = Astro.props;
+---
+
+<section class="home-section home-service" id="service">
+	<h2 class="home-section__title">{title}</h2>
+	<div class="home-section__body home-prose">
+		<slot />
+	</div>
+</section>

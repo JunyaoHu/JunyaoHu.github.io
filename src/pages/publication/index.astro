@@ -1,0 +1,16 @@
+---
+import MarkdownPage from '../../layouts/MarkdownPage.astro';
+import PaperCard from '../../components/PaperCard.astro';
+import { publicationsGlobalNote } from '../../data/homepage';
+import { getAllPapersSorted } from '../../data/papers';
+
+const list = getAllPapersSorted();
+const description = 'Publications — papers, links, and demos.';
+---
+
+<MarkdownPage title="Publications" description={description} wideContent>
+	<p class="pub-page__intro">{publicationsGlobalNote}</p>
+	<ul class="paper-list">
+		{list.map((p) => <PaperCard paper={p} />)}
+	</ul>
+</MarkdownPage>

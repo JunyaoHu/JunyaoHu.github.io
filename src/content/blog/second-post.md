@@ -1,7 +1,7 @@
 ---
 title: 'Second post'
 description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 15 2022'
+publishedDate: 1970-06-01
 heroImage: '../../assets/blog-placeholder-4.jpg'
 ---
 

@@ -1,0 +1,27 @@
+---
+import { SITE_TITLE } from '../../consts';
+---
+
+<a href="/" class="nav-logo" aria-label={SITE_TITLE}>
+	<img src="/logo.png" alt={SITE_TITLE} class="nav-logo__img" width="36" height="36" />
+</a>
+
+<style>
+	.nav-logo {
+		display: flex;
+		align-items: center;
+		flex-shrink: 0;
+		padding: 0;
+		border-bottom: none !important;
+	}
+	.nav-logo:hover {
+		border-bottom-color: transparent !important;
+	}
+	.nav-logo__img {
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		object-fit: cover;
+		display: block;
+	}
+</style>

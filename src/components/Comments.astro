@@ -1,0 +1,136 @@
+---
+import { TWIKOO_CDN, getTwikooConfig } from '../data/commentConfig';
+import { commentsPlaceholder as defaultPlaceholder } from '../data/homepage';
+
+interface Props {
+	/** 区块标题，默认与主页一致 */
+	title?: string;
+	/** Twikoo 未配置时的说明；默认取自 `homepage.ts` */
+	placeholder?: string;
+	/** 锚点 id，默认 `comments`；Twikoo 挂载点为 `{id}-twikoo` */
+	id?: string;
+	/** 为 false 时不渲染整个评论区（如文章 frontmatter `comment: false`） */
+	enabled?: boolean;
+	/** 覆盖 Twikoo `path`，默认 `Astro.url.pathname` */
+	path?: string;
+}
+
+const twikooCfg = getTwikooConfig();
+const {
+	title = 'Comments',
+	placeholder = defaultPlaceholder,
+	id = 'comments',
+	enabled = true,
+	path: pathProp,
+} = Astro.props;
+
+const pagePath = pathProp ?? Astro.url.pathname;
+const showTwikoo = enabled && twikooCfg.enabled;
+const twikooMountId = `${id}-twikoo`;
+---
+
+{
+	enabled && (
+		<section class="comments-section not-prose" id={id} aria-label={title}>
+			<h2 class="comments-section__title">{title}</h2>
+			{showTwikoo ? (
+				<>
+					<div id={twikooMountId} class="comments-section__twikoo" />
+					<script
+						is:inline
+						define:vars={{
+							twCdn: TWIKOO_CDN,
+							twEnvId: twikooCfg.enabled ? twikooCfg.envId : '',
+							twEl: `#${twikooMountId}`,
+							twPath: pagePath,
+							twRegion: twikooCfg.enabled && twikooCfg.region ? twikooCfg.region : '',
+							twLang: twikooCfg.enabled && twikooCfg.lang ? twikooCfg.lang : '',
+						}}
+					>
+						(function () {
+							if (!twEnvId) return;
+							var mount = document.querySelector(twEl);
+							if (!mount) return;
+							var s = document.createElement('script');
+							s.src = twCdn;
+							s.async = true;
+							s.onload = function () {
+								var api = window.twikoo;
+								if (!api || typeof api.init !== 'function') {
+									mount.innerHTML =
+										'<p class="comments-section__twikoo-error" role="alert">评论组件初始化失败。</p>';
+									return;
+								}
+								var opt = { envId: twEnvId, el: twEl, path: twPath };
+								if (twRegion) opt.region = twRegion;
+								if (twLang) opt.lang = twLang;
+								api.init(opt);
+							};
+							s.onerror = function () {
+								mount.innerHTML =
+									'<p class="comments-section__twikoo-error" role="alert">评论脚本加载失败，请检查网络或稍后再试。</p>';
+							};
+							document.head.appendChild(s);
+						})();
+					</script>
+				</>
+			) : (
+				<p class="comments-section__placeholder">{placeholder}</p>
+			)}
+		</section>
+	)
+}
+
+<style>
+	.comments-section {
+		margin-bottom: 2.75rem;
+	}
+
+	.comments-section__title {
+		margin: 0 0 1rem;
+		font-size: 1.85rem;
+		font-weight: 700;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+		padding-bottom: 0.35em;
+		border-bottom: 2px solid var(--accent);
+		color: rgb(var(--black));
+	}
+
+	.comments-section__placeholder {
+		margin: 0;
+		padding: 1rem 1.25rem;
+		border-radius: 8px;
+		background: rgb(var(--gray-light));
+		color: rgb(var(--gray));
+		font-size: 0.95rem;
+		line-height: 1.5;
+	}
+
+	.comments-section__twikoo {
+		margin-top: 0.25rem;
+		min-width: 0;
+	}
+
+	/* Twikoo：Markdown 帮助图标与右侧 Preview 按钮拉开间距 */
+	.comments-section :global(a.tk-submit-action-icon.__markdown) {
+		margin-inline-end: 0.75rem;
+	}
+
+	/* 压过 .prose 内 typography 对 img 的 margin（Twikoo 头像等） */
+	.comments-section :global(img) {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+
+	.comments-section__twikoo-error {
+		margin: 0;
+		padding: 0.85rem 1rem;
+		border-radius: 8px;
+		background: color-mix(in oklch, rgb(var(--gray-light)) 88%, #fff 12%);
+		border: 1px solid rgba(var(--gray), 0.12);
+		color: rgb(var(--gray-dark));
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+</style>

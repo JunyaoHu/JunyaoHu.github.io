@@ -1,0 +1,25 @@
+---
+interface Props {
+	updated?: string;
+}
+
+const { updated } = Astro.props;
+---
+
+{
+	updated && (
+		<div class="home-updated-meta" aria-label="页面更新时间">
+			{updated}
+		</div>
+	)
+}
+
+<style>
+	.home-updated-meta {
+		width: 100%;
+		text-align: right;
+		font-size: 0.78rem;
+		line-height: 1.0;
+		color: rgb(var(--gray));
+	}
+</style>
