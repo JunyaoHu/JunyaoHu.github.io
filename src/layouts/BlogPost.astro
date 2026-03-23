@@ -1,0 +1,303 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Comments from '../components/Comments.astro';
+import CopyrightCard from '../components/CopyrightCard.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import PostPagination from '../components/PostPagination.astro';
+
+interface PostNavInfo {
+	id: string;
+	title: string;
+}
+
+type Props = CollectionEntry<'blog'>['data'] & {
+	prevPost?: PostNavInfo | null;
+	nextPost?: PostNavInfo | null;
+};
+
+const {
+	title,
+	description,
+	publishedDate,
+	updatedDate,
+	heroImage,
+	comment,
+	category,
+	tags,
+	prevPost,
+	nextPost,
+} = Astro.props;
+
+function tagSlug(t: string) {
+	return encodeURIComponent(t.trim().startsWith('#') ? t.trim().slice(1) : t.trim());
+}
+function tagDisplay(t: string) {
+	const s = t.trim();
+	return s.startsWith('#') ? s.slice(1) : s;
+}
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			main {
+				width: 100%;
+				max-width: 100%;
+				margin: 0 auto;
+				box-sizing: border-box;
+			}
+			.hero-image {
+				width: min(860px, calc(100% - 2.25rem));
+				margin: 1.8rem auto 0;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				width: 100%;
+				height: auto;
+				box-shadow:
+					0 1px 2px rgba(var(--black), 0.05),
+					0 8px 20px rgba(var(--gray), 0.1);
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			.prose :global(.katex-display) {
+				max-width: 100%;
+				overflow-x: auto;
+				overflow-y: hidden;
+			}
+			.prose .comments-section {
+				margin-top: 2.75rem;
+			}
+
+			/* ── 文章标头 ── */
+			.post-header {
+				margin-bottom: 2.25rem;
+			}
+
+			/* 标题 */
+			.post-header__title {
+				margin: 0 0 1rem;
+				font-size: clamp(1.6rem, 4vw, 2.1rem);
+				font-weight: 700;
+				line-height: 1.25;
+				letter-spacing: -0.03em;
+				color: rgb(var(--black));
+			}
+
+			/* 元信息块：两行（日期行 + 分类标签行） */
+			.post-header__meta {
+				display: flex;
+				flex-direction: column;
+				gap: 0.55rem;
+				margin-bottom: 1.6rem;
+			}
+
+			/* 单行容器 */
+			.post-header__meta-row {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.35rem 0.7rem;
+			}
+
+			/* 日期 */
+			.post-header__date-group {
+				display: flex;
+				align-items: center;
+				gap: 0.35rem;
+				font-size: 0.8rem;
+				color: rgb(var(--gray));
+			}
+			.post-header__date-icon {
+				opacity: 0.65;
+				flex-shrink: 0;
+			}
+			.post-header__updated {
+				font-size: 0.78rem;
+				font-style: italic;
+				color: color-mix(in oklch, rgb(var(--gray)) 70%, transparent 30%);
+			}
+			.post-header__meta-dot {
+				width: 3px;
+				height: 3px;
+				border-radius: 50%;
+				background: rgba(var(--gray), 0.32);
+				flex-shrink: 0;
+			}
+
+			/* 分类/标签行的 label */
+			.post-header__meta-item {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+			}
+			.post-header__meta-label {
+				font-size: 0.72rem;
+				font-weight: 500;
+				letter-spacing: 0.03em;
+				color: rgba(var(--gray), 0.75);
+				white-space: nowrap;
+			}
+
+			/* 分类徽章 & 标签：统一尺寸基线 */
+			.post-header__category,
+			.post-header__tag {
+				display: inline-flex;
+				align-items: center;
+				padding: 0.3em 0.62em 0.28em;
+				margin: 0 0.1em;
+				font-size: 0.7rem;
+				font-weight: 500;
+				line-height: 1.2;
+				letter-spacing: 0.04em;
+				border-radius: 7px;
+				text-decoration: none;
+			}
+
+			/* 分类：accent 色调 */
+			.post-header__category {
+				font-weight: 600;
+				color: color-mix(in oklch, var(--accent) 85%, rgb(var(--gray-dark)) 15%);
+				background: color-mix(in oklch, var(--accent) 9%, transparent 91%);
+				border: 1px solid color-mix(in oklch, var(--accent) 20%, transparent 80%);
+			}
+			.post-header__category:hover {
+				background: color-mix(in oklch, var(--accent) 15%, transparent 85%);
+				border-color: color-mix(in oklch, var(--accent) 38%, transparent 62%);
+				color: var(--accent);
+			}
+
+			/* 标签：中性色调 */
+			.post-header__tag {
+				border: 1px solid rgba(var(--gray), 0.16);
+				background: rgba(255, 255, 255, 0.5);
+				color: color-mix(in oklch, rgb(var(--gray-dark)) 68%, rgb(var(--gray)) 32%);
+			}
+			.post-header__tag:hover {
+				border-color: color-mix(in oklch, var(--accent) 30%, rgba(var(--gray), 0.16) 70%);
+				background: color-mix(in oklch, var(--accent) 7%, rgba(255, 255, 255, 0.5) 93%);
+				color: color-mix(in oklch, var(--accent) 72%, rgb(var(--gray-dark)) 28%);
+			}
+
+			/* 标签组 */
+			.post-header__tags {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.28rem 0.32rem;
+			}
+
+			/* 渐变分隔线 */
+			.post-header__divider {
+				border: none;
+				height: 1px;
+				background: linear-gradient(
+					to right,
+					color-mix(in oklch, var(--accent) 35%, transparent 65%),
+					rgba(var(--gray), 0.15) 55%,
+					transparent
+				);
+				margin: 0;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.post-header__category,
+				.post-header__tag {
+					transition: none;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+			<article>
+				<div class="hero-image">
+					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+				</div>
+				<div class="prose">
+					<header class="post-header">
+						<h1 class="post-header__title">{title}</h1>
+						<div class="post-header__meta">
+							{/* 第一行：日期 */}
+							<div class="post-header__meta-row">
+								<span class="post-header__date-group">
+									<svg class="post-header__date-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+									<FormattedDate date={publishedDate} />
+								</span>
+								{
+									updatedDate && (
+										<>
+											<span class="post-header__meta-dot" aria-hidden="true" />
+											<span class="post-header__updated">
+												更新于 <FormattedDate date={updatedDate} />
+											</span>
+										</>
+									)
+								}
+							</div>
+							{/* 第二行：分类 + 标签 */}
+							{
+								(category || (tags && tags.length > 0)) && (
+									<div class="post-header__meta-row">
+										{category && (
+											<span class="post-header__meta-item">
+												<span class="post-header__meta-label">Category</span>
+												<a
+													class="post-header__category"
+													href={`/blog/category/${encodeURIComponent(category.trim())}/`}
+												>
+													{category.trim()}
+												</a>
+											</span>
+										)}
+										{category && tags && tags.length > 0 && (
+											<span class="post-header__meta-dot" aria-hidden="true" />
+										)}
+										{tags && tags.length > 0 && (
+											<span class="post-header__meta-item">
+												<span class="post-header__meta-label">Tags</span>
+												<div class="post-header__tags">
+													{tags.map((t) => (
+														<a
+															class="post-header__tag"
+															href={`/blog/tag/${tagSlug(t)}/`}
+														>
+															#{tagDisplay(t)}
+														</a>
+													))}
+												</div>
+											</span>
+										)}
+									</div>
+								)
+							}
+						</div>
+						<hr class="post-header__divider" />
+					</header>
+					<slot />
+					<CopyrightCard
+						publishedDate={publishedDate}
+						updatedDate={updatedDate}
+					/>
+					<PostPagination prevPost={prevPost} nextPost={nextPost} />
+					<Comments enabled={comment} />
+				</div>
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

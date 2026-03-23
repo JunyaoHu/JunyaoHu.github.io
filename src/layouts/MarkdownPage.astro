@@ -1,0 +1,67 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+	/** 与主页 .home__inner 同宽：min(88%, 960px) */
+	wideContent?: boolean;
+}
+
+const { title, description = '', wideContent = false } = Astro.props;
+const metaDesc = description || title;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={metaDesc} />
+		<style>
+			main {
+				width: calc(100% - 2em);
+				max-width: 100%;
+				margin: 0;
+			}
+			main.markdown-page--wide {
+				--markdown-wide-max-pct: 88%;
+				--markdown-wide-max-px: 960px;
+				width: 100%;
+				max-width: 100%;
+				margin-inline: auto;
+				padding: 2rem min(1rem, 4vw) 3em;
+				box-sizing: border-box;
+			}
+			.prose {
+				width: 720px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-dark));
+			}
+			main.markdown-page--wide .prose {
+				width: min(var(--markdown-wide-max-pct), var(--markdown-wide-max-px));
+				max-width: 100%;
+				margin-inline: auto;
+				padding: 1em 0;
+			}
+			.doc-page__title {
+				margin: 0 0 0.75em;
+				font-size: 2rem;
+				line-height: 1.2;
+				color: rgb(var(--black));
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class:list={[{ 'markdown-page--wide': wideContent }]}>
+			<article class="prose">
+				<h1 class="doc-page__title">{title}</h1>
+				<slot />
+			</article>
+		</main>
+		<Footer />
+	</body>
+</html>

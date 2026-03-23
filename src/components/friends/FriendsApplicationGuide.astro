@@ -1,0 +1,708 @@
+---
+import { Icon } from 'astro-icon/components';
+import {
+	friendsApplicationSteps,
+	friendsApplicationTemplate,
+	friendsApplicationUi,
+	friendsExchangeNotes,
+	friendsSiteCopyFields,
+	friendsSiteInfo,
+} from '../../data/friends';
+
+const siteRows = friendsSiteCopyFields.map((field) => ({
+	labelZh: field.labelZh,
+	labelEn: field.labelEn,
+	value: field.getValue(friendsSiteInfo),
+}));
+---
+
+<section class="friends-application-guide" aria-label={friendsApplicationUi.sectionAria}>
+	<div class="friends-exchange__grid">
+		<div class="friends-exchange__panel">
+			<div class="friends-exchange__site-head">
+				<img
+					class="friends-exchange__site-avatar"
+					src={friendsSiteInfo.avatar}
+					alt=""
+					width="64"
+					height="64"
+					loading="lazy"
+					decoding="async"
+					referrerpolicy="no-referrer"
+				/>
+				<div class="friends-exchange__site-text">
+					<h2 class="friends-exchange__site-name">{friendsSiteInfo.name}</h2>
+					<p class="friends-exchange__site-desc">{friendsSiteInfo.desc}</p>
+				</div>
+			</div>
+			<ul class="friends-exchange__fields">
+				{
+					siteRows.map((row) => (
+						<li class="friends-exchange__field">
+							<div class="friends-exchange__field-text">
+								<span class="friends-exchange__field-label">
+									<span class="friends-exchange__field-label-zh" lang="zh-CN">{row.labelZh}</span>
+									<span class="friends-exchange__field-label-sep" aria-hidden="true"> · </span>
+									<span class="friends-exchange__field-label-en" lang="en">{row.labelEn}</span>
+								</span>
+								<span class="friends-exchange__field-value">{row.value}</span>
+							</div>
+							<button
+								type="button"
+								class="friends-copy-btn"
+								data-copy={JSON.stringify(row.value)}
+								aria-label={`Copy ${row.labelEn} · 复制${row.labelZh}`}
+							>
+								<Icon name="mdi:content-copy" class="friends-copy-btn__icon friends-copy-btn__icon--idle" aria-hidden="true" />
+								<Icon name="mdi:check" class="friends-copy-btn__icon friends-copy-btn__icon--success" aria-hidden="true" />
+							</button>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+
+		<div class="friends-exchange__panel">
+			<h2 class="friends-exchange__panel-title">
+				<span class="friends-bilingual__primary" lang="zh-CN">{friendsApplicationUi.panelTitleZh}</span>
+				<span class="friends-bilingual__secondary" lang="en">{friendsApplicationUi.panelTitleEn}</span>
+			</h2>
+			<div class="friends-exchange__steps">
+				<div class="friends-step">
+					<div class="friends-step__rail">
+						<span class="friends-step__num">1</span>
+						<span class="friends-step__line" aria-hidden="true" />
+					</div>
+					<div class="friends-step__body">
+						<p class="friends-step__heading">
+							<span class="friends-bilingual__primary" lang="zh-CN">{friendsApplicationSteps[0].titleZh}</span>
+							<span class="friends-bilingual__secondary" lang="en">{friendsApplicationSteps[0].titleEn}</span>
+						</p>
+						<p class="friends-step__desc">
+							<span class="friends-bilingual__block-zh" lang="zh-CN">{friendsApplicationSteps[0].descriptionZh}</span>
+							<span class="friends-bilingual__block-en" lang="en">{friendsApplicationSteps[0].descriptionEn}</span>
+						</p>
+					</div>
+				</div>
+				<div class="friends-step">
+					<div class="friends-step__rail">
+						<span class="friends-step__num">2</span>
+						<span class="friends-step__line" aria-hidden="true" />
+					</div>
+					<div class="friends-step__body">
+						<p class="friends-step__heading">
+							<span class="friends-bilingual__primary" lang="zh-CN">{friendsApplicationSteps[1].titleZh}</span>
+							<span class="friends-bilingual__secondary" lang="en">{friendsApplicationSteps[1].titleEn}</span>
+						</p>
+						<p class="friends-step__desc">
+							<span class="friends-bilingual__block-zh" lang="zh-CN">{friendsApplicationSteps[1].descriptionZh}</span>
+							<span class="friends-bilingual__block-en" lang="en">{friendsApplicationSteps[1].descriptionEn}</span>
+						</p>
+						<p class="friends-step__email">
+							<a href={`mailto:${friendsSiteInfo.email}`}>{friendsSiteInfo.email}</a>
+							<button
+								type="button"
+								class="friends-copy-btn friends-copy-btn--small"
+								data-copy={JSON.stringify(friendsSiteInfo.email)}
+								aria-label={friendsApplicationUi.copyEmail}
+							>
+								<Icon name="mdi:content-copy" class="friends-copy-btn__icon friends-copy-btn__icon--idle" aria-hidden="true" />
+								<Icon name="mdi:check" class="friends-copy-btn__icon friends-copy-btn__icon--success" aria-hidden="true" />
+							</button>
+						</p>
+						<div class="friends-template">
+							<div class="friends-template__toolbar">
+								<span class="friends-template__toolbar-label">
+									<span lang="zh-CN">{friendsApplicationUi.templateLabelZh}</span>
+									<span class="friends-template__toolbar-sep" aria-hidden="true"> · </span>
+									<span lang="en">{friendsApplicationUi.templateLabelEn}</span>
+								</span>
+								<button
+									type="button"
+									class="friends-copy-btn friends-copy-btn--toolbar"
+									data-copy={JSON.stringify(friendsApplicationTemplate)}
+									aria-label={friendsApplicationUi.copyTemplate}
+								>
+									<Icon name="mdi:content-copy" class="friends-copy-btn__icon friends-copy-btn__icon--idle" aria-hidden="true" />
+									<Icon name="mdi:check" class="friends-copy-btn__icon friends-copy-btn__icon--success" aria-hidden="true" />
+								</button>
+							</div>
+							<pre class="friends-template__pre">{friendsApplicationTemplate}</pre>
+						</div>
+					</div>
+				</div>
+				<div class="friends-step friends-step--last">
+					<div class="friends-step__rail">
+						<span class="friends-step__num">3</span>
+					</div>
+					<div class="friends-step__body">
+						<p class="friends-step__heading">
+							<span class="friends-bilingual__primary" lang="zh-CN">{friendsApplicationSteps[2].titleZh}</span>
+							<span class="friends-bilingual__secondary" lang="en">{friendsApplicationSteps[2].titleEn}</span>
+						</p>
+						<p class="friends-step__desc">
+							<span class="friends-bilingual__block-zh" lang="zh-CN">{friendsApplicationSteps[2].descriptionZh}</span>
+							<span class="friends-bilingual__block-en" lang="en">{friendsApplicationSteps[2].descriptionEn}</span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="friends-exchange__notes">
+		<h2 class="friends-exchange__notes-title">
+			<span class="friends-bilingual__primary" lang="zh-CN">{friendsApplicationUi.notesTitleZh}</span>
+			<span class="friends-bilingual__secondary" lang="en">{friendsApplicationUi.notesTitleEn}</span>
+		</h2>
+		<ul class="friends-exchange__notes-list">
+			{
+				friendsExchangeNotes.map((item) => (
+					<li class="friends-exchange__note">
+						<span class="friends-exchange__note-dot" aria-hidden="true" />
+						<p>
+							<strong class="friends-exchange__note-title">
+								<span lang="zh-CN">{item.titleZh}</span>
+								<span class="friends-exchange__note-title-sep" aria-hidden="true"> / </span>
+								<span lang="en">{item.titleEn}</span>
+							</strong>
+							<span class="friends-exchange__note-body">
+								<span class="friends-bilingual__block-zh" lang="zh-CN">{item.contentZh}</span>
+								<span class="friends-bilingual__block-en" lang="en">{item.contentEn}</span>
+							</span>
+						</p>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<script is:inline>
+	(function () {
+		document.querySelectorAll('.friends-application-guide .friends-copy-btn[data-copy]').forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				var raw = btn.getAttribute('data-copy');
+				if (!raw) return;
+				var text;
+				try {
+					text = JSON.parse(raw);
+				} catch (e) {
+					return;
+				}
+				if (navigator.clipboard && navigator.clipboard.writeText) {
+					navigator.clipboard.writeText(text).then(function () {
+						btn.classList.add('friends-copy-btn--copied');
+						window.setTimeout(function () {
+							btn.classList.remove('friends-copy-btn--copied');
+						}, 1500);
+					});
+				}
+			});
+		});
+	})();
+</script>
+
+<style>
+	/* 与博客列表卡片：同底色、细边、轻阴影；防止 grid/flex 子项撑破主栏 */
+	.friends-application-guide {
+		margin-top: 2.35rem;
+		padding-top: 2rem;
+		border-top: 1px solid rgba(var(--gray), 0.12);
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+	}
+
+	.friends-exchange__grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		min-width: 0;
+	}
+
+	@media (min-width: 768px) {
+		.friends-exchange__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			align-items: stretch;
+		}
+	}
+
+	.friends-exchange__panel {
+		box-sizing: border-box;
+		min-width: 0;
+		max-width: 100%;
+		padding: 1.2rem 1.25rem;
+		border-radius: 14px;
+		border: 1px solid rgba(var(--gray), 0.11);
+		background: color-mix(in oklch, #fff 93%, rgb(var(--gray-light)) 7%);
+		box-shadow: 0 1px 2px rgba(var(--black), 0.03);
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.friends-exchange__site-head {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.85rem;
+		margin-bottom: 1.05rem;
+		padding-bottom: 1rem;
+		border-bottom: 1px solid rgba(var(--gray), 0.12);
+		min-width: 0;
+	}
+
+	.friends-exchange__site-avatar {
+		width: 3.75rem;
+		height: 3.75rem;
+		border-radius: 10px;
+		object-fit: cover;
+		border: 1px solid rgba(var(--gray), 0.1);
+		flex-shrink: 0;
+	}
+
+	.friends-exchange__site-text {
+		min-width: 0;
+		flex: 1;
+	}
+
+	.friends-exchange__site-name {
+		margin: 0 0 0.2em;
+		font-size: 1.05rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		line-height: 1.25;
+		color: rgb(var(--black));
+		overflow-wrap: anywhere;
+	}
+
+	.friends-exchange__site-desc {
+		margin: 0;
+		font-size: 0.8125rem;
+		line-height: 1.45;
+		color: rgb(var(--gray));
+	}
+
+	.friends-exchange__fields {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		min-width: 0;
+	}
+
+	.friends-exchange__field {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 0.5rem 0.65rem;
+		padding: 0.55rem 0.65rem;
+		border-radius: 8px;
+		background: color-mix(in oklch, #fff 90%, rgb(var(--gray-light)) 10%);
+		border: 1px solid rgba(var(--gray), 0.09);
+		max-width: 100%;
+		box-sizing: border-box;
+	}
+
+	.friends-exchange__field-text {
+		min-width: 0;
+		flex: 1 1 12rem;
+	}
+
+	.friends-exchange__field-label {
+		display: block;
+		font-size: 0.65rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		color: rgb(var(--gray));
+		margin-bottom: 0.15rem;
+		line-height: 1.35;
+	}
+
+	.friends-exchange__field-label-en {
+		font-size: 0.62rem;
+		font-weight: 600;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+		color: color-mix(in oklch, rgb(var(--gray)) 88%, rgb(var(--gray-dark)) 12%);
+	}
+
+	.friends-exchange__field-value {
+		display: block;
+		font-size: 0.78rem;
+		font-weight: 500;
+		line-height: 1.4;
+		color: rgb(var(--gray-dark));
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	@media (min-width: 480px) {
+		.friends-exchange__field {
+			flex-wrap: nowrap;
+			align-items: center;
+		}
+
+		.friends-exchange__field-value {
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			word-break: normal;
+		}
+	}
+
+	.friends-copy-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		align-self: flex-end;
+		box-sizing: border-box;
+		min-width: 2rem;
+		min-height: 2rem;
+		padding: 0.35em;
+		font-family: inherit;
+		line-height: 0;
+		border-radius: 6px;
+		border: 1px solid rgba(var(--gray), 0.15);
+		background: color-mix(in oklch, #fff 88%, rgb(var(--gray-light)) 12%);
+		color: rgb(var(--gray-dark));
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			border-color 0.15s ease,
+			color 0.15s ease;
+	}
+
+	@media (min-width: 480px) {
+		.friends-copy-btn {
+			align-self: center;
+		}
+	}
+
+	.friends-copy-btn:hover {
+		border-color: color-mix(in oklch, var(--accent) 28%, rgb(var(--gray)) 72%);
+		background: color-mix(in oklch, var(--accent) 8%, #fff 92%);
+	}
+
+	.friends-copy-btn__icon {
+		width: 1.1rem;
+		height: 1.1rem;
+		flex-shrink: 0;
+	}
+
+	.friends-copy-btn__icon--success {
+		display: none;
+		color: rgb(22, 120, 65);
+	}
+
+	.friends-copy-btn--copied .friends-copy-btn__icon--idle {
+		display: none;
+	}
+
+	.friends-copy-btn--copied .friends-copy-btn__icon--success {
+		display: block;
+	}
+
+	.friends-copy-btn--small {
+		min-width: 1.75rem;
+		min-height: 1.75rem;
+		padding: 0.28em;
+	}
+
+	.friends-copy-btn--small .friends-copy-btn__icon {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	.friends-copy-btn--toolbar {
+		min-width: 1.85rem;
+		min-height: 1.85rem;
+		padding: 0.3em;
+	}
+
+	.friends-copy-btn--toolbar .friends-copy-btn__icon {
+		width: 1.05rem;
+		height: 1.05rem;
+	}
+
+	.friends-bilingual__primary {
+		display: block;
+		color: rgb(var(--black));
+	}
+
+	.friends-bilingual__secondary {
+		display: block;
+		margin-top: 0.2em;
+		font-size: 0.78em;
+		font-weight: 500;
+		letter-spacing: 0.01em;
+		line-height: 1.35;
+		color: rgb(var(--gray));
+	}
+
+	.friends-bilingual__block-zh {
+		display: block;
+	}
+
+	.friends-bilingual__block-en {
+		display: block;
+		margin-top: 0.35em;
+		font-size: 0.94em;
+		line-height: 1.5;
+		color: rgb(var(--gray));
+	}
+
+	.friends-exchange__panel-title {
+		margin: 0 0 0.95rem;
+		font-size: 1.05rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		color: rgb(var(--black));
+		padding-bottom: 0.65rem;
+		border-bottom: 1px solid rgba(var(--gray), 0.12);
+	}
+
+	.friends-exchange__panel-title .friends-bilingual__secondary {
+		font-size: 0.72em;
+		margin-top: 0.25em;
+	}
+
+	.friends-exchange__steps {
+		display: flex;
+		flex-direction: column;
+		gap: 0;
+		min-width: 0;
+	}
+
+	.friends-step {
+		display: flex;
+		gap: 0.75rem;
+		align-items: flex-start;
+		min-width: 0;
+	}
+
+	.friends-step__rail {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 1.65rem;
+		flex-shrink: 0;
+	}
+
+	.friends-step__num {
+		width: 1.65rem;
+		height: 1.65rem;
+		border-radius: 999px;
+		background: color-mix(in oklch, var(--accent) 55%, rgb(var(--gray-dark)) 45%);
+		color: #fff;
+		font-size: 0.65rem;
+		font-weight: 700;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 1;
+	}
+
+	.friends-step__line {
+		width: 2px;
+		flex: 1;
+		min-height: 0.6rem;
+		margin: 0.28rem 0;
+		background: rgba(var(--gray), 0.14);
+		border-radius: 1px;
+	}
+
+	.friends-step--last .friends-step__line {
+		display: none;
+	}
+
+	.friends-step__body {
+		flex: 1;
+		min-width: 0;
+		padding-bottom: 0.95rem;
+		overflow-wrap: anywhere;
+	}
+
+	.friends-step--last .friends-step__body {
+		padding-bottom: 0;
+	}
+
+	.friends-step__heading {
+		margin: 0 0 0.3em;
+		font-size: 0.875rem;
+		font-weight: 600;
+		letter-spacing: -0.015em;
+		line-height: 1.3;
+		color: rgb(var(--black));
+	}
+
+	.friends-step__heading .friends-bilingual__secondary {
+		font-size: 0.82em;
+		margin-top: 0.15em;
+		font-weight: 500;
+	}
+
+	.friends-step__desc {
+		margin: 0 0 0.55em;
+		font-size: 0.8125rem;
+		line-height: 1.55;
+		color: rgb(var(--gray));
+	}
+
+	.friends-step__email {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem 0.5rem;
+		margin: 0 0 0.55em;
+		font-size: 0.8125rem;
+		max-width: 100%;
+	}
+
+	.friends-step__email a {
+		color: var(--link-text);
+		text-decoration: none;
+		border-bottom: 1px dotted var(--link-underline);
+		overflow-wrap: anywhere;
+		word-break: break-word;
+	}
+
+	.friends-step__email a:hover {
+		color: var(--link-hover-text);
+	}
+
+	.friends-template {
+		margin-top: 0.35rem;
+		max-width: 100%;
+		min-width: 0;
+		border-radius: 8px;
+		border: 1px solid rgba(var(--gray), 0.09);
+		background: color-mix(in oklch, #fff 95%, rgb(var(--gray-light)) 5%);
+		overflow: hidden;
+	}
+
+	.friends-template__toolbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		padding: 0.45rem 0.55rem;
+		border-bottom: 1px solid rgba(var(--gray), 0.08);
+		background: color-mix(in oklch, #fff 92%, rgb(var(--gray-light)) 8%);
+		min-width: 0;
+	}
+
+	.friends-template__toolbar-label {
+		font-size: 0.68rem;
+		font-weight: 600;
+		letter-spacing: 0.02em;
+		color: rgb(var(--gray));
+		min-width: 0;
+		line-height: 1.35;
+	}
+
+	.friends-template__toolbar-label [lang='en'] {
+		font-size: 0.62rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: color-mix(in oklch, rgb(var(--gray)) 90%, rgb(var(--gray-dark)) 10%);
+	}
+
+	.friends-template__pre {
+		margin: 0;
+		padding: 0.75rem 0.85rem;
+		font-size: 0.7rem;
+		line-height: 1.55;
+		font-family: var(--font-mono);
+		white-space: pre-wrap;
+		word-break: break-word;
+		overflow-wrap: anywhere;
+		color: rgb(var(--gray-dark));
+		max-width: 100%;
+		overflow-x: auto;
+		box-sizing: border-box;
+		-webkit-overflow-scrolling: touch;
+		background: color-mix(in oklch, #fff 91%, rgb(var(--gray-light)) 9%);
+	}
+
+	.friends-exchange__notes {
+		margin-top: 1rem;
+		padding: 1.2rem 1.25rem;
+		border-radius: 14px;
+		border: 1px solid rgba(var(--gray), 0.11);
+		background: color-mix(in oklch, #fff 94%, rgb(var(--gray-light)) 6%);
+		box-shadow: 0 1px 2px rgba(var(--black), 0.03);
+		max-width: 100%;
+		min-width: 0;
+		box-sizing: border-box;
+	}
+
+	.friends-exchange__notes-title {
+		margin: 0 0 0.8rem;
+		font-size: 1rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		color: rgb(var(--black));
+	}
+
+	.friends-exchange__notes-title .friends-bilingual__secondary {
+		font-size: 0.78em;
+		margin-top: 0.22em;
+	}
+
+	.friends-exchange__note-title {
+		display: block;
+		margin-bottom: 0.35em;
+		font-weight: 600;
+		color: rgb(var(--black));
+	}
+
+	.friends-exchange__note-body {
+		display: block;
+	}
+
+	.friends-exchange__notes-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.friends-exchange__note {
+		display: flex;
+		align-items: flex-start;
+		gap: 0.5rem;
+		font-size: 0.8125rem;
+		line-height: 1.55;
+		color: rgb(var(--gray-dark));
+		min-width: 0;
+	}
+
+	.friends-exchange__note p {
+		margin: 0;
+		min-width: 0;
+		overflow-wrap: anywhere;
+	}
+
+	.friends-exchange__note strong {
+		color: rgb(var(--black));
+		font-weight: 600;
+	}
+
+	.friends-exchange__note-dot {
+		flex-shrink: 0;
+		width: 0.35rem;
+		height: 0.35rem;
+		margin-top: 0.45em;
+		border-radius: 999px;
+		background: color-mix(in oklch, var(--accent) 40%, rgb(var(--gray)) 60%);
+	}
+</style>

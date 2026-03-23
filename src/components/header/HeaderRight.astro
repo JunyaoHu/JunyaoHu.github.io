@@ -1,0 +1,145 @@
+---
+import HeaderLink from '../HeaderLink.astro';
+---
+
+<div class="internal-links" id="nav-links">
+	<HeaderLink href="/">Home</HeaderLink>
+	<HeaderLink href="/publication">Publications</HeaderLink>
+	<HeaderLink href="/blog">Blog</HeaderLink>
+	<a href="/CV/cv_hjy_en_20250604.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+	<HeaderLink href="/gallery">Gallery</HeaderLink>
+	<HeaderLink href="/friends">Friends</HeaderLink>
+</div>
+
+<button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+	<span class="bar"></span>
+	<span class="bar"></span>
+	<span class="bar"></span>
+</button>
+
+<style>
+	/* 链接基础样式（桌面） */
+	.internal-links a {
+		display: inline-flex;
+		align-items: center;
+		height: var(--site-header-height);
+		box-sizing: border-box;
+		padding: 0.08em 0.5em 0;
+		font-weight: 500;
+		line-height: 1.1;
+		color: var(--black);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+		transition: border-bottom-color 0.2s ease, color 0.2s ease;
+	}
+	.internal-links a:hover {
+		border-bottom-color: color-mix(in oklch, var(--accent) 50%, transparent);
+	}
+	.internal-links a.active {
+		font-weight: 700;
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
+
+	/* 汉堡按钮 — 桌面端隐藏 */
+	#nav-toggle {
+		display: none;
+	}
+
+	@media (max-width: 640px) {
+		/* 汉堡按钮 */
+		#nav-toggle {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			gap: 5px;
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 0.4em;
+			border-radius: 6px;
+			transition: background 0.15s ease;
+		}
+		#nav-toggle:hover {
+			background: color-mix(in oklch, var(--accent) 10%, transparent);
+		}
+		.bar {
+			display: block;
+			width: 22px;
+			height: 2px;
+			background: rgb(var(--black));
+			border-radius: 2px;
+			transition: transform 0.25s ease, opacity 0.2s ease;
+			transform-origin: center;
+		}
+		/* 打开状态：变为 × */
+		#nav-toggle[aria-expanded='true'] .bar:nth-child(1) {
+			transform: translateY(7px) rotate(45deg);
+		}
+		#nav-toggle[aria-expanded='true'] .bar:nth-child(2) {
+			opacity: 0;
+			transform: scaleX(0);
+		}
+		#nav-toggle[aria-expanded='true'] .bar:nth-child(3) {
+			transform: translateY(-7px) rotate(-45deg);
+		}
+
+		/* 导航链接面板 */
+		.internal-links {
+			display: none;
+			position: absolute;
+			top: var(--site-header-height);
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			background: white;
+			box-shadow: 0 4px 12px rgba(var(--black), 8%);
+			padding: 0.5em 0 1em;
+			border-top: 1px solid rgba(var(--black), 6%);
+		}
+		.internal-links.open {
+			display: flex;
+		}
+		.internal-links a {
+			height: auto;
+			padding: 0.75em 1.5em;
+			border-bottom: none;
+			border-left: 3px solid transparent;
+			font-size: 0.95rem;
+		}
+		.internal-links a:hover {
+			border-bottom-color: transparent;
+			border-left-color: color-mix(in oklch, var(--accent) 50%, transparent);
+			background: color-mix(in oklch, var(--accent) 6%, transparent);
+		}
+		.internal-links a.active {
+			border-bottom-color: transparent;
+			border-left-color: var(--accent);
+			background: color-mix(in oklch, var(--accent) 8%, transparent);
+		}
+	}
+</style>
+
+<script>
+	const toggle = document.getElementById('nav-toggle');
+	const links = document.getElementById('nav-links');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = links?.classList.toggle('open');
+		toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+	});
+
+	links?.querySelectorAll('a').forEach((a) => {
+		a.addEventListener('click', () => {
+			links.classList.remove('open');
+			toggle?.setAttribute('aria-expanded', 'false');
+		});
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && links?.classList.contains('open')) {
+			links.classList.remove('open');
+			toggle?.setAttribute('aria-expanded', 'false');
+		}
+	});
+</script>

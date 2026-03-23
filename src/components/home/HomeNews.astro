@@ -1,0 +1,90 @@
+---
+import { NEWS_CATEGORY_META, type NewsItem } from '../../data/homepage';
+
+interface Props {
+	items: NewsItem[];
+	title?: string;
+}
+
+const { items, title = 'News' } = Astro.props;
+---
+
+<section class="home-section home-news" id="news">
+	<h2 class="home-section__title">{title}</h2>
+	<ul class="home-news__list">
+		{
+			items.map((n) => {
+				const meta = NEWS_CATEGORY_META[n.category];
+				return (
+					<li class="home-news__item">
+						<span class="home-news__date">{n.date}</span>
+						<span class="home-news__badge" data-category={n.category}>
+							<span class="home-news__badge-emoji" aria-hidden="true">{meta.emoji}</span>
+							<span class="home-news__badge-label">{meta.label}</span>
+						</span>
+						{n.html ? (
+							<span class="home-news__text" set:html={n.html} />
+						) : (
+							<span class="home-news__text">{n.text}</span>
+						)}
+					</li>
+				);
+			})
+		}
+	</ul>
+</section>
+
+<style>
+	.home-news__badge {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0.1em;
+		box-sizing: border-box;
+		width: 100%;
+		min-width: 0;
+		padding: 0.1em 0.2em;
+		border-radius: 4px;
+		font-size: 0.75rem;
+		font-weight: 600;
+		font-style: normal;
+		border: none;
+		outline: none;
+		box-shadow: none;
+	}
+
+	.home-news__badge[data-category='accepted'] {
+		background: rgba(34, 197, 94, 0.14);
+		color: rgb(18, 98, 52);
+	}
+
+	.home-news__badge[data-category='activity'] {
+		background: rgba(59, 130, 246, 0.13);
+		color: rgb(26, 68, 150);
+	}
+
+	.home-news__badge[data-category='study'] {
+		background: rgba(139, 92, 246, 0.13);
+		color: rgb(78, 42, 150);
+	}
+
+	@media (max-width: 560px) {
+		.home-news__badge {
+			display: inline-flex;
+			width: auto;
+			max-width: 100%;
+			margin-right: 0.35em;
+			vertical-align: baseline;
+			font-size: 0.6875rem;
+			padding: 0.05em 0.32em;
+			border-radius: 3px;
+			line-height: 1.2;
+			gap: 0.08em;
+		}
+
+		.home-news__badge-emoji {
+			font-size: 0.95em;
+			line-height: 1;
+		}
+	}
+</style>

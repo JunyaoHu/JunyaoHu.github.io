@@ -1,0 +1,78 @@
+---
+import type { Paper } from '../data/papers';
+
+interface Props {
+	paper: Paper;
+}
+
+const { paper } = Astro.props;
+
+function linkIsExternal(href: string) {
+	return /^https?:\/\//i.test(href);
+}
+
+const hasDemo = Boolean(paper.demo);
+---
+
+<li class="paper-card">
+	<div class:list={['paper-card__surface', hasDemo && 'paper-card__surface--split']}>
+		<div class="paper-card__main">
+			<div class="paper-card__meta">
+				{paper.venue && <span class="paper-card__venue">{paper.venue}</span>}
+			</div>
+			<h3 class="paper-card__title">{paper.title}</h3>
+			<p class="paper-card__authors">
+				{
+					paper.authors.map((author, i) => {
+						const name = author.name.trim();
+						return (
+							<>
+								{i > 0 && <span class="paper-card__author-gap">, </span>}
+								<span class="paper-card__author-unit">
+									{author.url ? (
+										<a class="paper-card__author-link" href={author.url} target="_blank" rel="noopener noreferrer">{name}</a>
+									) : (
+										<span class="paper-card__author-name">{name}</span>
+									)}{author.equalContrib && <span class="paper-card__author-suffix">#</span>}{author.corresponding && <span class="paper-card__author-suffix">*</span>}
+								</span>
+							</>
+						);
+					})
+				}
+			</p>
+			{paper.tldr && (
+				<p class="paper-card__tldr">
+					<span class="paper-card__tldr-label">TL;DR:</span>
+					{paper.tldr}
+				</p>
+			)}
+			{
+				paper.links.length > 0 && (
+					<nav class="paper-card__links" aria-label="Paper resources">
+						{paper.links.map((link, i) => (
+							<>
+								{i > 0 && <span class="paper-card__link-sep" aria-hidden="true">·</span>}
+								<a
+									class="paper-card__link"
+									href={link.href}
+									target={linkIsExternal(link.href) ? '_blank' : undefined}
+									rel={linkIsExternal(link.href) ? 'noopener noreferrer' : undefined}
+								>
+									{link.icon && <span class="paper-card__link-icon">{link.icon}</span>}
+									<span class="paper-card__link-label">{link.label}</span>
+								</a>
+							</>
+						))}
+					</nav>
+				)
+			}
+		</div>
+		{
+			paper.demo && (
+				<figure class="paper-card__media">
+					<img src={paper.demo.src} alt={paper.demo.alt} loading="lazy" width={720} height={405} />
+				</figure>
+			)
+		}
+	</div>
+</li>

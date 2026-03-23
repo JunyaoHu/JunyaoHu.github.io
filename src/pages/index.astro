@@ -1,0 +1,238 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import HomeAvatar from '../components/home/HomeAvatar.astro';
+import HomeWelcome from '../components/home/HomeWelcome.astro';
+import HomeWelcomeContent from '../content/home/HomeWelcomeContent.md';
+import HomeServiceContent from '../content/home/HomeService.md';
+import HomeNews from '../components/home/HomeNews.astro';
+import HomePublications from '../components/home/HomePublications.astro';
+import HomeAcademicService from '../components/home/HomeAcademicService.astro';
+import Comments from '../components/Comments.astro';
+import {
+	homeHero,
+	newsItems,
+	publicationsGlobalNote,
+	publicationsMoreHref,
+	socialLinks,
+} from '../data/homepage';
+import { getFeaturedPapers } from '../data/papers';
+import { SITE_DESCRIPTION } from '../consts';
+
+const featuredPapers = getFeaturedPapers();
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title="Home" description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main class="home">
+			<div class="home__inner">
+				<HomeAvatar
+					name={homeHero.name}
+					nameZh={homeHero.nameZh}
+					tagline={homeHero.tagline}
+					avatar={homeHero.avatar}
+					socialLinks={socialLinks}
+					updated={homeHero.updated}
+				/>
+
+				<HomeWelcome>
+					<HomeWelcomeContent />
+				</HomeWelcome>
+
+				<HomeNews items={newsItems} />
+
+				<HomePublications
+					papers={featuredPapers}
+					moreHref={publicationsMoreHref}
+					note={publicationsGlobalNote}
+				/>
+
+				<HomeAcademicService>
+					<HomeServiceContent />
+				</HomeAcademicService>
+
+				<Comments />
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	/*
+	 * 主页主栏：同时受「视口比例」与「最大像素」限制（取较小者）
+	 * 改数值：--home-inner-max-pct（建议 80%–90%）、--home-inner-max-px
+	 */
+	main.home {
+		--home-inner-max-pct: 88%;
+		--home-inner-max-px: 960px;
+		width: 100%;
+		max-width: 100%;
+		box-sizing: border-box;
+		margin-inline: auto;
+		padding: 2.5rem min(1rem, 4vw) 4rem;
+	}
+	.home__inner {
+		width: min(var(--home-inner-max-pct), var(--home-inner-max-px));
+		max-width: 100%;
+		margin-inline: auto;
+		box-sizing: border-box;
+	}
+
+	/* —— 与组件同页样式（避免 Bear 全局 h1 过大冲突） —— */
+	:global(.home-hero) {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 1.5rem 2rem;
+		margin-bottom: 2.5rem;
+		padding-top: 2.25rem;
+		padding-bottom: 2rem;
+		border-bottom: 1px solid rgb(var(--gray-light));
+	}
+	:global(.home-hero__avatar) {
+		border-radius: 50%;
+		object-fit: cover;
+		/* 不用全局 --box-shadow，避免大块偏色光晕 */
+		box-shadow: 0 1px 3px rgba(var(--black), 0.08);
+		border: 1px solid rgba(var(--gray), 0.18);
+	}
+	:global(.home-hero__name) {
+		margin: 0 0 0.35em;
+		font-size: 2rem;
+		font-weight: 700;
+		line-height: 1.2;
+		color: rgb(var(--black));
+	}
+	:global(.home-hero__name-zh) {
+		display: block;
+		margin-top: 0.2em;
+		font-size: 1.1rem;
+		font-weight: 400;
+		color: rgb(var(--gray-dark));
+	}
+	:global(.home-hero__tagline) {
+		margin: 0 0 0.75em;
+		color: rgb(var(--gray));
+		font-size: 1.05rem;
+	}
+
+	:global(.home-section) {
+		margin-bottom: 2.75rem;
+	}
+	:global(.home-section.home-news) {
+		margin-bottom: 1.5rem;
+	}
+	:global(.home-section__title) {
+		margin: 0 0 1rem;
+		font-size: 1.85rem;
+		font-weight: 700;
+		line-height: 1.2;
+		letter-spacing: -0.02em;
+		padding-bottom: 0.35em;
+		border-bottom: 2px solid var(--accent);
+		color: rgb(var(--black));
+	}
+
+	:global(.home-prose) {
+		color: rgb(var(--gray-dark));
+	}
+	:global(.home-prose p) {
+		margin-bottom: 1em;
+	}
+
+	:global(.home-news__list) {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+	:global(.home-news__item) {
+		display: grid;
+		grid-template-columns: 7ch 5rem minmax(0,1fr);
+		column-gap: 0.32rem;
+		row-gap: 0.15rem;
+		align-items: start;
+		margin-bottom: 0;
+		padding: 0.4rem 0 0.5rem;
+		line-height: 1.45;
+		border-bottom: 1px solid rgba(var(--gray), 0.14);
+	}
+	:global(.home-news__item:last-child) {
+		border-bottom: none;
+		padding-bottom: 0.15rem;
+	}
+	:global(.home-news__date) {
+		font-weight: 600;
+		font-size: 0.75rem;
+		color: rgb(var(--black));
+		font-variant-numeric: tabular-nums;
+		letter-spacing: -0.02em;
+		white-space: nowrap;
+		padding-top: 0.22em;
+	}
+	:global(.home-news__text) {
+		color: rgb(var(--gray-dark));
+		font-size: 0.9375rem;
+	}
+	/*
+	 * 窄屏：日期、badge、描述同一连续行内排版；描述过长换行时与块左缘对齐（无悬挂缩进）
+	 */
+	@media (max-width: 560px) {
+		:global(.home-section.home-news) {
+			margin-bottom: 1.1rem;
+		}
+		:global(.home-news__item) {
+			display: block;
+			padding: 0.28rem 0 0.42rem;
+			line-height: 1.55;
+			text-align: start;
+			border-bottom-color: rgba(var(--gray), 0.1);
+		}
+		:global(.home-news__item:last-child) {
+			padding-bottom: 0.2rem;
+		}
+		:global(.home-news__date) {
+			display: inline;
+			margin-right: 0.3em;
+			vertical-align: baseline;
+			padding-top: 0;
+			font-size: 0.6875rem;
+			font-weight: 600;
+			opacity: 0.92;
+		}
+		:global(.home-news__text) {
+			display: inline;
+			vertical-align: baseline;
+			font-size: 0.875rem;
+			text-indent: 0;
+		}
+	}
+
+	:global(.home-pubs__intro) {
+		font-size: 0.95rem;
+		color: rgb(var(--gray));
+		margin: 0 0 1em;
+	}
+
+	/* Academic Service：正文来自 HomeService.md，小节用 h3 */
+	:global(.home-service .home-prose h3) {
+		margin: 1.35rem 0 0.5em;
+		font-size: 1.2rem;
+		font-weight: 700;
+		line-height: 1.3;
+		color: rgb(var(--black));
+	}
+	:global(.home-service .home-prose h3:first-child) {
+		margin-top: 0;
+	}
+	:global(.home-service .home-prose li) {
+		margin-bottom: 0.35em;
+	}
+
+</style>

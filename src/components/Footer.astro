@@ -1,0 +1,18 @@
+---
+import BackToTop from './BackToTop.astro';
+
+const today = new Date();
+---
+
+<footer>
+	&copy; {today.getFullYear()} Junyao Hu. All rights reserved.
+</footer>
+<BackToTop />
+<style>
+	footer {
+		padding: 2em 1em 6em 1em;
+		background: linear-gradient(var(--gray-gradient)) no-repeat;
+		color: rgb(var(--gray));
+		text-align: center;
+	}
+</style>

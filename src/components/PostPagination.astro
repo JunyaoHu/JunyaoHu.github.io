@@ -1,0 +1,150 @@
+---
+interface PostInfo {
+	id: string;
+	title: string;
+}
+
+interface Props {
+	prevPost?: PostInfo | null;
+	nextPost?: PostInfo | null;
+}
+
+const { prevPost, nextPost } = Astro.props;
+---
+
+{
+	(prevPost || nextPost) && (
+		<nav class="post-pagination" aria-label="Post Navigation">
+		<div class:list={['post-pagination__grid', !nextPost && 'post-pagination__grid--prev-only', !prevPost && 'post-pagination__grid--next-only']}>
+			{nextPost ? (
+				<a class="post-pagination__item post-pagination__item--next" href={`/blog/${nextPost.id}/`}>
+					<span class="post-pagination__direction">
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg>
+						Next Post
+					</span>
+					<span class="post-pagination__title">{nextPost.title}</span>
+				</a>
+			) : (
+				<span />
+			)}
+			{prevPost ? (
+				<a class="post-pagination__item post-pagination__item--prev" href={`/blog/${prevPost.id}/`}>
+					<span class="post-pagination__direction">
+						Previous Post
+						<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
+					</span>
+					<span class="post-pagination__title">{prevPost.title}</span>
+				</a>
+			) : (
+				<span />
+			)}
+		</div>
+		</nav>
+	)
+}
+
+<style>
+	.post-pagination {
+		margin-top: 2.5rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.post-pagination__grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 0.85rem;
+	}
+
+	.post-pagination__grid--next-only {
+		grid-template-columns: 1fr;
+		justify-items: end;
+	}
+
+	.post-pagination__grid--prev-only {
+		grid-template-columns: 1fr;
+	}
+
+	.post-pagination__item {
+		display: flex;
+		flex-direction: column;
+		gap: 0.4rem;
+		padding: 1rem 1.2rem;
+		text-decoration: none;
+		color: inherit;
+		background: color-mix(in oklch, #fff 96%, rgb(var(--gray-light)) 4%);
+		border: 1px solid rgba(var(--gray), 0.12);
+		border-radius: 14px;
+		box-shadow: 0 1px 2px rgba(var(--black), 0.03);
+		transition:
+			border-color 0.2s ease,
+			box-shadow 0.22s ease,
+			background 0.2s ease;
+		min-width: 0;
+	}
+
+	.post-pagination__item:hover {
+		border-color: color-mix(in oklch, var(--accent) 30%, rgba(var(--gray), 0.12) 70%);
+		box-shadow:
+			0 2px 6px rgba(var(--black), 0.04),
+			0 8px 24px rgba(var(--gray), 0.07);
+		background: color-mix(in oklch, #fff 98%, rgb(var(--gray-light)) 2%);
+	}
+
+	.post-pagination__item--prev {
+		text-align: right;
+		align-items: flex-end;
+	}
+
+	.post-pagination__direction {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		font-size: 0.75rem;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: color-mix(in oklch, var(--accent) 80%, rgb(var(--gray-dark)) 20%);
+		transition: color 0.15s ease;
+	}
+
+	.post-pagination__item:hover .post-pagination__direction {
+		color: var(--accent);
+	}
+
+	.post-pagination__title {
+		font-size: 0.875rem;
+		font-weight: 500;
+		line-height: 1.45;
+		color: rgb(var(--gray-dark));
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		overflow: hidden;
+		transition: color 0.15s ease;
+	}
+
+	.post-pagination__item:hover .post-pagination__title {
+		color: color-mix(in oklch, var(--accent) 50%, rgb(var(--black)) 50%);
+	}
+
+	@media (max-width: 540px) {
+		.post-pagination__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.post-pagination__grid--next-only {
+			grid-template-columns: 1fr;
+		}
+
+		.post-pagination__item--prev {
+			text-align: left;
+			align-items: flex-start;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.post-pagination__item {
+			transition: none;
+		}
+	}
+</style>

@@ -1,0 +1,40 @@
+---
+import PaperCard from '../PaperCard.astro';
+import type { Paper } from '../../data/papers';
+
+interface Props {
+	papers: Paper[];
+	title?: string;
+	note?: string;
+	moreHref?: string;
+	moreLabel?: string;
+}
+
+const {
+	papers,
+	title = 'Selected Publications',
+	note,
+	moreHref,
+	moreLabel = 'Publications',
+} = Astro.props;
+---
+
+<section class="home-section home-pubs" id="publications">
+	<h2 class="home-section__title">{title}</h2>
+	{
+		(moreHref || note) && (
+			<p class="home-pubs__intro">
+				{moreHref && (
+					<>
+						For full list, please go to <a href={moreHref}>{moreLabel}</a>.
+					</>
+				)}
+				{moreHref && note && <> </>}
+				{note && <>{note}</>}
+			</p>
+		)
+	}
+	<ul class="paper-list">
+		{papers.map((p) => <PaperCard paper={p} />)}
+	</ul>
+</section>

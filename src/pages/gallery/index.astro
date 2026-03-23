@@ -1,0 +1,215 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import GalleryCard from '../../components/GalleryCard.astro';
+import Header from '../../components/Header.astro';
+import { galleryConfig } from '../../data/gallery';
+
+const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
+
+function getAlbumFiles(id: string): string[] {
+	const dir = path.join(process.cwd(), 'public', 'gallery', id);
+	if (!fs.existsSync(dir)) return [];
+	return fs.readdirSync(dir).filter((f) => IMAGE_EXTS.has(path.extname(f).toLowerCase()));
+}
+
+function getCover(id: string, cover: string | undefined, files: string[]): string {
+	if (cover) return `/gallery/${id}/${cover}`;
+	const coverFile = files.find((f) => path.basename(f, path.extname(f)).toLowerCase() === 'cover');
+	if (coverFile) return `/gallery/${id}/${coverFile}`;
+	if (files.length > 0) return `/gallery/${id}/${files[0]}`;
+	return '';
+}
+
+// 构建时收集每个相册的元数据
+const albums = galleryConfig.albums.map((album) => {
+	const files = getAlbumFiles(album.id);
+	const coverSrc = getCover(album.id, album.cover, files);
+	const photoCount = files.length;
+	return { album, coverSrc, photoCount };
+});
+
+// 收集所有唯一标签
+const allTags = [...new Set(galleryConfig.albums.flatMap((a) => a.tags ?? []))].sort();
+---
+
+<!doctype html>
+<html lang="zh-Hans">
+	<head>
+		<BaseHead title="Gallery" description="记录生活中的美好瞬间" />
+		<style>
+			main.gallery-page {
+				width: min(960px, calc(100% - 2rem));
+				margin: 0 auto;
+				padding: 1.75rem 1rem 3.5rem;
+				box-sizing: border-box;
+			}
+
+			.gallery-page__hero {
+				margin-bottom: 1.75rem;
+			}
+
+			.gallery-page__title {
+				margin: 0 0 0.4rem;
+				font-size: 1.5rem;
+				font-weight: 600;
+				letter-spacing: -0.03em;
+				color: rgb(var(--black));
+			}
+
+			.gallery-page__subtitle {
+				margin: 0 0 1.25rem;
+				font-size: 0.9rem;
+				color: rgb(var(--gray));
+			}
+
+			/* 筛选按钮（与 FriendsMatrix 一致） */
+			.gallery-filter {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.4rem 0.5rem;
+			}
+
+			.gallery-filter__btn {
+				cursor: pointer;
+				border: 1px solid rgba(var(--gray), 0.14);
+				padding: 0.32em 0.78em;
+				font-size: 0.75rem;
+				font-weight: 500;
+				font-family: inherit;
+				letter-spacing: 0.02em;
+				border-radius: 999px;
+				background: transparent;
+				color: rgb(var(--gray-dark));
+				transition:
+					background 0.16s ease,
+					color 0.16s ease,
+					border-color 0.16s ease;
+			}
+
+			.gallery-filter__btn:hover {
+				border-color: rgba(var(--gray), 0.22);
+				background: color-mix(in oklch, rgb(var(--gray-light)) 96%, var(--accent) 4%);
+				color: rgb(var(--black));
+			}
+
+			.gallery-filter__btn--active {
+				background: color-mix(in oklch, var(--accent) 13%, #fff 87%);
+				border-color: color-mix(in oklch, var(--accent) 32%, rgb(var(--gray-light)) 68%);
+				color: color-mix(in oklch, var(--accent) 42%, rgb(var(--black)) 58%);
+				font-weight: 600;
+			}
+
+			.gallery-filter__btn--active:hover {
+				background: color-mix(in oklch, var(--accent) 18%, #fff 82%);
+				border-color: color-mix(in oklch, var(--accent) 38%, rgb(var(--gray)) 62%);
+				color: color-mix(in oklch, var(--accent) 48%, rgb(var(--black)) 52%);
+			}
+
+			/* 相册卡片网格 */
+			.gallery-grid {
+				margin-top: 1.5rem;
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+				gap: 1rem;
+			}
+
+			.gallery-grid__item[hidden] {
+				display: none;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				.gallery-filter__btn {
+					transition: none;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main class="gallery-page">
+			<div class="gallery-page__hero">
+				<h1 class="gallery-page__title">Gallery</h1>
+				<p class="gallery-page__subtitle">Record the beautiful moments in life</p>
+				{
+					allTags.length > 0 && (
+						<div class="gallery-filter" role="tablist" aria-label="Filter by tags" data-gallery-filter>
+							<button
+								type="button"
+								class="gallery-filter__btn gallery-filter__btn--active"
+								role="tab"
+								aria-selected="true"
+								data-filter="all"
+							>
+								All
+							</button>
+							{allTags.map((tag) => (
+								<button
+									type="button"
+									class="gallery-filter__btn"
+									role="tab"
+									aria-selected="false"
+									data-filter={tag}
+								>
+									{tag}
+								</button>
+							))}
+						</div>
+					)
+				}
+			</div>
+			<div class="gallery-grid" data-gallery-grid>
+				{
+					albums.map(({ album, coverSrc, photoCount }) => (
+						<div
+							class="gallery-grid__item"
+							data-tags={(album.tags ?? []).join('\n')}
+						>
+							<GalleryCard album={album} coverSrc={coverSrc} photoCount={photoCount} />
+						</div>
+					))
+				}
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<script is:inline>
+	(function () {
+		var filterRoot = document.querySelector('[data-gallery-filter]');
+		var grid = document.querySelector('[data-gallery-grid]');
+		if (!filterRoot || !grid) return;
+
+		var buttons = filterRoot.querySelectorAll('[data-filter]');
+		var items = grid.querySelectorAll('.gallery-grid__item');
+
+		function setActive(activeBtn) {
+			buttons.forEach(function (b) {
+				b.classList.toggle('gallery-filter__btn--active', b === activeBtn);
+				b.setAttribute('aria-selected', b === activeBtn ? 'true' : 'false');
+			});
+		}
+
+		function applyFilter(tag) {
+			items.forEach(function (item) {
+				var raw = item.getAttribute('data-tags') || '';
+				var tags = raw ? raw.split('\n').filter(Boolean) : [];
+				var show = tag === 'all' || tags.indexOf(tag) !== -1;
+				if (show) item.removeAttribute('hidden');
+				else item.setAttribute('hidden', '');
+			});
+		}
+
+		buttons.forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				var tag = btn.getAttribute('data-filter') || 'all';
+				setActive(btn);
+				applyFilter(tag);
+			});
+		});
+	})();
+</script>
