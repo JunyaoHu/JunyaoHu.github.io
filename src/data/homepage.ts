@@ -77,6 +77,11 @@ export type NewsItem = {
 
 export const newsItems: NewsItem[] = [
 	{
+		date: '2026-03-26',
+		category: 'accepted',
+		text: 'A paper was accepted to CVPR 2026 Workshop CVEU.',
+	},
+	{
 		date: '2026-02-23',
 		category: 'accepted',
 		text: 'A paper was accepted to CVPR 2026.',

@@ -4,6 +4,8 @@
  *
  * 站内 PDF / 演示图等请放在 `public/paper/...`，链接写以 `/` 开头的路径（勿用 `@assets/`，
  * 该别名只对 `import` 生效，写在 href/src 字符串里浏览器无法解析）。
+ *
+ * 无演示图：省略 `demo` 字段，或不要写空字符串（`src` 为空则视为无 demo）。
  */
 
 export type PaperAuthor = {
@@ -38,6 +40,29 @@ function comparePapers(a: Paper, b: Paper) {
 }
 
 export const papers: Paper[] = [
+	{
+		venue: 'CVPR26W CVEU',
+		title:
+			'DRA-MTransfer: Physically Realistic Video Motion Transfer with Dual-Grained Re-Adaptation',
+		featured: false,
+		year: 2026,
+		sortOrder: 10,
+		authors: [
+			{ name: "Guoli Jia", url: "https://scholar.google.cz/citations?&user=A6V0JDAAAAAJ"},
+			{ name: "Zhiyuan Ma", url: "https://ponymzy.github.io/"},
+			{ name: "Junyao Hu"},
+			{ name: "Xinwei Long", url: "https://scholar.google.com/citations?&user=gSA_egQAAAAJ"},
+			{ name: "Kai Tian", url: "https://c3i.ee.tsinghua.edu.cn/author/%E7%94%B0%E9%94%B4/"},
+			{ name: "Kaikai Zhao", url: "https://scholar.google.com/citations?user=hDGrCp8AAAAJ"},
+			{ name: "Zhaoxiang Liu", url: "https://scholar.google.com/citations?user=L4OXOs0AAAAJ"},
+			{ name: "Kai Wang", url: "https://scholar.google.com/citations?user=CFUQLCAAAAAJ"},
+			{ name: "Shiguo Lian", url: "https://www.researchgate.net/profile/Shiguo-Lian"},
+			{ name: "Bowen Zhou", url: "https://scholar.google.com/citations?user=h3Nsz6YAAAAJ", corresponding: true },
+		],
+		tldr:
+			'DRA-MTransfer leverages dual-grained re-adaptation to unlock motion priors in video diffusion models, enhancing physical realism in motion transfer while maintaining fidelity and coherence.',
+		links: [],
+	},
 	{
 		venue: 'CVPR26',
 		title:
@@ -79,7 +104,7 @@ export const papers: Paper[] = [
 			{ name: 'Kaiyan Zhang', url: 'https://iseesaw.github.io/'},
 			{ name: 'KaiKai Zhao', url: 'https://scholar.google.com/citations?user=hDGrCp8AAAAJ'},
 			{ name: 'Ning Ding', url: 'https://www.stingning.cn/'},
-			{ name: 'Bowen Zhou', url: 'https://scholar.google.com/citations?user=h3Nsz6YAAAAJ'},
+			{ name: 'Bowen Zhou', url: 'https://scholar.google.com/citations?user=h3Nsz6YAAAAJ', corresponding: true },
 		],
 		tldr:
 			'Emotion-Director enhances text-to-image emotion control via a collaborative diffusion model, prompt rewriting agent, synthetic emotion data, and improved DPO fine-tuning.',
@@ -122,4 +147,10 @@ export function getFeaturedPapers(): Paper[] {
 
 export function getAllPapersSorted(): Paper[] {
 	return [...papers].sort(comparePapers);
+}
+
+/** 有有效演示图 URL 时才为 true（可省略 `demo` 或留空 `src` 表示无图） */
+export function paperHasDemoMedia(paper: Paper): boolean {
+	const src = paper.demo?.src;
+	return typeof src === 'string' && src.trim().length > 0;
 }
