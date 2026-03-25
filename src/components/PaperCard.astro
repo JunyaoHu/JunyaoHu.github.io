@@ -1,5 +1,5 @@
 ---
-import type { Paper } from '../data/papers';
+import { paperHasDemoMedia, type Paper } from '../data/papers';
 
 interface Props {
 	paper: Paper;
@@ -11,7 +11,7 @@ function linkIsExternal(href: string) {
 	return /^https?:\/\//i.test(href);
 }
 
-const hasDemo = Boolean(paper.demo);
+const hasDemo = paperHasDemoMedia(paper);
 ---
 
 <li class="paper-card">
@@ -68,7 +68,7 @@ const hasDemo = Boolean(paper.demo);
 			}
 		</div>
 		{
-			paper.demo && (
+			hasDemo && paper.demo && (
 				<figure class="paper-card__media">
 					<img src={paper.demo.src} alt={paper.demo.alt} loading="lazy" width={720} height={405} />
 				</figure>
