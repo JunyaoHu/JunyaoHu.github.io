@@ -322,6 +322,14 @@ export const friendsConfig: FriendLink[] = [
 		tags: ["@CUMT"],
 		weight: 1,
 		enabled: true,
+	},{
+		title: "Zhicheng Deng",
+		imgurl: "https://avatars.githubusercontent.com/u/90995599?v=4",
+		desc: "邓智城",
+		siteurl: "https://dddddzc.github.io/",
+		tags: ["@UESTC"],
+		weight: 1,
+		enabled: true,
 	}
 ];
 
