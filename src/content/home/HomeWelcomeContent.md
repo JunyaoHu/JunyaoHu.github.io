@@ -1,13 +1,9 @@
-👋 Hi! My name is Junyao Hu (胡钧耀). 
+👋 Hi! My name is Junyao Hu (胡钧耀).
+I am currently a research assistant at the [School of Fashion and Textiles](https://www.polyu.edu.hk/sft/), The Hong Kong Polytechnic University, supervised by [Dr. Xingxing Zou](https://scholar.google.com/citations?user=UhnQA3UAAAAJ).
 
-🔍 My research interests include deep learning and computer vision, particularly focusing on intelligent creative applications (art, design, fashion, emotion, film, etc).
+🔍 My current focus is on creative content production, including 🎨 art, 🎬 film, 🎥 video, 🎨 design, 👔 fashion, 😄 emotion, and other expressive media. 
 
-🥰 Please feel free to make any suggestions. Any questions and inquiries about my work and study life are welcome. You can contact with me in following ways.
+🥰 Collaborations related to creative content projects are always welcome. Please feel free to make any suggestions. Any questions and inquiries about my work and study life are welcome. You can contact with me in following ways.
   - [GitHub](https://github.com/junyaohu) (JunyaoHu)
   - Email (Gmail: hujunyao0329)
-  - WeChat (ID: LittleDream_hjy)
-
-📃 More details:
-  - [中文个人使用说明书](./manual/): 这里有一些无法写在简历中，但能让你更好地认识我的内容。
-  - [English CV](/CV/cv_hjy_en_20250604.pdf): Last updated on 2025-06-04.
-  - [Google Scholar](https://scholar.google.com/citations?user=pOgwDdcAAAAJ)
+  - You can also leave a message directly below.

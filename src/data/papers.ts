@@ -61,7 +61,10 @@ export const papers: Paper[] = [
 		],
 		tldr:
 			'DRA-MTransfer leverages dual-grained re-adaptation to unlock motion priors in video diffusion models, enhancing physical realism in motion transfer while maintaining fidelity and coherence.',
-		links: [],
+		links: [
+			{ label: 'Paper', href: '/paper/cvpr26w-dra-mtransfer/paper.pdf', icon: '📃' },
+		],
+		demo: { src: '/paper/cvpr26w-dra-mtransfer/show.jpg', alt: 'DRA-MTransfer demo' },
 	},
 	{
 		venue: 'CVPR26',

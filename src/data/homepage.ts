@@ -7,7 +7,7 @@ export const homeHero = {
 	name: 'Junyao Hu',
 	nameZh: '胡钧耀',
 	tagline: 'I have a little dream to chase, and I have a long way to go.',
-	updated: 'Last updated: 2026-03-22 14:30',
+	updated: 'Last updated: 2026-04-09',
 	/** 头像：换图时改 import 路径或文件名 */
 	avatar: avatarImage,
 };
@@ -40,16 +40,6 @@ export const socialLinks: SocialLink[] = [
 		name: 'LinkedIn',
 		icon: 'fa7-brands:linkedin',
 		url: 'https://www.linkedin.com/in/junyao-hu/',
-	},
-	{
-		name: 'Bilibili',
-		url: 'https://space.bilibili.com/2042113',
-		icon: 'fa7-brands:bilibili',
-	},
-	{
-		name: 'RedNote',
-		url: 'https://www.xiaohongshu.com/user/profile/61f7fa88000000001000f9b5',
-		icon: 'simple-icons:xiaohongshu',
 	},
 	{
 		name: 'WeChat',
@@ -99,7 +89,7 @@ export const newsItems: NewsItem[] = [
 	{
 		date: '2025-03-08',
 		category: 'accepted',
-		html: 'A film was selected as Finalist at <a href="https://amc.hkust.edu.hk/events/1st-hkust-ai-film-festival">First AMC AI Film Festival</a>, you can see it from <a href="https://www.bilibili.com/video/BV1k9AqeGEJL">here</a>.',
+		html: 'A film was selected as Finalist at <a href="https://amc.hkust.edu.hk/events/1st-hkust-ai-film-festival">First AMC AI Film Festival</a>.',
 	},
 	{
 		date: '2024-05-05',

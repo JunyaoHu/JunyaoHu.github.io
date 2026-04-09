@@ -6,6 +6,11 @@ import Comments from '../../components/Comments.astro';
 import FriendsApplicationGuide from '../../components/friends/FriendsApplicationGuide.astro';
 import FriendsMatrix from '../../components/friends/FriendsMatrix.astro';
 import { friendsPageConfig, getEnabledFriends } from '../../data/friends';
+import { siteVisibility } from '../../data/siteVisibility';
+
+if (!siteVisibility.friends) {
+	return Astro.redirect('/404');
+}
 
 const friends = getEnabledFriends();
 
