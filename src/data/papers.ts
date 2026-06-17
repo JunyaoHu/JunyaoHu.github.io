@@ -61,7 +61,10 @@ export const papers: Paper[] = [
 		],
 		tldr:
 			'DRA-MTransfer leverages dual-grained re-adaptation to unlock motion priors in video diffusion models, enhancing physical realism in motion transfer while maintaining fidelity and coherence.',
-		links: [],
+		links: [
+			{ label: 'Paper', href: '/paper/cvpr26w-dra-mtransfer/paper.pdf', icon: '📃' },
+		],
+		demo: { src: '/paper/cvpr26w-dra-mtransfer/show.jpg', alt: 'DRA-MTransfer demo' },
 	},
 	{
 		venue: 'CVPR26',
@@ -83,8 +86,14 @@ export const papers: Paper[] = [
 		tldr:
 			'Garments2Look, the first outfit-level VTON dataset with 80K pairs, 40 categories, rich annotations, tests SOTA models and reveals their limitations in layering/styling.',
 		links: [
+			{
+				label: 'Official',
+				href: 'https://openaccess.thecvf.com/content/CVPR2026/html/Hu_Garments2Look_A_Multi-Reference_Dataset_for_High-Fidelity_Outfit-Level_Virtual_Try-On_with_CVPR_2026_paper.html',
+				icon: '🔗',
+			},
 			{ label: 'Paper', href: 'https://arxiv.org/abs/2603.14153', icon: '📃' },
 			{ label: '中译版', href: '/paper/cvpr26-garments2look/chinese.pdf', icon: '📃' },
+			{ label: 'Poster', href: 'https://cvpr.thecvf.com/media/PosterPDFs/CVPR%202026/37269.png', icon: '📊' },
 			{ label: 'Code', href: 'https://github.com/ArtmeScienceLab/Garments2Look', icon: '📦' },
 			{ label: 'Project', href: 'https://artmesciencelab.github.io/Garments2Look/', icon: '⚒️' },
 		],

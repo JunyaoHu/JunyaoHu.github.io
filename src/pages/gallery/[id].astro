@@ -5,8 +5,10 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { galleryConfig, type GalleryAlbum } from '../../data/gallery';
+import { siteVisibility } from '../../data/siteVisibility';
 
 export async function getStaticPaths() {
+	if (!siteVisibility.gallery) return [];
 	const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
 
 	function getFiles(id: string): string[] {
@@ -46,6 +48,9 @@ interface Props {
 }
 
 const { album, images, coverSrc } = Astro.props;
+if (!siteVisibility.gallery) {
+	return Astro.redirect('/404');
+}
 const columnWidth = galleryConfig.columnWidth ?? 240;
 ---
 

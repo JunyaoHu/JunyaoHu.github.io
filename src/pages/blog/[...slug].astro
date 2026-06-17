@@ -1,8 +1,10 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import { siteVisibility } from '../../data/siteVisibility';
 
 export async function getStaticPaths() {
+	if (!siteVisibility.blog) return [];
 	const allPosts = (await getCollection('blog')).sort(
 		(a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf(),
 	);
@@ -23,6 +25,9 @@ interface Props {
 }
 
 const { post, prevPost, nextPost } = Astro.props;
+if (!siteVisibility.blog) {
+	return Astro.redirect('/404');
+}
 const { Content } = await render(post);
 
 const prevInfo = prevPost ? { id: prevPost.id, title: prevPost.data.title } : null;

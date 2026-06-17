@@ -58,6 +58,7 @@ export const galleryConfig: GalleryConfig = {
 		},{
 			id: "self",
 			name: "Self",
+			cover: "self-5.jpg",
 			description: "",
 			location: "",
 			date: "",

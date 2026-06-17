@@ -1,14 +1,14 @@
 ---
 import HeaderLink from '../HeaderLink.astro';
+import { siteVisibility } from '../../data/siteVisibility';
 ---
 
 <div class="internal-links" id="nav-links">
 	<HeaderLink href="/">Home</HeaderLink>
 	<HeaderLink href="/publication">Publications</HeaderLink>
-	<HeaderLink href="/blog">Blog</HeaderLink>
-	<a href="/CV/cv_hjy_en_20250604.pdf" target="_blank" rel="noopener noreferrer">CV</a>
-	<HeaderLink href="/gallery">Gallery</HeaderLink>
-	<HeaderLink href="/friends">Friends</HeaderLink>
+	{siteVisibility.blog && <HeaderLink href="/blog">Blog</HeaderLink>}
+	{siteVisibility.gallery && <HeaderLink href="/gallery">Gallery</HeaderLink>}
+	{siteVisibility.friends && <HeaderLink href="/friends">Friends</HeaderLink>}
 </div>
 
 <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">

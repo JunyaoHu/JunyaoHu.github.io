@@ -23,10 +23,4 @@ const blog = defineCollection({
 		}),
 });
 
-/** 单页文档，如 /manual/ */
-const manual = defineCollection({
-	loader: glob({ base: './src/content', pattern: 'manual.md' }),
-	schema: z.object({}),
-});
-
-export const collections = { blog, manual };
+export const collections = { blog };
