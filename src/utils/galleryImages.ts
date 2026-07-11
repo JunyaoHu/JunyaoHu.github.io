@@ -4,7 +4,6 @@ import path from 'node:path';
 import sharp from 'sharp';
 
 export const GALLERY_IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
-export const GALLERY_OPT_URL_PREFIX = '/gallery-opt';
 
 const GALLERY_ROOT = path.join(process.cwd(), 'public', 'gallery');
 const OPT_ROOT = path.join(process.cwd(), 'public', 'gallery-opt');
@@ -18,6 +17,14 @@ export type GalleryImageVariant = {
 	thumb: string;
 	full: string;
 };
+
+/** 适配 GitHub Pages 根路径或子路径部署（BASE_URL） */
+export function galleryPublicUrl(relativePath: string): string {
+	const base = import.meta.env.BASE_URL ?? '/';
+	const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+	const normalizedPath = relativePath.replace(/^\//, '');
+	return `${normalizedBase}${normalizedPath}`.replace(/\/{2,}/g, '/');
+}
 
 export function listGalleryImageFiles(albumId: string): string[] {
 	const dir = path.join(GALLERY_ROOT, albumId);
@@ -53,15 +60,15 @@ export async function buildGalleryImageVariant(
 	albumId: string,
 	filename: string,
 ): Promise<GalleryImageVariant> {
-	const originalUrl = `/gallery/${albumId}/${filename}`;
+	const originalUrl = galleryPublicUrl(`gallery/${albumId}/${filename}`);
 	const srcPath = path.join(GALLERY_ROOT, albumId, filename);
 	const ext = path.extname(filename).toLowerCase();
 	const base = path.basename(filename, ext);
 	const outDir = path.join(OPT_ROOT, albumId);
 	const thumbPath = path.join(outDir, `${base}.thumb.webp`);
 	const fullPath = path.join(outDir, `${base}.webp`);
-	const thumbUrl = `${GALLERY_OPT_URL_PREFIX}/${albumId}/${base}.thumb.webp`;
-	const fullUrl = `${GALLERY_OPT_URL_PREFIX}/${albumId}/${base}.webp`;
+	const thumbUrl = galleryPublicUrl(`gallery-opt/${albumId}/${base}.thumb.webp`);
+	const fullUrl = galleryPublicUrl(`gallery-opt/${albumId}/${base}.webp`);
 
 	if (ext === '.gif') {
 		return { original: originalUrl, thumb: originalUrl, full: originalUrl };
@@ -92,4 +99,8 @@ export async function buildGalleryImageVariant(
 export async function buildAlbumGalleryImages(albumId: string): Promise<GalleryImageVariant[]> {
 	const files = listGalleryImageFiles(albumId);
 	return Promise.all(files.map((filename) => buildGalleryImageVariant(albumId, filename)));
+}
+
+export async function buildAllGalleryImages(albumIds: string[]): Promise<void> {
+	await Promise.all(albumIds.map((albumId) => buildAlbumGalleryImages(albumId)));
 }

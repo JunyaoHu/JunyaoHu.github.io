@@ -29,6 +29,7 @@ import rehypeExternalLinks from "rehype-external-links";
 import rehypeFigure from './src/plugins/rehype-figure.mjs';
 import rehypeSpoiler from './src/plugins/rehype-spoiler.mjs';
 import { remarkImageGrid } from "./src/plugins/remark-image-grid.js";
+import { galleryImagesIntegration } from "./src/integrations/gallery-images.ts";
 
 const site_url = 'https://junyaohu.github.io';
 
@@ -36,6 +37,7 @@ const site_url = 'https://junyaohu.github.io';
 export default defineConfig({
 	site: site_url,
 	integrations: [
+		galleryImagesIntegration(),
 		sitemap(),
 		icon({
 			include: {
