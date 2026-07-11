@@ -7,5 +7,5 @@
 
 ### Reviewer
 
-* Conference: CVPR'{24-26} ([2024 Outstanding Reviewer](https://x.com/CVPR/status/1793616950314369239), top 2%), ICCV'25, ACMMM'23
-* Transaction: TMM'23
+* Conference: CVPR'{24-26} ([2024 Outstanding Reviewer](https://x.com/CVPR/status/1793616950314369239), top 2%), BMVC'26, ICCV'25, ACMMM'23
+* Transaction: TII'26, TMM'23

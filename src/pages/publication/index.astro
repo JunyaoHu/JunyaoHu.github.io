@@ -2,15 +2,148 @@
 import MarkdownPage from '../../layouts/MarkdownPage.astro';
 import PaperCard from '../../components/PaperCard.astro';
 import { publicationsGlobalNote } from '../../data/homepage';
-import { getAllPapersSorted } from '../../data/papers';
+import { getAllPapersSorted, getPaperAuthorFilterRole } from '../../data/papers';
 
 const list = getAllPapersSorted();
 const description = 'Publications — papers, links, and demos.';
+
+const filterCounts = {
+	all: list.length,
+	first: 0,
+	'co-first': 0,
+	other: 0,
+};
+for (const paper of list) {
+	filterCounts[getPaperAuthorFilterRole(paper)]++;
+}
+
+const filterOptions = [
+	{ id: 'all', label: 'All' },
+	{ id: 'first', label: 'First author' },
+	{ id: 'co-first', label: 'Co-first author' },
+	{ id: 'other', label: 'Others' },
+] as const;
 ---
 
 <MarkdownPage title="Publications" description={description} wideContent>
 	<p class="pub-page__intro">{publicationsGlobalNote}</p>
-	<ul class="paper-list">
-		{list.map((p) => <PaperCard paper={p} />)}
+	<div class="pub-filter" role="tablist" aria-label="Filter publications">
+		{
+			filterOptions.map((option, index) => (
+				<button
+					type="button"
+					class:list={['pub-filter__btn', index === 0 && 'pub-filter__btn--active']}
+					role="tab"
+					aria-selected={index === 0 ? 'true' : 'false'}
+					data-pub-filter={option.id}
+				>
+					{option.label}
+					<span class="pub-filter__count">({filterCounts[option.id]})</span>
+				</button>
+			))
+		}
+	</div>
+	<ul class="paper-list" data-publication-list>
+		{list.map((p) => (
+			<PaperCard paper={p} authorFilter={getPaperAuthorFilterRole(p)} />
+		))}
 	</ul>
 </MarkdownPage>
+
+<style>
+	.pub-filter {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem 0.5rem;
+		margin-bottom: 1.25rem;
+	}
+
+	.pub-filter__btn {
+		cursor: pointer;
+		border: 1px solid rgba(var(--gray), 0.14);
+		padding: 0.32em 0.78em;
+		font-size: 0.75rem;
+		font-weight: 500;
+		font-family: inherit;
+		letter-spacing: 0.02em;
+		border-radius: 999px;
+		background: transparent;
+		color: rgb(var(--gray-dark));
+		transition:
+			background 0.16s ease,
+			color 0.16s ease,
+			border-color 0.16s ease;
+	}
+
+	.pub-filter__count {
+		margin-left: 0.12em;
+		font-variant-numeric: tabular-nums;
+		color: rgb(var(--gray));
+		font-weight: 500;
+	}
+
+	.pub-filter__btn--active .pub-filter__count {
+		color: color-mix(in oklch, var(--accent) 38%, rgb(var(--gray)) 62%);
+	}
+
+	.pub-filter__btn:hover {
+		border-color: rgba(var(--gray), 0.22);
+		background: color-mix(in oklch, rgb(var(--gray-light)) 96%, var(--accent) 4%);
+		color: rgb(var(--black));
+	}
+
+	.pub-filter__btn--active {
+		background: color-mix(in oklch, var(--accent) 13%, #fff 87%);
+		border-color: color-mix(in oklch, var(--accent) 32%, rgb(var(--gray-light)) 68%);
+		color: color-mix(in oklch, var(--accent) 42%, rgb(var(--black)) 58%);
+		font-weight: 600;
+	}
+
+	.pub-filter__btn--active:hover {
+		background: color-mix(in oklch, var(--accent) 18%, #fff 82%);
+		border-color: color-mix(in oklch, var(--accent) 38%, rgb(var(--gray)) 62%);
+		color: color-mix(in oklch, var(--accent) 48%, rgb(var(--black)) 52%);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.pub-filter__btn {
+			transition: none;
+		}
+	}
+</style>
+
+<script is:inline>
+	(function () {
+		var filterRoot = document.querySelector('.pub-filter');
+		var list = document.querySelector('[data-publication-list]');
+		if (!filterRoot || !list) return;
+
+		var buttons = filterRoot.querySelectorAll('[data-pub-filter]');
+		var cards = list.querySelectorAll('[data-paper-filter]');
+
+		function setActive(activeBtn) {
+			buttons.forEach(function (btn) {
+				btn.classList.toggle('pub-filter__btn--active', btn === activeBtn);
+				btn.setAttribute('aria-selected', btn === activeBtn ? 'true' : 'false');
+			});
+		}
+
+		function applyFilter(filter) {
+			cards.forEach(function (card) {
+				var role = card.getAttribute('data-paper-filter') || '';
+				var show = filter === 'all' || role === filter;
+				if (show) card.removeAttribute('hidden');
+				else card.setAttribute('hidden', '');
+			});
+		}
+
+		buttons.forEach(function (btn) {
+			btn.addEventListener('click', function () {
+				var filter = btn.getAttribute('data-pub-filter') || 'all';
+				setActive(btn);
+				applyFilter(filter);
+			});
+		});
+	})();
+</script>

@@ -1,42 +1,32 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import GalleryCard from '../../components/GalleryCard.astro';
 import Header from '../../components/Header.astro';
 import { galleryConfig } from '../../data/gallery';
 import { siteVisibility } from '../../data/siteVisibility';
+import {
+	buildGalleryImageVariant,
+	listGalleryImageFiles,
+	resolveCoverFilename,
+} from '../../utils/galleryImages';
 
 if (!siteVisibility.gallery) {
 	return Astro.redirect('/404');
 }
 
-const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
+const albums = await Promise.all(
+	galleryConfig.albums.map(async (album) => {
+		const files = listGalleryImageFiles(album.id);
+		const coverFilename = resolveCoverFilename(album.cover, files);
+		const coverSrc = coverFilename
+			? (await buildGalleryImageVariant(album.id, coverFilename)).thumb
+			: '';
+		const photoCount = files.length;
+		return { album, coverSrc, photoCount };
+	}),
+);
 
-function getAlbumFiles(id: string): string[] {
-	const dir = path.join(process.cwd(), 'public', 'gallery', id);
-	if (!fs.existsSync(dir)) return [];
-	return fs.readdirSync(dir).filter((f) => IMAGE_EXTS.has(path.extname(f).toLowerCase()));
-}
-
-function getCover(id: string, cover: string | undefined, files: string[]): string {
-	if (cover) return `/gallery/${id}/${cover}`;
-	const coverFile = files.find((f) => path.basename(f, path.extname(f)).toLowerCase() === 'cover');
-	if (coverFile) return `/gallery/${id}/${coverFile}`;
-	if (files.length > 0) return `/gallery/${id}/${files[0]}`;
-	return '';
-}
-
-// 构建时收集每个相册的元数据
-const albums = galleryConfig.albums.map((album) => {
-	const files = getAlbumFiles(album.id);
-	const coverSrc = getCover(album.id, album.cover, files);
-	const photoCount = files.length;
-	return { album, coverSrc, photoCount };
-});
-
-// 收集所有唯一标签
 const allTags = [...new Set(galleryConfig.albums.flatMap((a) => a.tags ?? []))].sort();
 ---
 

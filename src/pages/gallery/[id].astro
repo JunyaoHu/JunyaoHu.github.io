@@ -1,49 +1,40 @@
 ---
-import fs from 'node:fs';
-import path from 'node:path';
 import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import Header from '../../components/Header.astro';
 import { galleryConfig, type GalleryAlbum } from '../../data/gallery';
 import { siteVisibility } from '../../data/siteVisibility';
+import {
+	buildAlbumGalleryImages,
+	buildGalleryImageVariant,
+	listGalleryImageFiles,
+	resolveCoverFilename,
+	type GalleryImageVariant,
+} from '../../utils/galleryImages';
 
 export async function getStaticPaths() {
 	if (!siteVisibility.gallery) return [];
-	const IMAGE_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif']);
 
-	function getFiles(id: string): string[] {
-		const dir = path.join(process.cwd(), 'public', 'gallery', id);
-		if (!fs.existsSync(dir)) return [];
-		return fs
-			.readdirSync(dir)
-			.filter((f) => IMAGE_EXTS.has(path.extname(f).toLowerCase()))
-			.sort();
-	}
+	return Promise.all(
+		galleryConfig.albums.map(async (album) => {
+			const files = listGalleryImageFiles(album.id);
+			const images = await buildAlbumGalleryImages(album.id);
+			const coverFilename = resolveCoverFilename(album.cover, files);
+			const coverSrc = coverFilename
+				? (await buildGalleryImageVariant(album.id, coverFilename)).full
+				: (images[0]?.full ?? '');
 
-	function getCover(id: string, cover: string | undefined, files: string[]): string {
-		if (cover) return `/gallery/${id}/${cover}`;
-		const cf = files.find((f) => path.basename(f, path.extname(f)).toLowerCase() === 'cover');
-		if (cf) return `/gallery/${id}/${cf}`;
-		if (files.length > 0) return `/gallery/${id}/${files[0]}`;
-		return '';
-	}
-
-	return galleryConfig.albums.map((album) => {
-		const files = getFiles(album.id);
-		const coverSrc = getCover(album.id, album.cover, files);
-		const images = files.map((f) => `/gallery/${album.id}/${f}`);
-		return {
-			params: { id: album.id },
-			props: { album, images, coverSrc },
-		};
-	});
+			return {
+				params: { id: album.id },
+				props: { album, images, coverSrc },
+			};
+		}),
+	);
 }
-
-// 实例级辅助（用于 coverSrc 已由 getStaticPaths 传入，此处无需重复定义）
 
 interface Props {
 	album: GalleryAlbum;
-	images: string[];
+	images: GalleryImageVariant[];
 	coverSrc: string;
 }
 
@@ -52,6 +43,7 @@ if (!siteVisibility.gallery) {
 	return Astro.redirect('/404');
 }
 const columnWidth = galleryConfig.columnWidth ?? 240;
+const lightboxImages = images.map((image) => image.full);
 ---
 
 <!doctype html>
@@ -470,7 +462,7 @@ const columnWidth = galleryConfig.columnWidth ?? 240;
 
 			<!-- 瀑布流图片网格 -->
 			<div class="album-gallery" id="album-gallery">
-				{images.map((src, i) => (
+				{images.map((image, i) => (
 					<button
 						class="album-gallery__item"
 						type="button"
@@ -479,7 +471,7 @@ const columnWidth = galleryConfig.columnWidth ?? 240;
 					>
 						<img
 							class="album-gallery__img"
-							src={src}
+							src={image.thumb}
 							alt=""
 							loading="lazy"
 							decoding="async"
@@ -516,10 +508,10 @@ const columnWidth = galleryConfig.columnWidth ?? 240;
 			</div>
 
 			<div class="lb-thumbnails" id="lb-thumbnails">
-				{images.map((src, i) => (
+				{images.map((image, i) => (
 					<img
 						class="lb-thumb"
-						src={src}
+						src={image.thumb}
 						alt=""
 						data-index={i}
 						loading="lazy"
@@ -531,7 +523,7 @@ const columnWidth = galleryConfig.columnWidth ?? 240;
 	</body>
 </html>
 
-<script define:vars={{ images }}>
+<script define:vars={{ images: lightboxImages }}>
 (function () {
 	var lightbox = document.getElementById('lightbox');
 	var lbImg = document.getElementById('lb-img');

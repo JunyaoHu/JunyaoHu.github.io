@@ -33,6 +33,49 @@ export type Paper = {
 	sortOrder?: number;
 };
 
+/** 与论文作者列表中的本人姓名一致，用于筛选一作 / 其他 */
+export const SELF_AUTHOR_NAME = 'Junyao Hu';
+
+export type PaperAuthorFilterRole = 'first' | 'co-first' | 'other';
+
+function isSelfAuthor(name: string) {
+	return name.trim() === SELF_AUTHOR_NAME;
+}
+
+function getSelfAuthorIndex(paper: Paper) {
+	return paper.authors.findIndex((a) => isSelfAuthor(a.name));
+}
+
+/** 本人为单独一作（作者列表首位，且非共同一作） */
+export function isSelfFirstAuthorPaper(paper: Paper): boolean {
+	return getPaperAuthorFilterRole(paper) === 'first';
+}
+
+/** 本人为共同一作（#，且与其他 # 作者同属前列） */
+export function isSelfCoFirstAuthorPaper(paper: Paper): boolean {
+	return getPaperAuthorFilterRole(paper) === 'co-first';
+}
+
+export function getPaperAuthorFilterRole(paper: Paper): PaperAuthorFilterRole {
+	const { authors } = paper;
+	const selfIdx = getSelfAuthorIndex(paper);
+	if (selfIdx === -1) return 'other';
+
+	const self = authors[selfIdx];
+	const hasOtherEqualContrib = authors.some((a, i) => i !== selfIdx && a.equalContrib);
+	const inLeadingGroup =
+		selfIdx === 0 ||
+		(Boolean(self.equalContrib) && authors.slice(0, selfIdx).every((a) => a.equalContrib));
+
+	if (self.equalContrib && hasOtherEqualContrib && inLeadingGroup) {
+		return 'co-first';
+	}
+	if (selfIdx === 0) {
+		return 'first';
+	}
+	return 'other';
+}
+
 function comparePapers(a: Paper, b: Paper) {
 	const y = (b.year ?? 0) - (a.year ?? 0);
 	if (y !== 0) return y;

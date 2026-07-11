@@ -1,40 +1,185 @@
 ---
+import { Icon } from 'astro-icon/components';
 import { NEWS_CATEGORY_META, type NewsItem } from '../../data/homepage';
 
 interface Props {
 	items: NewsItem[];
 	title?: string;
+	/** 默认展示的条数，其余收起 */
+	visibleCount?: number;
 }
 
-const { items, title = 'News' } = Astro.props;
+const { items, title = 'News', visibleCount = 5 } = Astro.props;
+
+const visibleItems = items.slice(0, visibleCount);
+const olderItems = items.slice(visibleCount);
+const hasOlder = olderItems.length > 0;
 ---
 
 <section class="home-section home-news" id="news">
 	<h2 class="home-section__title">{title}</h2>
-	<ul class="home-news__list">
+	<div class="home-news__stream" id="home-news-stream">
+		<ul class="home-news__list">
+			{
+				visibleItems.map((n) => {
+					const meta = NEWS_CATEGORY_META[n.category];
+					return (
+						<li class="home-news__item">
+							<span class="home-news__date">{n.date}</span>
+							<span class="home-news__badge" data-category={n.category}>
+								<span class="home-news__badge-emoji" aria-hidden="true">{meta.emoji}</span>
+								<span class="home-news__badge-label">{meta.label}</span>
+							</span>
+							{n.html ? (
+								<span class="home-news__text" set:html={n.html} />
+							) : (
+								<span class="home-news__text">{n.text}</span>
+							)}
+						</li>
+					);
+				})
+			}
+		</ul>
 		{
-			items.map((n) => {
-				const meta = NEWS_CATEGORY_META[n.category];
-				return (
-					<li class="home-news__item">
-						<span class="home-news__date">{n.date}</span>
-						<span class="home-news__badge" data-category={n.category}>
-							<span class="home-news__badge-emoji" aria-hidden="true">{meta.emoji}</span>
-							<span class="home-news__badge-label">{meta.label}</span>
-						</span>
-						{n.html ? (
-							<span class="home-news__text" set:html={n.html} />
-						) : (
-							<span class="home-news__text">{n.text}</span>
-						)}
-					</li>
-				);
-			})
+			hasOlder && (
+				<ul class="home-news__list home-news__list--older" id="home-news-older" aria-hidden="true">
+					{
+						olderItems.map((n) => {
+							const meta = NEWS_CATEGORY_META[n.category];
+							return (
+								<li class="home-news__item">
+									<span class="home-news__date">{n.date}</span>
+									<span class="home-news__badge" data-category={n.category}>
+										<span class="home-news__badge-emoji" aria-hidden="true">{meta.emoji}</span>
+										<span class="home-news__badge-label">{meta.label}</span>
+									</span>
+									{n.html ? (
+										<span class="home-news__text" set:html={n.html} />
+									) : (
+										<span class="home-news__text">{n.text}</span>
+									)}
+								</li>
+							);
+						})
+					}
+				</ul>
+			)
 		}
-	</ul>
+	</div>
+	{
+		hasOlder && (
+			<button
+				type="button"
+				class="home-news__fold"
+				id="home-news-toggle"
+				aria-expanded="false"
+				aria-controls="home-news-older"
+				aria-label={`Show ${olderItems.length} earlier updates`}
+			>
+				<span class="home-news__fold-line" aria-hidden="true"></span>
+				<span class="home-news__fold-chip">
+					<span class="home-news__fold-icon" aria-hidden="true">
+						<Icon name="material-symbols:unfold-more-rounded" />
+					</span>
+					<span
+						class="home-news__fold-label"
+						data-label-show="Earlier updates"
+						data-label-hide="Show fewer"
+					>
+						Earlier updates
+					</span>
+				</span>
+				<span class="home-news__fold-line" aria-hidden="true"></span>
+			</button>
+		)
+	}
 </section>
 
 <style>
+	.home-news__stream {
+		position: relative;
+	}
+
+	.home-news__list--older {
+		margin-top: 0;
+	}
+
+	.home-news__stream:not(.is-expanded) .home-news__list--older {
+		display: none;
+	}
+
+	.home-news__fold {
+		display: flex;
+		align-items: center;
+		gap: 0.7rem;
+		width: 100%;
+		margin-top: 0.55rem;
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+		font-family: inherit;
+	}
+
+	.home-news__fold-line {
+		flex: 1 1 auto;
+		height: 1px;
+		background: rgba(var(--gray), 0.14);
+	}
+
+	.home-news__fold-chip {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.38em;
+		flex-shrink: 0;
+		padding: 0.32em 0.72em 0.28em;
+		border: 1px solid rgba(var(--gray), 0.16);
+		border-radius: 999px;
+		background: color-mix(in oklch, #fff 88%, rgb(var(--gray-light)) 12%);
+		color: rgb(var(--gray));
+		font-size: 0.78rem;
+		font-weight: 500;
+		line-height: 1.3;
+		white-space: nowrap;
+		transition:
+			border-color 0.15s ease,
+			background 0.15s ease,
+			color 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.home-news__fold:hover .home-news__fold-chip,
+	.home-news__fold:focus-visible .home-news__fold-chip {
+		border-color: color-mix(in oklch, var(--accent) 28%, rgba(var(--gray), 0.16) 72%);
+		background: color-mix(in oklch, var(--accent) 6%, #fff 94%);
+		color: color-mix(in oklch, var(--accent) 62%, rgb(var(--black)) 38%);
+		box-shadow: 0 1px 0 color-mix(in oklch, var(--accent) 8%, transparent 92%);
+	}
+
+	.home-news__fold:focus-visible {
+		outline: none;
+	}
+
+	.home-news__fold:focus-visible .home-news__fold-chip {
+		outline: 2px solid color-mix(in oklch, var(--accent) 35%, transparent 65%);
+		outline-offset: 2px;
+	}
+
+	.home-news__fold-icon {
+		display: inline-flex;
+		line-height: 0;
+		transition: transform 0.22s ease;
+	}
+
+	.home-news__fold-icon :global(svg) {
+		width: 1.05em;
+		height: 1.05em;
+	}
+
+	.home-news__fold[aria-expanded='true'] .home-news__fold-icon {
+		transform: rotate(180deg);
+	}
+
 	.home-news__badge {
 		display: inline-flex;
 		align-items: center;
@@ -69,6 +214,16 @@ const { items, title = 'News' } = Astro.props;
 	}
 
 	@media (max-width: 560px) {
+		.home-news__fold {
+			margin-top: 0.4rem;
+			gap: 0.55rem;
+		}
+
+		.home-news__fold-chip {
+			font-size: 0.74rem;
+			padding: 0.28em 0.62em 0.24em;
+		}
+
 		.home-news__badge {
 			display: inline-flex;
 			width: auto;
@@ -87,4 +242,33 @@ const { items, title = 'News' } = Astro.props;
 			line-height: 1;
 		}
 	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.home-news__fold-chip,
+		.home-news__fold-icon {
+			transition: none;
+		}
+	}
 </style>
+
+<script>
+	const stream = document.getElementById('home-news-stream');
+	const toggle = document.getElementById('home-news-toggle');
+	const olderList = document.getElementById('home-news-older');
+	const label = toggle?.querySelector('.home-news__fold-label');
+	const showAriaLabel = toggle?.getAttribute('aria-label') ?? 'Show earlier updates';
+	const hideAriaLabel = 'Show fewer updates';
+
+	toggle?.addEventListener('click', () => {
+		if (!stream || !toggle || !olderList || !label) return;
+		const expanded = toggle.getAttribute('aria-expanded') === 'true';
+		const nextExpanded = !expanded;
+		toggle.setAttribute('aria-expanded', nextExpanded ? 'true' : 'false');
+		toggle.setAttribute('aria-label', nextExpanded ? hideAriaLabel : showAriaLabel);
+		stream.classList.toggle('is-expanded', nextExpanded);
+		olderList.setAttribute('aria-hidden', nextExpanded ? 'false' : 'true');
+		const showLabel = label.getAttribute('data-label-show') ?? 'Earlier updates';
+		const hideLabel = label.getAttribute('data-label-hide') ?? 'Show fewer';
+		label.textContent = nextExpanded ? hideLabel : showLabel;
+	});
+</script>

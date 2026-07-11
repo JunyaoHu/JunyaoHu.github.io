@@ -6,6 +6,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { pluginCollapsibleSections } from "@expressive-code/plugin-collapsible-sections";
 import { pluginLineNumbers } from "@expressive-code/plugin-line-numbers";
 import { defineConfig } from 'astro/config';
+import { unified } from '@astrojs/markdown-remark';
 import expressiveCode from "astro-expressive-code";
 import icon from "astro-icon";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -97,54 +98,50 @@ export default defineConfig({
 		// 	type: 'shiki',
 	// 		excludeLangs: ['mermaid'],
 		// },
-		remarkPlugins:
-			[
-				remarkMath,
-				remarkImageGrid,
-				remarkDirective, 
-				parseDirectiveNode
-			],
-		rehypePlugins: [
-			[rehypeKatex, { katex, strict: false }],
-			[rehypeCallouts, { theme: "obsidian" }],
-			rehypeSlug,
-			// 		rehypeMermaid,
-			rehypeFigure,
-			// [rehypeExternalLinks, { siteUrl: site_url }],
-			// [rehypeEmailProtection, { method: "base64" }], 
-			[
-				rehypeComponents,
-				{
-					components: {
-						github: GithubCardComponent,
-					},
-				},
-			],
-			rehypeSpoiler,
-			[
-				rehypeAutolinkHeadings,
-				{
-					behavior: "append",
-					properties: {
-						className: ["anchor"],
-					},
-					content: {
-						type: "element",
-						tagName: "span",
-						properties: {
-							className: ["anchor-icon"],
-							"data-pagefind-ignore": true,
+		processor: unified({
+			remarkPlugins: [remarkMath, remarkImageGrid, remarkDirective, parseDirectiveNode],
+			rehypePlugins: [
+				[rehypeKatex, { katex, strict: false }],
+				[rehypeCallouts, { theme: 'obsidian' }],
+				rehypeSlug,
+				// 		rehypeMermaid,
+				rehypeFigure,
+				// [rehypeExternalLinks, { siteUrl: site_url }],
+				// [rehypeEmailProtection, { method: "base64" }],
+				[
+					rehypeComponents,
+					{
+						components: {
+							github: GithubCardComponent,
 						},
-						children: [
-							{
-								type: "text",
-								value: "#",
-							},
-						],
 					},
-				},
+				],
+				rehypeSpoiler,
+				[
+					rehypeAutolinkHeadings,
+					{
+						behavior: 'append',
+						properties: {
+							className: ['anchor'],
+						},
+						content: {
+							type: 'element',
+							tagName: 'span',
+							properties: {
+								className: ['anchor-icon'],
+								'data-pagefind-ignore': true,
+							},
+							children: [
+								{
+									type: 'text',
+									value: '#',
+								},
+							],
+						},
+					},
+				],
 			],
-		]
+		}),
 	},
 	vite: {
 		plugins: [tailwindcss()],

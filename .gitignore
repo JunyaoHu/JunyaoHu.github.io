@@ -1,5 +1,6 @@
 # build output
 dist/
+public/gallery-opt/
 # generated types
 .astro/
 

@@ -7,7 +7,7 @@ export const homeHero = {
 	name: 'Junyao Hu',
 	nameZh: '胡钧耀',
 	tagline: 'I have a little dream to chase, and I have a long way to go.',
-	updated: 'Last updated: 2026-06-17',
+	updated: 'Last updated: 2026-07-12',
 	/** 头像：换图时改 import 路径或文件名 */
 	avatar: avatarImage,
 };
@@ -66,6 +66,11 @@ export type NewsItem = {
 };
 
 export const newsItems: NewsItem[] = [
+	{
+		date: '2026-05-08',
+		category: 'activity',
+		html: 'I attended <a href="https://valser.org/2026/#/">VALSE 2026</a> (Wuhan, China).',
+	},
 	{
 		date: '2026-03-26',
 		category: 'accepted',
