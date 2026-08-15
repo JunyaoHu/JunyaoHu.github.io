@@ -323,9 +323,9 @@ export const friendsConfig: FriendLink[] = [
 		weight: 1,
 		enabled: true,
 	},{
-		title: "武成龙",
+		title: "Chenglong Wu",
 		imgurl: "https://github.com/Orangon.png",
-		desc: "2019级地理信息科学专业",
+		desc: "武成龙 2019级地理信息科学专业",
 		siteurl: "https://orangon.github.io/",
 		tags: ["@CUMT"],
 		weight: 1,
