@@ -180,7 +180,7 @@ export const friendsConfig: FriendLink[] = [
 		enabled: true, 
 	},{
 		title: "Shitong Shao",
-		imgurl: "https://shaoshitong.github.io/images/85086735.jpg",
+		imgurl: "https://shaoshitong.github.io/assets/img/shitong-shao-profile-800.webp",
 		desc: "邵世通",
 		siteurl: "https://shaoshitong.github.io/",
 		tags: ["@HKUST-GZ"],
