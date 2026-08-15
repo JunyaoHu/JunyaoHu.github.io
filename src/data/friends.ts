@@ -314,11 +314,19 @@ export const friendsConfig: FriendLink[] = [
 		tags: ["@CUMT"],
 		weight: 1, 
 		enabled: true, 
-	},{
+	},	{
 		title: "Hongkun Luo",
 		imgurl: "https://files.seeusercontent.com/2026/03/28/r7Qr/logo.jpg",
 		desc: "罗宏昆 20级测绘工程专业",
 		siteurl: "https://luohongkun.top/scholar/",
+		tags: ["@CUMT"],
+		weight: 1,
+		enabled: true,
+	},{
+		title: "武成龙",
+		imgurl: "https://github.com/Orangon.png",
+		desc: "2019级地理信息科学专业",
+		siteurl: "https://orangon.github.io/",
 		tags: ["@CUMT"],
 		weight: 1,
 		enabled: true,
