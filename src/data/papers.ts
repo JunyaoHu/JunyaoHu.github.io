@@ -138,6 +138,8 @@ export const papers: Paper[] = [
 			{ label: '中译版', href: '/paper/cvpr26-garments2look/chinese.pdf', icon: '📃' },
 			{ label: 'Poster', href: 'https://cvpr.thecvf.com/media/PosterPDFs/CVPR%202026/37269.png', icon: '📊' },
 			{ label: 'Code', href: 'https://github.com/ArtmeScienceLab/Garments2Look', icon: '📦' },
+			{ label: 'Dataset', href: 'https://huggingface.co/datasets/ArtmeScienceLab/Garments2Look', icon: '🗂️' },
+			{ label: 'Model', href: 'https://huggingface.co/ArtmeScienceLab/Garments2Look-LoRA', icon: '🤗' },
 			{ label: 'Project', href: 'https://artmesciencelab.github.io/Garments2Look/', icon: '⚒️' },
 		],
 		demo: { src: '/paper/cvpr26-garments2look/show.gif', alt: 'Garments2Look demo' },
