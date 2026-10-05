@@ -350,7 +350,7 @@ export const friendsConfig: FriendLink[] = [
 		title: "Donghao Zhou",
 		imgurl: "https://correr-zhou.github.io/images/profile.jpg",
 		desc: "周冬豪",
-		siteurl: "https://github.com/Correr-Zhou",
+		siteurl: "https://qulishen.github.io/",
 		tags: ["@CUHK"],
 		weight: 1,
 		enabled: true,
