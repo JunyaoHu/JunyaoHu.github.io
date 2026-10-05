@@ -348,12 +348,188 @@ export const friendsConfig: FriendLink[] = [
 		enabled: true,
 	},{
 		title: "Donghao Zhou",
-		imgurl: "https://correr-zhou.github.io/images/profile.jpg",
+		imgurl: "https://avatars.githubusercontent.com/u/42346902?v=4",
 		desc: "周冬豪",
 		siteurl: "https://github.com/Correr-Zhou",
 		tags: ["@CUHK"],
 		weight: 1,
 		enabled: true,
+	},
+	{
+		"title": "Zikai Zhou",
+		"imgurl": "https://klayand.github.io/images/profile.jpg",
+		"desc": "Generative AI",
+		"siteurl": "https://klayand.github.io/",
+		"tags": [
+			"@HKUST-GZ"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Xiangpeng Yang",
+		"imgurl": "https://xiangpengyang.github.io/images/yxp.jpg",
+		"desc": "Video generation",
+		"siteurl": "https://xiangpengyang.github.io/",
+		"tags": [
+			"@UTS"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Ji Xie",
+		"imgurl": "https://horizonwind2004.github.io/assets/images/profile.jpg",
+		"desc": "谢集",
+		"siteurl": "https://horizonwind2004.github.io/",
+		"tags": [
+			"@CMU"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Sixiang Chen",
+		"imgurl": "https://ephemeral182.github.io/csx5.jpg",
+		"desc": "陈思翔",
+		"siteurl": "https://ephemeral182.github.io/",
+		"tags": [
+			"@HKUST-GZ"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Jingyu Lin",
+		"imgurl": "https://jonyond-lin.github.io/images/profile.jpg",
+		"desc": "林靖渝",
+		"siteurl": "https://jonyond-lin.github.io/",
+		"tags": [
+			"@Monash"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Qi Shao",
+		"imgurl": "https://media.licdn.com/dms/image/v2/D4E03AQHmLzyXj26fEw/profile-displayphoto-crop_800_800/B4EaCFkPWnGoAM-/0/1788947266389?e=1792627200&v=beta&t=ZD5MqKvDKEojXHrtj-54vkeF1RWkia1zACqWzIx8XH4",
+		"desc": "邵琦",
+		"siteurl": "https://www.linkedin.com/in/qi-shao-312164307",
+		"tags": [
+			"@Liverpool"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Aoran Wang",
+		"imgurl": "https://wang422003.github.io/assets/img/prof_pic.jpg",
+		"desc": "AI for scientific discovery",
+		"siteurl": "https://wang422003.github.io/",
+		"tags": [
+			"@Shanghai AI Lab"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Xinnan Dai",
+		"imgurl": "https://ddigimon.github.io/images/profile1.png",
+		"desc": "LLMs and graph reasoning",
+		"siteurl": "https://ddigimon.github.io/",
+		"tags": [
+			"@MSU"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Hongliang Zhang",
+		"imgurl": "https://zhang1hongliang.github.io/me.jpg",
+		"desc": "张宏亮",
+		"siteurl": "https://zhang1hongliang.github.io/",
+		"tags": [
+			"@NJUST"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Chen-Bin Feng",
+		"imgurl": "https://fcbfcb1998.github.io/pic/fcb2.jpg",
+		"desc": "Computer vision",
+		"siteurl": "https://fcbfcb1998.github.io/",
+		"tags": [
+			"@UM"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Fangjian Liao",
+		"imgurl": "https://media.licdn.com/dms/image/v2/D5635AQFCHTV70OXBJQ/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1730643645587?e=1791792000&v=beta&t=xfuQgz0IqAZEeC5lrConsYQhyIwskp6VUF9bSeHB2LY",
+		"desc": "廖芳建",
+		"siteurl": "https://hk.linkedin.com/in/fangjian-liao",
+		"tags": [
+			"@PolyU"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Minxing Luo",
+		"imgurl": "https://tony-lowe.github.io/media/authors/me_hu_d0fca67b86efe32b.jpg",
+		"desc": "罗敏行",
+		"siteurl": "https://tony-lowe.github.io/",
+		"tags": [
+			"@NKU"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Yue Ma",
+		"imgurl": "https://mayuelala.github.io/pic/my3.jpg",
+		"desc": "马跃",
+		"siteurl": "https://mayuelala.github.io/",
+		"tags": [
+			"@HKUST"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Zhiqi Gao",
+		"imgurl": "https://media.licdn.com/dms/image/v2/D5603AQFtJp9rNJ27Ug/profile-displayphoto-crop_800_800/B56Zo6jGg0IcAI-/0/1761918889231?e=1792627200&v=beta&t=APPVh_N-GBIMslDJogZyqE9rpU8Tfj4GUCeYiZ0qTZ8",
+		"desc": "高治淇",
+		"siteurl": "https://www.linkedin.com/in/zhiqi-gao-b06a2a253",
+		"tags": [
+			"@CUHK-SZ"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Jianpeng Xie",
+		"imgurl": "https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=BKfs8BEAAAAJ",
+		"desc": "谢建鹏",
+		"siteurl": "https://scholar.google.com.hk/citations?user=BKfs8BEAAAAJ",
+		"tags": [
+			"@NKU"
+		],
+		"weight": 1,
+		"enabled": true
+	},
+	{
+		"title": "Ziyu Liu",
+		"imgurl": "https://media.licdn.com/dms/image/v2/D4E03AQEjqI7ZHBiEvQ/profile-displayphoto-crop_800_800/B4EZ66XA8oJIAI-/0/1781243057218?e=1792627200&v=beta&t=aDukcxi6DFIY2Nu7pz_9N8JCLSPYzvg3EYpSSbIrKfs",
+		"desc": "刘子瑜",
+		"siteurl": "https://www.linkedin.com/in/ziyumioliu",
+		"tags": [
+			"@UPenn"
+		],
+		"weight": 1,
+		"enabled": true
 	}
 ];
 
