@@ -172,7 +172,7 @@ export const friendsConfig: FriendLink[] = [
 		enabled: true, 
 	},{
 		title: "Tian Ye",
-		imgurl: "https://owen718.github.io/profile/2026-03-11_200754_546.jpg",
+		imgurl: "https://owen718.github.io/profile/portrait_nvidia-shanghai-night.jpg",
 		desc: "叶田",
 		siteurl: "https://owen718.github.io/",
 		tags: ["@HKUST-GZ"],
