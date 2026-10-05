@@ -95,7 +95,7 @@ export const papers: Paper[] = [
 			{ name: "Zhiyuan Ma", url: "https://ponymzy.github.io/"},
 			{ name: "Junyao Hu"},
 			{ name: "Xinwei Long", url: "https://scholar.google.com/citations?&user=gSA_egQAAAAJ"},
-			{ name: "Kai Tian", url: "https://c3i.ee.tsinghua.edu.cn/author/%E7%94%B0%E9%94%B4/"},
+			{ name: "Kai Tian"},
 			{ name: "Kaikai Zhao", url: "https://scholar.google.com/citations?user=hDGrCp8AAAAJ"},
 			{ name: "Zhaoxiang Liu", url: "https://scholar.google.com/citations?user=L4OXOs0AAAAJ"},
 			{ name: "Kai Wang", url: "https://scholar.google.com/citations?user=CFUQLCAAAAAJ"},
@@ -119,7 +119,7 @@ export const papers: Paper[] = [
 		authors: [
 			{ name: 'Junyao Hu'},
 			{ name: 'Zhongwei Cheng', url: 'https://scholar.google.com/citations?user=ayN-dVwAAAAJ' },
-			{ name: 'Waikeung Wong', url: 'https://research.polyu.edu.hk/en/persons/wai-keung-wong-2/' },
+			{ name: 'Waikeung Wong', url: 'https://ieeexplore.ieee.org/author/37404835200' },
 			{
 				name: 'Xingxing Zou',
 				url: 'https://scholar.google.com/citations?user=UhnQA3UAAAAJ',
@@ -154,7 +154,7 @@ export const papers: Paper[] = [
 			{ name: 'Guoli Jia', url: 'https://scholar.google.cz/citations?&user=A6V0JDAAAAAJ', equalContrib: true },
 			{ name: 'Junyao Hu', equalContrib: true },
 			{ name: 'Xinwei Long', url: 'https://scholar.google.com/citations?&user=gSA_egQAAAAJ'},
-			{ name: 'Kai Tian', url: 'https://c3i.ee.tsinghua.edu.cn/author/%E7%94%B0%E9%94%B4/'},
+			{ name: 'Kai Tian'},
 			{ name: 'Kaikai Zhao', url: 'https://scholar.google.com/citations?user=hDGrCp8AAAAJ'},
 			{ name: 'Zhaoxiang Liu' },
 			{ name: 'Kai Wang' },
@@ -181,7 +181,7 @@ export const papers: Paper[] = [
 			{ name: 'Zhicheng Zhang', url: 'https://zzcheng.top/', equalContrib: true },
 			{ name: 'Junyao Hu', equalContrib: true },
 			{ name: 'Wentao Cheng', url: 'https://wtchengcv.github.io/', corresponding: true },
-			{ name: 'Danda Paudel', url: 'https://people.ee.ethz.ch/~paudeld/' },
+			{ name: 'Danda Paudel', url: 'https://insait.ai/dr-danda-paudel/' },
 			{ name: 'Jufeng Yang', url: 'https://cv.nankai.edu.cn/' },
 		],
 		tldr:
