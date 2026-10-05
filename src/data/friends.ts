@@ -116,7 +116,8 @@ export type FriendLink = {
 	imgurl: string; // 头像图片URL
 	desc: string; // 友链描述
 	siteurl: string; // 友链地址
-	tags?: string[]; // 标签数组
+	affiliations?: string[]; // 学校 / 机构基本信息，仅在卡片展示，不参与筛选
+	category: string; // 唯一主要专业类别
 	weight: number; // 权重，数字越大排序越靠前
 	enabled: boolean; // 是否启用
 };
@@ -139,395 +140,530 @@ export const friendsPageConfig: FriendsPageConfig = {
 // 友链配置
 export const friendsConfig: FriendLink[] = [
 	{
-		title: "Shumin Zhu",
-		imgurl: "https://avatars.githubusercontent.com/u/110874739?v=4",
-		desc: "朱淑敏",
-		siteurl: "https://github.com/FST-ZHUSHUMIN",
-		tags: ["@PolyU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Wenda Shi",
-		imgurl: "https://wendashi.github.io/images/android-chrome-512x512.png",
-		desc: "石闻达",
-		siteurl: "https://wendashi.github.io/",
-		tags: ["@PolyU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Yuheng Feng",
-		imgurl: "https://avatars.githubusercontent.com/u/80461352?v=4",
-		desc: "冯煜恒",
-		siteurl: "https://github.com/Yuheng-Feng",
-		tags: ["@PolyU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Jiayu Zhu",
-		imgurl: "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo31n1mchsjl86g49k5mcv1o1tiqibusq8",
-		desc: "朱佳瑜",
-		siteurl: "https://www.xiaohongshu.com/user/profile/59413e1c6a6a6942134307b2",
-		tags: ["@PolyU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Tian Ye",
-		imgurl: "https://owen718.github.io/profile/portrait_nvidia-shanghai-night.jpg",
-		desc: "叶田",
-		siteurl: "https://owen718.github.io/",
-		tags: ["@HKUST-GZ"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Shitong Shao",
-		imgurl: "https://shaoshitong.github.io/assets/img/shitong-shao-profile-800.webp",
-		desc: "邵世通",
-		siteurl: "https://shaoshitong.github.io/",
-		tags: ["@HKUST-GZ"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Yingqing He",
-		imgurl: "https://yingqinghe.github.io/myassets/mypic.jpg",
-		desc: "何盈庆",
-		siteurl: "https://yingqinghe.github.io/",
-		tags: ["@HKUST"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Yazhou Xing",
-		imgurl: "https://yazhouxing.lovable.app/assets/portrait-B9LxOUOS.jpg",
-		desc: "邢亚洲",
-		siteurl: "https://yazhouxing.lovable.app/",
-		tags: ["@HKUST"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Zhicheng Zhang",
-		imgurl: "https://zzcheng.top/assets/img/profile.png",
-		desc: "张知诚，非常好师兄",
-		siteurl: "https://zzcheng.top",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-        title: "liuxin29",
-        imgurl: "https://xinliu29.github.io/images/xinliu.jpg",
-        desc: "刘鑫",
-        siteurl: "https://xinliu29.github.io/",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Shihao Zhou",
-		imgurl: "https://joshyzhou.github.io/images/rounded_self_shihaozhou.png",
-		desc: "周世豪",
-		siteurl: "https://joshyzhou.github.io/",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Pancheng Zhao",
-		imgurl: "https://zhaopancheng.top/images/profile.jpg",
-		desc: "赵攀诚",
-		siteurl: "https://zhaopancheng.top/",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "exped123",
-		imgurl: "https://exped1230.github.io/images/jgl.jpg",
-		desc: "贾国力->THU",
-		siteurl: "https://exped1230.github.io/",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Changsong Wen",
-		imgurl: "https://downdric.github.io/self-photo.jpg",
-		desc: "文长崧->SJTU",
-		siteurl: "https://downdric.github.io",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Weicheng Wang",
-		imgurl: "https://avatars.githubusercontent.com/u/81733044?v=4",
-		desc: "汪炜澄",
-		siteurl: "https://github.com/wei-cheng777",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Rong Qin",
-		imgurl: "https://qinrong-nku.github.io/qr.jpg",
-		desc: "秦荣",
-		siteurl: "https://qinrong-nku.github.io/",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "ZhaoChenxi-nku",
-		imgurl: "https://avatars.githubusercontent.com/u/126676716?v=4",
-		desc: "赵晨曦",
-		siteurl: "https://github.com/ZhaoChenxi-nku",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Lishen Qu",
-		imgurl: "https://qulishen.github.io/images/zipai.jpg",
-		desc: "瞿立燊",
-		siteurl: "https://qulishen.github.io/",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Yunheng Li",
-		imgurl: "https://lyhisme.github.io/images/bio/android-chrome-512x512.png",
-		desc: "李运恒@VCIP，非常好室友",
-		siteurl: "https://lyhisme.github.io/",
-		tags: ["@NKU"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Theoyu Blog",
-		imgurl: "https://theoyu.top/avatar.jpg",
-		desc: "很有思考深度",
-		siteurl: "https://theoyu.top/",
-		tags: ["@CUMT"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Chunyang Li",
-		imgurl: "https://lichunyang.top/images/self.jpg",
-		desc: "秋月学姐~",
-		siteurl: "http://lichunyang.top",
-		tags: ["@CUMT"],
-		weight: 1, 
-		enabled: true, 
-	},{
-		title: "Tim's Blog",
-		imgurl: "https://www.zair.top/img/logo.png",
-		desc: "20级大数据专业",
-		siteurl: "https://www.zair.top/",
-		tags: ["@CUMT"],
-		weight: 1, 
-		enabled: true, 
-	},	{
-		title: "Hongkun Luo",
-		imgurl: "https://files.seeusercontent.com/2026/03/28/r7Qr/logo.jpg",
-		desc: "罗宏昆 20级测绘工程专业",
-		siteurl: "https://luohongkun.top/scholar/",
-		tags: ["@CUMT"],
-		weight: 1,
-		enabled: true,
-	},{
-		title: "Chenglong Wu",
-		imgurl: "https://github.com/Orangon.png",
-		desc: "武成龙 2019级地理信息科学专业",
-		siteurl: "https://orangon.github.io/",
-		tags: ["@CUMT"],
-		weight: 1,
-		enabled: true,
-	},{
-		title: "Zhicheng Deng",
-		imgurl: "https://avatars.githubusercontent.com/u/90995599?v=4",
-		desc: "邓智城",
-		siteurl: "https://dddddzc.github.io/",
-		tags: ["@UESTC"],
-		weight: 1,
-		enabled: true,
-	},{
-		title: "Cailin Zhuang",
-		imgurl: "https://github.com/journey-zhuang.png",
-		desc: "庄才林",
-		siteurl: "https://journey-zhuang.github.io/",
-		tags: ["@FDU"],
-		weight: 1,
-		enabled: true,
-	},{
-		title: "Donghao Zhou",
-		imgurl: "https://avatars.githubusercontent.com/u/42346902?v=4",
-		desc: "周冬豪",
-		siteurl: "https://github.com/Correr-Zhou",
-		tags: ["@CUHK"],
-		weight: 1,
-		enabled: true,
+		"title": "Shumin Zhu",
+		"imgurl": "https://avatars.githubusercontent.com/u/110874739?v=4",
+		"desc": "朱淑敏",
+		"siteurl": "https://github.com/FST-ZHUSHUMIN",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"PolyU"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "Wenda Shi",
+		"imgurl": "https://wendashi.github.io/images/android-chrome-512x512.png",
+		"desc": "石闻达",
+		"siteurl": "https://wendashi.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"PolyU"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "Yuheng Feng",
+		"imgurl": "https://avatars.githubusercontent.com/u/80461352?v=4",
+		"desc": "冯煜恒",
+		"siteurl": "https://github.com/Yuheng-Feng",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"PolyU"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "Jiayu Zhu",
+		"imgurl": "https://sns-avatar-qc.xhscdn.com/avatar/1040g2jo31n1mchsjl86g49k5mcv1o1tiqibusq8",
+		"desc": "朱佳瑜",
+		"siteurl": "https://www.xiaohongshu.com/user/profile/59413e1c6a6a6942134307b2",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"PolyU"
+		],
+		"category": "Art, Design & HCI"
+	},
+	{
+		"title": "Tian Ye",
+		"imgurl": "https://owen718.github.io/profile/portrait_nvidia-shanghai-night.jpg",
+		"desc": "叶田",
+		"siteurl": "https://owen718.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"HKUST-GZ"
+		],
+		"category": "Agents & Embodied AI"
+	},
+	{
+		"title": "Shitong Shao",
+		"imgurl": "https://shaoshitong.github.io/assets/img/shitong-shao-profile-800.webp",
+		"desc": "邵世通",
+		"siteurl": "https://shaoshitong.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"HKUST-GZ"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "Yingqing He",
+		"imgurl": "https://yingqinghe.github.io/myassets/mypic.jpg",
+		"desc": "何盈庆",
+		"siteurl": "https://yingqinghe.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"HKUST"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "Yazhou Xing",
+		"imgurl": "https://yazhouxing.lovable.app/assets/portrait-B9LxOUOS.jpg",
+		"desc": "邢亚洲",
+		"siteurl": "https://yazhouxing.lovable.app/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"HKUST"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "Zhicheng Zhang",
+		"imgurl": "https://zzcheng.top/assets/img/profile.png",
+		"desc": "张知诚，非常好师兄",
+		"siteurl": "https://zzcheng.top",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "liuxin29",
+		"imgurl": "https://xinliu29.github.io/images/xinliu.jpg",
+		"desc": "刘鑫",
+		"siteurl": "https://xinliu29.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Visual Perception"
+	},
+	{
+		"title": "Shihao Zhou",
+		"imgurl": "https://joshyzhou.github.io/images/rounded_self_shihaozhou.png",
+		"desc": "周世豪",
+		"siteurl": "https://joshyzhou.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Visual Perception"
+	},
+	{
+		"title": "Pancheng Zhao",
+		"imgurl": "https://zhaopancheng.top/images/profile.jpg",
+		"desc": "赵攀诚",
+		"siteurl": "https://zhaopancheng.top/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Visual Perception"
+	},
+	{
+		"title": "exped123",
+		"imgurl": "https://exped1230.github.io/images/jgl.jpg",
+		"desc": "贾国力",
+		"siteurl": "https://exped1230.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "Changsong Wen",
+		"imgurl": "https://downdric.github.io/self-photo.jpg",
+		"desc": "文长崧",
+		"siteurl": "https://downdric.github.io",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Visual Perception"
+	},
+	{
+		"title": "Weicheng Wang",
+		"imgurl": "https://avatars.githubusercontent.com/u/81733044?v=4",
+		"desc": "汪炜澄",
+		"siteurl": "https://github.com/wei-cheng777",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "AIGC"
+	},
+	{
+		"title": "Rong Qin",
+		"imgurl": "https://qinrong-nku.github.io/qr.jpg",
+		"desc": "秦荣",
+		"siteurl": "https://qinrong-nku.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Visual Perception"
+	},
+	{
+		"title": "ZhaoChenxi-nku",
+		"imgurl": "https://avatars.githubusercontent.com/u/126676716?v=4",
+		"desc": "赵晨曦",
+		"siteurl": "https://github.com/ZhaoChenxi-nku",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Visual Perception"
+	},
+	{
+		"title": "Lishen Qu",
+		"imgurl": "https://qulishen.github.io/images/zipai.jpg",
+		"desc": "瞿立燊",
+		"siteurl": "https://qulishen.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Visual Perception"
+	},
+	{
+		"title": "Yunheng Li",
+		"imgurl": "https://lyhisme.github.io/images/bio/android-chrome-512x512.png",
+		"desc": "李运恒，非常好室友",
+		"siteurl": "https://lyhisme.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Agents & Embodied AI"
+	},
+	{
+		"title": "Theoyu Blog",
+		"imgurl": "https://theoyu.top/avatar.jpg",
+		"desc": "很有思考深度",
+		"siteurl": "https://theoyu.top/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"CUMT"
+		],
+		"category": "Software & Security"
+	},
+	{
+		"title": "Chunyang Li",
+		"imgurl": "https://lichunyang.top/images/self.jpg",
+		"desc": "秋月学姐~",
+		"siteurl": "http://lichunyang.top",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"CUMT"
+		],
+		"category": "Software & Security"
+	},
+	{
+		"title": "Tim's Blog",
+		"imgurl": "https://www.zair.top/img/logo.png",
+		"desc": "20级大数据专业",
+		"siteurl": "https://www.zair.top/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"CUMT"
+		],
+		"category": "Software & Security"
+	},
+	{
+		"title": "Hongkun Luo",
+		"imgurl": "https://files.seeusercontent.com/2026/03/28/r7Qr/logo.jpg",
+		"desc": "罗宏昆 20级测绘工程专业",
+		"siteurl": "https://luohongkun.top/scholar/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"CUMT"
+		],
+		"category": "Agents & Embodied AI"
+	},
+	{
+		"title": "Chenglong Wu",
+		"imgurl": "https://github.com/Orangon.png",
+		"desc": "武成龙 2019级地理信息科学专业",
+		"siteurl": "https://orangon.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"CUMT"
+		],
+		"category": "Software & Security"
+	},
+	{
+		"title": "Zhicheng Deng",
+		"imgurl": "https://avatars.githubusercontent.com/u/90995599?v=4",
+		"desc": "邓智城",
+		"siteurl": "https://dddddzc.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"UESTC"
+		],
+		"category": "Software & Security"
+	},
+	{
+		"title": "Cailin Zhuang",
+		"imgurl": "https://github.com/journey-zhuang.png",
+		"desc": "庄才林",
+		"siteurl": "https://journey-zhuang.github.io/",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"FDU"
+		],
+		"category": "Art, Design & HCI"
+	},
+	{
+		"title": "Donghao Zhou",
+		"imgurl": "https://avatars.githubusercontent.com/u/42346902?v=4",
+		"desc": "周冬豪",
+		"siteurl": "https://github.com/Correr-Zhou",
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"CUHK"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Zikai Zhou",
 		"imgurl": "https://klayand.github.io/images/profile.jpg",
 		"desc": "Generative AI",
 		"siteurl": "https://klayand.github.io/",
-		"tags": [
-			"@HKUST-GZ"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"HKUST-GZ"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Xiangpeng Yang",
 		"imgurl": "https://xiangpengyang.github.io/images/yxp.jpg",
 		"desc": "Video generation",
 		"siteurl": "https://xiangpengyang.github.io/",
-		"tags": [
-			"@UTS"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"UTS"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Ji Xie",
 		"imgurl": "https://horizonwind2004.github.io/assets/images/profile.jpg",
 		"desc": "谢集",
 		"siteurl": "https://horizonwind2004.github.io/",
-		"tags": [
-			"@CMU"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"CMU"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Sixiang Chen",
 		"imgurl": "https://ephemeral182.github.io/csx5.jpg",
 		"desc": "陈思翔",
 		"siteurl": "https://ephemeral182.github.io/",
-		"tags": [
-			"@HKUST-GZ"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"HKUST-GZ"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Jingyu Lin",
 		"imgurl": "https://jonyond-lin.github.io/images/profile.jpg",
 		"desc": "林靖渝",
 		"siteurl": "https://jonyond-lin.github.io/",
-		"tags": [
-			"@Monash"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"Monash"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Qi Shao",
 		"imgurl": "https://media.licdn.com/dms/image/v2/D4E03AQHmLzyXj26fEw/profile-displayphoto-crop_800_800/B4EaCFkPWnGoAM-/0/1788947266389?e=1792627200&v=beta&t=ZD5MqKvDKEojXHrtj-54vkeF1RWkia1zACqWzIx8XH4",
 		"desc": "邵琦",
 		"siteurl": "https://www.linkedin.com/in/qi-shao-312164307",
-		"tags": [
-			"@Liverpool"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"Liverpool"
+		],
+		"category": "Agents & Embodied AI"
 	},
 	{
 		"title": "Aoran Wang",
 		"imgurl": "https://wang422003.github.io/assets/img/prof_pic.jpg",
 		"desc": "AI for scientific discovery",
 		"siteurl": "https://wang422003.github.io/",
-		"tags": [
-			"@Shanghai AI Lab"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"Shanghai AI Lab"
+		],
+		"category": "AI Foundations & Science"
 	},
 	{
 		"title": "Xinnan Dai",
 		"imgurl": "https://ddigimon.github.io/images/profile1.png",
 		"desc": "LLMs and graph reasoning",
 		"siteurl": "https://ddigimon.github.io/",
-		"tags": [
-			"@MSU"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"MSU"
+		],
+		"category": "AI Foundations & Science"
 	},
 	{
 		"title": "Hongliang Zhang",
 		"imgurl": "https://zhang1hongliang.github.io/me.jpg",
 		"desc": "张宏亮",
 		"siteurl": "https://zhang1hongliang.github.io/",
-		"tags": [
-			"@NJUST"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"NJUST"
+		],
+		"category": "AI Foundations & Science"
 	},
 	{
 		"title": "Chen-Bin Feng",
 		"imgurl": "https://fcbfcb1998.github.io/pic/fcb2.jpg",
 		"desc": "Computer vision",
 		"siteurl": "https://fcbfcb1998.github.io/",
-		"tags": [
-			"@UM"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"UM"
+		],
+		"category": "Visual Perception"
 	},
 	{
 		"title": "Fangjian Liao",
 		"imgurl": "https://media.licdn.com/dms/image/v2/D5635AQFCHTV70OXBJQ/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1730643645587?e=1791792000&v=beta&t=xfuQgz0IqAZEeC5lrConsYQhyIwskp6VUF9bSeHB2LY",
 		"desc": "廖芳建",
 		"siteurl": "https://hk.linkedin.com/in/fangjian-liao",
-		"tags": [
-			"@PolyU"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"PolyU"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Minxing Luo",
 		"imgurl": "https://tony-lowe.github.io/media/authors/me_hu_d0fca67b86efe32b.jpg",
 		"desc": "罗敏行",
 		"siteurl": "https://tony-lowe.github.io/",
-		"tags": [
-			"@NKU"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Yue Ma",
 		"imgurl": "https://mayuelala.github.io/pic/my3.jpg",
 		"desc": "马跃",
 		"siteurl": "https://mayuelala.github.io/",
-		"tags": [
-			"@HKUST"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"HKUST"
+		],
+		"category": "AIGC"
 	},
 	{
 		"title": "Zhiqi Gao",
 		"imgurl": "https://media.licdn.com/dms/image/v2/D5603AQFtJp9rNJ27Ug/profile-displayphoto-crop_800_800/B56Zo6jGg0IcAI-/0/1761918889231?e=1792627200&v=beta&t=APPVh_N-GBIMslDJogZyqE9rpU8Tfj4GUCeYiZ0qTZ8",
 		"desc": "高治淇",
 		"siteurl": "https://www.linkedin.com/in/zhiqi-gao-b06a2a253",
-		"tags": [
-			"@CUHK-SZ"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"CUHK-SZ"
+		],
+		"category": "Art, Design & HCI"
 	},
 	{
 		"title": "Jianpeng Xie",
 		"imgurl": "https://scholar.googleusercontent.com/citations?view_op=medium_photo&user=BKfs8BEAAAAJ",
 		"desc": "谢建鹏",
 		"siteurl": "https://scholar.google.com.hk/citations?user=BKfs8BEAAAAJ",
-		"tags": [
-			"@NKU"
-		],
 		"weight": 1,
-		"enabled": true
+		"enabled": true,
+		"affiliations": [
+			"NKU"
+		],
+		"category": "Visual Perception"
 	},
 	{
 		"title": "Ziyu Liu",
 		"imgurl": "https://media.licdn.com/dms/image/v2/D4E03AQEjqI7ZHBiEvQ/profile-displayphoto-crop_800_800/B4EZ66XA8oJIAI-/0/1781243057218?e=1792627200&v=beta&t=aDukcxi6DFIY2Nu7pz_9N8JCLSPYzvg3EYpSSbIrKfs",
 		"desc": "刘子瑜",
 		"siteurl": "https://www.linkedin.com/in/ziyumioliu",
-		"tags": [
-			"@UPenn"
+		"weight": 1,
+		"enabled": true,
+		"affiliations": [
+			"UPenn"
 		],
+		"category": "Art, Design & HCI"
+	},
+	{
+		"title": "Ziheng Ouyang",
+		"imgurl": "https://ouyangziheng.github.io/assets/img/avatar.png",
+		"desc": "欧阳子恒",
+		"siteurl": "https://ouyangziheng.github.io/",
+		"affiliations": [
+			"NKU"
+		],
+		"category": "AIGC",
 		"weight": 1,
 		"enabled": true
 	}

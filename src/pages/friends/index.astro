@@ -14,17 +14,11 @@ if (!siteVisibility.friends) {
 
 const friends = getEnabledFriends();
 
-const tagCounts = new Map<string, number>();
-for (const f of friends) {
-	for (const t of f.tags ?? []) {
-		tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
-	}
-}
-const categories = Array.from(tagCounts.keys()).sort((a, b) => {
-	const countDiff = (tagCounts.get(b) ?? 0) - (tagCounts.get(a) ?? 0);
-	if (countDiff !== 0) return countDiff;
-	return a.localeCompare(b);
-});
+const categoryOrder = ["AIGC","Agents & Embodied AI","Visual Perception","AI Foundations & Science","Software & Security","Art, Design & HCI"];
+const categories = categoryOrder.map((label) => ({
+	label,
+	count: friends.filter((friend) => friend.category === label).length,
+})).filter((category) => category.count > 0);
 
 const description = 'Friends — personal links to people and sites I recommend.';
 ---

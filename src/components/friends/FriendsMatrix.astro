@@ -3,20 +3,17 @@ import type { FriendLink } from '../../data/friends';
 
 interface Props {
 	friends: FriendLink[];
-	categories: string[];
+	categories: { label: string; count: number }[];
 }
 
 const { friends, categories } = Astro.props;
 
-function cardTagsAttr(f: FriendLink) {
-	return (f.tags ?? []).join('\n');
-}
 ---
 
 <div class="friends-matrix" data-friends-matrix>
 	{
 		categories.length > 0 && (
-			<div class="friends-filter" role="tablist" aria-label="Filter by tag">
+			<div class="friends-filter" role="tablist" aria-label="Filter by professional category">
 				<button
 					type="button"
 					class="friends-filter__btn friends-filter__btn--active"
@@ -24,7 +21,7 @@ function cardTagsAttr(f: FriendLink) {
 					aria-selected="true"
 					data-friends-filter="all"
 				>
-					All
+					All ({friends.length})
 				</button>
 				{categories.map((cat) => (
 					<button
@@ -32,9 +29,9 @@ function cardTagsAttr(f: FriendLink) {
 						class="friends-filter__btn"
 						role="tab"
 						aria-selected="false"
-						data-friends-filter={cat}
+						data-friends-filter={cat.label}
 					>
-						{cat.replace(/^@/, '')}
+						{cat.label} ({cat.count})
 					</button>
 				))}
 			</div>
@@ -50,7 +47,7 @@ function cardTagsAttr(f: FriendLink) {
 						href={f.siteurl}
 						target="_blank"
 						rel="noopener noreferrer"
-						data-tags={cardTagsAttr(f)}
+						data-category={f.category}
 					>
 						<img
 							class="friends-card__avatar"
@@ -65,15 +62,13 @@ function cardTagsAttr(f: FriendLink) {
 						<div class="friends-card__body">
 							<div class="friends-card__title">{f.title}</div>
 							<p class="friends-card__desc">{f.desc}</p>
-							{
-								f.tags && f.tags.length > 0 && (
-									<div class="friends-card__tags">
-										{f.tags.map((t) => (
-											<span class="friends-card__tag">{t.replace(/^@/, '')}</span>
-										))}
-									</div>
-								)
-							}
+							{f.affiliations && f.affiliations.length > 0 && (
+								<div class="friends-card__affiliations">
+									{f.affiliations.map((affiliation) => (
+										<span class="friends-card__affiliation">{affiliation}</span>
+									))}
+								</div>
+							)}
 						</div>
 					</a>
 				</li>
@@ -97,12 +92,23 @@ function cardTagsAttr(f: FriendLink) {
 				});
 			}
 
+			function shuffleCards() {
+				var grid = root.querySelector('.friends-grid');
+				var shuffled = Array.from(cards);
+				for (var i = shuffled.length - 1; i > 0; i--) {
+					var j = Math.floor(Math.random() * (i + 1));
+					var temp = shuffled[i];
+					shuffled[i] = shuffled[j];
+					shuffled[j] = temp;
+				}
+				shuffled.forEach(function (card) { grid.appendChild(card); });
+			}
+
 			function applyFilter(cat) {
 				cards.forEach(function (li) {
-					var a = li.querySelector('a[data-tags]');
-					var raw = a ? a.getAttribute('data-tags') || '' : '';
-					var tags = raw ? raw.split('\n').filter(Boolean) : [];
-					var show = cat === 'all' || tags.indexOf(cat) !== -1;
+					var a = li.querySelector('a[data-category]');
+					var category = a ? a.getAttribute('data-category') : '';
+					var show = cat === 'all' || category === cat;
 					if (show) li.removeAttribute('hidden');
 					else li.setAttribute('hidden', '');
 				});
@@ -113,6 +119,7 @@ function cardTagsAttr(f: FriendLink) {
 					var cat = btn.getAttribute('data-friends-filter') || 'all';
 					setActive(btn);
 					applyFilter(cat);
+					shuffleCards();
 				});
 			});
 		});
@@ -254,20 +261,22 @@ function cardTagsAttr(f: FriendLink) {
 		overflow: hidden;
 	}
 
-	.friends-card__tags {
+
+	:global(.friends-card__affiliations) {
 		display: flex;
 		flex-wrap: wrap;
 		gap: 0.3rem;
 		margin-top: 0.4rem;
 	}
 
-	.friends-card__tag {
-		font-size: 0.625rem;
+	:global(.friends-card__affiliation) {
+		display: inline-flex;
+		align-items: center;
+		font-size: 0.6875rem;
+		line-height: 1.4;
 		font-weight: 600;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-		padding: 0.22em 0.5em;
-		border-radius: 6px;
+		padding: 0.2rem 0.45rem;
+		border-radius: 999px;
 		background: color-mix(in oklch, rgb(var(--gray-light)) 94%, var(--accent) 6%);
 		color: rgb(var(--gray));
 		border: 1px solid rgba(var(--gray), 0.08);
