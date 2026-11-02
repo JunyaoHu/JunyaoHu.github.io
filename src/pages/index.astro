@@ -283,7 +283,12 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 	/* ── Junyao Code (Claude Code style chat) ── */
 	.cc { background: #1f1e1d; color: #e8e6e3; font: 14.5px/1.55 var(--mono); height: 100%; display: flex; flex-direction: column; }
 	.cc .dim { color: #8f8b85; }
-	.cc-scroll { flex: 1; overflow: auto; padding: 14px 16px 6px; }
+	.cc-scroll { flex: 1; overflow: auto; padding: 14px 16px 6px; scrollbar-width: thin; scrollbar-color: #4a4743 transparent; }
+	.cc-scroll::-webkit-scrollbar { width: 10px; }
+	.cc-scroll::-webkit-scrollbar-track { background: transparent; }
+	.cc-scroll::-webkit-scrollbar-thumb { background: #4a4743; border: 3px solid #1f1e1d; border-radius: 99px; }
+	.cc-scroll::-webkit-scrollbar-thumb:hover { background: #d97757; }
+	.cc-scroll::-webkit-scrollbar-corner { background: transparent; }
 	.cc-welcome { display: flex; gap: 16px; align-items: center; border: 1px solid #d97757; border-radius: 10px; padding: 12px 16px; }
 	.cc-welcome .ttl { font-weight: 700; }
 	.cc-welcome .ttl span { color: #d97757; }
@@ -300,6 +305,7 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 	.cc-msg .dot, .cc-tool .dot { flex: none; }
 	.cc-msg .body { white-space: pre-wrap; }
 	.cc-msg .body a { color: #e3a07f; }
+	.cc .mail { color: #e3a07f; user-select: all; }
 	.cc-msg .body b { color: #fff; }
 	.cc-tool .dot { color: #6cc070; }
 	.cc-tool b { color: #fff; }
@@ -386,7 +392,7 @@ const POSTS = D.posts;
 const POST_CATS = [...new Set(POSTS.map(p => p.category))].sort((a, b) => POSTS.filter(p => p.category === b).length - POSTS.filter(p => p.category === a).length);
 const NEWS_META = { accepted: ['😋 Accepted', '#e95420'], activity: ['💼 Activity', '#3584e4'], study: ['✒️ Study', '#26a269'] };
 const newsMeta = c => NEWS_META[c] || [c, '#9a9996'];
-const EMAIL = 'hujunyao0329@gmail.com';
+const EMAIL = 'hujunyao0329 AT gmail.com'; // 纯文本、不做 mailto 链接，避免被直接抓取
 const SCHOLAR = 'https://scholar.google.com/citations?user=pOgwDdcAAAAJ';
 
 /* ═══════════ icons (inline SVG) ═══════════ */
@@ -462,7 +468,7 @@ const APPS = {
 				'<span class="md-h"># Junyao Hu (胡钧耀)</span>', '', '<span class="md-q">> I have a little dream to chase, and I have a long way to go.</span>', '',
 				'<span class="md-h">## Now</span>', 'Research assistant @ <a href="https://www.polyu.edu.hk/sft/" target="_blank">School of Fashion and Textiles</a>,', 'The Hong Kong Polytechnic University', 'Supervised by <a href="https://scholar.google.com/citations?user=UhnQA3UAAAAJ" target="_blank">Dr. Xingxing Zou</a>', '',
 				'<span class="md-h">## Focus</span>', 'Creative content production: 🎨 art · 🎬 film · 🎥 video · 👔 fashion · 😄 emotion', '',
-				'<span class="md-h">## Contact</span>', `- <span class="md-b">GitHub</span>: <a href="https://github.com/JunyaoHu" target="_blank">JunyaoHu</a>`, `- <span class="md-b">Email</span>: <a href="mailto:${EMAIL}">${EMAIL}</a>`, `- <span class="md-b">Scholar</span>: <a href="${SCHOLAR}" target="_blank">Google Scholar</a>`, '',
+				'<span class="md-h">## Contact</span>', `- <span class="md-b">GitHub</span>: <a href="https://github.com/JunyaoHu" target="_blank">JunyaoHu</a>`, `- <span class="md-b">Email</span>: <span class="mail">${EMAIL}</span>`, `- <span class="md-b">Scholar</span>: <a href="${SCHOLAR}" target="_blank">Google Scholar</a>`, '',
 				'Collaborations are always welcome 🥰', '<span class="dim">(try chatting with me in Junyao Code)</span>',
 			];
 			return `<div class="editor">${L.map((t, i) => `<div class="ln"><span class="no">${i + 1}</span><span class="tx">${t || ' '}</span></div>`).join('')}</div>`;
@@ -856,6 +862,7 @@ async function stream(w, el, html, sc) {
 		if (i % 3 === 0) { el.innerHTML = buf; sc.scrollTop = sc.scrollHeight; await sleep(12); }
 	}
 	el.innerHTML = buf; sc.scrollTop = sc.scrollHeight;
+	el.querySelectorAll('a[href]').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
 }
 
 const OPEN_TARGETS = [[/photo|gallery|picture|album/i, 'gallery'], [/friend|contact/i, 'friends'], [/guestbook|message|comment/i, 'guestbook'], [/paper|publication/i, 'papers'], [/blog|post/i, 'blog'], [/news|calendar/i, 'news'], [/readme|about/i, 'about'], [/file|home/i, 'files'], [/trash/i, 'trash']];
@@ -884,7 +891,7 @@ function answer(q) {
 		{ text: 'Most recent:\n' + NEWS.slice(0, 5).map(n => `  <b>${n[0]}</b>  ${n[2]}`).join('\n') },
 	];
 	if (has(/contact|email|mail|reach|wechat/i)) return [{ text:
-		`📧 <a href="mailto:${EMAIL}">${EMAIL}</a>\n🐙 GitHub: <a href="https://github.com/JunyaoHu" target="_blank">JunyaoHu</a>\n🎓 <a href="${SCHOLAR}" target="_blank">Google Scholar</a>\nEmail is the fastest way to reach me.` }];
+		`📧 <span class="mail">${EMAIL}</span>\n🐙 GitHub: <a href="https://github.com/JunyaoHu" target="_blank">JunyaoHu</a>\n🎓 <a href="${SCHOLAR}" target="_blank">Google Scholar</a>\nEmail is the fastest way to reach me.` }];
 	if (has(/collab|hire|job|intern|work with/i)) return [{ text:
 		"I'd love to collaborate on anything around creative content — fashion, film, video, art or emotion-aware generation. Drop me an email with a short intro and idea 🥰" }];
 	if (has(/film|movie|festival/i)) return [{ text:
