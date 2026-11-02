@@ -2,6 +2,7 @@
 // 主页：Ubuntu 风格的桌面版；经典主页在 /classic
 // 论文 / 新闻 / 相册 / 友链在构建时从现有数据文件注入，改数据文件即可同步
 import { getAllPapersSorted, getPaperAuthorFilterRole, SELF_AUTHOR_NAME } from '../data/papers';
+import { getCollection } from 'astro:content';
 import { newsItems } from '../data/homepage';
 import { galleryConfig } from '../data/gallery';
 import { getEnabledFriends } from '../data/friends';
@@ -40,7 +41,28 @@ const friends = siteVisibility.friends
 	? getEnabledFriends().map((f) => ({ name: f.title, avatar: f.imgurl, url: f.siteurl, org: (f.affiliations ?? []).join(' · '), category: f.category }))
 	: [];
 
-const deskData = JSON.stringify({ papers, news, albums, friends }).replace(/</g, '\\u003c');
+// 博客分类在站内是中文名，桌面版显示英文；未列出的分类原样显示
+const CATEGORY_EN: Record<string, string> = {
+	课外学习: 'Self-study',
+	CUMT课程笔记: 'CUMT Course Notes',
+	生活杂记: 'Life',
+	开发项目: 'Projects',
+	刷题记录: 'Coding Practice',
+	博客指南: 'Blog Guide',
+	文章示例: 'Examples',
+};
+const posts = siteVisibility.blog
+	? (await getCollection('blog'))
+			.sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf())
+			.map((p) => ({
+				id: p.id,
+				title: p.data.title,
+				date: p.data.publishedDate.toISOString().slice(0, 10),
+				category: p.data.category ? (CATEGORY_EN[p.data.category] ?? p.data.category) : 'Uncategorized',
+			}))
+	: [];
+
+const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replace(/</g, '\\u003c');
 ---
 <!doctype html>
 <html lang="en">
@@ -162,6 +184,8 @@ const deskData = JSON.stringify({ papers, news, albums, friends }).replace(/</g,
 	.row svg { width: 28px; height: 28px; }
 	.row .nm { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 	.row .sub { color: var(--muted); font-size: 12px; }
+	.row.post { color: inherit; text-decoration: none; }
+	.row .dt { justify-self: end; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 	.row .vn { justify-self: end; font-size: 12px; font-weight: 700; color: #fff; background: var(--orange); border-radius: 6px; padding: 1px 8px; }
 	.foot { margin-top: auto; padding: 8px 14px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); }
 
@@ -326,16 +350,13 @@ const ROLE = { first: 'First author', 'co-first': 'Co-first author', other: 'Co-
 const PAPERS = D.papers.map(p => ({ ...p, short: p.title.split(':')[0].trim(), role: ROLE[p.filter] }));
 const NEWS = D.news.map(n => [n.date, n.category, n.html]);
 const ALBUMS = D.albums;
-const FRIENDS = D.friends;
+// 每次打开都随机排序（分类筛选按钮的顺序也随之打乱）
+const FRIENDS = D.friends.slice();
+for (let i = FRIENDS.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [FRIENDS[i], FRIENDS[j]] = [FRIENDS[j], FRIENDS[i]]; }
+const POSTS = D.posts;
+const POST_CATS = [...new Set(POSTS.map(p => p.category))].sort((a, b) => POSTS.filter(p => p.category === b).length - POSTS.filter(p => p.category === a).length);
 const NEWS_META = { accepted: ['😋 Accepted', '#e95420'], activity: ['💼 Activity', '#3584e4'], study: ['✒️ Study', '#26a269'] };
 const newsMeta = c => NEWS_META[c] || [c, '#9a9996'];
-// 分类 slug 保持站内原名，用于跳转 /blog/category/...
-const BLOG = [
-	{ slug: '课外学习', name: 'Self-study', n: 28, posts: ['InternLM Camp L2 — InternVL Fine-tuning', 'InternLM Camp L1 — XTuner Fine-tuning', 'Hung-yi Lee Machine Learning', 'Computer Vision Notes (BUPT)', 'Huggingface Transformers in Practice'] },
-	{ slug: 'CUMT课程笔记', name: 'CUMT Course Notes', n: 9, posts: ['Algorithm Design', 'Software Engineering', 'Java', 'Web Development'] },
-	{ slug: '生活杂记', name: 'Life', n: 4, posts: ['2023 Review', 'One Year After Graduate Admission', 'Advice for Freshmen 2022', 'Time Management with Dida'] },
-	{ slug: '开发项目', name: 'Projects', n: 3, posts: ['Bert-UNILM + Django Writing Platform', 'Lane Centerline Detection with Unet3p', 'Qt TCP Host Software'] },
-];
 const EMAIL = 'hujunyao0329@gmail.com';
 const SCHOLAR = 'https://scholar.google.com/citations?user=pOgwDdcAAAAJ';
 
@@ -417,7 +438,7 @@ const APPS = {
 		},
 	},
 	files: {
-		icon: 'files', label: 'Files', title: w => 'Files — ' + locName(w ? w.state.loc : 'home'), w: 780, h: 520, state: () => ({ loc: 'home', pf: 'all' }),
+		icon: 'files', label: 'Files', title: w => 'Files — ' + locName(w ? w.state.loc : 'home'), w: 780, h: 520, state: () => ({ loc: 'home', pf: 'all', bf: 'all' }),
 		render: w => renderFiles(w),
 		click: (w, e) => filesClick(w, e),
 	},
@@ -492,14 +513,13 @@ function locName(loc) {
 	if (loc === 'home') return 'Home';
 	if (loc === 'papers') return 'Publications';
 	if (loc === 'blog') return 'Blog';
-	if (loc.startsWith('blog:')) return BLOG[+loc.slice(5)].name;
 	return loc;
 }
 function renderFiles(w) {
 	const loc = w.state.loc;
-	const crumbs = loc === 'home' ? ['home'] : loc.startsWith('blog:') ? ['home', 'blog', loc] : ['home', loc];
+	const crumbs = loc === 'home' ? ['home'] : ['home', loc];
 	const side = [['home', 'home', 'Home'], ['papers', 'papers', 'Publications'], ['blog', 'blog', 'Blog'], ['photos', 'photosFolder', 'Photos'], ['trash', 'trash', 'Trash']]
-		.map(([k, ic, n]) => `<div class="pl ${loc === k || (k === 'blog' && loc.startsWith('blog')) ? 'on' : ''}" data-go="${k}">${icon(ic)}<span>${n}</span></div>`).join('');
+		.map(([k, ic, n]) => `<div class="pl ${loc === k || false ? 'on' : ''}" data-go="${k}">${icon(ic)}<span>${n}</span></div>`).join('');
 	let body = '', foot = '';
 	if (loc === 'home') {
 		body = `<div class="grid">
@@ -518,18 +538,19 @@ function renderFiles(w) {
 		body = `<div class="chips">${chips}</div><div class="rows">${rows || '<p class="dim pad">No papers in this category.</p>'}</div>`;
 		foot = 'Note: # = Equal Contribution, * = Corresponding Author.';
 	} else if (loc === 'blog') {
-		body = `<div class="grid">${BLOG.map((b, i) => `<div class="fi" data-go="blog:${i}">${icon('folder')}<span>${b.name}<br /><small class="dim">${b.n} posts</small></span></div>`).join('')}</div>`;
+		const chips = [['all', 'All', POSTS.length], ...POST_CATS.map(c => [c, c, POSTS.filter(p => p.category === c).length])]
+			.map(([id, l, n]) => `<button data-bf="${esc(id)}" class="${w.state.bf === id ? 'on' : ''}">${esc(l)}<small>(${n})</small></button>`).join('');
+		const rows = POSTS.filter(p => w.state.bf === 'all' || p.category === w.state.bf)
+			.map(p => `<a class="row post" href="/blog/${p.id}/" target="_blank">${icon('md')}<div><div class="nm">${esc(p.title)}</div><div class="sub">${esc(p.category)}</div></div><span class="dt">${p.date}</span></a>`).join('');
+		body = `<div class="chips">${chips}</div><div class="rows">${rows}</div>`;
 		foot = '<a href="/blog" target="_blank">Open the full blog ↗</a>';
-	} else if (loc.startsWith('blog:')) {
-		const b = BLOG[+loc.slice(5)];
-		body = `<div class="grid">${b.posts.map(p => `<a class="fi" href="/blog/category/${encodeURIComponent(b.slug)}" target="_blank">${icon('md')}<span>${p}.md</span></a>`).join('')}</div>`;
-		foot = `${b.n} posts in this category`;
 	}
 	return `<div class="files"><aside>${side}</aside><main><div class="crumb">${crumbs.map(c => `<span class="c" data-go="${c}">${locName(c)}</span>`).join('<span>›</span>')}</div>${body}<div class="foot">${foot}</div></main></div>`;
 }
 function filesClick(w, e) {
-	const go = e.target.closest('[data-go]'), op = e.target.closest('[data-open]'), pp = e.target.closest('[data-paper]'), pf = e.target.closest('[data-pf]');
+	const go = e.target.closest('[data-go]'), op = e.target.closest('[data-open]'), pp = e.target.closest('[data-paper]'), pf = e.target.closest('[data-pf]'), bf = e.target.closest('[data-bf]');
 	if (pf) { w.state.pf = pf.dataset.pf; return refresh(w); }
+	if (bf) { w.state.bf = bf.dataset.bf; return refresh(w); }
 	if (pp) return openPaper(+pp.dataset.paper);
 	if (op) return openWin(op.dataset.open);
 	if (!go) return;
@@ -729,8 +750,8 @@ function answer(q) {
 	if (has(/film|movie|festival/i)) return [{ text:
 		'🎬 One of my films was selected as a <b>Finalist</b> at the First AMC AI Film Festival (HKUST, 2025). On the research side: ExtDM (video prediction) and DRA-MTransfer (motion transfer).' }];
 	if (has(/blog|post|article|note/i)) return [
-		{ tool: ['Glob', 'blog/**/*.md'], out: 'Found 44 files' },
-		{ text: BLOG.map(b => `  📁 <b>${b.name}</b> — ${b.n} posts`).join('\n') + '\nSay "open blog" to browse them.' },
+		{ tool: ['Glob', 'blog/**/*.md'], out: `Found ${POSTS.length} files` },
+		{ text: POST_CATS.map(c => `  📁 <b>${c}</b> — ${POSTS.filter(p => p.category === c).length} posts`).join('\n') + '\nSay "open blog" to browse them.' },
 	];
 	if (has(/photo|gallery|picture|album/i)) return [{ tool: ['Open', 'Photos'], out: 'Launched', act: () => openWin('gallery') }, { text: `${ALBUMS.length} albums: ${ALBUMS.map(a => a.name).join(', ')} 📷` }];
 	if (FRIENDS.length && has(/friend|people|peers/i)) return [
