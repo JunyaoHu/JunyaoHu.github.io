@@ -525,7 +525,7 @@ export const friendsConfig: FriendLink[] = [
 	},
 	{
 		"title": "Qi Shao",
-		"imgurl": "https://media.licdn.com/dms/image/v2/D4E03AQHmLzyXj26fEw/profile-displayphoto-crop_800_800/B4EaCFkPWnGoAM-/0/1788947266389?e=1792627200&v=beta&t=ZD5MqKvDKEojXHrtj-54vkeF1RWkia1zACqWzIx8XH4",
+		"imgurl": "/images/friends/qi-shao.jpg",
 		"desc": "邵琦",
 		"siteurl": "https://www.linkedin.com/in/qi-shao-312164307",
 		"weight": 1,
@@ -585,7 +585,7 @@ export const friendsConfig: FriendLink[] = [
 	},
 	{
 		"title": "Fangjian Liao",
-		"imgurl": "https://media.licdn.com/dms/image/v2/D5635AQFCHTV70OXBJQ/profile-framedphoto-shrink_800_800/profile-framedphoto-shrink_800_800/0/1730643645587?e=1791792000&v=beta&t=xfuQgz0IqAZEeC5lrConsYQhyIwskp6VUF9bSeHB2LY",
+		"imgurl": "/images/friends/fangjian-liao.jpg",
 		"desc": "廖芳建",
 		"siteurl": "https://hk.linkedin.com/in/fangjian-liao",
 		"weight": 1,
@@ -621,7 +621,7 @@ export const friendsConfig: FriendLink[] = [
 	},
 	{
 		"title": "Zhiqi Gao",
-		"imgurl": "https://media.licdn.com/dms/image/v2/D5603AQFtJp9rNJ27Ug/profile-displayphoto-crop_800_800/B56Zo6jGg0IcAI-/0/1761918889231?e=1792627200&v=beta&t=APPVh_N-GBIMslDJogZyqE9rpU8Tfj4GUCeYiZ0qTZ8",
+		"imgurl": "/images/friends/zhiqi-gao.jpg",
 		"desc": "高治淇",
 		"siteurl": "https://www.linkedin.com/in/zhiqi-gao-b06a2a253",
 		"weight": 1,
@@ -645,7 +645,7 @@ export const friendsConfig: FriendLink[] = [
 	},
 	{
 		"title": "Ziyu Liu",
-		"imgurl": "https://media.licdn.com/dms/image/v2/D4E03AQEjqI7ZHBiEvQ/profile-displayphoto-crop_800_800/B4EZ66XA8oJIAI-/0/1781243057218?e=1792627200&v=beta&t=aDukcxi6DFIY2Nu7pz_9N8JCLSPYzvg3EYpSSbIrKfs",
+		"imgurl": "/images/friends/ziyu-liu.jpg",
 		"desc": "刘子瑜",
 		"siteurl": "https://www.linkedin.com/in/ziyumioliu",
 		"weight": 1,
