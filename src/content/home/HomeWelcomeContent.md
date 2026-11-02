@@ -1,5 +1,5 @@
 👋 Hi! My name is Junyao Hu (胡钧耀).
-I am currently a research assistant at the [School of Fashion and Textiles](https://www.polyu.edu.hk/sft/), The Hong Kong Polytechnic University, supervised by [Dr. Xingxing Zou](https://scholar.google.com/citations?user=UhnQA3UAAAAJ).
+I am currently a first-year Ph.D. student at the [School of Fashion and Textiles](https://www.polyu.edu.hk/sft/), The Hong Kong Polytechnic University, supervised by [Dr. Xingxing Zou](https://scholar.google.com/citations?user=UhnQA3UAAAAJ) and co-supervised by [Prof. Calvin Wong Wai-keung](https://www.polyu.edu.hk/giving/development-priorities/research-and-innovation/endowed-professorship-scheme/meet-the-top-minds/cheng-yik-hung-endowed-professorship-in-fashion).
 
 🔍 My current focus is on creative content production, including 🎨 art, 🎬 film, 🎥 video, 🎨 design, 👔 fashion, 😄 emotion, and other expressive media. 
 

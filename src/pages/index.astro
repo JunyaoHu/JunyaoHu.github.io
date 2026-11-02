@@ -74,7 +74,7 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Junyao Hu</title>
-<meta name="description" content="Junyao Hu — research assistant at PolyU School of Fashion and Textiles. Creative content production with generative AI." />
+<meta name="description" content="Junyao Hu — first-year Ph.D. student at PolyU School of Fashion and Textiles. Creative content production with generative AI." />
 <link rel="icon" href="/favicon.ico" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet" />
@@ -466,7 +466,7 @@ const APPS = {
 		render: () => {
 			const L = [
 				'<span class="md-h"># Junyao Hu (胡钧耀)</span>', '', '<span class="md-q">> I have a little dream to chase, and I have a long way to go.</span>', '',
-				'<span class="md-h">## Now</span>', 'Research assistant @ <a href="https://www.polyu.edu.hk/sft/" target="_blank">School of Fashion and Textiles</a>,', 'The Hong Kong Polytechnic University', 'Supervised by <a href="https://scholar.google.com/citations?user=UhnQA3UAAAAJ" target="_blank">Dr. Xingxing Zou</a>', '',
+				'<span class="md-h">## Now</span>', 'Ph.D. student (Year 1) @ <a href="https://www.polyu.edu.hk/sft/" target="_blank">School of Fashion and Textiles</a>,', 'The Hong Kong Polytechnic University', 'Supervisor: <a href="https://scholar.google.com/citations?user=UhnQA3UAAAAJ" target="_blank">Dr. Xingxing Zou</a>', 'Co-supervisor: <a href="https://www.polyu.edu.hk/giving/development-priorities/research-and-innovation/endowed-professorship-scheme/meet-the-top-minds/cheng-yik-hung-endowed-professorship-in-fashion" target="_blank">Prof. Calvin Wong Wai-keung</a>', '',
 				'<span class="md-h">## Focus</span>', 'Creative content production: 🎨 art · 🎬 film · 🎥 video · 👔 fashion · 😄 emotion', '',
 				'<span class="md-h">## Contact</span>', `- <span class="md-b">GitHub</span>: <a href="https://github.com/JunyaoHu" target="_blank">JunyaoHu</a>`, `- <span class="md-b">Email</span>: <span class="mail">${EMAIL}</span>`, `- <span class="md-b">Scholar</span>: <a href="${SCHOLAR}" target="_blank">Google Scholar</a>`, '',
 				'Collaborations are always welcome 🥰', '<span class="dim">(try chatting with me in Junyao Code)</span>',
@@ -915,7 +915,7 @@ function answer(q) {
 			'\n\nAsk about any of them by name, or say "open papers".' },
 	];
 	if (has(/who|about|yourself|introduce|junyao/i)) return [{ tool: ['Read', 'README.md'], out: 'Read 19 lines' }, { text:
-		"I'm <b>Junyao Hu</b>, a research assistant at PolyU's School of Fashion and Textiles, supervised by Dr. Xingxing Zou. Before that I studied at CUMT. I like turning AI into things people can see and feel ✨" }];
+		"I'm <b>Junyao Hu</b>, a first-year Ph.D. student at PolyU's School of Fashion and Textiles, supervised by Dr. Xingxing Zou and co-supervised by Prof. Calvin Wong Wai-keung. Before that I studied at CUMT. I like turning AI into things people can see and feel ✨" }];
 	return [{ text: `Hmm, I'm only a scripted demo and don't know how to answer "${esc(q)}" yet. Try <b>/help</b>, or ask about papers, news or contact.` }];
 }
 
