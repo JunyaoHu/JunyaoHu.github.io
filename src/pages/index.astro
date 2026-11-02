@@ -146,7 +146,12 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 
 	/* ── desktop icons ── */
 	#desktop { position: fixed; inset: var(--top) 0 0 0; z-index: 1; }
-	#dicons { position: absolute; left: 14px; top: 14px; bottom: 14px; display: grid; grid-auto-flow: column; grid-template-rows: repeat(auto-fill, 98px); grid-auto-columns: 96px; gap: 4px; }
+	#dicons { position: absolute; inset: 14px; pointer-events: none; }
+	.dcol { position: absolute; display: grid; grid-auto-flow: column; grid-template-rows: repeat(auto-fill, 98px); grid-auto-columns: 96px; gap: 4px; pointer-events: auto; }
+	.dcol.left { left: 0; top: 0; bottom: 110px; }
+	.dcol.right { right: 0; top: 0; bottom: 0; direction: rtl; } /* 竖排；放不下时向左再开一列 */
+	.dcol.right .di { direction: ltr; }
+	.dcol.trash { left: 0; bottom: 0; }
 	.di { padding: 8px 4px; border-radius: 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; color: #fff; text-align: center; font-size: 13px; text-shadow: 0 1px 3px rgba(0, 0, 0, .7); cursor: pointer; user-select: none; }
 	.di svg { width: 50px; height: 50px; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .3)); }
 	.di:hover { background: rgba(255, 255, 255, .15); }
@@ -319,7 +324,7 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 	body.locked #dicons { display: none; }
 
 	@media (max-width: 680px) {
-		#dicons { grid-template-rows: repeat(auto-fill, 90px); grid-auto-columns: 84px; }
+		.dcol { grid-template-rows: repeat(auto-fill, 90px); grid-auto-columns: 84px; }
 		.win { left: 6px !important; top: 6px !important; width: calc(100% - 12px) !important; height: calc(100% - 12px) !important; resize: none; }
 		.win.max { left: 0 !important; top: 0 !important; width: 100% !important; height: 100% !important; }
 		.hb .t { padding-left: 0; text-align: left; }
@@ -759,8 +764,12 @@ function updateAppName() {
 }
 
 /* ═══════════ desktop icons / menu / clock ═══════════ */
-const DESK_ICONS = [['home', 'home', 'Home'], ['md', 'about', 'README.md'], ['papers', 'papers', 'Publications'], ['blog', 'blog', 'Blog'], ['photos', 'gallery', 'Photos'], ['news', 'news', 'News'], ...(FRIENDS.length ? [['contacts', 'friends', 'Friends']] : []), ['guestbook', 'guestbook', 'Guestbook'], ['code', 'code', 'Junyao Code'], ['trash', 'trash', 'Trash']];
-document.getElementById('dicons').innerHTML = DESK_ICONS.map(([ic, k, n]) => `<div class="di" data-k="${k}">${icon(ic)}<span>${n}</span></div>`).join('');
+// 左侧：看内容（关于 / 论文 / 博客 / 相册 / 动态）；右侧：互动（留言 / 朋友 / 对话）；回收站在左下角
+const DESK_LEFT = [['home', 'home', 'Home'], ['md', 'about', 'README.md'], ['papers', 'papers', 'Publications'], ['blog', 'blog', 'Blog'], ['photos', 'gallery', 'Photos'], ['news', 'news', 'News']];
+const DESK_RIGHT = [['guestbook', 'guestbook', 'Guestbook'], ...(FRIENDS.length ? [['contacts', 'friends', 'Friends']] : []), ['code', 'code', 'Junyao Code']];
+const deskIcons = list => list.map(([ic, k, n]) => `<div class="di" data-k="${k}">${icon(ic)}<span>${n}</span></div>`).join('');
+document.getElementById('dicons').innerHTML =
+	`<div class="dcol left">${deskIcons(DESK_LEFT)}</div><div class="dcol right">${deskIcons(DESK_RIGHT)}</div><div class="dcol trash">${deskIcons([['trash', 'trash', 'Trash']])}</div>`;
 document.getElementById('dicons').addEventListener('click', e => {
 	const d = e.target.closest('.di'); if (!d) return;
 	const k = d.dataset.k;
