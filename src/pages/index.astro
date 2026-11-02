@@ -532,10 +532,10 @@ const APPS = {
 			<div class="cc-tips dim">Tips for getting started:<ol>
 				<li>Ask what I am working on, or about a specific paper</li>
 				<li>Say "open photos" / "open papers" to launch apps</li>
-				<li>/clear wipes the conversation</li></ol></div>
+				<li>/whoami introduces me · /clear wipes the conversation</li></ol></div>
 			<div class="cc-log"></div></div>
 			<div class="cc-box"><span>&gt;</span><input autocomplete="off" spellcheck="false" placeholder='Try "what are you working on?"' /></div>
-			<div class="cc-foot"><span>? for shortcuts</span><div class="cc-chips">${['What are you working on?', 'Show me your papers', 'Any recent news?', 'How can I contact you?'].map(s => `<button>${s}</button>`).join('')}</div></div></div>`,
+			<div class="cc-foot"><span>? for shortcuts</span><div class="cc-chips">${['/whoami', 'What are you working on?', 'Show me your papers', 'Any recent news?', 'How can I contact you?'].map(s => `<button>${s}</button>`).join('')}</div></div></div>`,
 		mount: w => ccMount(w),
 	},
 	guestbook: {
@@ -874,7 +874,7 @@ function paperText(p) {
 function answer(q) {
 	const has = re => re.test(q);
 	if (/^\/?help$/i.test(q)) return [{ text:
-		'Things you can ask me:\n  • <b>what are you working on?</b>\n  • <b>show me your papers</b> / ask about <b>Garments2Look</b>, <b>ExtDM</b>…\n  • <b>any recent news?</b>\n  • <b>how can I contact you?</b>\n  • <b>open photos</b> / <b>open blog</b>\nCommands: <b>/clear</b> · <b>/help</b>' }];
+		'Things you can ask me:\n  • <b>what are you working on?</b>\n  • <b>show me your papers</b> / ask about <b>Garments2Look</b>, <b>ExtDM</b>…\n  • <b>any recent news?</b>\n  • <b>how can I contact you?</b>\n  • <b>open photos</b> / <b>open blog</b>\nCommands: <b>/whoami</b> · <b>/clear</b> · <b>/help</b>' }];
 	const om = q.match(/^open\s+(.+)$/i);
 	if (om) {
 		const t = OPEN_TARGETS.find(([re]) => re.test(om[1]));
@@ -914,7 +914,7 @@ function answer(q) {
 			PAPERS.map(p => `  <b>${p.venue.padEnd(8)}</b> ${p.short} — ${p.role.toLowerCase()}`).join('\n') +
 			'\n\nAsk about any of them by name, or say "open papers".' },
 	];
-	if (has(/who|about|yourself|introduce|junyao/i)) return [{ tool: ['Read', 'README.md'], out: 'Read 19 lines' }, { text:
+	if (/^\/?whoami$/i.test(q) || has(/who|about|yourself|introduce|junyao/i)) return [{ tool: ['Read', 'README.md'], out: 'Read 20 lines' }, { text:
 		"I'm <b>Junyao Hu</b>, a first-year Ph.D. student at PolyU's School of Fashion and Textiles, supervised by Dr. Xingxing Zou and co-supervised by Prof. Calvin Wong Wai-keung. Before that I studied at CUMT. I like turning AI into things people can see and feel ✨" }];
 	return [{ text: `Hmm, I'm only a scripted demo and don't know how to answer "${esc(q)}" yet. Try <b>/help</b>, or ask about papers, news or contact.` }];
 }
