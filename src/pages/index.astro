@@ -248,6 +248,8 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replac
 	.br-bar button { width: 30px; height: 30px; flex: none; border: 0; border-radius: 8px; background: transparent; cursor: pointer; font-size: 16px; line-height: 1; }
 	.br-bar button:hover { background: rgba(0, 0, 0, .08); }
 	.br-bar button:disabled { opacity: .3; cursor: default; background: transparent; }
+	.br-bar button.ext { width: auto; padding: 0 12px; border: 1px solid var(--line); border-radius: 99px; background: #fff; font-size: 13px; white-space: nowrap; }
+	.br-bar button.ext:hover { border-color: var(--orange); color: var(--orange); background: #fff; }
 	.br-url { flex: 1; min-width: 0; padding: 5px 14px; border-radius: 99px; background: #fff; border: 1px solid var(--line); font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 	.br-url b { color: var(--text); font-weight: 500; }
 	.br iframe { flex: 1; width: 100%; border: 0; background: #fff; }
@@ -340,14 +342,14 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replac
 	<div class="who">Junyao Hu</div>
 	<div class="btns-login">
 		<button class="lbtn primary" id="signIn">Sign in <span class="arr">→</span></button>
-		<a class="lbtn secondary" href="/classic"><span class="arr">←</span> Classic homepage</a>
+		<a class="lbtn secondary" href="/classic" target="_blank" rel="noopener"><span class="arr">←</span> Classic homepage</a>
 	</div>
 </div>
 
 <div id="desktop"><div id="dicons"></div></div>
 <div class="menu" id="sysmenu">
 	<div class="mi" data-act="lock">🔒 Lock</div>
-	<div class="mi" data-act="classic">↩ Classic homepage</div>
+	<div class="mi" data-act="classic">↗ Classic homepage (new tab)</div>
 </div>
 <div id="lightbox"><img alt="" /></div>
 
@@ -515,7 +517,7 @@ const APPS = {
 	},
 	browser: {
 		icon: 'browser', label: 'Web Browser', title: w => (w && w.state.title) || 'Web Browser', w: 1000, h: 660, state: () => ({ url: nextBrowserUrl, title: '', hist: [nextBrowserUrl], idx: 0 }),
-		render: w => `<div class="br"><div class="br-bar"><button data-b="back" title="Back">‹</button><button data-b="fwd" title="Forward">›</button><button data-b="reload" title="Reload">⟳</button><div class="br-url"></div><button data-b="ext" title="Open in a new tab">↗</button></div><iframe src="${esc(w.state.url)}" title="page"></iframe></div>`,
+		render: w => `<div class="br"><div class="br-bar"><button data-b="back" title="Back">‹</button><button data-b="fwd" title="Forward">›</button><button data-b="reload" title="Reload">⟳</button><div class="br-url"></div><button data-b="ext" class="ext" title="Open this page on the original site in a new tab">Open original site ↗</button></div><iframe src="${esc(w.state.url)}" title="page"></iframe></div>`,
 		mount: w => browserMount(w),
 	},
 	trash: {
@@ -635,7 +637,10 @@ function browserMount(w) {
 		if (b.dataset.b === 'back') { st.idx--; browserGo(w, st.hist[st.idx], false); }
 		if (b.dataset.b === 'fwd') { st.idx++; browserGo(w, st.hist[st.idx], false); }
 		if (b.dataset.b === 'reload') try { fr.contentWindow.location.reload(); } catch (err) {}
-		if (b.dataset.b === 'ext') window.open((cur() || {}).href || st.hist[st.idx], '_blank', 'noopener');
+		if (b.dataset.b === 'ext') {
+			const href = (cur() || {}).href;
+			window.open(href && href.startsWith('http') ? href : st.hist[st.idx], '_blank', 'noopener'); // 页面还没加载完时用记录里的地址
+		}
 	});
 }
 function routeLink(e, fromFrame) {
@@ -645,7 +650,7 @@ function routeLink(e, fromFrame) {
 	if (a.origin !== location.origin) { e.preventDefault(); window.open(a.href, '_blank', 'noopener'); return; }
 	const path = a.pathname.replace(/\/$/, '');
 	if (path === '' && fromFrame) { e.preventDefault(); wins.browser && wins.browser.el.querySelector('.x').click(); return; } // 经典页里的「Desktop」按钮：关掉浏览器窗口
-	if (path === '/classic' && !fromFrame) return; // 主动回经典主页
+	if (path === '/classic' && !fromFrame) { e.preventDefault(); window.open(a.href, '_blank', 'noopener'); return; } // 经典主页也开新标签页，桌面保持不动
 	if (a.getAttribute('href').startsWith('#')) return; // 页内锚点（目录等）保持默认
 	e.preventDefault();
 	const url = a.pathname + a.search + a.hash;
@@ -723,7 +728,7 @@ document.getElementById('dicons').addEventListener('click', e => {
 function menuAct(e) {
 	const a = e.target.closest('[data-act]'); if (!a) return;
 	closeMenus();
-	if (a.dataset.act === 'lock') showLogin(); else location.href = '/classic';
+	if (a.dataset.act === 'lock') showLogin(); else window.open('/classic', '_blank', 'noopener');
 }
 document.getElementById('sysmenu').addEventListener('click', menuAct);
 function closeMenus() { document.querySelectorAll('.menu').forEach(m => m.classList.remove('open')); document.getElementById('sysBtn').classList.remove('on'); }
