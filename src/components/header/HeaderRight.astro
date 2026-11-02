@@ -4,12 +4,17 @@ import { siteVisibility } from '../../data/siteVisibility';
 ---
 
 <div class="internal-links" id="nav-links">
-	<HeaderLink href="/">Home</HeaderLink>
+	<HeaderLink href="/classic">Home</HeaderLink>
 	<HeaderLink href="/publication">Publications</HeaderLink>
 	{siteVisibility.blog && <HeaderLink href="/blog">Blog</HeaderLink>}
 	{siteVisibility.gallery && <HeaderLink href="/gallery">Gallery</HeaderLink>}
 	{siteVisibility.friends && <HeaderLink href="/friends">Friends</HeaderLink>}
 </div>
+
+<a href="/" class="desktop-switch" title="Switch to desktop view">
+	<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-7v2h3v2H7v-2h3v-2H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v9h16V6z"/></svg>
+	<span>Desktop</span>
+</a>
 
 <button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
 	<span class="bar"></span>
@@ -41,12 +46,46 @@ import { siteVisibility } from '../../data/siteVisibility';
 		border-bottom-color: var(--accent);
 	}
 
+	/* 右上角「Desktop」入口：切换到桌面版主页 */
+	.internal-links {
+		margin-left: auto;
+	}
+	.desktop-switch {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		margin-left: 0.75em;
+		padding: 0.3em 0.8em;
+		border-radius: 8px;
+		background: #e95420;
+		color: #fff;
+		font-size: 0.875rem;
+		font-weight: 600;
+		text-decoration: none;
+		border-bottom: none !important;
+		white-space: nowrap;
+		transition: filter 0.15s ease;
+	}
+	.desktop-switch:hover {
+		filter: brightness(1.1);
+	}
+	.desktop-switch svg {
+		width: 1.05em;
+		height: 1.05em;
+		fill: currentColor;
+	}
+
 	/* 汉堡按钮 — 桌面端隐藏 */
 	#nav-toggle {
 		display: none;
 	}
 
 	@media (max-width: 640px) {
+		.desktop-switch {
+			margin-left: auto;
+			margin-right: 0.5em;
+		}
+
 		/* 汉堡按钮 */
 		#nav-toggle {
 			display: flex;
