@@ -7,6 +7,7 @@ import { newsItems } from '../data/homepage';
 import { galleryConfig } from '../data/gallery';
 import { getEnabledFriends } from '../data/friends';
 import { siteVisibility } from '../data/siteVisibility';
+import { TWIKOO_CDN, getTwikooConfig } from '../data/commentConfig';
 import { buildAlbumGalleryImages, listGalleryImageFiles, resolveCoverFilename } from '../utils/galleryImages';
 
 const escapeHtml = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
@@ -62,7 +63,10 @@ const posts = siteVisibility.blog
 			}))
 	: [];
 
-const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replace(/</g, '\\u003c');
+const twikooCfg = getTwikooConfig();
+const twikoo = twikooCfg.enabled ? { cdn: TWIKOO_CDN, envId: twikooCfg.envId, region: twikooCfg.region ?? '', lang: twikooCfg.lang ?? '' } : null;
+
+const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }).replace(/</g, '\\u003c');
 ---
 <!doctype html>
 <html lang="en">
@@ -136,6 +140,7 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replac
 	.menu.open { display: block; animation: pop .14s ease-out; }
 	.menu .mi { padding: 9px 12px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
 	.menu .mi:hover { background: rgba(255, 255, 255, .1); }
+	.menu a.mi { color: #fff; text-decoration: none; }
 	.menu hr { border: 0; border-top: 1px solid rgba(255, 255, 255, .1); margin: 6px 4px; }
 	#sysmenu { right: 8px; top: calc(var(--top) + 6px); }
 
@@ -248,12 +253,18 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replac
 	.br-bar button { width: 30px; height: 30px; flex: none; border: 0; border-radius: 8px; background: transparent; cursor: pointer; font-size: 16px; line-height: 1; }
 	.br-bar button:hover { background: rgba(0, 0, 0, .08); }
 	.br-bar button:disabled { opacity: .3; cursor: default; background: transparent; }
-	.br-bar button.ext { width: auto; padding: 0 12px; border: 1px solid var(--line); border-radius: 99px; background: #fff; font-size: 13px; white-space: nowrap; }
-	.br-bar button.ext:hover { border-color: var(--orange); color: var(--orange); background: #fff; }
+	.br-bar .ext { display: inline-flex; align-items: center; height: 30px; flex: none; padding: 0 12px; border: 1px solid var(--line); border-radius: 99px; background: #fff; color: var(--text); font-size: 13px; white-space: nowrap; text-decoration: none; }
+	.br-bar .ext:hover { border-color: var(--orange); color: var(--orange); }
 	.br-url { flex: 1; min-width: 0; padding: 5px 14px; border-radius: 99px; background: #fff; border: 1px solid var(--line); font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 	.br-url b { color: var(--text); font-weight: 500; }
 	.br iframe { flex: 1; width: 100%; border: 0; background: #fff; }
 	body.dragging iframe { pointer-events: none; }
+
+	/* guestbook */
+	.gb { padding: 18px 22px 24px; }
+	.gb h3 { margin: 0 0 4px; font-size: 18px; }
+	.gb > p { margin: 0 0 14px; }
+	.gb img { margin: 0; }
 
 	/* news (calendar agenda) */
 	.agenda { padding: 8px 18px 18px; }
@@ -349,7 +360,7 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replac
 <div id="desktop"><div id="dicons"></div></div>
 <div class="menu" id="sysmenu">
 	<div class="mi" data-act="lock">🔒 Lock</div>
-	<div class="mi" data-act="classic">↗ Classic homepage (new tab)</div>
+	<a class="mi" data-act="classic" href="/classic" target="_blank" rel="noopener">↗ Classic homepage (new tab)</a>
 </div>
 <div id="lightbox"><img alt="" /></div>
 
@@ -390,6 +401,7 @@ const ICONS = {
 	photos: `<svg viewBox="0 0 48 48"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#62a0ea"/><stop offset="1" stop-color="#f6d32d"/></linearGradient></defs><rect x="5" y="7" width="38" height="34" rx="6" fill="url(#pg)"/><circle cx="33" cy="16" r="4" fill="#fff"/><path d="M5 35l11-12 9 9 5-5 13 11v-2 4a6 6 0 0 1-6 6H11a6 6 0 0 1-6-6z" fill="#26a269"/></svg>`,
 	news: () => `<svg viewBox="0 0 48 48"><rect x="6" y="7" width="36" height="35" rx="6" fill="#fff"/><path d="M6 13a6 6 0 0 1 6-6h24a6 6 0 0 1 6 6v4H6z" fill="#e01b24"/><text x="24" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#333" font-family="Ubuntu,sans-serif">${new Date().getDate()}</text></svg>`,
 	code: `<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="7" fill="#1f1e1d"/><g fill="#d97757" shape-rendering="crispEdges"><rect x="15" y="15" width="18" height="10"/><rect x="11" y="18" width="4" height="4"/><rect x="33" y="18" width="4" height="4"/><rect x="16" y="25" width="2" height="5"/><rect x="20" y="25" width="2" height="5"/><rect x="26" y="25" width="2" height="5"/><rect x="30" y="25" width="2" height="5"/></g><g fill="#1f1e1d"><rect x="19" y="18" width="2" height="3"/><rect x="27" y="18" width="2" height="3"/></g><rect x="12" y="34" width="12" height="2.5" rx="1" fill="#8f8b85"/></svg>`,
+	guestbook: `<svg viewBox="0 0 48 48"><path d="M8 9h32a4 4 0 0 1 4 4v18a4 4 0 0 1-4 4H22l-9 7v-7H8a4 4 0 0 1-4-4V13a4 4 0 0 1 4-4z" fill="#e95420"/><g fill="#fff"><circle cx="16" cy="22" r="2.6"/><circle cx="24" cy="22" r="2.6"/><circle cx="32" cy="22" r="2.6"/></g></svg>`,
 	browser: `<svg viewBox="0 0 48 48"><defs><linearGradient id="bwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#62a0ea"/><stop offset="1" stop-color="#1a5fb4"/></linearGradient></defs><circle cx="24" cy="24" r="19" fill="url(#bwg)"/><g fill="none" stroke="#fff" stroke-width="2" opacity=".85"><ellipse cx="24" cy="24" rx="8" ry="19"/><path d="M5 24h38M8 14h32M8 34h32"/></g></svg>`,
 	contacts: `<svg viewBox="0 0 48 48"><rect x="8" y="5" width="32" height="38" rx="5" fill="#3584e4"/><rect x="5" y="11" width="5" height="4" rx="1.5" fill="#1c71d8"/><rect x="5" y="21" width="5" height="4" rx="1.5" fill="#1c71d8"/><rect x="5" y="31" width="5" height="4" rx="1.5" fill="#1c71d8"/><circle cx="25" cy="19" r="6" fill="#fff"/><path d="M14 35a11 9 0 0 1 22 0z" fill="#fff"/></svg>`,
 	trash: `<svg viewBox="0 0 48 48"><path d="M12 14h24l-2 26a3 3 0 0 1-3 3H17a3 3 0 0 1-3-3z" fill="#9a9996"/><rect x="9" y="9" width="30" height="6" rx="2" fill="#77767b"/><rect x="20" y="5" width="8" height="5" rx="1.5" fill="#77767b"/><g stroke="#deddda" stroke-width="2"><path d="M19 20v17M24 20v17M29 20v17"/></g></svg>`,
@@ -515,9 +527,14 @@ const APPS = {
 			<div class="cc-foot"><span>? for shortcuts</span><div class="cc-chips">${['What are you working on?', 'Show me your papers', 'Any recent news?', 'How can I contact you?'].map(s => `<button>${s}</button>`).join('')}</div></div></div>`,
 		mount: w => ccMount(w),
 	},
+	guestbook: {
+		icon: 'guestbook', label: 'Guestbook', title: () => 'Guestbook — Leave a message', w: 720, h: 600,
+		render: () => `<div class="gb"><h3>💬 Leave a message</h3><p class="dim">Same message board as the classic homepage — say hi, ask a question, or suggest a collaboration.</p>${D.twikoo ? '<div id="gb-twikoo">Loading messages…</div>' : '<p class="dim">Comments are not enabled.</p>'}</div>`,
+		mount: () => mountTwikoo(),
+	},
 	browser: {
 		icon: 'browser', label: 'Web Browser', title: w => (w && w.state.title) || 'Web Browser', w: 1000, h: 660, state: () => ({ url: nextBrowserUrl, title: '', hist: [nextBrowserUrl], idx: 0 }),
-		render: w => `<div class="br"><div class="br-bar"><button data-b="back" title="Back">‹</button><button data-b="fwd" title="Forward">›</button><button data-b="reload" title="Reload">⟳</button><div class="br-url"></div><button data-b="ext" class="ext" title="Open this page on the original site in a new tab">Open original site ↗</button></div><iframe src="${esc(w.state.url)}" title="page"></iframe></div>`,
+		render: w => `<div class="br"><div class="br-bar"><button data-b="back" title="Back">‹</button><button data-b="fwd" title="Forward">›</button><button data-b="reload" title="Reload">⟳</button><div class="br-url"></div><a class="ext" href="${esc(w.state.url)}" target="_blank" rel="noopener" title="Open this page on the original site in a new tab">Open original site ↗</a></div><iframe src="${esc(w.state.url)}" title="page"></iframe></div>`,
 		mount: w => browserMount(w),
 	},
 	trash: {
@@ -590,6 +607,31 @@ function openPaper(i) {
 function lightbox(s) { const lb = document.getElementById('lightbox'); lb.querySelector('img').src = s; lb.style.display = 'flex'; }
 document.getElementById('lightbox').onclick = e => (e.currentTarget.style.display = 'none');
 
+/* ═══════════ guestbook：Twikoo，与经典主页共用 path "/" 的评论 ═══════════ */
+let twikooLoading;
+function mountTwikoo() {
+	const cfg = D.twikoo;
+	if (!cfg) return;
+	const init = () => {
+		if (!document.getElementById('gb-twikoo')) return;
+		const opt = { envId: cfg.envId, el: '#gb-twikoo', path: '/' };
+		if (cfg.region) opt.region = cfg.region;
+		if (cfg.lang) opt.lang = cfg.lang;
+		window.twikoo.init(opt);
+	};
+	if (window.twikoo) return init();
+	twikooLoading = twikooLoading || new Promise((resolve, reject) => {
+		const sc = document.createElement('script');
+		sc.src = cfg.cdn; sc.async = true; sc.onload = resolve; sc.onerror = reject;
+		document.head.appendChild(sc);
+	});
+	twikooLoading.then(init, () => {
+		twikooLoading = null;
+		const m = document.getElementById('gb-twikoo');
+		if (m) m.textContent = 'Failed to load messages. Please check your network and try again.';
+	});
+}
+
 /* ═══════════ web browser + link routing ═══════════ */
 // 站内页面（博客、论文 PDF、相册页…）在桌面里的浏览器窗口打开；站外链接一律新标签页打开，
 // 这样访客不会离开桌面、也不用重新登录。
@@ -607,6 +649,7 @@ function browserGo(w, url, push) {
 	if (push) { st.hist = st.hist.slice(0, st.idx + 1); st.hist.push(url); st.idx = st.hist.length - 1; }
 	const fr = w.el.querySelector('iframe');
 	try { fr.contentWindow.location.replace(url); } catch (e) { fr.src = url; }
+	w.el.querySelector('.ext').href = url;
 	syncNav(w);
 }
 function syncNav(w) {
@@ -623,6 +666,7 @@ function browserMount(w) {
 		if (loc) {
 			const url = loc.pathname + loc.search + loc.hash;
 			w.state.hist[w.state.idx] = url; // 重定向等情况：就地更新当前记录
+			w.el.querySelector('.ext').href = url;
 			bar.innerHTML = `${esc(location.host)}<b>${esc(decodeURIComponent(url))}</b>`;
 		}
 		let t = '';
@@ -637,20 +681,18 @@ function browserMount(w) {
 		if (b.dataset.b === 'back') { st.idx--; browserGo(w, st.hist[st.idx], false); }
 		if (b.dataset.b === 'fwd') { st.idx++; browserGo(w, st.hist[st.idx], false); }
 		if (b.dataset.b === 'reload') try { fr.contentWindow.location.reload(); } catch (err) {}
-		if (b.dataset.b === 'ext') {
-			const href = (cur() || {}).href;
-			window.open(href && href.startsWith('http') ? href : st.hist[st.idx], '_blank', 'noopener'); // 页面还没加载完时用记录里的地址
-		}
 	});
 }
 function routeLink(e, fromFrame) {
 	const a = e.target.closest && e.target.closest('a[href]');
 	if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
 	if (!/^https?:$/.test(a.protocol)) return; // mailto: 等保持默认
-	if (a.origin !== location.origin) { e.preventDefault(); window.open(a.href, '_blank', 'noopener'); return; }
+	const newTab = () => { a.target = '_blank'; a.rel = 'noopener'; }; // 让浏览器自己新开标签页
+	if (a.origin !== location.origin) return newTab(); // 站外链接
+	if (a.target === '_blank') return; // 明确要求新标签页的站内链接（如 Open original site）
 	const path = a.pathname.replace(/\/$/, '');
 	if (path === '' && fromFrame) { e.preventDefault(); wins.browser && wins.browser.el.querySelector('.x').click(); return; } // 经典页里的「Desktop」按钮：关掉浏览器窗口
-	if (path === '/classic' && !fromFrame) { e.preventDefault(); window.open(a.href, '_blank', 'noopener'); return; } // 经典主页也开新标签页，桌面保持不动
+	if (path === '/classic' && !fromFrame) return newTab(); // 经典主页也开新标签页，桌面保持不动
 	if (a.getAttribute('href').startsWith('#')) return; // 页内锚点（目录等）保持默认
 	e.preventDefault();
 	const url = a.pathname + a.search + a.hash;
@@ -717,7 +759,7 @@ function updateAppName() {
 }
 
 /* ═══════════ desktop icons / menu / clock ═══════════ */
-const DESK_ICONS = [['home', 'home', 'Home'], ['md', 'about', 'README.md'], ['papers', 'papers', 'Publications'], ['blog', 'blog', 'Blog'], ['photos', 'gallery', 'Photos'], ['news', 'news', 'News'], ...(FRIENDS.length ? [['contacts', 'friends', 'Friends']] : []), ['code', 'code', 'Junyao Code'], ['trash', 'trash', 'Trash']];
+const DESK_ICONS = [['home', 'home', 'Home'], ['md', 'about', 'README.md'], ['papers', 'papers', 'Publications'], ['blog', 'blog', 'Blog'], ['photos', 'gallery', 'Photos'], ['news', 'news', 'News'], ...(FRIENDS.length ? [['contacts', 'friends', 'Friends']] : []), ['guestbook', 'guestbook', 'Guestbook'], ['code', 'code', 'Junyao Code'], ['trash', 'trash', 'Trash']];
 document.getElementById('dicons').innerHTML = DESK_ICONS.map(([ic, k, n]) => `<div class="di" data-k="${k}">${icon(ic)}<span>${n}</span></div>`).join('');
 document.getElementById('dicons').addEventListener('click', e => {
 	const d = e.target.closest('.di'); if (!d) return;
@@ -728,7 +770,7 @@ document.getElementById('dicons').addEventListener('click', e => {
 function menuAct(e) {
 	const a = e.target.closest('[data-act]'); if (!a) return;
 	closeMenus();
-	if (a.dataset.act === 'lock') showLogin(); else window.open('/classic', '_blank', 'noopener');
+	if (a.dataset.act === 'lock') showLogin(); // classic 是普通链接，由浏览器新开标签页
 }
 document.getElementById('sysmenu').addEventListener('click', menuAct);
 function closeMenus() { document.querySelectorAll('.menu').forEach(m => m.classList.remove('open')); document.getElementById('sysBtn').classList.remove('on'); }
@@ -807,7 +849,7 @@ async function stream(w, el, html, sc) {
 	el.innerHTML = buf; sc.scrollTop = sc.scrollHeight;
 }
 
-const OPEN_TARGETS = [[/photo|gallery|picture|album/i, 'gallery'], [/friend|contact/i, 'friends'], [/paper|publication/i, 'papers'], [/blog|post/i, 'blog'], [/news|calendar/i, 'news'], [/readme|about/i, 'about'], [/file|home/i, 'files'], [/trash/i, 'trash']];
+const OPEN_TARGETS = [[/photo|gallery|picture|album/i, 'gallery'], [/friend|contact/i, 'friends'], [/guestbook|message|comment/i, 'guestbook'], [/paper|publication/i, 'papers'], [/blog|post/i, 'blog'], [/news|calendar/i, 'news'], [/readme|about/i, 'about'], [/file|home/i, 'files'], [/trash/i, 'trash']];
 function openTarget(k) { if (k === 'papers') openFiles('papers'); else if (k === 'blog') openFiles('blog'); else openWin(k); }
 function paperText(p) {
 	const links = p.links.map(([l, h]) => `<a href="${h}" target="_blank">${l}</a>`).join(' · ');
@@ -843,6 +885,7 @@ function answer(q) {
 		{ text: POST_CATS.map(c => `  📁 <b>${c}</b> — ${POSTS.filter(p => p.category === c).length} posts`).join('\n') + '\nSay "open blog" to browse them.' },
 	];
 	if (has(/photo|gallery|picture|album/i)) return [{ tool: ['Open', 'Photos'], out: 'Launched', act: () => openWin('gallery') }, { text: `${ALBUMS.length} albums: ${ALBUMS.map(a => a.name).join(', ')} 📷` }];
+	if (has(/message|guestbook|comment|leave a note/i)) return [{ tool: ['Open', 'Guestbook'], out: 'Launched', act: () => openWin('guestbook') }, { text: 'The guestbook is open — it is the same message board as the classic homepage. Say hi! 👋' }];
 	if (FRIENDS.length && has(/friend|people|peers/i)) return [
 		{ tool: ['Read', 'src/data/friends.ts'], out: `Found ${FRIENDS.length} friends` },
 		{ text: [...new Set(FRIENDS.map(f => f.category))].map(c => `  <b>${c}</b> — ${FRIENDS.filter(f => f.category === c).length}`).join('\n') + '\nOpening Contacts…', act: () => openWin('friends') },
