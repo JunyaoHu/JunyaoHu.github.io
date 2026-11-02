@@ -102,7 +102,7 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 	#wall { position: fixed; inset: 0; z-index: 0; }
 	#wall svg { width: 100%; height: 100%; display: block; }
 
-	/* ── splash / login ── */
+	/* ── splash ── */
 	#splash { position: fixed; inset: 0; z-index: 9000; background: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px; color: #fff; transition: opacity .5s; }
 	#splash .mark { font-size: 40px; font-weight: 300; }
 	#splash .mark b { color: var(--orange); font-weight: 700; }
@@ -112,20 +112,6 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 	@keyframes dot { 30% { opacity: 1; background: var(--orange); } }
 	.fade { opacity: 0; pointer-events: none; }
 
-	#login { position: fixed; inset: var(--top) 0 0 0; z-index: 8800; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; color: #fff; background: rgba(0, 0, 0, .35); backdrop-filter: blur(26px) saturate(1.2); transition: opacity .45s; }
-	#login .big { font-size: 64px; font-weight: 300; line-height: 1; }
-	#login .date { opacity: .8; margin-bottom: 26px; }
-	.avatar { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; font-size: 34px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #e95420, #77216f); box-shadow: 0 8px 30px rgba(0, 0, 0, .35); }
-	#login .who { font-size: 20px; font-weight: 500; }
-	#login .btns-login { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; width: 240px; }
-	#login .lbtn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 0; border-radius: 10px; border: 1px solid transparent; font-size: 14px; font-weight: 500; text-decoration: none; cursor: pointer; transition: background .15s, filter .15s; }
-	#login .lbtn.primary { background: var(--orange); color: #fff; }
-	#login .lbtn.primary:hover { filter: brightness(1.1); }
-	#login .lbtn.secondary { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .35); color: #fff; }
-	#login .lbtn.secondary:hover { background: rgba(255, 255, 255, .22); }
-	#login .lbtn .arr { transition: transform .15s; }
-	#login .lbtn.primary:hover .arr { transform: translateX(3px); }
-	#login .lbtn.secondary:hover .arr { transform: translateX(-3px); }
 
 	/* ── top bar ── */
 	#topbar { position: fixed; left: 0; right: 0; top: 0; height: var(--top); z-index: 8900; background: var(--bar); color: #fff; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 8px; user-select: none; }
@@ -327,7 +313,6 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 	#lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 8px; }
 
 	/* 登录前隐藏桌面图标 */
-	body.locked #dicons { display: none; }
 
 	@media (max-width: 680px) {
 		.dcol { grid-template-rows: repeat(auto-fill, 90px); grid-auto-columns: 84px; }
@@ -339,7 +324,7 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 	}
 </style>
 </head>
-<body class="locked">
+<body>
 
 <div id="wall"></div>
 
@@ -357,21 +342,9 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts, twikoo }
 	</div>
 </div>
 
-<div id="login">
-	<div class="big"></div>
-	<div class="date"></div>
-	<div class="avatar">JH</div>
-	<div class="who">Junyao Hu</div>
-	<div class="btns-login">
-		<button class="lbtn primary" id="signIn">Sign in <span class="arr">→</span></button>
-		<a class="lbtn secondary" href="/classic" target="_blank" rel="noopener"><span class="arr">←</span> Classic homepage</a>
-	</div>
-</div>
-
 <div id="desktop"><div id="dicons"></div></div>
 <div class="menu" id="sysmenu">
-	<div class="mi" data-act="lock">🔒 Lock</div>
-	<a class="mi" data-act="classic" href="/classic" target="_blank" rel="noopener">↗ Classic homepage (new tab)</a>
+	<a class="mi" href="/classic" target="_blank" rel="noopener">↗ Classic homepage</a>
 </div>
 <div id="lightbox"><img alt="" /></div>
 
@@ -782,12 +755,7 @@ document.getElementById('dicons').addEventListener('click', e => {
 	if (k === 'home' || k === 'papers' || k === 'blog') openFiles(k); else openWin(k);
 });
 
-function menuAct(e) {
-	const a = e.target.closest('[data-act]'); if (!a) return;
-	closeMenus();
-	if (a.dataset.act === 'lock') showLogin(); // classic 是普通链接，由浏览器新开标签页
-}
-document.getElementById('sysmenu').addEventListener('click', menuAct);
+document.getElementById('sysmenu').addEventListener('click', closeMenus); // 菜单里只有经典主页链接，由浏览器新开标签页
 function closeMenus() { document.querySelectorAll('.menu').forEach(m => m.classList.remove('open')); document.getElementById('sysBtn').classList.remove('on'); }
 document.getElementById('sysBtn').onclick = e => { e.stopPropagation(); const m = document.getElementById('sysmenu'); const o = !m.classList.contains('open'); closeMenus(); m.classList.toggle('open', o); e.currentTarget.classList.toggle('on', o); };
 document.addEventListener('pointerdown', e => { if (!e.target.closest('.menu, #sysBtn')) closeMenus(); });
@@ -797,8 +765,6 @@ const hm = () => new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minut
 const day = () => new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 function tick() {
 	document.getElementById('clock').textContent = `${day()}  ${hm()}`;
-	document.querySelector('#login .big').textContent = hm();
-	document.querySelector('#login .date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
 }
 setInterval(tick, 10000);
 
@@ -927,41 +893,21 @@ function answer(q) {
 	return [{ text: `Hmm, I'm only a scripted demo and don't know how to answer "${esc(q)}" yet. Try <b>/help</b>, or ask about papers, news or contact.` }];
 }
 
-/* ═══════════ boot: splash → login → desktop ═══════════ */
-const loginEl = document.getElementById('login');
-// 本次浏览会话内只需登录一次：从经典页或新标签页回来时直接进桌面
-const SIGNED_KEY = 'desk-signed-in';
-const session = { get: () => { try { return sessionStorage.getItem(SIGNED_KEY) === '1'; } catch (e) { return false; } }, set: v => { try { v ? sessionStorage.setItem(SIGNED_KEY, '1') : sessionStorage.removeItem(SIGNED_KEY); } catch (e) {} } };
-function showLogin() {
-	session.set(false);
-	tick();
-	document.body.classList.add('locked');
-	loginEl.style.display = 'flex';
-	requestAnimationFrame(() => loginEl.classList.remove('fade'));
-}
-let firstLogin = true;
-function signIn() {
-	if (loginEl.classList.contains('fade')) return;
-	loginEl.classList.add('fade'); setTimeout(() => (loginEl.style.display = 'none'), 450);
-	document.body.classList.remove('locked');
-	session.set(true);
-	if (firstLogin) {
-		firstLogin = false;
-		setTimeout(() => openWin('about'), 350);
-	}
-}
-document.getElementById('signIn').addEventListener('click', signIn);
-
+/* ═══════════ boot: splash → desktop ═══════════ */
+// 开机动画每个浏览会话只放一次：从经典页或新标签页回来时直接进桌面
+const BOOT_KEY = 'desk-booted';
+const booted = (() => { try { return sessionStorage.getItem(BOOT_KEY) === '1'; } catch (e) { return false; } })();
 document.getElementById('wall').innerHTML = genWallpaper();
 tick();
 const splash = document.getElementById('splash');
-if (session.get()) {
-	splash.remove();
-	firstLogin = false;
-	loginEl.classList.add('fade'); loginEl.style.display = 'none';
-	document.body.classList.remove('locked');
-} else {
-	const endSplash = () => { if (!splash.isConnected) return; splash.classList.add('fade'); setTimeout(() => splash.remove(), 500); };
+if (booted) splash.remove();
+else {
+	try { sessionStorage.setItem(BOOT_KEY, '1'); } catch (e) {}
+	const endSplash = () => {
+		if (!splash.isConnected) return;
+		splash.classList.add('fade'); setTimeout(() => splash.remove(), 500);
+		setTimeout(() => openWin('about'), 350);
+	};
 	splash.onclick = endSplash;
 	setTimeout(endSplash, 1500);
 }
