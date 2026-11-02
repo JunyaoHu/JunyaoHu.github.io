@@ -386,8 +386,8 @@ const PAPERS = D.papers.map(p => ({ ...p, short: p.title.split(':')[0].trim(), r
 const NEWS = D.news.map(n => [n.date, n.category, n.html]);
 const ALBUMS = D.albums;
 // 每次打开都随机排序（分类筛选按钮的顺序也随之打乱）
-const FRIENDS = D.friends.slice();
-for (let i = FRIENDS.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [FRIENDS[i], FRIENDS[j]] = [FRIENDS[j], FRIENDS[i]]; }
+const shuffle = arr => { const a = arr.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const FRIENDS = D.friends;
 const POSTS = D.posts;
 const POST_CATS = [...new Set(POSTS.map(p => p.category))].sort((a, b) => POSTS.filter(p => p.category === b).length - POSTS.filter(p => p.category === a).length);
 const NEWS_META = { accepted: ['😋 Accepted', '#e95420'], activity: ['💼 Activity', '#3584e4'], study: ['✒️ Study', '#26a269'] };
@@ -499,9 +499,9 @@ const APPS = {
 		icon: 'contacts', label: 'Friends', title: () => 'Contacts — Friends', w: 760, h: 520, state: () => ({ cat: 'all' }),
 		render: w => {
 			const cats = [...new Set(FRIENDS.map(f => f.category))];
-			const list = FRIENDS.filter(f => w.state.cat === 'all' || f.category === w.state.cat);
+			const list = shuffle(FRIENDS.filter(f => w.state.cat === 'all' || f.category === w.state.cat)); // 每次打开 / 切换筛选都重新随机
 			const chip = (id, label, n) => `<button data-cat="${esc(id)}" class="${w.state.cat === id ? 'on' : ''}">${esc(label)}<small>(${n})</small></button>`;
-			const avatar = f => `<img src="${esc(f.avatar)}" alt="" loading="lazy" onerror="this.outerHTML='<span class=&quot;ini&quot;>${esc(f.name.charAt(0))}</span>'" />`;
+			const avatar = f => `<img src="${esc(f.avatar)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.outerHTML='<span class=&quot;ini&quot;>${esc(f.name.charAt(0))}</span>'" />`;
 			return `<div class="chips">${chip('all', 'All', FRIENDS.length)}${cats.map(c => chip(c, c, FRIENDS.filter(f => f.category === c).length)).join('')}</div>
 				<div class="contacts">${list.map(f => `<a class="ct" href="${esc(f.url)}" target="_blank" rel="noopener">${avatar(f)}<div><div class="nm">${esc(f.name)}</div><div class="og">${esc(f.org || f.category)}</div></div></a>`).join('')}</div>
 				<div class="foot"><a href="/friends" target="_blank">Exchange links on the friends page ↗</a></div>`;
