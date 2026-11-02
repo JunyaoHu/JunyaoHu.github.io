@@ -247,6 +247,7 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replac
 	.br-bar { display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: #f0f0f0; border-bottom: 1px solid var(--line); }
 	.br-bar button { width: 30px; height: 30px; flex: none; border: 0; border-radius: 8px; background: transparent; cursor: pointer; font-size: 16px; line-height: 1; }
 	.br-bar button:hover { background: rgba(0, 0, 0, .08); }
+	.br-bar button:disabled { opacity: .3; cursor: default; background: transparent; }
 	.br-url { flex: 1; min-width: 0; padding: 5px 14px; border-radius: 99px; background: #fff; border: 1px solid var(--line); font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 	.br-url b { color: var(--text); font-weight: 500; }
 	.br iframe { flex: 1; width: 100%; border: 0; background: #fff; }
@@ -513,7 +514,7 @@ const APPS = {
 		mount: w => ccMount(w),
 	},
 	browser: {
-		icon: 'browser', label: 'Web Browser', title: w => (w && w.state.title) || 'Web Browser', w: 1000, h: 660, state: () => ({ url: nextBrowserUrl, title: '' }),
+		icon: 'browser', label: 'Web Browser', title: w => (w && w.state.title) || 'Web Browser', w: 1000, h: 660, state: () => ({ url: nextBrowserUrl, title: '', hist: [nextBrowserUrl], idx: 0 }),
 		render: w => `<div class="br"><div class="br-bar"><button data-b="back" title="Back">‹</button><button data-b="fwd" title="Forward">›</button><button data-b="reload" title="Reload">⟳</button><div class="br-url"></div><button data-b="ext" title="Open in a new tab">↗</button></div><iframe src="${esc(w.state.url)}" title="page"></iframe></div>`,
 		mount: w => browserMount(w),
 	},
@@ -595,32 +596,46 @@ function openBrowser(url) {
 	nextBrowserUrl = url;
 	const existed = !!wins.browser;
 	const w = openWin('browser');
-	if (existed) { w.state.url = url; w.el.querySelector('iframe').src = url; }
+	if (existed) browserGo(w, url, true);
+}
+// 窗口自己维护前进 / 后退记录，换页用 location.replace：不写入浏览器的总历史，
+// 所以窗口里的「‹ ›」只在窗口内翻页，永远不会把整个桌面页面带走。
+function browserGo(w, url, push) {
+	const st = w.state;
+	if (push) { st.hist = st.hist.slice(0, st.idx + 1); st.hist.push(url); st.idx = st.hist.length - 1; }
+	const fr = w.el.querySelector('iframe');
+	try { fr.contentWindow.location.replace(url); } catch (e) { fr.src = url; }
+	syncNav(w);
+}
+function syncNav(w) {
+	const bar = w.el.querySelector('.br-bar');
+	bar.querySelector('[data-b="back"]').disabled = w.state.idx <= 0;
+	bar.querySelector('[data-b="fwd"]').disabled = w.state.idx >= w.state.hist.length - 1;
 }
 function browserMount(w) {
 	const fr = w.el.querySelector('iframe'), bar = w.el.querySelector('.br-url');
 	const cur = () => { try { return fr.contentWindow.location; } catch (e) { return null; } };
-	const show = () => {
+	syncNav(w);
+	fr.addEventListener('load', () => {
 		const loc = cur();
-		if (loc) bar.innerHTML = `${esc(location.host)}<b>${esc(decodeURIComponent(loc.pathname + loc.search + loc.hash))}</b>`;
+		if (loc) {
+			const url = loc.pathname + loc.search + loc.hash;
+			w.state.hist[w.state.idx] = url; // 重定向等情况：就地更新当前记录
+			bar.innerHTML = `${esc(location.host)}<b>${esc(decodeURIComponent(url))}</b>`;
+		}
 		let t = '';
 		try { t = fr.contentDocument.title; } catch (e) {}
 		w.state.title = t || 'Web Browser';
 		w.el.querySelector('.t').textContent = w.state.title;
-	};
-	fr.addEventListener('load', () => {
-		show();
 		try { fr.contentDocument.addEventListener('click', e => routeLink(e, true), true); } catch (e) {}
 	});
 	w.el.querySelector('.br-bar').addEventListener('click', e => {
-		const b = e.target.closest('[data-b]'); if (!b) return;
-		const win = fr.contentWindow;
-		try {
-			if (b.dataset.b === 'back') win.history.back();
-			if (b.dataset.b === 'fwd') win.history.forward();
-			if (b.dataset.b === 'reload') win.location.reload();
-			if (b.dataset.b === 'ext') window.open((cur() || {}).href || w.state.url, '_blank', 'noopener');
-		} catch (err) {}
+		const b = e.target.closest('[data-b]'); if (!b || b.disabled) return;
+		const st = w.state;
+		if (b.dataset.b === 'back') { st.idx--; browserGo(w, st.hist[st.idx], false); }
+		if (b.dataset.b === 'fwd') { st.idx++; browserGo(w, st.hist[st.idx], false); }
+		if (b.dataset.b === 'reload') try { fr.contentWindow.location.reload(); } catch (err) {}
+		if (b.dataset.b === 'ext') window.open((cur() || {}).href || st.hist[st.idx], '_blank', 'noopener');
 	});
 }
 function routeLink(e, fromFrame) {
@@ -631,10 +646,11 @@ function routeLink(e, fromFrame) {
 	const path = a.pathname.replace(/\/$/, '');
 	if (path === '' && fromFrame) { e.preventDefault(); wins.browser && wins.browser.el.querySelector('.x').click(); return; } // 经典页里的「Desktop」按钮：关掉浏览器窗口
 	if (path === '/classic' && !fromFrame) return; // 主动回经典主页
-	if (fromFrame) return; // 浏览器窗口内的站内跳转，留在窗口里
-	if (a.getAttribute('href').startsWith('#')) return;
+	if (a.getAttribute('href').startsWith('#')) return; // 页内锚点（目录等）保持默认
 	e.preventDefault();
-	openBrowser(a.pathname + a.search + a.hash);
+	const url = a.pathname + a.search + a.hash;
+	if (fromFrame) browserGo(wins.browser, url, true); // 窗口内的站内跳转，记入窗口自己的历史
+	else openBrowser(url);
 }
 document.addEventListener('click', e => routeLink(e, false), true);
 

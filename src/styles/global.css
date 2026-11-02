@@ -112,6 +112,15 @@ html {
 	background: transparent;
 }
 
+/* 桌面版主页的浏览器窗口里只显示正文：隐藏顶栏和页脚（标记由 BaseHead 设置） */
+html.in-desk {
+	--site-header-height: 0px;
+}
+html.in-desk body > header,
+html.in-desk body > footer {
+	display: none;
+}
+
 body {
 	font-family: "Atkinson", sans-serif;
 	margin: 0;
