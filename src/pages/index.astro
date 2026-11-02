@@ -242,6 +242,16 @@ const deskData = JSON.stringify({ papers, news, albums, friends, posts }).replac
 	.ct .og { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 	.ct > div { min-width: 0; }
 
+	/* web browser (站内页面在桌面里的窗口中打开) */
+	.br { display: flex; flex-direction: column; height: 100%; }
+	.br-bar { display: flex; align-items: center; gap: 6px; padding: 6px 8px; background: #f0f0f0; border-bottom: 1px solid var(--line); }
+	.br-bar button { width: 30px; height: 30px; flex: none; border: 0; border-radius: 8px; background: transparent; cursor: pointer; font-size: 16px; line-height: 1; }
+	.br-bar button:hover { background: rgba(0, 0, 0, .08); }
+	.br-url { flex: 1; min-width: 0; padding: 5px 14px; border-radius: 99px; background: #fff; border: 1px solid var(--line); font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.br-url b { color: var(--text); font-weight: 500; }
+	.br iframe { flex: 1; width: 100%; border: 0; background: #fff; }
+	body.dragging iframe { pointer-events: none; }
+
 	/* news (calendar agenda) */
 	.agenda { padding: 8px 18px 18px; }
 	.agenda h4 { margin: 18px 0 6px; font-size: 13px; color: var(--muted); letter-spacing: .06em; }
@@ -377,6 +387,7 @@ const ICONS = {
 	photos: `<svg viewBox="0 0 48 48"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#62a0ea"/><stop offset="1" stop-color="#f6d32d"/></linearGradient></defs><rect x="5" y="7" width="38" height="34" rx="6" fill="url(#pg)"/><circle cx="33" cy="16" r="4" fill="#fff"/><path d="M5 35l11-12 9 9 5-5 13 11v-2 4a6 6 0 0 1-6 6H11a6 6 0 0 1-6-6z" fill="#26a269"/></svg>`,
 	news: () => `<svg viewBox="0 0 48 48"><rect x="6" y="7" width="36" height="35" rx="6" fill="#fff"/><path d="M6 13a6 6 0 0 1 6-6h24a6 6 0 0 1 6 6v4H6z" fill="#e01b24"/><text x="24" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#333" font-family="Ubuntu,sans-serif">${new Date().getDate()}</text></svg>`,
 	code: `<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="7" fill="#1f1e1d"/><g fill="#d97757" shape-rendering="crispEdges"><rect x="15" y="15" width="18" height="10"/><rect x="11" y="18" width="4" height="4"/><rect x="33" y="18" width="4" height="4"/><rect x="16" y="25" width="2" height="5"/><rect x="20" y="25" width="2" height="5"/><rect x="26" y="25" width="2" height="5"/><rect x="30" y="25" width="2" height="5"/></g><g fill="#1f1e1d"><rect x="19" y="18" width="2" height="3"/><rect x="27" y="18" width="2" height="3"/></g><rect x="12" y="34" width="12" height="2.5" rx="1" fill="#8f8b85"/></svg>`,
+	browser: `<svg viewBox="0 0 48 48"><defs><linearGradient id="bwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#62a0ea"/><stop offset="1" stop-color="#1a5fb4"/></linearGradient></defs><circle cx="24" cy="24" r="19" fill="url(#bwg)"/><g fill="none" stroke="#fff" stroke-width="2" opacity=".85"><ellipse cx="24" cy="24" rx="8" ry="19"/><path d="M5 24h38M8 14h32M8 34h32"/></g></svg>`,
 	contacts: `<svg viewBox="0 0 48 48"><rect x="8" y="5" width="32" height="38" rx="5" fill="#3584e4"/><rect x="5" y="11" width="5" height="4" rx="1.5" fill="#1c71d8"/><rect x="5" y="21" width="5" height="4" rx="1.5" fill="#1c71d8"/><rect x="5" y="31" width="5" height="4" rx="1.5" fill="#1c71d8"/><circle cx="25" cy="19" r="6" fill="#fff"/><path d="M14 35a11 9 0 0 1 22 0z" fill="#fff"/></svg>`,
 	trash: `<svg viewBox="0 0 48 48"><path d="M12 14h24l-2 26a3 3 0 0 1-3 3H17a3 3 0 0 1-3-3z" fill="#9a9996"/><rect x="9" y="9" width="30" height="6" rx="2" fill="#77767b"/><rect x="20" y="5" width="8" height="5" rx="1.5" fill="#77767b"/><g stroke="#deddda" stroke-width="2"><path d="M19 20v17M24 20v17M29 20v17"/></g></svg>`,
 };
@@ -501,6 +512,11 @@ const APPS = {
 			<div class="cc-foot"><span>? for shortcuts</span><div class="cc-chips">${['What are you working on?', 'Show me your papers', 'Any recent news?', 'How can I contact you?'].map(s => `<button>${s}</button>`).join('')}</div></div></div>`,
 		mount: w => ccMount(w),
 	},
+	browser: {
+		icon: 'browser', label: 'Web Browser', title: w => (w && w.state.title) || 'Web Browser', w: 1000, h: 660, state: () => ({ url: nextBrowserUrl, title: '' }),
+		render: w => `<div class="br"><div class="br-bar"><button data-b="back" title="Back">‹</button><button data-b="fwd" title="Forward">›</button><button data-b="reload" title="Reload">⟳</button><div class="br-url"></div><button data-b="ext" title="Open in a new tab">↗</button></div><iframe src="${esc(w.state.url)}" title="page"></iframe></div>`,
+		mount: w => browserMount(w),
+	},
 	trash: {
 		icon: 'trash', label: 'Trash', title: () => 'Trash', w: 440, h: 260,
 		render: () => `<div class="grid"><div class="fi">${icon('pdf')}<span>rejected_v17_final_FINAL.pdf</span></div></div><p class="pad dim" style="margin:0">Reviewer 2 says this folder is empty.</p>`,
@@ -541,7 +557,7 @@ function renderFiles(w) {
 		const chips = [['all', 'All', POSTS.length], ...POST_CATS.map(c => [c, c, POSTS.filter(p => p.category === c).length])]
 			.map(([id, l, n]) => `<button data-bf="${esc(id)}" class="${w.state.bf === id ? 'on' : ''}">${esc(l)}<small>(${n})</small></button>`).join('');
 		const rows = POSTS.filter(p => w.state.bf === 'all' || p.category === w.state.bf)
-			.map(p => `<a class="row post" href="/blog/${p.id}/" target="_blank">${icon('md')}<div><div class="nm">${esc(p.title)}</div><div class="sub">${esc(p.category)}</div></div><span class="dt">${p.date}</span></a>`).join('');
+			.map(p => `<a class="row post" href="/blog/${p.id}/">${icon('md')}<div><div class="nm">${esc(p.title)}</div><div class="sub">${esc(p.category)}</div></div><span class="dt">${p.date}</span></a>`).join('');
 		body = `<div class="chips">${chips}</div><div class="rows">${rows}</div>`;
 		foot = '<a href="/blog" target="_blank">Open the full blog ↗</a>';
 	}
@@ -570,6 +586,57 @@ function openPaper(i) {
 }
 function lightbox(s) { const lb = document.getElementById('lightbox'); lb.querySelector('img').src = s; lb.style.display = 'flex'; }
 document.getElementById('lightbox').onclick = e => (e.currentTarget.style.display = 'none');
+
+/* ═══════════ web browser + link routing ═══════════ */
+// 站内页面（博客、论文 PDF、相册页…）在桌面里的浏览器窗口打开；站外链接一律新标签页打开，
+// 这样访客不会离开桌面、也不用重新登录。
+let nextBrowserUrl = '/blog';
+function openBrowser(url) {
+	nextBrowserUrl = url;
+	const existed = !!wins.browser;
+	const w = openWin('browser');
+	if (existed) { w.state.url = url; w.el.querySelector('iframe').src = url; }
+}
+function browserMount(w) {
+	const fr = w.el.querySelector('iframe'), bar = w.el.querySelector('.br-url');
+	const cur = () => { try { return fr.contentWindow.location; } catch (e) { return null; } };
+	const show = () => {
+		const loc = cur();
+		if (loc) bar.innerHTML = `${esc(location.host)}<b>${esc(decodeURIComponent(loc.pathname + loc.search + loc.hash))}</b>`;
+		let t = '';
+		try { t = fr.contentDocument.title; } catch (e) {}
+		w.state.title = t || 'Web Browser';
+		w.el.querySelector('.t').textContent = w.state.title;
+	};
+	fr.addEventListener('load', () => {
+		show();
+		try { fr.contentDocument.addEventListener('click', e => routeLink(e, true), true); } catch (e) {}
+	});
+	w.el.querySelector('.br-bar').addEventListener('click', e => {
+		const b = e.target.closest('[data-b]'); if (!b) return;
+		const win = fr.contentWindow;
+		try {
+			if (b.dataset.b === 'back') win.history.back();
+			if (b.dataset.b === 'fwd') win.history.forward();
+			if (b.dataset.b === 'reload') win.location.reload();
+			if (b.dataset.b === 'ext') window.open((cur() || {}).href || w.state.url, '_blank', 'noopener');
+		} catch (err) {}
+	});
+}
+function routeLink(e, fromFrame) {
+	const a = e.target.closest && e.target.closest('a[href]');
+	if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+	if (!/^https?:$/.test(a.protocol)) return; // mailto: 等保持默认
+	if (a.origin !== location.origin) { e.preventDefault(); window.open(a.href, '_blank', 'noopener'); return; }
+	const path = a.pathname.replace(/\/$/, '');
+	if (path === '' && fromFrame) { e.preventDefault(); wins.browser && wins.browser.el.querySelector('.x').click(); return; } // 经典页里的「Desktop」按钮：关掉浏览器窗口
+	if (path === '/classic' && !fromFrame) return; // 主动回经典主页
+	if (fromFrame) return; // 浏览器窗口内的站内跳转，留在窗口里
+	if (a.getAttribute('href').startsWith('#')) return;
+	e.preventDefault();
+	openBrowser(a.pathname + a.search + a.hash);
+}
+document.addEventListener('click', e => routeLink(e, false), true);
 
 /* ═══════════ window manager ═══════════ */
 let z = 10, cascade = 0;
@@ -616,8 +683,9 @@ function drag(el, handle) {
 	handle.addEventListener('pointerdown', e => {
 		if (e.target.closest('button') || el.classList.contains('max') || innerWidth <= 680) return;
 		const sx = e.clientX - el.offsetLeft, sy = e.clientY - el.offsetTop;
+		document.body.classList.add('dragging');
 		const move = ev => { el.style.left = ev.clientX - sx + 'px'; el.style.top = Math.max(0, ev.clientY - sy) + 'px'; };
-		const up = () => { removeEventListener('pointermove', move); removeEventListener('pointerup', up); };
+		const up = () => { document.body.classList.remove('dragging'); removeEventListener('pointermove', move); removeEventListener('pointerup', up); };
 		addEventListener('pointermove', move); addEventListener('pointerup', up);
 	});
 }
@@ -773,7 +841,11 @@ function answer(q) {
 
 /* ═══════════ boot: splash → login → desktop ═══════════ */
 const loginEl = document.getElementById('login');
+// 本次浏览会话内只需登录一次：从经典页或新标签页回来时直接进桌面
+const SIGNED_KEY = 'desk-signed-in';
+const session = { get: () => { try { return sessionStorage.getItem(SIGNED_KEY) === '1'; } catch (e) { return false; } }, set: v => { try { v ? sessionStorage.setItem(SIGNED_KEY, '1') : sessionStorage.removeItem(SIGNED_KEY); } catch (e) {} } };
 function showLogin() {
+	session.set(false);
 	tick();
 	document.body.classList.add('locked');
 	loginEl.style.display = 'flex';
@@ -784,6 +856,7 @@ function signIn() {
 	if (loginEl.classList.contains('fade')) return;
 	loginEl.classList.add('fade'); setTimeout(() => (loginEl.style.display = 'none'), 450);
 	document.body.classList.remove('locked');
+	session.set(true);
 	if (firstLogin) {
 		firstLogin = false;
 		setTimeout(() => openWin('about'), 350);
@@ -794,9 +867,16 @@ document.getElementById('signIn').addEventListener('click', signIn);
 document.getElementById('wall').innerHTML = genWallpaper();
 tick();
 const splash = document.getElementById('splash');
-const endSplash = () => { if (!splash.isConnected) return; splash.classList.add('fade'); setTimeout(() => splash.remove(), 500); };
-splash.onclick = endSplash;
-setTimeout(endSplash, 1500);
+if (session.get()) {
+	splash.remove();
+	firstLogin = false;
+	loginEl.classList.add('fade'); loginEl.style.display = 'none';
+	document.body.classList.remove('locked');
+} else {
+	const endSplash = () => { if (!splash.isConnected) return; splash.classList.add('fade'); setTimeout(() => splash.remove(), 500); };
+	splash.onclick = endSplash;
+	setTimeout(endSplash, 1500);
+}
 </script>
 </body>
 </html>
