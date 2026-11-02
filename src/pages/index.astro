@@ -1,5 +1,46 @@
 ---
 // 主页：Ubuntu 风格的桌面版；经典主页在 /classic
+// 论文 / 新闻 / 相册 / 友链在构建时从现有数据文件注入，改数据文件即可同步
+import { getAllPapersSorted, getPaperAuthorFilterRole, SELF_AUTHOR_NAME } from '../data/papers';
+import { newsItems } from '../data/homepage';
+import { galleryConfig } from '../data/gallery';
+import { getEnabledFriends } from '../data/friends';
+import { siteVisibility } from '../data/siteVisibility';
+import { buildAlbumGalleryImages, listGalleryImageFiles, resolveCoverFilename } from '../utils/galleryImages';
+
+const escapeHtml = (t: string) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]!);
+
+const papers = getAllPapersSorted().map((p) => ({
+	venue: p.venue ?? '',
+	title: p.title,
+	year: p.year,
+	filter: getPaperAuthorFilterRole(p),
+	authors: p.authors.map((a) => ({ name: a.name, self: a.name === SELF_AUTHOR_NAME, eq: !!a.equalContrib, corr: !!a.corresponding })),
+	tldr: p.tldr ?? '',
+	demo: p.demo?.src || '',
+	links: p.links.map((l) => [l.label, l.href]),
+}));
+
+const news = newsItems.map((n) => ({ date: n.date, category: n.category, html: n.html ?? escapeHtml(n.text ?? '') }));
+
+const albums = siteVisibility.gallery
+	? (
+			await Promise.all(
+				galleryConfig.albums.map(async (a) => {
+					const images = await buildAlbumGalleryImages(a.id);
+					const files = listGalleryImageFiles(a.id);
+					const cover = images[files.indexOf(resolveCoverFilename(a.cover, files) ?? '')] ?? images[0];
+					return { id: a.id, name: a.name, cover: cover?.thumb ?? '', images: images.map((i) => ({ thumb: i.thumb, full: i.full })) };
+				}),
+			)
+		).filter((a) => a.images.length)
+	: [];
+
+const friends = siteVisibility.friends
+	? getEnabledFriends().map((f) => ({ name: f.title, avatar: f.imgurl, url: f.siteurl, org: (f.affiliations ?? []).join(' · '), category: f.category }))
+	: [];
+
+const deskData = JSON.stringify({ papers, news, albums, friends }).replace(/</g, '\\u003c');
 ---
 <!doctype html>
 <html lang="en">
@@ -51,8 +92,14 @@
 	.avatar { width: 96px; height: 96px; border-radius: 50%; display: grid; place-items: center; font-size: 34px; font-weight: 700; color: #fff; background: linear-gradient(135deg, #e95420, #77216f); box-shadow: 0 8px 30px rgba(0, 0, 0, .35); }
 	#login .who { font-size: 20px; font-weight: 500; }
 	#login .btns-login { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; width: 240px; }
-	#login .lbtn { display: block; width: 100%; padding: 10px 0; border-radius: 10px; border: 0; background: var(--orange); color: #fff; font-size: 14px; font-weight: 500; text-align: center; text-decoration: none; cursor: pointer; }
-	#login .lbtn:hover { filter: brightness(1.1); }
+	#login .lbtn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px 0; border-radius: 10px; border: 1px solid transparent; font-size: 14px; font-weight: 500; text-decoration: none; cursor: pointer; transition: background .15s, filter .15s; }
+	#login .lbtn.primary { background: var(--orange); color: #fff; }
+	#login .lbtn.primary:hover { filter: brightness(1.1); }
+	#login .lbtn.secondary { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .35); color: #fff; }
+	#login .lbtn.secondary:hover { background: rgba(255, 255, 255, .22); }
+	#login .lbtn .arr { transition: transform .15s; }
+	#login .lbtn.primary:hover .arr { transform: translateX(3px); }
+	#login .lbtn.secondary:hover .arr { transform: translateX(-3px); }
 
 	/* ── top bar ── */
 	#topbar { position: fixed; left: 0; right: 0; top: 0; height: var(--top); z-index: 8900; background: var(--bar); color: #fff; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 8px; user-select: none; }
@@ -141,6 +188,36 @@
 	.photos { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 4px; padding: 4px; }
 	.photos img { width: 100%; aspect-ratio: 1; object-fit: cover; cursor: zoom-in; display: block; }
 
+	/* filter chips (publications / friends) */
+	.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px 0; }
+	.chips button { border: 1px solid var(--line); background: #fff; border-radius: 99px; padding: 3px 12px; font-size: 12.5px; cursor: pointer; }
+	.chips button:hover { border-color: var(--orange); }
+	.chips button.on { background: var(--orange); border-color: var(--orange); color: #fff; }
+	.chips button small { opacity: .7; margin-left: 2px; }
+	.authors { color: #555; font-size: 13px; margin-bottom: 4px; }
+	.authors b { color: #222; text-decoration: underline; text-underline-offset: 2px; }
+
+	/* photo albums */
+	.albums { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; padding: 14px; }
+	.album { cursor: pointer; border-radius: 10px; padding: 6px; }
+	.album:hover { background: var(--sel); }
+	.album .cv { aspect-ratio: 1; border-radius: 8px; background: #ddd center/cover; box-shadow: 4px 4px 0 -1px #fff, 4px 4px 0 0 #ccc, 0 1px 3px rgba(0, 0, 0, .15); }
+	.album .an { margin-top: 10px; font-weight: 500; }
+	.album .ac { font-size: 12px; color: var(--muted); }
+	.ph-bar { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+	.ph-bar button { border: 0; background: rgba(0, 0, 0, .06); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
+	.ph-bar button:hover { background: rgba(0, 0, 0, .12); }
+
+	/* contacts (friends) */
+	.contacts { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; padding: 12px 14px 14px; }
+	.ct { display: flex; gap: 10px; align-items: center; padding: 10px; border-radius: 10px; border: 1px solid var(--line); background: #fff; color: inherit; text-decoration: none; }
+	.ct:hover { border-color: var(--orange); background: #fff8f5; }
+	.ct img, .ct .ini { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; flex: none; background: #eee; }
+	.ct .ini { display: grid; place-items: center; font-weight: 700; color: #fff; background: linear-gradient(135deg, #e95420, #77216f); }
+	.ct .nm { font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.ct .og { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+	.ct > div { min-width: 0; }
+
 	/* news (calendar agenda) */
 	.agenda { padding: 8px 18px 18px; }
 	.agenda h4 { margin: 18px 0 6px; font-size: 13px; color: var(--muted); letter-spacing: .06em; }
@@ -227,8 +304,8 @@
 	<div class="avatar">JH</div>
 	<div class="who">Junyao Hu</div>
 	<div class="btns-login">
-		<button class="lbtn" id="signIn">Sign in</button>
-		<a class="lbtn" href="/classic">Back to classic homepage</a>
+		<button class="lbtn primary" id="signIn">Sign in <span class="arr">→</span></button>
+		<a class="lbtn secondary" href="/classic"><span class="arr">←</span> Classic homepage</a>
 	</div>
 </div>
 
@@ -239,35 +316,19 @@
 </div>
 <div id="lightbox"><img alt="" /></div>
 
+<script is:inline set:html={`window.__DESK__ = ${deskData};`}></script>
 <script is:inline>
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-/* ═══════════ data（正式版从 homepage.ts / papers.ts / content collections 注入） ═══════════ */
-const PAPERS = [
-	{ venue: 'CVPR26', title: 'Garments2Look: A Multi-Reference Dataset for High-Fidelity Outfit-Level Virtual Try-On with Clothing and Accessories', short: 'Garments2Look', role: 'First author', demo: '/paper/cvpr26-garments2look/show.gif',
-		tldr: 'The first outfit-level virtual try-on dataset — 80K pairs, 40 categories and rich annotations — benchmarking SOTA models and revealing their limits in layering and styling.',
-		links: [['Paper', 'https://arxiv.org/abs/2603.14153'], ['Code', 'https://github.com/ArtmeScienceLab/Garments2Look'], ['Dataset', 'https://huggingface.co/datasets/ArtmeScienceLab/Garments2Look'], ['Project', 'https://artmesciencelab.github.io/Garments2Look/']] },
-	{ venue: 'CVPR26W', title: 'DRA-MTransfer: Physically Realistic Video Motion Transfer with Dual-Grained Re-Adaptation', short: 'DRA-MTransfer', role: 'Co-author', demo: '/paper/cvpr26w-dra-mtransfer/show.jpg',
-		tldr: 'Dual-grained re-adaptation unlocks motion priors in video diffusion models for physically realistic motion transfer.',
-		links: [['Paper', '/paper/cvpr26w-dra-mtransfer/paper.pdf']] },
-	{ venue: 'TAFFC26', title: 'Emotion-Director: From Emotion-Aware Image Generation to Art Design', short: 'Emotion-Director', role: 'Co-author', demo: '/paper/arxiv25-emotion-director/show.jpg',
-		tldr: 'Emotion-aware image generation, extended toward art design.', links: [] },
-	{ venue: 'CVPR24', title: 'ExtDM: Distribution Extrapolation Diffusion Model for Video Prediction', short: 'ExtDM', role: 'First author', demo: '/paper/cvpr24-extdm/show.gif',
-		tldr: 'Predicts future video frames by extrapolating their distribution with a diffusion model.',
-		links: [['Paper', '/paper/cvpr24-extdm/paper.pdf'], ['Poster', '/paper/cvpr24-extdm/poster.pdf'], ['Slides', '/paper/cvpr24-extdm/slide.pdf']] },
-];
-const NEWS = [
-	['2026-05-08', 'activity', 'I attended <a href="https://valser.org/2026/#/" target="_blank">VALSE 2026</a> (Wuhan, China).'],
-	['2026-03-26', 'accepted', 'A paper was accepted to CVPR 2026 Workshop CVEU.'],
-	['2026-02-23', 'accepted', 'A paper was accepted to CVPR 2026.'],
-	['2025-06-06', 'activity', 'I attended <a href="http://valser.org/2025" target="_blank">VALSE 2025</a> (Zhuhai, China).'],
-	['2025-04-19', 'activity', 'I attended <a href="https://amc.hkust.edu.hk/events/1st-hkust-ai-film-festival" target="_blank">First AMC AI Film Festival</a> (Hong Kong, China).'],
-	['2025-03-08', 'accepted', 'A film was selected as Finalist at <a href="https://amc.hkust.edu.hk/events/1st-hkust-ai-film-festival" target="_blank">First AMC AI Film Festival</a>.'],
-	['2024-05-05', 'activity', 'I attended <a href="http://valser.org/2024" target="_blank">VALSE 2024</a> (Chongqing, China).'],
-	['2024-02-27', 'accepted', 'A paper was accepted to CVPR 2024, and I was honored as one of Outstanding Reviewers (top 2%).'],
-	['2023-07-15', 'study', 'I ended my undergraduate life at CUMT, thanks to all teachers and friends around me, especially my parents.'],
-];
+/* ═══════════ data：构建时由 frontmatter 注入（window.__DESK__） ═══════════ */
+const D = window.__DESK__;
+const ROLE = { first: 'First author', 'co-first': 'Co-first author', other: 'Co-author' };
+const PAPERS = D.papers.map(p => ({ ...p, short: p.title.split(':')[0].trim(), role: ROLE[p.filter] }));
+const NEWS = D.news.map(n => [n.date, n.category, n.html]);
+const ALBUMS = D.albums;
+const FRIENDS = D.friends;
 const NEWS_META = { accepted: ['😋 Accepted', '#e95420'], activity: ['💼 Activity', '#3584e4'], study: ['✒️ Study', '#26a269'] };
+const newsMeta = c => NEWS_META[c] || [c, '#9a9996'];
 // 分类 slug 保持站内原名，用于跳转 /blog/category/...
 const BLOG = [
 	{ slug: '课外学习', name: 'Self-study', n: 28, posts: ['InternLM Camp L2 — InternVL Fine-tuning', 'InternLM Camp L1 — XTuner Fine-tuning', 'Hung-yi Lee Machine Learning', 'Computer Vision Notes (BUPT)', 'Huggingface Transformers in Practice'] },
@@ -275,7 +336,6 @@ const BLOG = [
 	{ slug: '生活杂记', name: 'Life', n: 4, posts: ['2023 Review', 'One Year After Graduate Admission', 'Advice for Freshmen 2022', 'Time Management with Dida'] },
 	{ slug: '开发项目', name: 'Projects', n: 3, posts: ['Bert-UNILM + Django Writing Platform', 'Lane Centerline Detection with Unet3p', 'Qt TCP Host Software'] },
 ];
-const PHOTOS = ['self/self-1.jpg', 'self/self-2.jpeg', 'self/self-3.jpg', 'self/self-4.jpg', 'self/self-5.jpg', 'lab/lab-2.jpg', 'lab/lab-3.jpg', 'friends/graduate-1.jpg', 'friends/graduate-2.jpg', 'friends/skiing.jpeg', 'service/choir.jpeg', 'service/media.jpg', 'social/social-2.jpg'].map(s => '/gallery/' + s);
 const EMAIL = 'hujunyao0329@gmail.com';
 const SCHOLAR = 'https://scholar.google.com/citations?user=pOgwDdcAAAAJ';
 
@@ -296,6 +356,7 @@ const ICONS = {
 	photos: `<svg viewBox="0 0 48 48"><defs><linearGradient id="pg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#62a0ea"/><stop offset="1" stop-color="#f6d32d"/></linearGradient></defs><rect x="5" y="7" width="38" height="34" rx="6" fill="url(#pg)"/><circle cx="33" cy="16" r="4" fill="#fff"/><path d="M5 35l11-12 9 9 5-5 13 11v-2 4a6 6 0 0 1-6 6H11a6 6 0 0 1-6-6z" fill="#26a269"/></svg>`,
 	news: () => `<svg viewBox="0 0 48 48"><rect x="6" y="7" width="36" height="35" rx="6" fill="#fff"/><path d="M6 13a6 6 0 0 1 6-6h24a6 6 0 0 1 6 6v4H6z" fill="#e01b24"/><text x="24" y="36" text-anchor="middle" font-size="16" font-weight="700" fill="#333" font-family="Ubuntu,sans-serif">${new Date().getDate()}</text></svg>`,
 	code: `<svg viewBox="0 0 48 48"><rect x="4" y="6" width="40" height="36" rx="7" fill="#1f1e1d"/><g fill="#d97757" shape-rendering="crispEdges"><rect x="15" y="15" width="18" height="10"/><rect x="11" y="18" width="4" height="4"/><rect x="33" y="18" width="4" height="4"/><rect x="16" y="25" width="2" height="5"/><rect x="20" y="25" width="2" height="5"/><rect x="26" y="25" width="2" height="5"/><rect x="30" y="25" width="2" height="5"/></g><g fill="#1f1e1d"><rect x="19" y="18" width="2" height="3"/><rect x="27" y="18" width="2" height="3"/></g><rect x="12" y="34" width="12" height="2.5" rx="1" fill="#8f8b85"/></svg>`,
+	contacts: `<svg viewBox="0 0 48 48"><rect x="8" y="5" width="32" height="38" rx="5" fill="#3584e4"/><rect x="5" y="11" width="5" height="4" rx="1.5" fill="#1c71d8"/><rect x="5" y="21" width="5" height="4" rx="1.5" fill="#1c71d8"/><rect x="5" y="31" width="5" height="4" rx="1.5" fill="#1c71d8"/><circle cx="25" cy="19" r="6" fill="#fff"/><path d="M14 35a11 9 0 0 1 22 0z" fill="#fff"/></svg>`,
 	trash: `<svg viewBox="0 0 48 48"><path d="M12 14h24l-2 26a3 3 0 0 1-3 3H17a3 3 0 0 1-3-3z" fill="#9a9996"/><rect x="9" y="9" width="30" height="6" rx="2" fill="#77767b"/><rect x="20" y="5" width="8" height="5" rx="1.5" fill="#77767b"/><g stroke="#deddda" stroke-width="2"><path d="M19 20v17M24 20v17M29 20v17"/></g></svg>`,
 };
 const icon = k => (typeof ICONS[k] === 'function' ? ICONS[k]() : ICONS[k]);
@@ -356,12 +417,38 @@ const APPS = {
 		},
 	},
 	files: {
-		icon: 'files', label: 'Files', title: w => 'Files — ' + locName(w ? w.state.loc : 'home'), w: 780, h: 500, state: () => ({ loc: 'home' }),
+		icon: 'files', label: 'Files', title: w => 'Files — ' + locName(w ? w.state.loc : 'home'), w: 780, h: 520, state: () => ({ loc: 'home', pf: 'all' }),
 		render: w => renderFiles(w),
+		click: (w, e) => filesClick(w, e),
 	},
 	gallery: {
-		icon: 'photos', label: 'Photos', title: () => 'Photos', w: 680, h: 480,
-		render: () => `<div class="photos">${PHOTOS.map(s => `<img src="${s}" loading="lazy" onclick="lightbox('${s}')" alt="" />`).join('')}</div>`,
+		icon: 'photos', label: 'Photos', title: w => 'Photos' + (w && w.state.album != null ? ' — ' + ALBUMS[w.state.album].name : ''), w: 700, h: 500, state: () => ({ album: null }),
+		render: w => {
+			const a = w.state.album;
+			if (a == null) return `<div class="albums">${ALBUMS.map((al, i) => `<div class="album" data-album="${i}"><div class="cv" style="background-image:url('${al.cover}')"></div><div class="an">${al.name}</div><div class="ac">${al.images.length} photo${al.images.length > 1 ? 's' : ''}</div></div>`).join('')}</div>`;
+			const al = ALBUMS[a];
+			return `<div class="ph-bar"><button data-album="back">‹ Albums</button><b>${al.name}</b><span class="dim">${al.images.length} photos</span></div><div class="photos">${al.images.map(im => `<img src="${im.thumb}" data-full="${im.full}" loading="lazy" alt="" />`).join('')}</div>`;
+		},
+		click: (w, e) => {
+			const al = e.target.closest('[data-album]'), im = e.target.closest('img[data-full]');
+			if (im) return lightbox(im.dataset.full);
+			if (!al) return;
+			w.state.album = al.dataset.album === 'back' ? null : +al.dataset.album;
+			refresh(w);
+		},
+	},
+	friends: {
+		icon: 'contacts', label: 'Friends', title: () => 'Contacts — Friends', w: 760, h: 520, state: () => ({ cat: 'all' }),
+		render: w => {
+			const cats = [...new Set(FRIENDS.map(f => f.category))];
+			const list = FRIENDS.filter(f => w.state.cat === 'all' || f.category === w.state.cat);
+			const chip = (id, label, n) => `<button data-cat="${esc(id)}" class="${w.state.cat === id ? 'on' : ''}">${esc(label)}<small>(${n})</small></button>`;
+			const avatar = f => `<img src="${esc(f.avatar)}" alt="" loading="lazy" onerror="this.outerHTML='<span class=&quot;ini&quot;>${esc(f.name.charAt(0))}</span>'" />`;
+			return `<div class="chips">${chip('all', 'All', FRIENDS.length)}${cats.map(c => chip(c, c, FRIENDS.filter(f => f.category === c).length)).join('')}</div>
+				<div class="contacts">${list.map(f => `<a class="ct" href="${esc(f.url)}" target="_blank" rel="noopener">${avatar(f)}<div><div class="nm">${esc(f.name)}</div><div class="og">${esc(f.org || f.category)}</div></div></a>`).join('')}</div>
+				<div class="foot"><a href="/friends" target="_blank">Exchange links on the friends page ↗</a></div>`;
+		},
+		click: (w, e) => { const c = e.target.closest('[data-cat]'); if (c) { w.state.cat = c.dataset.cat; refresh(w); } },
 	},
 	news: {
 		icon: 'news', label: 'News', title: () => 'News — Calendar', w: 580, h: 480,
@@ -371,7 +458,7 @@ const APPS = {
 				const y = d.slice(0, 4);
 				if (y !== year) { year = y; out += `<h4>${y}</h4>`; }
 				const md = new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-				out += `<div class="ev"><div class="d">${md}<small>${NEWS_META[c][0]}</small></div><div class="bar" style="background:${NEWS_META[c][1]}"></div><div class="tx">${text}</div></div>`;
+				out += `<div class="ev"><div class="d">${md}<small>${newsMeta(c)[0]}</small></div><div class="bar" style="background:${newsMeta(c)[1]}"></div><div class="tx">${text}</div></div>`;
 			});
 			return `<div class="agenda">${out}</div>`;
 		},
@@ -424,7 +511,11 @@ function renderFiles(w) {
 		</div>`;
 		foot = '5 items';
 	} else if (loc === 'papers') {
-		body = `<div class="rows">${PAPERS.map((p, i) => `<div class="row" data-paper="${i}">${icon('pdf')}<div><div class="nm">${p.title}</div><div class="sub">${p.role}</div></div><span class="vn">${p.venue}</span></div>`).join('')}</div>`;
+		const opts = [['all', 'All'], ['first', 'First author'], ['co-first', 'Co-first author'], ['other', 'Others']];
+		const chips = opts.map(([id, l]) => `<button data-pf="${id}" class="${w.state.pf === id ? 'on' : ''}">${l}<small>(${id === 'all' ? PAPERS.length : PAPERS.filter(p => p.filter === id).length})</small></button>`).join('');
+		const rows = PAPERS.map((p, i) => [p, i]).filter(([p]) => w.state.pf === 'all' || p.filter === w.state.pf)
+			.map(([p, i]) => `<div class="row" data-paper="${i}">${icon('pdf')}<div><div class="nm">${p.title}</div><div class="sub">${p.role}${p.year ? ' · ' + p.year : ''}</div></div><span class="vn">${p.venue}</span></div>`).join('');
+		body = `<div class="chips">${chips}</div><div class="rows">${rows || '<p class="dim pad">No papers in this category.</p>'}</div>`;
 		foot = 'Note: # = Equal Contribution, * = Corresponding Author.';
 	} else if (loc === 'blog') {
 		body = `<div class="grid">${BLOG.map((b, i) => `<div class="fi" data-go="blog:${i}">${icon('folder')}<span>${b.name}<br /><small class="dim">${b.n} posts</small></span></div>`).join('')}</div>`;
@@ -437,7 +528,8 @@ function renderFiles(w) {
 	return `<div class="files"><aside>${side}</aside><main><div class="crumb">${crumbs.map(c => `<span class="c" data-go="${c}">${locName(c)}</span>`).join('<span>›</span>')}</div>${body}<div class="foot">${foot}</div></main></div>`;
 }
 function filesClick(w, e) {
-	const go = e.target.closest('[data-go]'), op = e.target.closest('[data-open]'), pp = e.target.closest('[data-paper]');
+	const go = e.target.closest('[data-go]'), op = e.target.closest('[data-open]'), pp = e.target.closest('[data-paper]'), pf = e.target.closest('[data-pf]');
+	if (pf) { w.state.pf = pf.dataset.pf; return refresh(w); }
 	if (pp) return openPaper(+pp.dataset.paper);
 	if (op) return openWin(op.dataset.open);
 	if (!go) return;
@@ -452,7 +544,7 @@ function openPaper(i) {
 	const p = PAPERS[i];
 	openWin('paper' + i, {
 		icon: 'pdf', label: p.short, title: () => `${p.short}.pdf — Document Viewer`, w: 640, h: 560,
-		render: () => `<div class="doc"><div class="page"><span class="chip">${p.venue}</span> <span class="dim">${p.role}</span><h2>${p.title}</h2><img src="${p.demo}" alt="" /><p>${p.tldr}</p><div class="btns">${p.links.map(([l, h]) => `<a href="${h}" target="_blank">${l}</a>`).join('')}</div></div></div>`,
+		render: () => `<div class="doc"><div class="page"><span class="chip">${p.venue}</span> <span class="dim">${p.role}</span><h2>${p.title}</h2><div class="authors">${p.authors.map(a => (a.self ? `<b>${a.name}</b>` : a.name) + (a.eq ? '#' : '') + (a.corr ? '*' : '')).join(', ')}</div>${p.demo ? `<img src="${p.demo}" alt="" />` : ''}<p>${p.tldr}</p><div class="btns">${p.links.map(([l, h]) => `<a href="${h}" target="_blank">${l}</a>`).join('')}</div></div></div>`,
 	});
 }
 function lightbox(s) { const lb = document.getElementById('lightbox'); lb.querySelector('img').src = s; lb.style.display = 'flex'; }
@@ -483,7 +575,7 @@ function openWin(id, app) {
 	el.querySelector('.mn').onclick = e => { e.stopPropagation(); el.classList.add('min'); el.dataset.active = ''; updateAppName(); };
 	el.querySelector('.mx').onclick = () => el.classList.toggle('max');
 	el.querySelector('.hb').ondblclick = () => el.classList.toggle('max');
-	if (id === 'files') el.querySelector('.content').addEventListener('click', e => filesClick(w, e));
+	if (app.click) el.querySelector('.content').addEventListener('click', e => app.click(w, e));
 	drag(el, el.querySelector('.hb'));
 	refresh(w);
 	app.mount && app.mount(w);
@@ -515,7 +607,7 @@ function updateAppName() {
 }
 
 /* ═══════════ desktop icons / menu / clock ═══════════ */
-const DESK_ICONS = [['home', 'home', 'Home'], ['md', 'about', 'README.md'], ['papers', 'papers', 'Publications'], ['blog', 'blog', 'Blog'], ['photos', 'gallery', 'Photos'], ['news', 'news', 'News'], ['code', 'code', 'Junyao Code'], ['trash', 'trash', 'Trash']];
+const DESK_ICONS = [['home', 'home', 'Home'], ['md', 'about', 'README.md'], ['papers', 'papers', 'Publications'], ['blog', 'blog', 'Blog'], ['photos', 'gallery', 'Photos'], ['news', 'news', 'News'], ...(FRIENDS.length ? [['contacts', 'friends', 'Friends']] : []), ['code', 'code', 'Junyao Code'], ['trash', 'trash', 'Trash']];
 document.getElementById('dicons').innerHTML = DESK_ICONS.map(([ic, k, n]) => `<div class="di" data-k="${k}">${icon(ic)}<span>${n}</span></div>`).join('');
 document.getElementById('dicons').addEventListener('click', e => {
 	const d = e.target.closest('.di'); if (!d) return;
@@ -605,7 +697,7 @@ async function stream(w, el, html, sc) {
 	el.innerHTML = buf; sc.scrollTop = sc.scrollHeight;
 }
 
-const OPEN_TARGETS = [[/photo|gallery|picture/i, 'gallery'], [/paper|publication/i, 'papers'], [/blog|post/i, 'blog'], [/news|calendar/i, 'news'], [/readme|about/i, 'about'], [/file|home/i, 'files'], [/trash/i, 'trash']];
+const OPEN_TARGETS = [[/photo|gallery|picture|album/i, 'gallery'], [/friend|contact/i, 'friends'], [/paper|publication/i, 'papers'], [/blog|post/i, 'blog'], [/news|calendar/i, 'news'], [/readme|about/i, 'about'], [/file|home/i, 'files'], [/trash/i, 'trash']];
 function openTarget(k) { if (k === 'papers') openFiles('papers'); else if (k === 'blog') openFiles('blog'); else openWin(k); }
 function paperText(p) {
 	const links = p.links.map(([l, h]) => `<a href="${h}" target="_blank">${l}</a>`).join(' · ');
@@ -620,8 +712,9 @@ function answer(q) {
 		const t = OPEN_TARGETS.find(([re]) => re.test(om[1]));
 		if (t) return [{ tool: ['Open', t[1]], out: 'Launched', act: () => openTarget(t[1]) }, { text: 'Done — it is on your screen now.' }];
 	}
-	for (const [i, re] of [[0, /garment|try-?on|vton|outfit/i], [3, /extdm|video pred/i], [2, /emotion/i], [1, /dra|motion transfer/i]]) {
-		if (has(re)) return [{ tool: ['Read', `papers/${PAPERS[i].short}.pdf`], out: 'Read 1 paper' }, { text: paperText(PAPERS[i]) + '\nOpening it in the Document Viewer…', act: () => openPaper(i) }];
+	for (const [re, titleRe] of [[/garment|try-?on|vton|outfit/i, /Garments2Look/], [/extdm|video pred/i, /ExtDM/], [/emotion/i, /Emotion-Director/], [/dra|motion transfer/i, /DRA-MTransfer/]]) {
+		const i = PAPERS.findIndex(p => titleRe.test(p.title));
+		if (i >= 0 && has(re)) return [{ tool: ['Read', `papers/${PAPERS[i].short}.pdf`], out: 'Read 1 paper' }, { text: paperText(PAPERS[i]) + '\nOpening it in the Document Viewer…', act: () => openPaper(i) }];
 	}
 	if (has(/hello|^hi\b|hey/i)) return [{ text: "Hi there! 👋 I'm Junyao's scripted assistant. Ask me about his research, papers, news, or how to reach him." }];
 	if (has(/claude|real ai|are you (an )?ai|gpt|llm|model/i)) return [{ text: "Honest answer: I'm not a real AI. Every reply here is pre-written — this window only borrows the look of a coding-agent CLI for fun." }];
@@ -639,7 +732,11 @@ function answer(q) {
 		{ tool: ['Glob', 'blog/**/*.md'], out: 'Found 44 files' },
 		{ text: BLOG.map(b => `  📁 <b>${b.name}</b> — ${b.n} posts`).join('\n') + '\nSay "open blog" to browse them.' },
 	];
-	if (has(/photo|gallery|picture/i)) return [{ tool: ['Open', 'Photos'], out: 'Launched', act: () => openWin('gallery') }, { text: 'Here are some moments from the lab, friends and travels 📷' }];
+	if (has(/photo|gallery|picture|album/i)) return [{ tool: ['Open', 'Photos'], out: 'Launched', act: () => openWin('gallery') }, { text: `${ALBUMS.length} albums: ${ALBUMS.map(a => a.name).join(', ')} 📷` }];
+	if (FRIENDS.length && has(/friend|people|peers/i)) return [
+		{ tool: ['Read', 'src/data/friends.ts'], out: `Found ${FRIENDS.length} friends` },
+		{ text: [...new Set(FRIENDS.map(f => f.category))].map(c => `  <b>${c}</b> — ${FRIENDS.filter(f => f.category === c).length}`).join('\n') + '\nOpening Contacts…', act: () => openWin('friends') },
+	];
 	if (has(/fashion|cloth/i)) return [{ text:
 		"👔 I work at PolyU's School of Fashion and Textiles. My main fashion project is <b>Garments2Look</b> — outfit-level virtual try-on with layering and accessories. Ask me \"tell me about Garments2Look\"." }];
 	if (has(/paper|publication|research|working on|work on|cvpr/i)) return [
