@@ -873,8 +873,33 @@ function paperText(p) {
 }
 function answer(q) {
 	const has = re => re.test(q);
-	if (/^\/?help$/i.test(q)) return [{ text:
-		'Things you can ask me:\n  • <b>what are you working on?</b>\n  • <b>show me your papers</b> / ask about <b>Garments2Look</b>, <b>ExtDM</b>…\n  • <b>any recent news?</b>\n  • <b>how can I contact you?</b>\n  • <b>open photos</b> / <b>open blog</b>\nCommands: <b>/whoami</b> · <b>/clear</b> · <b>/help</b>' }];
+	if (/^\/?help$/i.test(q)) return [{ text: [
+		'Everything I understand (a reply is picked by keyword, so any sentence containing one works):',
+		'',
+		'<b>Commands</b>',
+		'  /whoami · /help · /clear      (type ? on an empty line for /help, Esc skips typing)',
+		'',
+		'<b>About me</b>',
+		'  hello / hi / hey                      → a greeting',
+		'  who / about / yourself                → introduction (same as /whoami)',
+		'  contact / email / reach               → how to reach me',
+		'  collab / hire / job / intern          → collaboration',
+		'  fashion / cloth                       → why fashion',
+		'  film / movie / festival               → films & AI Film Festival',
+		'  are you an AI / claude / gpt          → the honest answer',
+		'',
+		'<b>Research</b>',
+		'  papers / research / working on        → list of publications',
+		'  garments2look · extdm · emotion · dra → one paper, opened in the viewer',
+		'  news / recent / latest                → latest news',
+		'',
+		'<b>Apps</b>',
+		'  blog / post                           → blog categories',
+		'  photo / album                         → opens Photos',
+		'  friends                               → opens Friends',
+		'  guestbook / message                   → opens Guestbook',
+		'  open &lt;app&gt;                            → photos, friends, guestbook, papers, blog, news, readme, files, trash',
+	].join('\n') }];
 	const om = q.match(/^open\s+(.+)$/i);
 	if (om) {
 		const t = OPEN_TARGETS.find(([re]) => re.test(om[1]));
